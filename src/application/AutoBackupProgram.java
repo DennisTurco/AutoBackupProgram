@@ -8,6 +8,7 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.awt.*;
 import javax.swing.*;
+import javax.swing.filechooser.FileSystemView;
 
 class AutoBackupProgram extends JFrame{
 	
@@ -16,6 +17,7 @@ class AutoBackupProgram extends JFrame{
 	JLabel message = new JLabel("");
 	JLabel last_backup = new JLabel();
 	JButton btn2 = new JButton();
+	boolean copied;
 	
 	public AutoBackupProgram() {  //costruttore senza parametri
 		//------------------------------------------- set finestra ------------------------------------------- 
@@ -82,10 +84,13 @@ class AutoBackupProgram extends JFrame{
 		pan1.setBackground(new Color(18, 15, 37));
 		this.add(pan1, BorderLayout.CENTER);
 		
-		/*JPanel pan3 = new JPanel();
-		pan3.setLayout(new GridLayout());
-		pan3.setBackground(new Color(18, 15, 0));
-		pan1.add(pan3);*/
+		JPanel pan3 = new JPanel();
+		pan3.setLayout(new FlowLayout(1, 10, 0));
+		pan3.setBackground(new Color(18, 15, 37));
+		
+		JPanel pan4 = new JPanel();
+		pan4.setLayout(new FlowLayout(1, 10, 0));
+		pan4.setBackground(new Color(18, 15, 37));
 		
 		//Start Path label
 		JLabel path1_text = new JLabel("Start Path");
@@ -93,10 +98,14 @@ class AutoBackupProgram extends JFrame{
 		path1_text.setFont(new Font("Arial", Font.BOLD, 12));
 		pan1.add(path1_text);
 		
+		//add pan3
+		pan1.add(pan3);
+		
 		//start_path TextField
 		start_path.setFont(new Font("Arial", Font.BOLD, 10));
 		start_path.setForeground(Color.BLACK);
-		pan1.add(start_path);
+		start_path.setPreferredSize(new Dimension(230, 20));
+		pan3.add(start_path);
 		
 		//Destination Path label
 		JLabel path2_text = new JLabel("Destination Path");
@@ -104,25 +113,25 @@ class AutoBackupProgram extends JFrame{
 		path2_text.setFont(new Font("Arial", Font.BOLD, 12));
 		pan1.add(path2_text);
 		
+		//add pan4
+		pan1.add(pan4);
+		
 		//destination_path TextField
 		destination_path.setFont(new Font("Arial", Font.BOLD, 10));
 		destination_path.setForeground(Color.BLACK);
-		pan1.add(destination_path);
+		destination_path.setPreferredSize(new Dimension(230, 20));
+		pan4.add(destination_path);
 		
 		//Single Backup Button
 		JButton btn1 = new JButton("Single Backup");
 		btn1.setForeground(Color.BLACK);
 		btn1.setFont(new Font("Arial", Font.BOLD, 12));
-		btn1.setSize(40, 30);
-		btn1.setHorizontalTextPosition(0);
 		pan1.add(btn1);
 		btn1.addActionListener(g);
 		
 		//Automatic Backup Button
 		btn2.setForeground(Color.BLACK);
 		btn2.setFont(new Font("Arial", Font.BOLD, 12));
-		btn2.setSize(40, 30);
-		btn2.setHorizontalTextPosition(0);
 		pan1.add(btn2);
 		btn2.addActionListener(g);
 		
@@ -139,6 +148,18 @@ class AutoBackupProgram extends JFrame{
 		message.setHorizontalAlignment(0);
 		pan1.add(message);
 		
+		
+		JButton btnChoose1 = new JButton(" ");
+		btnChoose1.setFont(new Font("Arial", Font.BOLD, 12));
+		btnChoose1.setPreferredSize(new Dimension(15, 15));
+		pan3.add(btnChoose1);
+		btnChoose1.addActionListener(g);
+		
+		JButton btnChoose2 = new JButton(".");
+		btnChoose2.setFont(new Font("Arial", Font.BOLD, 12));
+		btnChoose2.setPreferredSize(new Dimension(15, 15));
+		pan4.add(btnChoose2);
+		btnChoose2.addActionListener(g);
 		
 		//-------------------------------------------BOTTOM ELEMENTS-------------------------------------------
 		JPanel pan2 = new JPanel();
@@ -158,13 +179,18 @@ class AutoBackupProgram extends JFrame{
 		pan2.add(btnClear);
 		btnClear.addActionListener(g);
 		
+		//hystory backup button
+		JButton btnHistory = new JButton("History");
+		btnHistory.setFont(new Font("Comic Sans ms", Font.BOLD, 15));
+		pan2.add(btnHistory);
+		btnHistory.addActionListener(g);
+		
 		
 		//-------------------------------------------TOP ELEMENTS-------------------------------------------
 		JLabel author = new JLabel("Author: DennisTurco");
 		author.setFont(new Font("Arial", Font.BOLD, 15));
 		author.setHorizontalTextPosition(0);
-		panNorth.add(author);
-		
+		panNorth.add(author);		
 		
 	}
 	
@@ -178,6 +204,13 @@ class AutoBackupProgram extends JFrame{
 	void Exit() {
 		System.out.println("Event --> exit");
 		System.exit(EXIT_ON_CLOSE);
+	}
+	
+	void viewHistory() throws Exception {
+		System.out.println("Event --> history");
+		
+		Runtime rt = Runtime.getRuntime();
+		Process p = rt.exec(".//res//log_file");
 	}
 	
 	void SingleBackup() {
@@ -214,17 +247,23 @@ class AutoBackupProgram extends JFrame{
         try {
             copyDirectoryFileVisitor(path1, path2); //chiamata alla funzione
             setStringToText(); //chiamata alla funzione
-
         } catch (IOException e) {
             e.printStackTrace();
             return;
         }
         
-        System.out.println("Done");
-        JOptionPane.showMessageDialog(null, "Files Copied!", "Confermed", 1);
-        message.setForeground(Color.GREEN);
-        message.setText("Files Copied!");
-        message.setVisible(true);
+        //controllo se stampare un messaggio d'errore o no
+        if(copied == true) {
+        	System.out.println("Done");
+            JOptionPane.showMessageDialog(null, "Files Copied!", "Confermed", 1);
+            message.setForeground(Color.GREEN);
+            message.setText("Files Copied!");
+            message.setVisible(true);
+        } if(copied == false) {
+        	message.setForeground(Color.RED);
+            message.setText("Input Error!");
+            message.setVisible(true);
+        }     
         
     }
 	
@@ -276,8 +315,7 @@ class AutoBackupProgram extends JFrame{
 
 		path2 = path2 + "\\" + name1 + " (Backup " + date + ")";
 	}
-	
-	
+
 	public void SetSelected(){
 		if(checkInputCorrect() == false) return;
 		
@@ -345,5 +383,42 @@ class AutoBackupProgram extends JFrame{
         Files.walkFileTree(Paths.get(source), fileVisitor);
 
     }
+    
+    public void setCopied(boolean bool) {
+    	this.copied = bool;
+    	System.out.println(copied);
+    }
+    
+    public void SelectionStart() {
+		
+		JFileChooser jfc = new JFileChooser(FileSystemView.getFileSystemView().getHomeDirectory());
+		jfc.setDialogTitle("Choose a directory to save your file: ");
+		jfc.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
 
+		int returnValue = jfc.showSaveDialog(null);
+		if (returnValue == JFileChooser.APPROVE_OPTION) {
+			if (jfc.getSelectedFile().isDirectory()) {
+				System.out.println("You selected the directory: " + jfc.getSelectedFile());
+				start_path.setText(jfc.getSelectedFile().toString());
+			}
+		}
+
+	}
+    
+    public void SelectionDestination() {
+		
+		JFileChooser jfc = new JFileChooser(FileSystemView.getFileSystemView().getHomeDirectory());
+		jfc.setDialogTitle("Choose a directory to save your file: ");
+		jfc.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
+
+		int returnValue = jfc.showSaveDialog(null);
+		if (returnValue == JFileChooser.APPROVE_OPTION) {
+			if (jfc.getSelectedFile().isDirectory()) {
+				System.out.println("You selected the directory: " + jfc.getSelectedFile());
+				destination_path.setText(jfc.getSelectedFile().toString());
+			}
+		}
+
+	}
+    
 }

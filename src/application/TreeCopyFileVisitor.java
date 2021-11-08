@@ -1,8 +1,6 @@
 package application;
 
-import java.io.BufferedWriter;
-import java.io.FileWriter;
-import java.io.IOException;
+import java.io.*;
 import java.nio.file.*;
 import java.nio.file.attribute.BasicFileAttributes;
 import java.time.LocalDateTime;
@@ -10,10 +8,10 @@ import java.time.format.DateTimeFormatter;
 
 
 public class TreeCopyFileVisitor extends SimpleFileVisitor<Path> {
-	
-	
+		
     private Path source;
     private final Path target;
+    AutoBackupProgram abp = new AutoBackupProgram();
 
     public TreeCopyFileVisitor(String source, String target) {
         this.source = Paths.get(source);
@@ -36,10 +34,12 @@ public class TreeCopyFileVisitor extends SimpleFileVisitor<Path> {
     			bw.write("Create directories : " + resolve);
     			bw.write("\n");
     			bw.close();
+
             } catch(Exception ex) {
             	System.out.println(ex);
             }
             System.out.println("Create directories : " + resolve);
+            abp.setCopied(true); //setto a true perchè la copia è avvenuta con successo 
         }
         return FileVisitResult.CONTINUE;
 
@@ -62,7 +62,7 @@ public class TreeCopyFileVisitor extends SimpleFileVisitor<Path> {
         System.out.println(
                 String.format("Copy File from \t'%s' to \t'%s'", file, resolve)
         );
-
+        abp.setCopied(true);//setto a true perchè la copia è avvenuta con successo 
         return FileVisitResult.CONTINUE;
 
     }
@@ -70,6 +70,7 @@ public class TreeCopyFileVisitor extends SimpleFileVisitor<Path> {
     @Override
     public FileVisitResult visitFileFailed(Path file, IOException exc) {
         System.err.format("Unable to copy: %s: %s%n", file, exc);
+        abp.setCopied(false); //setto a false perchè la copia NON è avvenuta con successo 
         return FileVisitResult.CONTINUE;
     }
 

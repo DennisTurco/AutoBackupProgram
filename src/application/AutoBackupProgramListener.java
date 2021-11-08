@@ -28,6 +28,23 @@ class AutoBackupProgramListener implements ActionListener{
 			rp.SetSelected();	
 		}
 		
+		else if (b.getText().equals("History")) {
+			try {
+				rp.viewHistory();
+			} catch (Exception e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
+		}
+		
+		else if(b.getText().equals(" ")) {
+			rp.SelectionStart();
+		}
+		
+		else if(b.getText().equals(".")) {
+			rp.SelectionDestination();
+		}
+		
 		else {
 			rp.Exit(); //chiamata funzione
 		}

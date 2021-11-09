@@ -3,8 +3,6 @@ package application;
 import java.io.*;
 import java.nio.file.*;
 import java.nio.file.attribute.BasicFileAttributes;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 
 
 public class TreeCopyFileVisitor extends SimpleFileVisitor<Path> {
@@ -27,7 +25,7 @@ public class TreeCopyFileVisitor extends SimpleFileVisitor<Path> {
         if (Files.notExists(resolve)) {
             Files.createDirectories(resolve);
             try {
-            	BufferedWriter bw = new BufferedWriter(new FileWriter(".//res//log_file", true));
+            	BufferedWriter bw = new BufferedWriter(new FileWriter("res//log_file", true));
     			bw.write("Create directories : " + resolve);
     			bw.write("\n");
     			bw.close();
@@ -49,7 +47,7 @@ public class TreeCopyFileVisitor extends SimpleFileVisitor<Path> {
         Path resolve = target.resolve(source.relativize(file));
         Files.copy(file, resolve, StandardCopyOption.REPLACE_EXISTING);
         try {
-        	BufferedWriter bw = new BufferedWriter(new FileWriter(".//res//log_file", true));
+        	BufferedWriter bw = new BufferedWriter(new FileWriter("res//log_file", true));
 			bw.write("Copy File from \t" + file + "\t to" + resolve);
 			bw.write("\n");
 			bw.close();

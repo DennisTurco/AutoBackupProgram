@@ -34,7 +34,7 @@ class AutoBackupProgram extends JFrame{
 		
 		//-------------------------------------------SET TEXT VALUES-------------------------------------------
 		try {
-			BufferedReader br = new BufferedReader(new FileReader(".//res//text1"));
+			BufferedReader br = new BufferedReader(new FileReader("res//text1"));
 			start_path.setText(br.readLine());
 			destination_path.setText(br.readLine());
 			last_backup.setText(br.readLine());
@@ -45,7 +45,7 @@ class AutoBackupProgram extends JFrame{
 		}
 		
 		try {
-			BufferedReader br = new BufferedReader(new FileReader(".//res//auto_generation"));
+			BufferedReader br = new BufferedReader(new FileReader("res//auto_generation"));
 			if(br.readLine().equals("true")) {
 				btn2.setText("Auto Backup (Actived)");
 			}
@@ -65,7 +65,7 @@ class AutoBackupProgram extends JFrame{
 			LocalDateTime now = LocalDateTime.now();
 			
 			try {
-				BufferedReader br = new BufferedReader (new FileReader(".//res//text1"));
+				BufferedReader br = new BufferedReader (new FileReader("res//text1"));
 				String last_date = null;
 				String current_date = dtf.format(now);
 				for(int i=0; i<3; i++) { //deve essere eseguito 3 volte perchè devo scorrere il file 3 volte (3 linee sul file text1)
@@ -75,6 +75,7 @@ class AutoBackupProgram extends JFrame{
 				
 				long current_date_in_seconds = new java.text.SimpleDateFormat("dd-MM-yyyy hh:mm:ss").parse(current_date).getTime() / 1000; 
 				long last_date_in_seconds = new java.text.SimpleDateFormat("dd-MM-yyyy hh:mm:ss").parse(last_date).getTime() / 1000;
+				System.out.println("Current date java: "+current_date_in_seconds);
 				
 				if(current_date_in_seconds - last_date_in_seconds >= 100) { //2592000 sono 30 giorni
 					SingleBackup();
@@ -87,7 +88,7 @@ class AutoBackupProgram extends JFrame{
 		
 		
 		//-------------------------------------------set icon-------------------------------------------
-		ImageIcon image = new ImageIcon(".//res//logo.png"); //crea un'icona
+		ImageIcon image = new ImageIcon("res//logo.png"); //crea un'icona
 		setIconImage(image.getImage());	//cambia l'icona del frame
 		
 		//-------------------------------------------LATERAL ELEMENTS-------------------------------------------
@@ -241,7 +242,7 @@ class AutoBackupProgram extends JFrame{
 		Runtime runtime = Runtime.getRuntime();
 		
 		@SuppressWarnings("unused")  //per togliere il warning
-		Process process = runtime.exec("C:\\WINDOWS\\system32\\notepad.exe .//res//log_file");
+		Process process = runtime.exec("C:\\WINDOWS\\system32\\notepad.exe res//log_file");
 	}
 	
 	void SingleBackup() {
@@ -279,7 +280,7 @@ class AutoBackupProgram extends JFrame{
 		LocalDateTime now2 = LocalDateTime.now();
 		date = dtf2.format(now2);
 		try {
-            BufferedWriter bw = new BufferedWriter(new FileWriter(".//res//log_file", true));
+            BufferedWriter bw = new BufferedWriter(new FileWriter("res//log_file", true));
             System.out.println("date backup: " + date);
             bw.write("\ndate backup: " + date + "\n");
             bw.close();
@@ -324,15 +325,20 @@ class AutoBackupProgram extends JFrame{
 		try {
 			DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd-MM-yyyy hh:mm:ss a");
 			LocalDateTime now = LocalDateTime.now();
-			String date = dtf.format(now);
-			last_backup.setText("last backup: " + date);
+			String last_date = dtf.format(now);
+			last_backup.setText("last backup: " + last_date);
 			
-			BufferedWriter bw = new BufferedWriter(new FileWriter(".//res//text1"));
+			BufferedWriter bw = new BufferedWriter(new FileWriter("res//text1"));
 			bw.write(start_path.getText());
 			bw.write("\n");
 			bw.write(destination_path.getText());
 			bw.write("\n");
 			bw.write(last_backup.getText());
+			bw.write("\n");
+			
+			long last_date_in_seconds = new java.text.SimpleDateFormat("dd-MM-yyyy hh:mm:ss").parse(last_date).getTime() / 1000;
+			bw.write(""+last_date_in_seconds);
+			
 			bw.close();
 		} catch(Exception ex) {
 			System.out.println("Exception --> " + ex);
@@ -343,8 +349,8 @@ class AutoBackupProgram extends JFrame{
 		if(checkInputCorrect() == false) return;
 		
 		try {
-			BufferedWriter bw = new BufferedWriter(new FileWriter(".//res//auto_generation"));
-			BufferedReader rw = new BufferedReader(new FileReader(".//res//text1"));
+			BufferedWriter bw = new BufferedWriter(new FileWriter("res//auto_generation"));
+			BufferedReader rw = new BufferedReader(new FileReader("res//text1"));
 			if(btn2.getText().equals("Auto Backup (Actived)")) {
 				bw.write("false");
 				btn2.setText("Auto Backup (Disabled)");

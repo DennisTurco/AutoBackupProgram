@@ -1,7 +1,6 @@
 package application;
 
 import java.io.*;
-import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.time.LocalDateTime;
@@ -10,6 +9,7 @@ import java.awt.*;
 import javax.swing.*;
 import javax.swing.filechooser.FileSystemView;
 
+@SuppressWarnings("serial") //per togliere il warning
 class AutoBackupProgram extends JFrame{
 	
 	JTextField start_path = new JTextField();
@@ -41,7 +41,7 @@ class AutoBackupProgram extends JFrame{
 			br.close();
 		}
 		catch(Exception ex){
-			System.out.println(ex);
+			System.out.println("Exception --> " + ex);
 		}
 		
 		try {
@@ -54,8 +54,37 @@ class AutoBackupProgram extends JFrame{
 			}
 			br.close();
 		}catch(Exception ex) {
-			System.out.println(ex);
+			System.out.println("Exception --> " + ex);
 		}
+		
+		//---------------------------------------AUTO BACKUP COLTROL---------------------------------------
+		if(btn2.getText() == "Auto Backup (Actived)" && checkInputCorrect() == true) {
+			
+			//get current date
+			DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd-MM-yyyy hh:mm:ss");
+			LocalDateTime now = LocalDateTime.now();
+			
+			try {
+				BufferedReader br = new BufferedReader (new FileReader(".//res//text1"));
+				String last_date = null;
+				String current_date = dtf.format(now);
+				for(int i=0; i<3; i++) { //deve essere eseguito 3 volte perchè devo scorrere il file 3 volte (3 linee sul file text1)
+					last_date = br.readLine();
+				}
+				last_date = last_date.substring(13, 32); //dalla stringa del file text1 voglio solo la data
+				
+				long current_date_in_seconds = new java.text.SimpleDateFormat("dd-MM-yyyy hh:mm:ss").parse(current_date).getTime() / 1000; 
+				long last_date_in_seconds = new java.text.SimpleDateFormat("dd-MM-yyyy hh:mm:ss").parse(last_date).getTime() / 1000;
+				
+				if(current_date_in_seconds - last_date_in_seconds >= 100) { //2592000 sono 30 giorni
+					SingleBackup();
+				}
+				br.close();
+			} catch (Exception e) {
+				System.out.println("Exception --> " + e);
+			}
+		}
+		
 		
 		//-------------------------------------------set icon-------------------------------------------
 		ImageIcon image = new ImageIcon(".//res//logo.png"); //crea un'icona
@@ -209,8 +238,10 @@ class AutoBackupProgram extends JFrame{
 	void viewHistory() throws Exception {
 		System.out.println("Event --> history");
 		
-		Runtime rt = Runtime.getRuntime();
-		Process p = rt.exec(".//res//log_file");
+		Runtime runtime = Runtime.getRuntime();
+		
+		@SuppressWarnings("unused")  //per togliere il warning
+		Process process = runtime.exec("C:\\WINDOWS\\system32\\notepad.exe .//res//log_file");
 	}
 	
 	void SingleBackup() {
@@ -244,16 +275,26 @@ class AutoBackupProgram extends JFrame{
 		path2 = path2 + "\\" + name1 + " (Backup " + date + ")";
 		
 		//------------------------------COPY THE FILE OR DIRECTORY------------------------------
-        try {
-            copyDirectoryFileVisitor(path1, path2); //chiamata alla funzione
-            setStringToText(); //chiamata alla funzione
+		DateTimeFormatter dtf2 = DateTimeFormatter.ofPattern("dd-MM-yyyy hh:mm:ss a");
+		LocalDateTime now2 = LocalDateTime.now();
+		date = dtf2.format(now2);
+		try {
+            BufferedWriter bw = new BufferedWriter(new FileWriter(".//res//log_file", true));
+            System.out.println("date backup: " + date);
+            bw.write("\ndate backup: " + date + "\n");
+            bw.close();
+        	setStringToText(); //chiamata alla funzione
+            copyDirectoryFileVisitor(path1, path2); //chiamata alla funzione     
         } catch (IOException e) {
-            e.printStackTrace();
+            System.out.println("Exception --> " + e);
             return;
         }
         
+ 
+        //copied = tcpfv.getCopied();
+        
         //controllo se stampare un messaggio d'errore o no
-        if(copied == true) {
+        /*if(copied == true) {
         	System.out.println("Done");
             JOptionPane.showMessageDialog(null, "Files Copied!", "Confermed", 1);
             message.setForeground(Color.GREEN);
@@ -263,11 +304,23 @@ class AutoBackupProgram extends JFrame{
         	message.setForeground(Color.RED);
             message.setText("Input Error!");
             message.setVisible(true);
-        }     
+        }  */   
         
     }
 	
-	void setStringToText() {	
+
+	
+	void AutomaticBackup() {
+		System.out.println("Event --> automatic backup");
+		
+		if(checkInputCorrect() == false) return;  //controllo errori tramite funzione
+		
+		if(btn2.getText().equals("Auto Backup (Actived)")) {
+			SingleBackup();
+		}
+	}
+	
+	void setStringToText() {
 		try {
 			DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd-MM-yyyy hh:mm:ss a");
 			LocalDateTime now = LocalDateTime.now();
@@ -282,38 +335,8 @@ class AutoBackupProgram extends JFrame{
 			bw.write(last_backup.getText());
 			bw.close();
 		} catch(Exception ex) {
-			System.out.println(ex);
+			System.out.println("Exception --> " + ex);
 		}
-	}
-	
-	void AutomaticBackup() {
-		System.out.println("Event --> automatic backup");
-		String temp = "\\";
-		
-		//------------------------------INPUT CONTROL ERRORS------------------------------
-		if(checkInputCorrect() == false) return;  //controllo errori tramite funzione
-
-		//------------------------------SET ALL THE VARIABLES------------------------------
-		String path1 = start_path.getText();
-		String path2 = destination_path.getText();
-		String name1; //nome cartella/file iniziale
-		String date;
-		
-		//------------------------------TO GET THE CURRENT DATE------------------------------
-		DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd-MM-yyyy");
-		LocalDateTime now = LocalDateTime.now();
-		
-		//------------------------------SET ALL THE STRINGS------------------------------
-		date = dtf.format(now);
-		int grandezza = path1.length()-1;
-		name1 = path1.substring(grandezza, grandezza);
-		
-		for(int i=path1.length()-1; i>=0; i--) {
-			if(path1.charAt(i) != temp.charAt(0)) name1 = path1.charAt(i) + name1;
-			else break;
-		}
-
-		path2 = path2 + "\\" + name1 + " (Backup " + date + ")";
 	}
 
 	public void SetSelected(){
@@ -337,7 +360,7 @@ class AutoBackupProgram extends JFrame{
 			bw.close();
 			rw.close();
 		}catch(Exception ex) {
-			System.out.println(ex);
+			System.out.println("Exception --> " + ex);
 		}
 		
 	}
@@ -384,16 +407,16 @@ class AutoBackupProgram extends JFrame{
 
     }
     
-    public void setCopied(boolean bool) {
+    /*public void setCopied(boolean bool) {
     	this.copied = bool;
-    	System.out.println(copied);
-    }
+    }*/
+    
     
     public void SelectionStart() {
 		
 		JFileChooser jfc = new JFileChooser(FileSystemView.getFileSystemView().getHomeDirectory());
 		jfc.setDialogTitle("Choose a directory to save your file: ");
-		jfc.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
+		jfc.setFileSelectionMode(JFileChooser.FILES_AND_DIRECTORIES);
 
 		int returnValue = jfc.showSaveDialog(null);
 		if (returnValue == JFileChooser.APPROVE_OPTION) {
@@ -409,7 +432,7 @@ class AutoBackupProgram extends JFrame{
 		
 		JFileChooser jfc = new JFileChooser(FileSystemView.getFileSystemView().getHomeDirectory());
 		jfc.setDialogTitle("Choose a directory to save your file: ");
-		jfc.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
+		jfc.setFileSelectionMode(JFileChooser.FILES_AND_DIRECTORIES);
 
 		int returnValue = jfc.showSaveDialog(null);
 		if (returnValue == JFileChooser.APPROVE_OPTION) {

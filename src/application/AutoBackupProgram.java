@@ -75,9 +75,9 @@ class AutoBackupProgram extends JFrame{
 				
 				long current_date_in_seconds = new java.text.SimpleDateFormat("dd-MM-yyyy hh:mm:ss").parse(current_date).getTime() / 1000; 
 				long last_date_in_seconds = new java.text.SimpleDateFormat("dd-MM-yyyy hh:mm:ss").parse(last_date).getTime() / 1000;
-				System.out.println("Current date java: "+current_date_in_seconds);
 				
-				if(current_date_in_seconds - last_date_in_seconds >= 100) { //2592000 sono 30 giorni
+				if(current_date_in_seconds - last_date_in_seconds >= 86400) { //2592000 sono 30 giorni
+					System.out.println("Differenza " + (current_date_in_seconds - last_date_in_seconds));
 					SingleBackup();
 				}
 				br.close();
@@ -178,16 +178,24 @@ class AutoBackupProgram extends JFrame{
 		message.setHorizontalAlignment(0);
 		pan1.add(message);
 		
-		
+				
 		JButton btnChoose1 = new JButton(" ");
 		btnChoose1.setFont(new Font("Arial", Font.BOLD, 12));
-		btnChoose1.setPreferredSize(new Dimension(15, 15));
+		btnChoose1.setPreferredSize(new Dimension(33, 20));
+		btnChoose1.setIcon(new ImageIcon("res//folder_icon.png"));
+		btnChoose1.setOpaque(false);
+		btnChoose1.setContentAreaFilled(false);
+		btnChoose1.setBorderPainted(false);
 		pan3.add(btnChoose1);
 		btnChoose1.addActionListener(g);
 		
 		JButton btnChoose2 = new JButton(".");
 		btnChoose2.setFont(new Font("Arial", Font.BOLD, 12));
-		btnChoose2.setPreferredSize(new Dimension(15, 15));
+		btnChoose2.setPreferredSize(new Dimension(33, 20));
+		btnChoose2.setIcon(new ImageIcon("res//folder_icon.png"));
+		btnChoose2.setOpaque(false);
+		btnChoose2.setContentAreaFilled(false);
+		btnChoose2.setBorderPainted(false);
 		pan4.add(btnChoose2);
 		btnChoose2.addActionListener(g);
 		
@@ -217,7 +225,7 @@ class AutoBackupProgram extends JFrame{
 		
 		
 		//-------------------------------------------TOP ELEMENTS-------------------------------------------
-		JLabel author = new JLabel("Author: DennisTurco");
+		JLabel author = new JLabel("Author: © DennisTurco 2021");
 		author.setFont(new Font("Arial", Font.BOLD, 15));
 		author.setHorizontalTextPosition(0);
 		panNorth.add(author);		
@@ -291,24 +299,19 @@ class AutoBackupProgram extends JFrame{
             return;
         }
         
- 
-        //copied = tcpfv.getCopied();
-        
-        //controllo se stampare un messaggio d'errore o no
-        /*if(copied == true) {
-        	System.out.println("Done");
-            JOptionPane.showMessageDialog(null, "Files Copied!", "Confermed", 1);
-            message.setForeground(Color.GREEN);
-            message.setText("Files Copied!");
-            message.setVisible(true);
-        } if(copied == false) {
-        	message.setForeground(Color.RED);
-            message.setText("Input Error!");
-            message.setVisible(true);
-        }  */   
-        
-    }
-	
+		try {
+			BufferedReader br = new BufferedReader(new FileReader("res//text1"));
+			System.out.println("Done");
+	        JOptionPane.showMessageDialog(null, "Files Copied!\nFrom: " + br.readLine() + "\nTo: " + br.readLine(), "AutoBackupProgram", 1);
+	        message.setForeground(Color.GREEN);
+	        message.setText("Files Copied!");
+	        message.setVisible(true);
+	        br.close();
+		} catch (Exception e) {
+			System.out.println("Exception --> " + e);
+		}
+    	
+    }	
 
 	
 	void AutomaticBackup() {
@@ -360,7 +363,7 @@ class AutoBackupProgram extends JFrame{
 				bw.write("true");
 				btn2.setText("Auto Backup (Actived)");
 				System.out.println("Event --> Auto Backup setted to Actived");
-				JOptionPane.showMessageDialog(null, "Auto Backup has been activated\n\tFrom: " + rw.readLine() + "\n\tTo: " + rw.readLine() + "\nFor Default is setted every month", "Auto Backup Preview", 1);
+				JOptionPane.showMessageDialog(null, "Auto Backup has been activated\n\tFrom: " + rw.readLine() + "\n\tTo: " + rw.readLine() + "\nFor Default is setted every month", "AutoBackupProgram", 1);
 				AutomaticBackup();
 			}
 			bw.close();
@@ -412,10 +415,6 @@ class AutoBackupProgram extends JFrame{
         Files.walkFileTree(Paths.get(source), fileVisitor);
 
     }
-    
-    /*public void setCopied(boolean bool) {
-    	this.copied = bool;
-    }*/
     
     
     public void SelectionStart() {

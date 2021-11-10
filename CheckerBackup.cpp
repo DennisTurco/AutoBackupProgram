@@ -30,18 +30,17 @@ int main(){
     f1>>last_date_in_seconds;
     long current_date_in_seconds = std::chrono::duration_cast<std::chrono::seconds>(std::chrono::system_clock::now().time_since_epoch()).count();
 
-   // current_date_in_seconds = current_date_in_seconds - 43202;
+    current_date_in_seconds = current_date_in_seconds - 43202;
 
     /*cout<< current_date_in_seconds<<endl;
-    cout<< last_date_in_seconds<<endl;
-    cout<< current_date_in_seconds - last_date_in_seconds<<endl;*/
+    cout<< last_date_in_seconds<<endl;*/
+    cout<<"Time Passed From last Backup: "<< current_date_in_seconds - last_date_in_seconds<<endl;
 
-    if(current_date_in_seconds - last_date_in_seconds >= 100){ //120 sarebbero 2 minuti e' un valore momentaneo da test
+    if(current_date_in_seconds - last_date_in_seconds >= 86400){ //120 sarebbero 2 minuti e' un valore momentaneo da test
         system("java -jar AutoBackupProgramv1.jar");
     }
 
     f1.close();
 
-    system("Pause");
     return 0;
 }

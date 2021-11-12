@@ -16,10 +16,13 @@ int main(){
     f2.open("res/auto_generation");
     if(f2.fail()) return 1;
     getline(f2, text, '\n');
-    if(text != "true") return 0;
-    f2.close();
+    if(text != "true"){
+        f2.close();
+        return 0;
+    } 
+    
 
-    f1.open("res/text1"); 
+    f1.open("res/info"); 
     if(f1.fail()) return 1;
 
     for(int i=0; i<3; i++){

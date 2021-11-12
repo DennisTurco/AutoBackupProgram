@@ -34,6 +34,7 @@ public class TreeCopyFileVisitor extends SimpleFileVisitor<Path> {
             	System.out.println(ex);
             }
             System.out.println("Create directories : " + resolve);
+            copied = true;
         }
         return FileVisitResult.CONTINUE;
 
@@ -56,6 +57,7 @@ public class TreeCopyFileVisitor extends SimpleFileVisitor<Path> {
         System.out.println(
                 String.format("Copy File from \t'%s' to \t'%s'", file, resolve)
         );
+        copied = true;
         return FileVisitResult.CONTINUE;
 
     }
@@ -63,7 +65,12 @@ public class TreeCopyFileVisitor extends SimpleFileVisitor<Path> {
     @Override
     public FileVisitResult visitFileFailed(Path file, IOException exc) {
         System.err.format("Unable to copy: %s: %s%n", file, exc);
+        copied = false;
         return FileVisitResult.CONTINUE;
+    }
+    
+    public boolean getCopied() {
+    	return copied;
     }
 
 }

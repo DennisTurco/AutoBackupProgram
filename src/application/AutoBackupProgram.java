@@ -34,7 +34,7 @@ class AutoBackupProgram extends JFrame{
 		
 		//-------------------------------------------SET TEXT VALUES-------------------------------------------
 		try {
-			BufferedReader br = new BufferedReader(new FileReader("res//text1"));
+			BufferedReader br = new BufferedReader(new FileReader("res//info"));
 			start_path.setText(br.readLine());
 			destination_path.setText(br.readLine());
 			last_backup.setText(br.readLine());
@@ -47,7 +47,7 @@ class AutoBackupProgram extends JFrame{
 		try {
 			BufferedReader br = new BufferedReader(new FileReader("res//auto_generation"));
 			if(br.readLine().equals("true")) {
-				btn2.setText("Auto Backup (Actived)");
+				btn2.setText("Auto Backup (Enabled)");
 			}
 			else {
 				btn2.setText("Auto Backup (Disabled)");
@@ -58,20 +58,20 @@ class AutoBackupProgram extends JFrame{
 		}
 		
 		//---------------------------------------AUTO BACKUP COLTROL---------------------------------------
-		if(btn2.getText() == "Auto Backup (Actived)" && checkInputCorrect() == true) {
+		if(btn2.getText() == "Auto Backup (E)" && checkInputCorrect() == true) {
 			
 			//get current date
 			DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd-MM-yyyy hh:mm:ss");
 			LocalDateTime now = LocalDateTime.now();
 			
 			try {
-				BufferedReader br = new BufferedReader (new FileReader("res//text1"));
+				BufferedReader br = new BufferedReader (new FileReader("res//info"));
 				String last_date = null;
 				String current_date = dtf.format(now);
-				for(int i=0; i<3; i++) { //deve essere eseguito 3 volte perchè devo scorrere il file 3 volte (3 linee sul file text1)
+				for(int i=0; i<3; i++) { //deve essere eseguito 3 volte perchè devo scorrere il file 3 volte (3 linee sul file info)
 					last_date = br.readLine();
 				}
-				last_date = last_date.substring(13, 32); //dalla stringa del file text1 voglio solo la data
+				last_date = last_date.substring(13, 32); //dalla stringa del file info voglio solo la data
 				
 				long current_date_in_seconds = new java.text.SimpleDateFormat("dd-MM-yyyy hh:mm:ss").parse(current_date).getTime() / 1000; 
 				long last_date_in_seconds = new java.text.SimpleDateFormat("dd-MM-yyyy hh:mm:ss").parse(last_date).getTime() / 1000;
@@ -220,6 +220,10 @@ class AutoBackupProgram extends JFrame{
 		//hystory backup button
 		JButton btnHistory = new JButton("History");
 		btnHistory.setFont(new Font("Comic Sans ms", Font.BOLD, 15));
+		btnHistory.setIcon(new ImageIcon("res//sb.png"));
+		btnHistory.setOpaque(false);
+		btnHistory.setContentAreaFilled(false);
+		btnHistory.setBorderPainted(false);
 		pan2.add(btnHistory);
 		btnHistory.addActionListener(g);
 		
@@ -293,14 +297,15 @@ class AutoBackupProgram extends JFrame{
             bw.write("\ndate backup: " + date + "\n");
             bw.close();
         	setStringToText(); //chiamata alla funzione
-            copyDirectoryFileVisitor(path1, path2); //chiamata alla funzione     
+            copyDirectoryFileVisitor(path1, path2); //chiamata alla funzione   
+            
         } catch (IOException e) {
             System.out.println("Exception --> " + e);
             return;
         }
         
 		try {
-			BufferedReader br = new BufferedReader(new FileReader("res//text1"));
+			BufferedReader br = new BufferedReader(new FileReader("res//info"));
 			System.out.println("Done");
 	        JOptionPane.showMessageDialog(null, "Files Copied!\nFrom: " + br.readLine() + "\nTo: " + br.readLine(), "AutoBackupProgram", 1);
 	        message.setForeground(Color.GREEN);
@@ -319,7 +324,7 @@ class AutoBackupProgram extends JFrame{
 		
 		if(checkInputCorrect() == false) return;  //controllo errori tramite funzione
 		
-		if(btn2.getText().equals("Auto Backup (Actived)")) {
+		if(btn2.getText().equals("Auto Backup (Enabled)")) {
 			SingleBackup();
 		}
 	}
@@ -331,7 +336,7 @@ class AutoBackupProgram extends JFrame{
 			String last_date = dtf.format(now);
 			last_backup.setText("last backup: " + last_date);
 			
-			BufferedWriter bw = new BufferedWriter(new FileWriter("res//text1"));
+			BufferedWriter bw = new BufferedWriter(new FileWriter("res//info"));
 			bw.write(start_path.getText());
 			bw.write("\n");
 			bw.write(destination_path.getText());
@@ -353,16 +358,16 @@ class AutoBackupProgram extends JFrame{
 		
 		try {
 			BufferedWriter bw = new BufferedWriter(new FileWriter("res//auto_generation"));
-			BufferedReader rw = new BufferedReader(new FileReader("res//text1"));
-			if(btn2.getText().equals("Auto Backup (Actived)")) {
+			BufferedReader rw = new BufferedReader(new FileReader("res//info"));
+			if(btn2.getText().equals("Auto Backup (Enabled)")) {
 				bw.write("false");
 				btn2.setText("Auto Backup (Disabled)");
 				System.out.println("Event --> Auto Backup setted to Disabled");
 			}
 			else if(btn2.getText().equals("Auto Backup (Disabled)")){
 				bw.write("true");
-				btn2.setText("Auto Backup (Actived)");
-				System.out.println("Event --> Auto Backup setted to Actived");
+				btn2.setText("Auto Backup (Enabled)");
+				System.out.println("Event --> Auto Backup setted to Enabled");
 				JOptionPane.showMessageDialog(null, "Auto Backup has been activated\n\tFrom: " + rw.readLine() + "\n\tTo: " + rw.readLine() + "\nFor Default is setted every month", "AutoBackupProgram", 1);
 				AutomaticBackup();
 			}

@@ -24,7 +24,7 @@ class AutoBackupProgramListener implements ActionListener{
 			rp.SingleBackup();
 		}
 		
-		else if(b.getText().equals("Auto Backup (Actived)") || b.getText().equals("Auto Backup (Disabled)")) {
+		else if(b.getText().equals("Auto Backup (Enabled)") || b.getText().equals("Auto Backup (Disabled)")) {
 			rp.SetSelected();	
 		}
 		

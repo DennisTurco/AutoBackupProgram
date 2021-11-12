@@ -32,8 +32,7 @@ class AutoBackupProgramListener implements ActionListener{
 			try {
 				rp.viewHistory();
 			} catch (Exception e1) {
-				// TODO Auto-generated catch block
-				e1.printStackTrace();
+				System.out.println("Exception --> " + e1);
 			}
 		}
 		

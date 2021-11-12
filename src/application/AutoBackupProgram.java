@@ -76,7 +76,7 @@ class AutoBackupProgram extends JFrame{
 				long current_date_in_seconds = new java.text.SimpleDateFormat("dd-MM-yyyy hh:mm:ss").parse(current_date).getTime() / 1000; 
 				long last_date_in_seconds = new java.text.SimpleDateFormat("dd-MM-yyyy hh:mm:ss").parse(last_date).getTime() / 1000;
 				
-				if(current_date_in_seconds - last_date_in_seconds >= 86400) { //2592000 sono 30 giorni
+				if(current_date_in_seconds - last_date_in_seconds >= 2592000) { //2592000 sono 30 giorni
 					System.out.println("Differenza " + (current_date_in_seconds - last_date_in_seconds));
 					SingleBackup();
 				}
@@ -220,10 +220,6 @@ class AutoBackupProgram extends JFrame{
 		//hystory backup button
 		JButton btnHistory = new JButton("History");
 		btnHistory.setFont(new Font("Comic Sans ms", Font.BOLD, 15));
-		btnHistory.setIcon(new ImageIcon("res//sb.png"));
-		btnHistory.setOpaque(false);
-		btnHistory.setContentAreaFilled(false);
-		btnHistory.setBorderPainted(false);
 		pan2.add(btnHistory);
 		btnHistory.addActionListener(g);
 		
@@ -254,7 +250,7 @@ class AutoBackupProgram extends JFrame{
 		Runtime runtime = Runtime.getRuntime();
 		
 		@SuppressWarnings("unused")  //per togliere il warning
-		Process process = runtime.exec("C:\\WINDOWS\\system32\\notepad.exe res//log_file");
+		Process process = runtime.exec("notepad.exe res//log_file");
 	}
 	
 	void SingleBackup() {

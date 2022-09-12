@@ -6,12 +6,16 @@ import java.nio.file.Paths;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.awt.*;
+import java.awt.datatransfer.Clipboard;
+import java.awt.datatransfer.StringSelection;
 
 import javax.swing.*;
 import javax.swing.filechooser.FileSystemView;
 
-@SuppressWarnings("serial") //per togliere il warning
+@SuppressWarnings("serial")
 class AutoBackupProgram extends JFrame{
+	private static String current_file_opened = "";
+	
 	private static Timer timer;
 	
 	public AutoBackupProgram() {  //costruttore senza parametri
@@ -38,10 +42,134 @@ class AutoBackupProgram extends JFrame{
 		System.exit(EXIT_ON_CLOSE);
 	}
 	
+	// JMenuItem function //TODO: add
+	public void Help() {
+		System.out.println("Event --> help");
+		
+		ImageIcon icon = new ImageIcon(".//res//info.png");
+		JOptionPane.showMessageDialog(null, 
+				"....for questions please contact the author: -> dennisturco.github.io",
+				"Help",
+				JOptionPane.PLAIN_MESSAGE, icon); //messaggio popup
+		
+	}
+	
+	// JMenuItem function
+	public void Credits() {
+		System.out.println("Event --> credits");
+		ImageIcon icon = new ImageIcon(".//res//author_logo.png");
+		JOptionPane.showMessageDialog(null, 
+				"<html><u>2022 © Dennis Turco</u></html>\r\n"
+				+ "<html><i>Author</i>: Dennis Turco</html>\r\n"
+				+ "<html><i>GitHub</i>: <a href='https://github.com/DennisTurco'>https://github.com/DennisTurco </a></html>\r\n"
+				+ "<html><i>Web Site</i>: <a href='https://dennisturco.github.io/'>https://dennisturco.github.io/ </a></html>",
+				"Credits",
+				JOptionPane.PLAIN_MESSAGE, icon); //messaggio popup
+	}
+	
+	// JMenuItem function
+	public void Share() {
+		System.out.println("Event --> share");
+		
+		//messaggio pop-up
+		JOptionPane.showMessageDialog(null, "Share link copied to clipboard!");
+        
+		//copio nella clipboard il link
+        String testString = "https://github.com/DennisTurco/Minesweeper-Game"; //TODO: mettere il link corretto
+        StringSelection stringSelectionObj = new StringSelection(testString);
+        Clipboard clipboardObj = Toolkit.getDefaultToolkit().getSystemClipboard();
+        clipboardObj.setContents(stringSelectionObj, null);
+	}
+	
 	// JMenuItem function
 	public void viewHistory() throws Exception {
 		System.out.println("Event --> history");
 		Runtime.getRuntime().exec("notepad.exe res//log_file");
+	}
+	
+	// JMenuItem function
+	public void Open() {
+		System.out.println("Event --> open");
+		
+		JFileChooser jfc = new JFileChooser(FileSystemView.getFileSystemView().getHomeDirectory());
+		jfc.setDialogTitle("Choose a file to open: ");
+		jfc.setCurrentDirectory(new java.io.File(".//res//saves"));
+		jfc.setFileSelectionMode(JFileChooser.FILES_ONLY);
+
+		int returnValue = jfc.showSaveDialog(null);
+		if (returnValue == JFileChooser.APPROVE_OPTION) {
+			if (jfc.getSelectedFile().isFile()) {
+				System.out.println("You selected the file: " + jfc.getSelectedFile());
+				
+				//ottengo i valori dal file e li setto nella finestra
+				//	- dal percorso assoluto ottengo il nome 
+				int counter = 0;
+				for (long i=jfc.getSelectedFile().toString().length()-1; i>=0; i--) {
+					if (jfc.getSelectedFile().toString().charAt((int) i) != '\\') counter++;
+					else break;
+				}
+				current_file_opened = jfc.getSelectedFile().toString().substring(jfc.getSelectedFile().toString().length()-counter);
+				
+				//	- leggo da file e setto i path
+				try {
+					BufferedReader br = new BufferedReader(new FileReader(".//res//saves//"+current_file_opened));
+					current_file_opened = br.readLine();
+					FrameAutoBackup.start_path.setText(br.readLine());
+					FrameAutoBackup.destination_path.setText(br.readLine());
+					FrameAutoBackup.last_backup.setText(br.readLine());	
+			        br.close();
+				} catch (Exception e) {
+					System.out.println("Exception --> " + e);
+				}
+				
+				
+			}
+		}
+		
+	}
+	
+	// JMenuItem function
+	public void SaveWithName() {
+		System.out.println("Event --> save with name");
+		
+		//file
+		current_file_opened = JOptionPane.showInputDialog(null, "Name of the file"); //messaggio popup
+		try {
+            BufferedWriter bw = new BufferedWriter(new FileWriter(".//res//saves//"+current_file_opened, false)); // niente append
+            System.out.println("file saved: " + current_file_opened);
+            bw.write("" + current_file_opened + "\n");  //nome file
+            bw.write("" + FrameAutoBackup.start_path.getText()+ "\n");  //start path
+            bw.write("" + FrameAutoBackup.destination_path.getText()+ "\n");  //destination path
+            bw.write("" + FrameAutoBackup.last_backup.getText());  //last backup
+            bw.close(); 
+            
+        } catch (IOException e) {
+            System.out.println("Exception --> " + e);
+            return;
+        }
+		
+		//aggiorna titolo
+		
+	}
+	
+	// JMenuItem function
+	public void Save() {
+		System.out.println("Event --> save");
+		
+		try {
+            BufferedWriter bw = new BufferedWriter(new FileWriter(".//res//saves//"+current_file_opened, false)); // niente append
+            System.out.println("file saved: " + current_file_opened);
+            bw.write("" + current_file_opened + "\n");  //nome file
+            bw.write("" + FrameAutoBackup.start_path.getText()+ "\n");  //start path
+            bw.write("" + FrameAutoBackup.destination_path.getText()+ "\n");  //destination path
+            bw.write("" + FrameAutoBackup.last_backup.getText());  //last backup
+            bw.close(); 
+            
+        } catch (IOException e) {
+            System.out.println("Exception --> " + e);
+            return;
+        }
+		
 	}
 	
 	// button function
@@ -65,8 +193,7 @@ class AutoBackupProgram extends JFrame{
 		
 		//------------------------------SET ALL THE STRINGS------------------------------
 		date = dtf.format(now);
-		int grandezza = path1.length()-1;
-		name1 = path1.substring(grandezza, grandezza);
+		name1 = path1.substring(path1.length()-1, path1.length()-1);
 		
 		for(int i=path1.length()-1; i>=0; i--) {
 			if(path1.charAt(i) != temp.charAt(0)) name1 = path1.charAt(i) + name1;
@@ -107,7 +234,7 @@ class AutoBackupProgram extends JFrame{
     }	
 
 	// button function
-	void AutomaticBackup() {
+	public void AutomaticBackup() {
 		System.out.println("Event --> automatic backup");
 		
 		if(checkInputCorrect() == false) return;  //controllo errori tramite funzione
@@ -147,7 +274,7 @@ class AutoBackupProgram extends JFrame{
 		}
 	}
 	
-	void setStringToText() {
+	public void setStringToText() {
 		try {
 			DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd-MM-yyyy hh:mm:ss a");
 			LocalDateTime now = LocalDateTime.now();
@@ -174,6 +301,7 @@ class AutoBackupProgram extends JFrame{
 	public void setTextValues() {
 		try {
 			BufferedReader br = new BufferedReader(new FileReader("res//info"));
+			current_file_opened = br.readLine(); 
 			FrameAutoBackup.start_path.setText(br.readLine());
 			FrameAutoBackup.destination_path.setText(br.readLine());
 			FrameAutoBackup.last_backup.setText(br.readLine());

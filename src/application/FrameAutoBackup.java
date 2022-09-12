@@ -2,11 +2,13 @@ package application;
 
 import java.awt.*;
 import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
+
 import javax.swing.*;
 
 @SuppressWarnings("serial") //per togliere il warning
-class FrameAutoBackup extends JFrame{
+class FrameAutoBackup extends JFrame implements ActionListener{
 	static JTextField start_path = new JTextField();
 	static JTextField destination_path = new JTextField();
 	static JLabel message = new JLabel("");
@@ -21,7 +23,7 @@ class FrameAutoBackup extends JFrame{
 
 	public FrameAutoBackup() {  //costruttore senza parametri
 		//------------------------------------------- set finestra ------------------------------------------- 
-		this.setTitle("AutoBackupProgram");
+		this.setTitle("AutoBackup");
 		this.setSize(width, height);
 		this.setLocation((Toolkit.getDefaultToolkit().getScreenSize().width - getScreenWidth()) / 2, (Toolkit.getDefaultToolkit().getScreenSize().height - getScreenHeight()) / 2); // setto la finestra al centro
 		this.setLayout(new BorderLayout());
@@ -32,8 +34,7 @@ class FrameAutoBackup extends JFrame{
 		auto_backup = new AutoBackupProgram();	
 		
 		//-------------------------------------------creazione oggetto actionlistener-------------------------------------------
-		AutoBackupButtonsListener g = new AutoBackupButtonsListener();
-		AutoBackupMenusListener m = new AutoBackupMenusListener();
+		//AutoBackupButtonsListener g = new AutoBackupButtonsListener();
 		
 		//-------------------------------------------set icon-------------------------------------------
 		ImageIcon image = new ImageIcon("res//logo.png"); //crea un'icona
@@ -58,6 +59,7 @@ class FrameAutoBackup extends JFrame{
 		JMenuItem history = new JMenuItem("history");
 		JMenuItem help = new JMenuItem("help");
 		JMenuItem share = new JMenuItem("share");
+		JMenuItem credits = new JMenuItem("credits");
 		JMenuItem quit = new JMenuItem("quit");
 		
 		mnuFile.add(open);
@@ -68,6 +70,7 @@ class FrameAutoBackup extends JFrame{
 		mnuFile.add(history);
 		mnuOptions.add(share);
 		mnuOptions.add(help);
+		mnuOptions.add(credits);
 		mnuOptions.add(quit);
 		
 		// Action Command
@@ -79,18 +82,20 @@ class FrameAutoBackup extends JFrame{
 		history.setActionCommand("History");
 		share.setActionCommand("Share");
 		help.setActionCommand("Help");
+		credits.setActionCommand("Credits");
 		quit.setActionCommand("Quit");
 		
 		// Action Listener
-		open.addActionListener(m);
-		save.addActionListener(m);
-		save_with_name.addActionListener(m);
-		clear.addActionListener(m);
-		list_of_backup.addActionListener(m);
-		history.addActionListener(m);
-		share.addActionListener(m);
-		help.addActionListener(m);
-		quit.addActionListener(m);
+		open.addActionListener(this);
+		save.addActionListener(this);
+		save_with_name.addActionListener(this);
+		clear.addActionListener(this);
+		list_of_backup.addActionListener(this);
+		history.addActionListener(this);
+		share.addActionListener(this);
+		help.addActionListener(this);
+		credits.addActionListener(this);
+		quit.addActionListener(this);
 		
 		// Acceleration
 		save.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_S, ActionEvent.CTRL_MASK)); // ctrl+s
@@ -165,13 +170,25 @@ class FrameAutoBackup extends JFrame{
 		btn1.setForeground(Color.BLACK);
 		btn1.setFont(new Font("Arial", Font.BOLD, 12));
 		pan1.add(btn1);
-		btn1.addActionListener(g);
+		btn1.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {	
+				SingleBackup();
+			}
+			
+		});
 		
 		//Automatic Backup Button
 		btn2.setForeground(Color.BLACK);
 		btn2.setFont(new Font("Arial", Font.BOLD, 12));
 		pan1.add(btn2);
-		btn2.addActionListener(g);
+		btn2.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {	
+				SetSelected();	
+			}
+			
+		});
 		
 		//current_date
 		last_backup.setVisible(true);
@@ -193,7 +210,13 @@ class FrameAutoBackup extends JFrame{
 		btnChoose1.setContentAreaFilled(false);
 		btnChoose1.setBorderPainted(false);
 		pan3.add(btnChoose1);
-		btnChoose1.addActionListener(g);
+		btnChoose1.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {	
+				SelectionStart();
+			}
+			
+		});
 		
 		JButton btnChoose2 = new JButton(".");
 		btnChoose2.setFont(new Font("Arial", Font.BOLD, 12));
@@ -203,7 +226,13 @@ class FrameAutoBackup extends JFrame{
 		btnChoose2.setContentAreaFilled(false);
 		btnChoose2.setBorderPainted(false);
 		pan4.add(btnChoose2);
-		btnChoose2.addActionListener(g);		
+		btnChoose2.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {	
+				SelectionDestination();
+			}
+			
+		});	
 		
 		//-------------------------------------------TOP ELEMENTS-------------------------------------------
 		JLabel author = new JLabel("Author: © DennisTurco 2021");
@@ -214,11 +243,10 @@ class FrameAutoBackup extends JFrame{
 	}
 	
 	//metodi richiamanti dal Listener
-	public void SingleBackup() { }
-	public void SetSelected() { }
-	public void SelectionStart() { }
-	public void SelectionDestination() { }
-	public void Exit() { auto_backup.Exit(); }
+	public void SingleBackup() { auto_backup.SingleBackup();}
+	public void SetSelected() { auto_backup.SetSelected();}
+	public void SelectionStart() { auto_backup.SelectionStart();}
+	public void SelectionDestination() { auto_backup.SelectionDestination();}
     
     // GETTER
  	public int getScreenWidth(){
@@ -228,5 +256,27 @@ class FrameAutoBackup extends JFrame{
  	public int getScreenHeight(){
  		return height;
  	}
+ 	
+ 	@Override
+ 	public void actionPerformed(ActionEvent e) {	
+		String command = e.getActionCommand();
+		
+		if (command.equals("Open")) auto_backup.Open();
+		else if (command.equals("Save")) auto_backup.Save();
+		else if (command.equals("Save With Name")) auto_backup.SaveWithName();
+		else if (command.equals("List Of Backup"));
+		else if (command.equals("History"))
+			try {
+				auto_backup.viewHistory();
+			} catch (Exception e1) {
+				e1.printStackTrace();
+			}
+		else if (command.equals("Share")) auto_backup.Share();
+		else if (command.equals("Clear")) auto_backup.Clear();
+		else if (command.equals("Help")) auto_backup.Help();
+		else if (command.equals("Credits")) auto_backup.Credits();
+		else if (command.equals("Quit")) auto_backup.Exit();
+		else;		
+	}
     
 }

@@ -13,7 +13,7 @@ class FrameAutoBackup extends JFrame implements ActionListener{
 	static JTextField destination_path = new JTextField();
 	static JLabel message = new JLabel("");
 	static JLabel last_backup = new JLabel();
-	static JButton btn2 = new JButton();
+	static JButton btn_automatic_backup = new JButton();
 	private JMenuBar menu_bar;
 	
 	private AutoBackupProgram auto_backup;
@@ -33,9 +33,6 @@ class FrameAutoBackup extends JFrame implements ActionListener{
 		//------------------------------------------- Oggetto AutoBackupProgram -------------------------------------------
 		auto_backup = new AutoBackupProgram();	
 		
-		//-------------------------------------------creazione oggetto actionlistener-------------------------------------------
-		//AutoBackupButtonsListener g = new AutoBackupButtonsListener();
-		
 		//-------------------------------------------set icon-------------------------------------------
 		ImageIcon image = new ImageIcon("res//logo.png"); //crea un'icona
 		setIconImage(image.getImage());	//cambia l'icona del frame
@@ -51,6 +48,7 @@ class FrameAutoBackup extends JFrame implements ActionListener{
 		menu_bar.add(mnuOptions);
 		
 		// Menu Items
+		JMenuItem new_file = new JMenuItem("new");
 		JMenuItem open = new JMenuItem("open");
 		JMenuItem save = new JMenuItem("save");
 		JMenuItem save_with_name = new JMenuItem("save with name");
@@ -62,6 +60,7 @@ class FrameAutoBackup extends JFrame implements ActionListener{
 		JMenuItem credits = new JMenuItem("credits");
 		JMenuItem quit = new JMenuItem("quit");
 		
+		mnuFile.add(new_file);
 		mnuFile.add(open);
 		mnuFile.add(save);
 		mnuFile.add(save_with_name);
@@ -74,11 +73,12 @@ class FrameAutoBackup extends JFrame implements ActionListener{
 		mnuOptions.add(quit);
 		
 		// Action Command
+		new_file.setActionCommand("NewFile");
 		open.setActionCommand("Open");
 		save.setActionCommand("Save");
-		save_with_name.setActionCommand("Save With Name");
+		save_with_name.setActionCommand("SaveWithName");
 		clear.setActionCommand("Clear");
-		list_of_backup.setActionCommand("List Of Backup");
+		list_of_backup.setActionCommand("ListOfBackup");
 		history.setActionCommand("History");
 		share.setActionCommand("Share");
 		help.setActionCommand("Help");
@@ -86,6 +86,7 @@ class FrameAutoBackup extends JFrame implements ActionListener{
 		quit.setActionCommand("Quit");
 		
 		// Action Listener
+		new_file.addActionListener(this);
 		open.addActionListener(this);
 		save.addActionListener(this);
 		save_with_name.addActionListener(this);
@@ -98,10 +99,11 @@ class FrameAutoBackup extends JFrame implements ActionListener{
 		quit.addActionListener(this);
 		
 		// Acceleration
+		new_file.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_N, ActionEvent.CTRL_MASK)); // ctrl+n
 		save.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_S, ActionEvent.CTRL_MASK)); // ctrl+s
-		open.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_O, ActionEvent.CTRL_MASK)); // ctrl+s
+		open.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_O, ActionEvent.CTRL_MASK)); // ctrl+o
 		clear.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_C, ActionEvent.CTRL_MASK)); // ctrl+c
-		help.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_H, ActionEvent.CTRL_MASK)); // ctrl+c
+		help.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_H, ActionEvent.CTRL_MASK)); // ctrl+h
 		quit.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_F4, ActionEvent.ALT_MASK)); // alt+f4
 		
 		//-------------------------------------------LATERAL ELEMENTS-------------------------------------------
@@ -174,20 +176,18 @@ class FrameAutoBackup extends JFrame implements ActionListener{
 			@Override
 			public void actionPerformed(ActionEvent e) {	
 				SingleBackup();
-			}
-			
+			}	
 		});
 		
 		//Automatic Backup Button
-		btn2.setForeground(Color.BLACK);
-		btn2.setFont(new Font("Arial", Font.BOLD, 12));
-		pan1.add(btn2);
-		btn2.addActionListener(new ActionListener() {
+		btn_automatic_backup.setForeground(Color.BLACK);
+		btn_automatic_backup.setFont(new Font("Arial", Font.BOLD, 12));
+		pan1.add(btn_automatic_backup);
+		btn_automatic_backup.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {	
 				SetSelected();	
 			}
-			
 		});
 		
 		//current_date
@@ -215,7 +215,6 @@ class FrameAutoBackup extends JFrame implements ActionListener{
 			public void actionPerformed(ActionEvent e) {	
 				SelectionStart();
 			}
-			
 		});
 		
 		JButton btnChoose2 = new JButton(".");
@@ -231,7 +230,6 @@ class FrameAutoBackup extends JFrame implements ActionListener{
 			public void actionPerformed(ActionEvent e) {	
 				SelectionDestination();
 			}
-			
 		});	
 		
 		//-------------------------------------------TOP ELEMENTS-------------------------------------------
@@ -261,15 +259,16 @@ class FrameAutoBackup extends JFrame implements ActionListener{
  	public void actionPerformed(ActionEvent e) {	
 		String command = e.getActionCommand();
 		
-		if (command.equals("Open")) auto_backup.Open();
+		if (command.equals("NewFile")) auto_backup.NewFile();
+		else if (command.equals("Open")) auto_backup.Open();
 		else if (command.equals("Save")) auto_backup.Save();
-		else if (command.equals("Save With Name")) auto_backup.SaveWithName();
-		else if (command.equals("List Of Backup"));
+		else if (command.equals("SaveWithName")) auto_backup.SaveWithName();
+		else if (command.equals("ListOfBackup")) auto_backup.BackupList();
 		else if (command.equals("History"))
 			try {
 				auto_backup.viewHistory();
 			} catch (Exception e1) {
-				e1.printStackTrace();
+				System.out.println("Exception --> " + e);
 			}
 		else if (command.equals("Share")) auto_backup.Share();
 		else if (command.equals("Clear")) auto_backup.Clear();

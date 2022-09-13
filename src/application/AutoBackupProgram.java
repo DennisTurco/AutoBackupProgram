@@ -1,16 +1,33 @@
 package application;
 
-import java.io.*;
+import java.awt.Color;
+import java.awt.Toolkit;
+import java.awt.datatransfer.Clipboard;
+import java.awt.datatransfer.StringSelection;
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.awt.*;
-import java.awt.datatransfer.Clipboard;
-import java.awt.datatransfer.StringSelection;
 
-import javax.swing.*;
+import javax.swing.ImageIcon;
+import javax.swing.JFileChooser;
+import javax.swing.JFrame;
+import javax.swing.JOptionPane;
+import javax.swing.Timer;
 import javax.swing.filechooser.FileSystemView;
+
+import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
+import org.json.simple.parser.JSONParser;
+import org.json.simple.parser.ParseException;
+
 
 @SuppressWarnings("serial")
 class AutoBackupProgram extends JFrame{
@@ -34,6 +51,7 @@ class AutoBackupProgram extends JFrame{
 		FrameAutoBackup.start_path.setText("");
 		FrameAutoBackup.destination_path.setText("");
 		FrameAutoBackup.message.setText("");
+		FrameAutoBackup.last_backup.setText("");
 	}
 	
 	// JMenuItem function
@@ -88,6 +106,17 @@ class AutoBackupProgram extends JFrame{
 	}
 	
 	// JMenuItem function
+	public void NewFile() {
+		System.out.println("Event --> new file");
+		
+		// pulisco tutto
+		Clear();
+		
+		// tolgo il file attuale aperto
+		current_file_opened = null;
+	}
+	
+	// JMenuItem function
 	public void Open() {
 		System.out.println("Event --> open");
 		
@@ -110,18 +139,8 @@ class AutoBackupProgram extends JFrame{
 				}
 				current_file_opened = jfc.getSelectedFile().toString().substring(jfc.getSelectedFile().toString().length()-counter);
 				
-				//	- leggo da file e setto i path
-				try {
-					BufferedReader br = new BufferedReader(new FileReader(".//res//saves//"+current_file_opened));
-					current_file_opened = br.readLine();
-					FrameAutoBackup.start_path.setText(br.readLine());
-					FrameAutoBackup.destination_path.setText(br.readLine());
-					FrameAutoBackup.last_backup.setText(br.readLine());	
-			        br.close();
-				} catch (Exception e) {
-					System.out.println("Exception --> " + e);
-				}
-				
+				//	- leggo da file json
+				ReadJSONFile(current_file_opened);
 				
 			}
 		}
@@ -134,21 +153,11 @@ class AutoBackupProgram extends JFrame{
 		
 		//file
 		current_file_opened = JOptionPane.showInputDialog(null, "Name of the file"); //messaggio popup
-		try {
-            BufferedWriter bw = new BufferedWriter(new FileWriter(".//res//saves//"+current_file_opened, false)); // niente append
-            System.out.println("file saved: " + current_file_opened);
-            bw.write("" + current_file_opened + "\n");  //nome file
-            bw.write("" + FrameAutoBackup.start_path.getText()+ "\n");  //start path
-            bw.write("" + FrameAutoBackup.destination_path.getText()+ "\n");  //destination path
-            bw.write("" + FrameAutoBackup.last_backup.getText());  //last backup
-            bw.close(); 
-            
-        } catch (IOException e) {
-            System.out.println("Exception --> " + e);
-            return;
-        }
+		if (current_file_opened == null) return;
 		
-		//aggiorna titolo
+		current_file_opened += ".json";
+		
+		WriteJSONFile(current_file_opened);
 		
 	}
 	
@@ -156,20 +165,21 @@ class AutoBackupProgram extends JFrame{
 	public void Save() {
 		System.out.println("Event --> save");
 		
-		try {
-            BufferedWriter bw = new BufferedWriter(new FileWriter(".//res//saves//"+current_file_opened, false)); // niente append
-            System.out.println("file saved: " + current_file_opened);
-            bw.write("" + current_file_opened + "\n");  //nome file
-            bw.write("" + FrameAutoBackup.start_path.getText()+ "\n");  //start path
-            bw.write("" + FrameAutoBackup.destination_path.getText()+ "\n");  //destination path
-            bw.write("" + FrameAutoBackup.last_backup.getText());  //last backup
-            bw.close(); 
-            
-        } catch (IOException e) {
-            System.out.println("Exception --> " + e);
-            return;
-        }
+		if (current_file_opened == null) return;
 		
+		File file = new File("//res//saves//" + current_file_opened); // controllo se il file esiste
+		if(file.exists() && !file.isDirectory()) { 
+			WriteJSONFile(current_file_opened);
+		}
+		else { // se non esiste ne creo uno nuovo
+			SaveWithName();
+		}
+		
+	}
+	
+	// JMenuItem function
+	public void BackupList() {
+		//TODO: add
 	}
 	
 	// button function
@@ -239,13 +249,13 @@ class AutoBackupProgram extends JFrame{
 		
 		if(checkInputCorrect() == false) return;  //controllo errori tramite funzione
 		
-		if(FrameAutoBackup.btn2.getText().equals("Auto Backup (Enabled)")) {
+		if(FrameAutoBackup.btn_automatic_backup.getText().equals("Auto Backup (Enabled)")) {
 			SingleBackup();
 		}
 	}
 	
 	public void autoBackupControl() {
-		if(FrameAutoBackup.btn2.getText() == "Auto Backup (E)" && checkInputCorrect() == true) {
+		if(FrameAutoBackup.btn_automatic_backup.getText() == "Auto Backup (E)" && checkInputCorrect() == true) {
 			
 			//get current date
 			DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd-MM-yyyy hh:mm:ss");
@@ -274,6 +284,58 @@ class AutoBackupProgram extends JFrame{
 		}
 	}
 	
+	public void ReadJSONFile(String filename) {
+		JSONParser jsonP = new JSONParser();
+		
+		try (FileReader reader = new FileReader("res//saves//" + filename)) {	
+			//read JSon file
+			Object obj = jsonP.parse(reader);
+			JSONObject list = (JSONObject) obj;
+			
+			String name  = (String) list.get("file_name");
+			String path1 = (String) list.get("start_path");
+			String path2 = (String) list.get("destination_path");
+			String last_backup = (String) list.get("last_backup");
+			String automatic_backup = (String) list.get("automatic_backup");
+			//String time = (String) list.get("time");
+			
+			//update the variables
+			current_file_opened = name;
+			FrameAutoBackup.start_path.setText(path1);
+			FrameAutoBackup.destination_path.setText(path2);
+			FrameAutoBackup.last_backup.setText(last_backup);
+			FrameAutoBackup.btn_automatic_backup.setText(automatic_backup);
+			
+			
+		} catch (FileNotFoundException e) {
+			System.out.println("Exception --> " + e);
+		} catch (IOException e) {
+			System.out.println("Exception --> " + e);
+		} catch (ParseException e) {
+			System.out.println("Exception --> " + e);
+		}
+	}
+	
+	@SuppressWarnings("unchecked")
+	public void WriteJSONFile(String filename) {
+		JSONObject list = new JSONObject();
+		list.put("filename", filename);
+		list.put("start_path", FrameAutoBackup.start_path.getText());
+		list.put("destination_path", FrameAutoBackup.destination_path.getText());
+		list.put("last_backup", FrameAutoBackup.last_backup.getText());
+		if (FrameAutoBackup.btn_automatic_backup.getText() == "Auto Backup (Enabled)") list.put("automatic_backup", "Auto Backup (Enabled)");
+		else list.put("automatic_backup", "Auto Backup (Disabled)");
+		//list.put("time", );
+		
+		try (FileWriter file = new FileWriter("res//saves//" + filename)){
+			file.write(list.toJSONString());
+			file.flush();
+		} catch (IOException e) {
+			System.out.println("Exception --> " + e);
+		}
+		
+	}
+	
 	public void setStringToText() {
 		try {
 			DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd-MM-yyyy hh:mm:ss a");
@@ -299,25 +361,15 @@ class AutoBackupProgram extends JFrame{
 	}
 	
 	public void setTextValues() {
-		try {
-			BufferedReader br = new BufferedReader(new FileReader("res//info"));
-			current_file_opened = br.readLine(); 
-			FrameAutoBackup.start_path.setText(br.readLine());
-			FrameAutoBackup.destination_path.setText(br.readLine());
-			FrameAutoBackup.last_backup.setText(br.readLine());
-			br.close();
-		}
-		catch(Exception ex){
-			System.out.println("Exception --> " + ex);
-		}
+		ReadJSONFile("GiochiBackup.json");
 		
 		try {
 			BufferedReader br = new BufferedReader(new FileReader("res//auto_generation"));
 			if(br.readLine().equals("true")) {
-				FrameAutoBackup.btn2.setText("Auto Backup (Enabled)");
+				FrameAutoBackup.btn_automatic_backup.setText("Auto Backup (Enabled)");
 			}
 			else {
-				FrameAutoBackup.btn2.setText("Auto Backup (Disabled)");
+				FrameAutoBackup.btn_automatic_backup.setText("Auto Backup (Disabled)");
 			}
 			br.close();
 		}catch(Exception ex) {
@@ -331,14 +383,14 @@ class AutoBackupProgram extends JFrame{
 		try {
 			BufferedWriter bw = new BufferedWriter(new FileWriter("res//auto_generation"));
 			BufferedReader rw = new BufferedReader(new FileReader("res//info"));
-			if(FrameAutoBackup.btn2.getText().equals("Auto Backup (Enabled)")) {
+			if(FrameAutoBackup.btn_automatic_backup.getText().equals("Auto Backup (Enabled)")) {
 				bw.write("false");
-				FrameAutoBackup.btn2.setText("Auto Backup (Disabled)");
+				FrameAutoBackup.btn_automatic_backup.setText("Auto Backup (Disabled)");
 				System.out.println("Event --> Auto Backup setted to Disabled");
 			}
-			else if(FrameAutoBackup.btn2.getText().equals("Auto Backup (Disabled)")){
+			else if(FrameAutoBackup.btn_automatic_backup.getText().equals("Auto Backup (Disabled)")){
 				bw.write("true");
-				FrameAutoBackup.btn2.setText("Auto Backup (Enabled)");
+				FrameAutoBackup.btn_automatic_backup.setText("Auto Backup (Enabled)");
 				System.out.println("Event --> Auto Backup setted to Enabled");
 				JOptionPane.showMessageDialog(null, "Auto Backup has been activated\n\tFrom: " + rw.readLine() + "\n\tTo: " + rw.readLine() + "\nFor Default is setted every month", "AutoBackupProgram", 1);
 				AutomaticBackup();
@@ -374,7 +426,7 @@ class AutoBackupProgram extends JFrame{
 			if(FrameAutoBackup.destination_path.getText().charAt(i) == temp.charAt(0)) check2 = true;
 		}
 		
-		if(check1 != true || check2 != true) {
+		if(check1 != true || check2 != true) { //TODO: renderlo visibile per qualche secondo
 			System.out.println("Error --> Input Error!");
 			FrameAutoBackup.message.setForeground(Color.RED);
 			FrameAutoBackup.message.setText("Input Error!");

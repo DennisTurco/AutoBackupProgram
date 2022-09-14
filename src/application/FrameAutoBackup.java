@@ -52,6 +52,7 @@ class FrameAutoBackup extends JFrame implements ActionListener{
 		JMenuItem open = new JMenuItem("open");
 		JMenuItem save = new JMenuItem("save");
 		JMenuItem save_with_name = new JMenuItem("save with name");
+		JMenuItem remove = new JMenuItem("remove");
 		JMenuItem clear = new JMenuItem("clear");
 		JMenuItem list_of_backup = new JMenuItem("list of backup");
 		JMenuItem history = new JMenuItem("history");
@@ -64,6 +65,7 @@ class FrameAutoBackup extends JFrame implements ActionListener{
 		mnuFile.add(open);
 		mnuFile.add(save);
 		mnuFile.add(save_with_name);
+		mnuFile.add(remove);
 		mnuFile.add(clear);
 		mnuFile.add(list_of_backup);
 		mnuFile.add(history);
@@ -77,6 +79,7 @@ class FrameAutoBackup extends JFrame implements ActionListener{
 		open.setActionCommand("Open");
 		save.setActionCommand("Save");
 		save_with_name.setActionCommand("SaveWithName");
+		remove.setActionCommand("Remove");
 		clear.setActionCommand("Clear");
 		list_of_backup.setActionCommand("ListOfBackup");
 		history.setActionCommand("History");
@@ -90,6 +93,7 @@ class FrameAutoBackup extends JFrame implements ActionListener{
 		open.addActionListener(this);
 		save.addActionListener(this);
 		save_with_name.addActionListener(this);
+		remove.addActionListener(this);
 		clear.addActionListener(this);
 		list_of_backup.addActionListener(this);
 		history.addActionListener(this);
@@ -263,6 +267,7 @@ class FrameAutoBackup extends JFrame implements ActionListener{
 		else if (command.equals("Open")) auto_backup.Open();
 		else if (command.equals("Save")) auto_backup.Save();
 		else if (command.equals("SaveWithName")) auto_backup.SaveWithName();
+		else if (command.equals("Remove")) auto_backup.RemoveSingleFile();
 		else if (command.equals("ListOfBackup")) auto_backup.BackupList();
 		else if (command.equals("History"))
 			try {

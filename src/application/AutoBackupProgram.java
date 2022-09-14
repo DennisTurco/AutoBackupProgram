@@ -32,17 +32,16 @@ import org.json.simple.parser.ParseException;
 @SuppressWarnings("serial")
 class AutoBackupProgram extends JFrame{
 	private static String current_file_opened = "";
+	private static long last_date_in_seconds;
 	
 	private static Timer timer;
 	
-	public AutoBackupProgram() {  //costruttore senza parametri
-		
+	public AutoBackupProgram() { 
 		//-------------------------------------------SET TEXT VALUES-------------------------------------------
 		setTextValues();
 		
 		//---------------------------------------AUTO BACKUP COLTROL---------------------------------------
 		autoBackupControl();
-		
 	}
 	
 	// JMenuItem function
@@ -117,34 +116,27 @@ class AutoBackupProgram extends JFrame{
 	}
 	
 	// JMenuItem function
+	public void RemoveSingleFile() {
+		System.out.println("Event --> remove file");
+		
+		// ottengo il nome del file selezionato
+		String filename = getFile(".//res//saves"); 
+		
+		//elimino
+		File file = new File(".//res//saves//" + filename);
+		if (file.delete()) System.out.println("Event --> file deleted: " + file.getName());
+		else System.out.println("Failed to delete the file.");		
+	}
+	
+	// JMenuItem function
 	public void Open() {
 		System.out.println("Event --> open");
 		
-		JFileChooser jfc = new JFileChooser(FileSystemView.getFileSystemView().getHomeDirectory());
-		jfc.setDialogTitle("Choose a file to open: ");
-		jfc.setCurrentDirectory(new java.io.File(".//res//saves"));
-		jfc.setFileSelectionMode(JFileChooser.FILES_ONLY);
-
-		int returnValue = jfc.showSaveDialog(null);
-		if (returnValue == JFileChooser.APPROVE_OPTION) {
-			if (jfc.getSelectedFile().isFile()) {
-				System.out.println("You selected the file: " + jfc.getSelectedFile());
-				
-				//ottengo i valori dal file e li setto nella finestra
-				//	- dal percorso assoluto ottengo il nome 
-				int counter = 0;
-				for (long i=jfc.getSelectedFile().toString().length()-1; i>=0; i--) {
-					if (jfc.getSelectedFile().toString().charAt((int) i) != '\\') counter++;
-					else break;
-				}
-				current_file_opened = jfc.getSelectedFile().toString().substring(jfc.getSelectedFile().toString().length()-counter);
-				
-				//	- leggo da file json
-				ReadJSONFile(current_file_opened);
-				
-			}
-		}
+		// ottengo il nome del file selezionato
+		current_file_opened = getFile(".//res//saves"); 
 		
+		// leggo da file json
+		ReadJSONFile(current_file_opened, "//res//saves//");
 	}
 	
 	// JMenuItem function
@@ -157,8 +149,7 @@ class AutoBackupProgram extends JFrame{
 		
 		current_file_opened += ".json";
 		
-		WriteJSONFile(current_file_opened);
-		
+		WriteJSONFile(current_file_opened, ".//res//saves//");
 	}
 	
 	// JMenuItem function
@@ -167,14 +158,13 @@ class AutoBackupProgram extends JFrame{
 		
 		if (current_file_opened == null) return;
 		
-		File file = new File("//res//saves//" + current_file_opened); // controllo se il file esiste
+		File file = new File(".//res//saves//" + current_file_opened); // controllo se il file esiste
 		if(file.exists() && !file.isDirectory()) { 
-			WriteJSONFile(current_file_opened);
+			WriteJSONFile(current_file_opened, "//res//saves//");
 		}
 		else { // se non esiste ne creo uno nuovo
 			SaveWithName();
 		}
-		
 	}
 	
 	// JMenuItem function
@@ -231,7 +221,6 @@ class AutoBackupProgram extends JFrame{
         
 		try {
 			BufferedReader br = new BufferedReader(new FileReader("res//info"));
-			System.out.println("Done");
 	        JOptionPane.showMessageDialog(null, "Files Copied!\nFrom: " + br.readLine() + "\nTo: " + br.readLine(), "AutoBackupProgram", 1);
 	        FrameAutoBackup.message.setForeground(Color.GREEN);
 	        FrameAutoBackup.message.setText("Files Copied!");
@@ -284,10 +273,10 @@ class AutoBackupProgram extends JFrame{
 		}
 	}
 	
-	public void ReadJSONFile(String filename) {
+	public void ReadJSONFile(String filename, String directory_path) {
 		JSONParser jsonP = new JSONParser();
 		
-		try (FileReader reader = new FileReader("res//saves//" + filename)) {	
+		try (FileReader reader = new FileReader(directory_path + filename)) {	
 			//read JSon file
 			Object obj = jsonP.parse(reader);
 			JSONObject list = (JSONObject) obj;
@@ -317,7 +306,7 @@ class AutoBackupProgram extends JFrame{
 	}
 	
 	@SuppressWarnings("unchecked")
-	public void WriteJSONFile(String filename) {
+	public void WriteJSONFile(String filename, String directory_path) {
 		JSONObject list = new JSONObject();
 		list.put("filename", filename);
 		list.put("start_path", FrameAutoBackup.start_path.getText());
@@ -325,15 +314,51 @@ class AutoBackupProgram extends JFrame{
 		list.put("last_backup", FrameAutoBackup.last_backup.getText());
 		if (FrameAutoBackup.btn_automatic_backup.getText() == "Auto Backup (Enabled)") list.put("automatic_backup", "Auto Backup (Enabled)");
 		else list.put("automatic_backup", "Auto Backup (Disabled)");
-		//list.put("time", );
+		list.put("last_date_in_seconds", last_date_in_seconds);
 		
-		try (FileWriter file = new FileWriter("res//saves//" + filename)){
+		try (FileWriter file = new FileWriter(directory_path + filename)){
 			file.write(list.toJSONString());
 			file.flush();
 		} catch (IOException e) {
 			System.out.println("Exception --> " + e);
 		}
 		
+	}
+
+	private String AddDuobleBackSlash(String string) {
+		String new_string = "";
+		for (int i=0; i<string.length(); i++) {
+			if (string.charAt(i) == '\\' && string.charAt(i+1) != '\\') new_string += string.charAt(i);
+			new_string += string.charAt(i);
+		}
+		return new_string;
+	}
+	
+	
+	private String getFile(String directory_path) {
+		JFileChooser jfc = new JFileChooser(FileSystemView.getFileSystemView().getHomeDirectory());
+		jfc.setDialogTitle("Choose a file to open: ");
+		jfc.setCurrentDirectory(new java.io.File(directory_path));
+		jfc.setFileSelectionMode(JFileChooser.FILES_ONLY);
+
+		int returnValue = jfc.showSaveDialog(null);
+		if (returnValue == JFileChooser.APPROVE_OPTION) {
+			if (jfc.getSelectedFile().isFile()) {
+				System.out.println("You selected the file: " + jfc.getSelectedFile());
+				
+				//	dal percorso assoluto ottengo il nome 
+				int counter = 0;
+				for (long i=jfc.getSelectedFile().toString().length()-1; i>=0; i--) {
+					if (jfc.getSelectedFile().toString().charAt((int) i) != '\\') counter++;
+					else break;
+				}
+				
+				
+				return jfc.getSelectedFile().toString().substring(jfc.getSelectedFile().toString().length()-counter);
+			}
+		}
+		
+		return null;
 	}
 	
 	public void setStringToText() {
@@ -343,25 +368,15 @@ class AutoBackupProgram extends JFrame{
 			String last_date = dtf.format(now);
 			FrameAutoBackup.last_backup.setText("last backup: " + last_date);
 			
-			BufferedWriter bw = new BufferedWriter(new FileWriter("res//info"));
-			bw.write(FrameAutoBackup.start_path.getText());
-			bw.write("\n");
-			bw.write(FrameAutoBackup.destination_path.getText());
-			bw.write("\n");
-			bw.write(FrameAutoBackup.last_backup.getText());
-			bw.write("\n");
-			
-			long last_date_in_seconds = new java.text.SimpleDateFormat("dd-MM-yyyy hh:mm:ss").parse(last_date).getTime() / 1000;
-			bw.write(""+last_date_in_seconds);
-			
-			bw.close();
+			last_date_in_seconds = new java.text.SimpleDateFormat("dd-MM-yyyy hh:mm:ss").parse(last_date).getTime() / 1000;
+			WriteJSONFile("info.json", "res//");
 		} catch(Exception ex) {
 			System.out.println("Exception --> " + ex);
 		}
 	}
 	
 	public void setTextValues() {
-		ReadJSONFile("GiochiBackup.json");
+		ReadJSONFile("info.json", "res//");
 		
 		try {
 			BufferedReader br = new BufferedReader(new FileReader("res//auto_generation"));
@@ -382,7 +397,6 @@ class AutoBackupProgram extends JFrame{
 		
 		try {
 			BufferedWriter bw = new BufferedWriter(new FileWriter("res//auto_generation"));
-			BufferedReader rw = new BufferedReader(new FileReader("res//info"));
 			if(FrameAutoBackup.btn_automatic_backup.getText().equals("Auto Backup (Enabled)")) {
 				bw.write("false");
 				FrameAutoBackup.btn_automatic_backup.setText("Auto Backup (Disabled)");
@@ -392,11 +406,11 @@ class AutoBackupProgram extends JFrame{
 				bw.write("true");
 				FrameAutoBackup.btn_automatic_backup.setText("Auto Backup (Enabled)");
 				System.out.println("Event --> Auto Backup setted to Enabled");
-				JOptionPane.showMessageDialog(null, "Auto Backup has been activated\n\tFrom: " + rw.readLine() + "\n\tTo: " + rw.readLine() + "\nFor Default is setted every month", "AutoBackupProgram", 1);
+				ReadJSONFile("info.json", "res//");
+				JOptionPane.showMessageDialog(null, "Auto Backup has been activated\n\tFrom: " + FrameAutoBackup.start_path.getText() + "\n\tTo: " + FrameAutoBackup.destination_path.getText() + "\nFor Default is setted every month", "AutoBackupProgram", 1);
 				AutomaticBackup();
 			}
 			bw.close();
-			rw.close();
 		}catch(Exception ex) {
 			System.out.println("Exception --> " + ex);
 		}

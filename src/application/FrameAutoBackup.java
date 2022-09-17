@@ -189,8 +189,8 @@ class FrameAutoBackup extends JFrame implements ActionListener{
 		pan1.add(btn_automatic_backup);
 		btn_automatic_backup.addActionListener(new ActionListener() {
 			@Override
-			public void actionPerformed(ActionEvent e) {	
-				SetSelected();	
+			public void actionPerformed(ActionEvent e) {
+				AutomaticBackup();
 			}
 		});
 		
@@ -246,7 +246,7 @@ class FrameAutoBackup extends JFrame implements ActionListener{
 	
 	//metodi richiamanti dal Listener
 	public void SingleBackup() { auto_backup.SingleBackup();}
-	public void SetSelected() { auto_backup.SetSelected();}
+	public void AutomaticBackup() { auto_backup.AutomaticBackup();}
 	public void SelectionStart() { auto_backup.SelectionStart();}
 	public void SelectionDestination() { auto_backup.SelectionDestination();}
     

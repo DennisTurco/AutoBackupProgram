@@ -5,17 +5,41 @@ import java.util.TimerTask;
 
 class TimerAutoBackup {
 	
-	private static boolean timer_running;
-	private static Timer timer;
-	private static TimerTask task;
+	static int VISIBILITY_ERROR = 1;
+	static int VISIBILITY_LOADING = 2;
 	
-	TimerAutoBackup () {
+	private static boolean timer_running;
+	private static Timer timer = new Timer();
+	private static TimerTask task;
+	private static float TIMER = 0;
+	
+	TimerAutoBackup (int visibility) {
+		
 		timer = new Timer();
-		task = new TimerTask() {
-			public void run() {
-				
-			}
-		};
+		
+		if (visibility == VISIBILITY_LOADING) {
+			task = new TimerTask() {
+				public void run() {
+					TIMER += 1; //incremento di un millisecondo
+					FrameAutoBackup.message.setVisible(true);
+					if (TIMER == 0 || TIMER == 4) { FrameAutoBackup.message.setText("LOADING"); TIMER = 0;}
+					if (TIMER == 1) FrameAutoBackup.message.setText("LOADING.");
+					if (TIMER == 2) FrameAutoBackup.message.setText("LOADING..");
+					if (TIMER == 3) FrameAutoBackup.message.setText("LOADING...");
+				}
+			};
+		}
+		
+		if (visibility == VISIBILITY_ERROR) {
+			task = new TimerTask() {
+				public void run() {
+					TIMER += 1; //incremento di un millisecondo
+					if (TIMER >= 2) {
+						stopTimer();
+					}
+				}
+			};
+		}
 		
 		timer_running = false;
 	}
@@ -26,6 +50,7 @@ class TimerAutoBackup {
 	}
 	
 	public void stopTimer() {
+		FrameAutoBackup.message.setVisible(false);
 		timer.cancel();
 		timer_running = false;
 	}

@@ -228,12 +228,10 @@ class AutoBackupProgram extends JFrame{
 		timer.startTimer(); 
         FrameAutoBackup.message.setText("Files Copied!");
         FrameAutoBackup.message.setVisible(true);
-        
-    	
     }	
 
 	// button function
-	public void AutomaticBackup() { //TODO: fixhere current_file_opened == null -> true
+	public void AutomaticBackup() {
 		System.out.println("Event --> automatic backup");
 		
 		ReadJSONFile("info.json", "res//");
@@ -261,7 +259,7 @@ class AutoBackupProgram extends JFrame{
 		}
 
 		// salvo nel JSON
-		WriteJSONFile(current_file_opened, "res//saves//");
+		WriteJSONFile(current_file_opened, ".//res//saves//");
 	}
 	
 	/*public void autoBackupControl() {
@@ -300,6 +298,13 @@ class AutoBackupProgram extends JFrame{
 			JSONObject list = (JSONObject) obj;
 			
 			String name  = (String) list.get("filename");
+			
+			if (filename == "info.json") {
+				System.out.println("Event --> current file: " + name);
+				ReadJSONFile(name, ".//res//saves//");
+				return; //il return è essenziale per stoppare la ricorsione
+			}
+			
 			String path1 = (String) list.get("start_path");
 			String path2 = (String) list.get("destination_path");
 			String last_backup = (String) list.get("last_backup");
@@ -323,31 +328,37 @@ class AutoBackupProgram extends JFrame{
 		}
 	}
 	
-	@SuppressWarnings("unchecked")
+	@SuppressWarnings("unchecked") //TODO: errore -> mette enabled o disabled tutto, non solo uno specifico file
 	public void WriteJSONFile(String filename, String directory_path) {
 		JSONObject list = new JSONObject();
 		
-		if (filename == "info.json") list.put("filename", current_file_opened);
-		else list.put("filename", filename);
-		list.put("start_path", FrameAutoBackup.start_path.getText());
-		list.put("destination_path", FrameAutoBackup.destination_path.getText());
-		list.put("last_backup", FrameAutoBackup.last_backup.getText());
-		if (FrameAutoBackup.btn_automatic_backup.getText() == "Auto Backup (Enabled)") {
-			list.put("automatic_backup", "Auto Backup (Enabled)"); 
-			list.put("next_date_backup", next_date_backup); 
-			list.put("days_interval_backup", "" + days_interval_backup); 
+		if (filename == "info.json") {
+			list.put("filename", current_file_opened);
+			return;
 		}
-		else { 
-			list.put("automatic_backup", "Auto Backup (Disabled)"); 
-			list.put("next_date_backup", null); 
-			list.put("days_interval_backup", null); 
-		}
-	
-		try (FileWriter file = new FileWriter(directory_path + filename)){
-			file.write(list.toJSONString());
-			file.flush();
-		} catch (IOException e) {
-			System.out.println("Exception --> " + e);
+		
+		else {
+			list.put("filename", filename);
+			list.put("start_path", FrameAutoBackup.start_path.getText());
+			list.put("destination_path", FrameAutoBackup.destination_path.getText());
+			list.put("last_backup", FrameAutoBackup.last_backup.getText());
+			if (FrameAutoBackup.btn_automatic_backup.getText() == "Auto Backup (Enabled)") {
+				list.put("automatic_backup", "Auto Backup (Enabled)"); 
+				list.put("next_date_backup", next_date_backup); 
+				list.put("days_interval_backup", "" + days_interval_backup); 
+			}
+			else { 
+				list.put("automatic_backup", "Auto Backup (Disabled)"); 
+				list.put("next_date_backup", null); 
+				list.put("days_interval_backup", null); 
+			}
+			
+			try (FileWriter file = new FileWriter(directory_path + filename)){
+				file.write(list.toJSONString());
+				file.flush();
+			} catch (IOException e) {
+				System.out.println("Exception --> " + e);
+			}
 		}
 	}	
 	

@@ -4,14 +4,21 @@ import java.io.*;
 import java.nio.file.*;
 import java.nio.file.attribute.BasicFileAttributes;
 
-public class TreeCopyFileVisitor extends SimpleFileVisitor<Path> {
+import javax.swing.JDialog;
+import javax.swing.JFrame;
+import javax.swing.JOptionPane;
+import javax.swing.JProgressBar;
+
+	public class TreeCopyFileVisitor extends SimpleFileVisitor<Path> {
     private Path source;
     private final Path target;
     private boolean copied = false;
+    LoadingAutoBackup loading;
     
-    public TreeCopyFileVisitor(String source, String target) {
+    public TreeCopyFileVisitor(String source, String target, int file_number) {
         this.source = Paths.get(source);
         this.target = Paths.get(target);
+        this.loading = new LoadingAutoBackup(file_number);     
     }
 
 	@Override
@@ -38,6 +45,8 @@ public class TreeCopyFileVisitor extends SimpleFileVisitor<Path> {
     public FileVisitResult visitFile(Path file, BasicFileAttributes attrs) throws IOException {   	
         Path resolve = target.resolve(source.relativize(file));
         Files.copy(file, resolve, StandardCopyOption.REPLACE_EXISTING);
+        loading.addLoadingProgression();
+        
         try {
         	BufferedWriter bw = new BufferedWriter(new FileWriter("res//log_file", true));
 			bw.write("Copy File from \t" + file + "\t to" + resolve);

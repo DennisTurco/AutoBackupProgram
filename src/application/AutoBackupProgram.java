@@ -5,11 +5,9 @@ import java.awt.Toolkit;
 import java.awt.datatransfer.Clipboard;
 import java.awt.datatransfer.StringSelection;
 import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.io.FileWriter;
 import java.io.IOException;
 import java.nio.file.Files;
+import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -20,23 +18,25 @@ import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.filechooser.FileSystemView;
 
-import org.json.simple.JSONObject;
-import org.json.simple.parser.JSONParser;
-import org.json.simple.parser.ParseException;
-
 
 @SuppressWarnings("serial")
 class AutoBackupProgram extends JFrame{
-	private static String current_file_opened;
-	private static String next_date_backup;
-	private static Integer days_interval_backup;
+	static String current_file_opened;
+	static String next_date_backup;
+	static Integer days_interval_backup;
 	
 	private static TimerAutoBackup timer;
+	private static JSONAutoBackup JSON;
+	
+	String source;
+	String target;
 	
 	static int NORMAL_WRITE = 0;
 	static int MODIFY_INFO = 1;
 	
 	public AutoBackupProgram() { 
+		
+		JSON = new JSONAutoBackup();
 		
 		//set text values
 		setTextValues();
@@ -139,10 +139,10 @@ class AutoBackupProgram extends JFrame{
 		current_file_opened = getFile(".//res//saves"); 
 		
 		// leggo da file json
-		ReadJSONFile(current_file_opened, ".//res//saves//");
+		JSON.ReadJSONFile(current_file_opened, ".//res//saves//");
 		
 		// aggiorno info.json
-		WriteJSONFile("info.json", ".//res//");
+		JSON.WriteJSONFile("info.json", ".//res//");
 	}
 	
 	// JMenuItem function
@@ -155,7 +155,7 @@ class AutoBackupProgram extends JFrame{
 		
 		current_file_opened += ".json";
 		
-		WriteJSONFile(current_file_opened, ".//res//saves//");
+		JSON.WriteJSONFile(current_file_opened, ".//res//saves//");
 	}
 	
 	// JMenuItem function
@@ -168,7 +168,7 @@ class AutoBackupProgram extends JFrame{
 		
 		File file = new File(".//res//saves//" + current_file_opened); // controllo se il file esiste
 		if(file.exists() && !file.isDirectory()) { 
-			WriteJSONFile(current_file_opened, ".//res//saves//");
+			JSON.WriteJSONFile(current_file_opened, ".//res//saves//");
 		}
 	}
 	
@@ -223,10 +223,10 @@ class AutoBackupProgram extends JFrame{
         JOptionPane.showMessageDialog(null, "Files Copied!\nFrom: " + FrameAutoBackup.start_path.getText() + "\nTo: " + FrameAutoBackup.destination_path.getText(), "AutoBackupProgram", 1);
         FrameAutoBackup.message.setForeground(Color.GREEN);
         
-         WriteJSONFile("info.json", ".//res//");
+        JSON.WriteJSONFile("info.json", ".//res//");
         
         //attivo il timer di n secondi
-		timer = new TimerAutoBackup(TimerAutoBackup.VISIBILITY_ERROR);
+		timer = new TimerAutoBackup();
 		timer.startTimer(); 
         FrameAutoBackup.message.setText("Files Copied!");
         FrameAutoBackup.message.setVisible(true);
@@ -236,7 +236,7 @@ class AutoBackupProgram extends JFrame{
 	public void AutomaticBackup() {
 		System.out.println("Event --> automatic backup");
 		
-		ReadJSONFile("info.json", ".//res//");
+		JSON.ReadJSONFile("info.json", ".//res//");
 		
 		if(checkInputCorrect() == false) return;  //controllo errori tramite funzione 
 		
@@ -261,7 +261,7 @@ class AutoBackupProgram extends JFrame{
 		}
 
 		// salvo nel JSON
-		WriteJSONFile(current_file_opened, ".//res//saves//");
+		JSON.WriteJSONFile(current_file_opened, ".//res//saves//");
 	}
 	
 	/*public void autoBackupControl() {
@@ -323,14 +323,14 @@ class AutoBackupProgram extends JFrame{
 			FrameAutoBackup.last_backup.setText("last backup: " + last_date);
 			
 			//next_date_backup = new java.text.SimpleDateFormat("dd-MM-yyyy hh:mm:ss").parse(last_date).getTime() / 1000;
-			WriteJSONFile("info.json", ".//res//");
+			JSON.WriteJSONFile("info.json", ".//res//");
 		} catch(Exception ex) {
 			System.out.println("Exception --> " + ex);
 		}
 	}
 	
 	public void setTextValues() {
-		ReadJSONFile("info.json", ".//res//");
+		JSON.ReadJSONFile("info.json", ".//res//");
 		
 		if(days_interval_backup != null) {
 			FrameAutoBackup.btn_automatic_backup.setText("Auto Backup (Enabled)");
@@ -351,7 +351,7 @@ class AutoBackupProgram extends JFrame{
 			FrameAutoBackup.message.setVisible(true);
 			
 			//attivo il timer di n secondi
-			timer = new TimerAutoBackup(TimerAutoBackup.VISIBILITY_ERROR);
+			timer = new TimerAutoBackup();
 			timer.startTimer(); 
 			
 			return false;
@@ -375,7 +375,7 @@ class AutoBackupProgram extends JFrame{
 			FrameAutoBackup.message.setVisible(true);
 			
 			//attivo il timer di n secondi
-			timer = new TimerAutoBackup(TimerAutoBackup.VISIBILITY_ERROR);
+			timer = new TimerAutoBackup();
 			timer.startTimer();
 			
 			return false;
@@ -384,13 +384,35 @@ class AutoBackupProgram extends JFrame{
 		return true;
 	}
 	
-    public static void copyDirectoryFileVisitor(String source, String target) throws IOException {
-    	//TODO: fix here
-    	timer = new TimerAutoBackup(TimerAutoBackup.VISIBILITY_LOADING);
-		timer.startTimer(); 
-        TreeCopyFileVisitor fileVisitor = new TreeCopyFileVisitor(source, target);
+    public void copyDirectoryFileVisitor(String source, String target) throws IOException { //TODO: fix here
+    	
+    	//TODO: funziona solo per il path specifico, non i sottopath
+    	int files_number = new File(source).list().length;  // ottengo il numero di files e directories sotto il path specifico 
+    	System.out.println(files_number);
+		
+		
+		//conto il numero di file nella directory e sotto-directory
+		int file_number = countFilesInDirectory(new File(source));
+		System.out.println(file_number);
+		
+		TreeCopyFileVisitor fileVisitor = new TreeCopyFileVisitor(source, target, file_number);
         Files.walkFileTree(Paths.get(source), fileVisitor);
-        timer.stopTimer();
+    }
+    
+    private int countFilesInDirectory(File directory) {
+    	int count = 0;
+    	
+    	for (File file : directory.listFiles()) {
+    		if (file.isFile()) {
+    			count++;
+    		}
+    	    	
+	    	if (file.isDirectory()) {
+	    		count += countFilesInDirectory(file);
+	    	}
+    	}
+    	
+    	return count;
     }
     
     
@@ -423,84 +445,5 @@ class AutoBackupProgram extends JFrame{
 		}
 
 	}
-    
-    //TODO: metterlo in un file a parte 
-    //READ & WRITE JSON
-    public void ReadJSONFile(String filename, String directory_path) {
-		JSONParser jsonP = new JSONParser();
-		
-		try (FileReader reader = new FileReader(directory_path + filename)) {	
-			//read JSon file
-			Object obj = jsonP.parse(reader);
-			JSONObject list = (JSONObject) obj;
-			
-			String name  = (String) list.get("filename");
-			
-			if (filename == "info.json") {
-				System.out.println("Event --> current file: " + name);
-				ReadJSONFile(name, ".//res//saves//");
-				return; //il return è essenziale per stoppare la ricorsione
-			}
-			
-			String path1 = (String) list.get("start_path");
-			String path2 = (String) list.get("destination_path");
-			String last_backup = (String) list.get("last_backup");
-			String next_date = (String) list.get("next_date_backup");
-			String days_interval = (String) list.get("days_interval_backup");
-			String automatic_backup = (String) list.get("automatic_backup");
-			
-			//update the variables
-			current_file_opened = name;
-			FrameAutoBackup.start_path.setText(path1);
-			FrameAutoBackup.destination_path.setText(path2);
-			FrameAutoBackup.last_backup.setText(last_backup);
-			FrameAutoBackup.btn_automatic_backup.setText(automatic_backup);
-			next_date_backup = next_date;
-			if (days_interval != null)days_interval_backup = Integer.parseInt(days_interval);
-				
-		} catch (FileNotFoundException e) {
-			System.out.println("Exception --> " + e);
-		} catch (IOException e) {
-			System.out.println("Exception --> " + e);
-		} catch (ParseException e) {
-			System.out.println("Exception --> " + e);
-		}
-	}
-	
-	@SuppressWarnings("unchecked")
-	public void WriteJSONFile(String filename, String directory_path) {
-		JSONObject list = new JSONObject();
-		
-		if (filename == "info.json") { //TODO: fixhere non si aggiorna mai info.json
-			list.put("filename", current_file_opened);
-		}
-		
-		else {
-			list.put("filename", filename);
-			list.put("start_path", FrameAutoBackup.start_path.getText());
-			list.put("destination_path", FrameAutoBackup.destination_path.getText());
-			list.put("last_backup", FrameAutoBackup.last_backup.getText());
-			if (FrameAutoBackup.btn_automatic_backup.getText() == "Auto Backup (Enabled)") {
-				list.put("automatic_backup", "Auto Backup (Enabled)"); 
-				list.put("next_date_backup", next_date_backup); 
-				list.put("days_interval_backup", "" + days_interval_backup); 
-			}
-			else { 
-				list.put("automatic_backup", "Auto Backup (Disabled)"); 
-				list.put("next_date_backup", null); 
-				list.put("days_interval_backup", null); 
-			}
 
-		}
-		
-		// scrittura file json
-		try (FileWriter file = new FileWriter(directory_path + filename)){
-			file.write(list.toJSONString());
-			file.flush();
-		} catch (IOException e) {
-			System.out.println("Exception --> " + e);
-		}
-	}
-    
-    
 }

@@ -1,15 +1,27 @@
 package application;
 
+import java.awt.Color;
+import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.util.ArrayList;
 
+import javax.swing.BoxLayout;
+import javax.swing.ImageIcon;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+
+import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 
 class JSONAutoBackup {
+	
+	private JSONArray backup_list;
 	
 	JSONAutoBackup() {}
 	
@@ -18,7 +30,7 @@ class JSONAutoBackup {
 		JSONParser jsonP = new JSONParser();
 		
 		try (FileReader reader = new FileReader(directory_path + filename)) {	
-			//read JSon file
+			//read JSON file
 			Object obj = jsonP.parse(reader);
 			JSONObject list = (JSONObject) obj;
 			
@@ -59,7 +71,7 @@ class JSONAutoBackup {
 	public void WriteJSONFile(String filename, String directory_path) {
 		JSONObject list = new JSONObject();
 		
-		if (filename == "info.json") { //TODO: fixhere non si aggiorna mai info.json
+		if (filename == "info.json") {
 			list.put("filename", AutoBackupProgram.current_file_opened);
 		}
 		
@@ -89,4 +101,96 @@ class JSONAutoBackup {
 			System.out.println("Exception --> " + e);
 		}
 	}	
+	
+	@SuppressWarnings("unchecked")
+	public void LoadJSONBackupList() {	
+		backup_list = new JSONArray();
+		
+		File directory = new File(".//res//saves");
+		File[] listOfFiles = directory.listFiles();
+		int count = directory.list().length; // ottengo il numero di file nella directory
+		
+		for (int i=0; i<count; i++) {
+	
+			while(true) {
+				if (listOfFiles[i].isFile()) break; //se incontro una directory non la leggo
+				else i++;
+			}
+			
+			JSONParser jsonP = new JSONParser();
+			
+			try (FileReader reader = new FileReader(".//res//saves//" + listOfFiles[i].getName())) {		
+				Object obj = jsonP.parse(reader);
+				JSONObject list = (JSONObject) obj;
+				
+				//lettura
+				String name  = (String) list.get("filename");
+				String path1 = (String) list.get("start_path");
+				String path2 = (String) list.get("destination_path");
+				String last_backup = (String) list.get("last_backup");
+				String next_date = (String) list.get("next_date_backup");
+				String days_interval = (String) list.get("days_interval_backup");
+				String automatic_backup = (String) list.get("automatic_backup");
+			
+				//scrittura
+				list.put("filename", name);
+				list.put("start_path", path1);
+				list.put("destination_path", path2);
+				list.put("last_backup", last_backup);
+				list.put("automatic_backup", automatic_backup);
+				if (automatic_backup.equals("Auto Backup (Enabled)")) {
+					list.put("next_date_backup", next_date);
+					list.put("days_interval_backup", "" + days_interval);
+				}
+				else {
+					list.put("next_date_backup", null);
+					list.put("days_interval_backup", null);
+				}
+				
+				//aggiungo alla lista
+				backup_list.add(list); 
+			
+			} catch (FileNotFoundException e) {
+				System.out.println("Exception --> " + e);
+			} catch (IOException e) {
+				System.out.println("Exception --> " + e);
+			} catch (ParseException e) {
+				System.out.println("Exception --> " + e);
+			}
+		}
+		
+		try (FileWriter file = new FileWriter(".//res//backup_list.json")){
+			file.write(backup_list.toJSONString());
+			file.flush();
+		} catch (IOException e) {
+			System.out.println("Exception --> " + e);
+		}
+	}
+	
+	
+	public void openBackupList() {
+		LoadJSONBackupList();
+		
+		JPanel pnl = new JPanel();
+		pnl.setBounds(61, 11, 81, 140);
+		pnl.setLayout(new BoxLayout(pnl, BoxLayout.Y_AXIS)); // VerticalLayout
+		JLabel []labels = new JLabel[backup_list.size()];
+			
+		for (int i=0; i<backup_list.size(); i++) {	
+			labels[i] = new JLabel();
+			
+			JSONObject json_obj = (JSONObject) backup_list.get(i);   //ottengo the i-esimo elemento
+			
+			if (json_obj.get("next_date_backup") != null) {
+				labels[i].setText("<html><i>" + json_obj.get("filename").toString() + " - Next date: " + json_obj.get("next_date_backup").toString() + "</i></html>");	//lo passo alla JLabel
+			}else {
+				labels[i].setText("<html><i>" + json_obj.get("filename").toString() + "</i></html>");	//lo passo alla JLabel
+			}
+			
+			pnl.add(labels[i]);
+		}
+				
+		JOptionPane.showMessageDialog(null, pnl, "Backup List", JOptionPane.PLAIN_MESSAGE, null); //messaggio popup
+	}
+	
 }

@@ -9,8 +9,13 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.sql.Date;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.Calendar;
 
 import javax.swing.ImageIcon;
 import javax.swing.JFileChooser;
@@ -106,7 +111,6 @@ class AutoBackupProgram extends JFrame{
 	
 	// JMenuItem function
 	public void NewFile() {
-		System.out.println("Event --> new file");
 		
 		// pulisco tutto
 		Clear();
@@ -128,7 +132,9 @@ class AutoBackupProgram extends JFrame{
 		//elimino
 		File file = new File(".//res//saves//" + filename);
 		if (file.delete()) System.out.println("Event --> file deleted: " + file.getName());
-		else System.out.println("Failed to delete the file.");		
+		else System.out.println("Failed to delete the file.");	
+		
+		JSON.LoadJSONBackupList(); //aggiorno lista backup
 	}
 	
 	// JMenuItem function
@@ -156,6 +162,8 @@ class AutoBackupProgram extends JFrame{
 		current_file_opened += ".json";
 		
 		JSON.WriteJSONFile(current_file_opened, ".//res//saves//");
+		
+		JSON.LoadJSONBackupList(); //aggiorno lista backup
 	}
 	
 	// JMenuItem function
@@ -170,11 +178,13 @@ class AutoBackupProgram extends JFrame{
 		if(file.exists() && !file.isDirectory()) { 
 			JSON.WriteJSONFile(current_file_opened, ".//res//saves//");
 		}
+		
+		JSON.LoadJSONBackupList(); //aggiorno lista backup
 	}
 	
 	// JMenuItem function
 	public void BackupList() {
-		//TODO: add
+		JSON.openBackupList();
 	}
 	
 	// button function
@@ -224,6 +234,8 @@ class AutoBackupProgram extends JFrame{
         FrameAutoBackup.message.setForeground(Color.GREEN);
         
         JSON.WriteJSONFile("info.json", ".//res//");
+            
+        JSON.LoadJSONBackupList(); //aggiorno lista backup
         
         //attivo il timer di n secondi
 		timer = new TimerAutoBackup();
@@ -250,6 +262,13 @@ class AutoBackupProgram extends JFrame{
 			if (days_interval_backup == JOptionPane.CANCEL_OPTION) return;
 			
 			FrameAutoBackup.btn_automatic_backup.setText("Auto Backup (Enabled)");
+			
+			//set date for next backup
+			LocalDateTime now = LocalDateTime.now();
+			DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
+			next_date_backup = now.plusDays(days_interval_backup).format(formatter).toString();
+			System.out.println(next_date_backup);
+			
 			System.out.println("Event --> Auto Backup setted to Enabled");
 			
 			JOptionPane.showMessageDialog(null, "Auto Backup has been activated\n\tFrom: " + FrameAutoBackup.start_path.getText() + "\n\tTo: " + FrameAutoBackup.destination_path.getText() + "\nIs setted every " + days_interval_backup + " days", "AutoBackupProgram", 1);
@@ -262,6 +281,8 @@ class AutoBackupProgram extends JFrame{
 
 		// salvo nel JSON
 		JSON.WriteJSONFile(current_file_opened, ".//res//saves//");
+		
+		JSON.LoadJSONBackupList(); //aggiorno lista backup
 	}
 	
 	/*public void autoBackupControl() {
@@ -385,15 +406,10 @@ class AutoBackupProgram extends JFrame{
 	}
 	
     public void copyDirectoryFileVisitor(String source, String target) throws IOException { //TODO: fix here
-    	
-    	//TODO: funziona solo per il path specifico, non i sottopath
-    	int files_number = new File(source).list().length;  // ottengo il numero di files e directories sotto il path specifico 
-    	System.out.println(files_number);
-		
-		
-		//conto il numero di file nella directory e sotto-directory
+ 		
+		//TODO: conto il numero di file nella directory e sotto-directory
 		int file_number = countFilesInDirectory(new File(source));
-		System.out.println(file_number);
+		//System.out.println(file_number);
 		
 		TreeCopyFileVisitor fileVisitor = new TreeCopyFileVisitor(source, target, file_number);
         Files.walkFileTree(Paths.get(source), fileVisitor);

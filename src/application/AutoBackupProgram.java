@@ -47,7 +47,7 @@ class AutoBackupProgram extends JFrame{
 		setTextValues();
 		
 		//auto backup control
-		//autoBackupControl();
+		autoBackupControl();
 	}
 	
 	// JMenuItem function
@@ -267,7 +267,7 @@ class AutoBackupProgram extends JFrame{
 			LocalDateTime now = LocalDateTime.now();
 			DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
 			next_date_backup = now.plusDays(days_interval_backup).format(formatter).toString();
-			System.out.println(next_date_backup);
+			System.out.println("Event --> Next date backup setted to " + next_date_backup);
 			
 			System.out.println("Event --> Auto Backup setted to Enabled");
 			
@@ -285,32 +285,37 @@ class AutoBackupProgram extends JFrame{
 		JSON.LoadJSONBackupList(); //aggiorno lista backup
 	}
 	
-	/*public void autoBackupControl() {
-		if(FrameAutoBackup.btn_automatic_backup.getText() == "Auto Backup (E)" && checkInputCorrect() == true) {
-			
-			//get current date
-			DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd-MM-yyyy hh:mm:ss");
-			LocalDateTime now = LocalDateTime.now();
-			
-			String current_date = dtf.format(now);
-			long current_date_in_seconds;
-			try {
+	public void autoBackupControl() {
+		File directory = new File(".//res//saves");
+		File[] listOfFiles = directory.listFiles();
+		
+		LocalDateTime date_now = LocalDateTime.now();
+		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
+		
+		for (int i=0; i<directory.list().length; i++) { //procedo l'iterazione quante volte sono i file nella directory
+			JSON.ReadJSONFile(listOfFiles[i].getName(), ".//res//saves//");
+			JSON.WriteJSONFile(listOfFiles[i].getName(), ".//res//saves//");
+		
+			if (next_date_backup != null && FrameAutoBackup.btn_automatic_backup.getText().equals("Auto Backup (Enabled)")) {
 				
-				current_date_in_seconds = new java.text.SimpleDateFormat("dd-MM-yyyy hh:mm:ss").parse(current_date).getTime() / 1000;
+				int year = Integer.parseInt(next_date_backup.substring(6, 10));
+				int month = Integer.parseInt(next_date_backup.substring(3, 5));
+				int day = Integer.parseInt(next_date_backup.substring(0, 2));
+				LocalDateTime time_next = LocalDateTime.of(year, month, day, 0, 0, 0); // imposto ore minuti e secondio a 0
+				time_next.format(formatter);
 				
-				//TODO:get
-				//next_date_backup 
+				System.out.println(current_file_opened);
 				
-				if(current_date_in_seconds >= next_date_backup) {
+				if (time_next.compareTo(date_now.plusDays(days_interval_backup)) >= 0) {
+					//eseguo il backup
 					SingleBackup();
-				}	
-			} catch (java.text.ParseException e) {
-				e.printStackTrace();
-			} 
-			
-			
+					
+					//aggiorno il next day backup
+					next_date_backup = date_now.plusDays(days_interval_backup).format(formatter).toString();
+				}
+			}
 		}
-	}*/
+	}
 	
 	private String getFile(String directory_path) {
 		JFileChooser jfc = new JFileChooser(FileSystemView.getFileSystemView().getHomeDirectory());
@@ -343,7 +348,6 @@ class AutoBackupProgram extends JFrame{
 			String last_date = dtf.format(now);
 			FrameAutoBackup.last_backup.setText("last backup: " + last_date);
 			
-			//next_date_backup = new java.text.SimpleDateFormat("dd-MM-yyyy hh:mm:ss").parse(last_date).getTime() / 1000;
 			JSON.WriteJSONFile("info.json", ".//res//");
 		} catch(Exception ex) {
 			System.out.println("Exception --> " + ex);
@@ -415,7 +419,7 @@ class AutoBackupProgram extends JFrame{
         Files.walkFileTree(Paths.get(source), fileVisitor);
     }
     
-    private int countFilesInDirectory(File directory) {
+    public int countFilesInDirectory(File directory) {
     	int count = 0;
     	
     	for (File file : directory.listFiles()) {

@@ -36,7 +36,7 @@ class JSONAutoBackup {
 			
 			String name  = (String) list.get("filename");
 			
-			if (filename == "info.json") {
+			if (filename.equals("info.json")) {
 				System.out.println("Event --> current file: " + name);
 				ReadJSONFile(name, ".//res//saves//");
 				return; //il return è essenziale per stoppare la ricorsione
@@ -56,7 +56,7 @@ class JSONAutoBackup {
 			FrameAutoBackup.last_backup.setText(last_backup);
 			FrameAutoBackup.btn_automatic_backup.setText(automatic_backup);
 			AutoBackupProgram.next_date_backup = next_date;
-			if (days_interval != null)AutoBackupProgram.days_interval_backup = Integer.parseInt(days_interval);
+			if (days_interval != null) AutoBackupProgram.days_interval_backup = Integer.parseInt(days_interval);
 				
 		} catch (FileNotFoundException e) {
 			System.out.println("Exception --> " + e);
@@ -80,7 +80,7 @@ class JSONAutoBackup {
 			list.put("start_path", FrameAutoBackup.start_path.getText());
 			list.put("destination_path", FrameAutoBackup.destination_path.getText());
 			list.put("last_backup", FrameAutoBackup.last_backup.getText());
-			if (FrameAutoBackup.btn_automatic_backup.getText() == "Auto Backup (Enabled)") {
+			if (FrameAutoBackup.btn_automatic_backup.getText().equals("Auto Backup (Enabled)")) {
 				list.put("automatic_backup", "Auto Backup (Enabled)"); 
 				list.put("next_date_backup", AutoBackupProgram.next_date_backup); 
 				list.put("days_interval_backup", "" + AutoBackupProgram.days_interval_backup); 

@@ -7,15 +7,10 @@ import java.awt.datatransfer.StringSelection;
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
-import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.sql.Date;
-import java.text.DateFormat;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.util.Calendar;
 
 import javax.swing.ImageIcon;
 import javax.swing.JFileChooser;
@@ -29,9 +24,14 @@ class AutoBackupProgram extends JFrame{
 	static String current_file_opened;
 	static String next_date_backup;
 	static Integer days_interval_backup;
+	static String last_backup;
 	
 	private static TimerAutoBackup timer;
 	private static JSONAutoBackup JSON;
+	
+	private static DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+	private static DateTimeFormatter formatter_last_backup = DateTimeFormatter.ofPattern("yyyy-MM-dd hh:mm:ss a");
+	private static LocalDate date_now;
 	
 	String source;
 	String target;
@@ -115,7 +115,7 @@ class AutoBackupProgram extends JFrame{
 		// pulisco tutto
 		Clear();
 		
-		// di base l'uoto enable è disattivato
+		// di base l'auto enable è disattivato
 		FrameAutoBackup.btn_automatic_backup.setText("Auto Backup (Disabled)");
 		
 		// tolgo il file attuale aperto
@@ -188,7 +188,8 @@ class AutoBackupProgram extends JFrame{
 	}
 	
 	// button function
-	public void SingleBackup() {
+	
+	public void SingleBackup() {   
 		System.out.println("Event --> single backup");
 		
 		String temp = "\\";
@@ -196,18 +197,16 @@ class AutoBackupProgram extends JFrame{
 		//------------------------------INPUT CONTROL ERRORS------------------------------
 		if(checkInputCorrect() == false) return;  //controllo errori tramite funzione
 		
+		//------------------------------TO GET THE CURRENT DATE------------------------------
+		date_now = LocalDate.now();
+		
 		//------------------------------SET ALL THE VARIABLES------------------------------
 		String path1 = FrameAutoBackup.start_path.getText();
 		String path2 = FrameAutoBackup.destination_path.getText();
 		String name1; //nome cartella/file iniziale
-		String date;
-		
-		//------------------------------TO GET THE CURRENT DATE------------------------------
-		DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd-MM-yyyy");
-		LocalDateTime now = LocalDateTime.now();
+		String date = formatter.format(date_now);
 		
 		//------------------------------SET ALL THE STRINGS------------------------------
-		date = dtf.format(now);
 		name1 = path1.substring(path1.length()-1, path1.length()-1);
 		
 		for(int i=path1.length()-1; i>=0; i--) {
@@ -217,11 +216,8 @@ class AutoBackupProgram extends JFrame{
 
 		path2 = path2 + "\\" + name1 + " (Backup " + date + ")";
 		
+		
 		//------------------------------COPY THE FILE OR DIRECTORY------------------------------
-		DateTimeFormatter dtf2 = DateTimeFormatter.ofPattern("dd-MM-yyyy hh:mm:ss a");
-		LocalDateTime now2 = LocalDateTime.now();
-		date = dtf2.format(now2);
-
         System.out.println("date backup: " + date);
     	setStringToText(); //chiamata alla funzione
         try {
@@ -233,22 +229,28 @@ class AutoBackupProgram extends JFrame{
         JOptionPane.showMessageDialog(null, "Files Copied!\nFrom: " + FrameAutoBackup.start_path.getText() + "\nTo: " + FrameAutoBackup.destination_path.getText(), "AutoBackupProgram", 1);
         FrameAutoBackup.message.setForeground(Color.GREEN);
         
+        if (FrameAutoBackup.btn_automatic_backup.getText().equals("Auto Backup (Enabled)")) {
+        	//aggiorno il next day backup
+			next_date_backup = date_now.plusDays(days_interval_backup).format(formatter).toString();
+        }
+        
         JSON.WriteJSONFile("info.json", ".//res//");
+        JSON.WriteJSONFile(current_file_opened, ".//res//saves//");
             
         JSON.LoadJSONBackupList(); //aggiorno lista backup
         
         //attivo il timer di n secondi
 		timer = new TimerAutoBackup();
-		timer.startTimer(); 
+		timer.startTimer();
         FrameAutoBackup.message.setText("Files Copied!");
         FrameAutoBackup.message.setVisible(true);
-    }	
+    }
 
 	// button function
 	public void AutomaticBackup() {
 		System.out.println("Event --> automatic backup");
 		
-		JSON.ReadJSONFile("info.json", ".//res//");
+		if (current_file_opened != null) JSON.ReadJSONFile("info.json", ".//res//");
 		
 		if(checkInputCorrect() == false) return;  //controllo errori tramite funzione 
 		
@@ -264,9 +266,8 @@ class AutoBackupProgram extends JFrame{
 			FrameAutoBackup.btn_automatic_backup.setText("Auto Backup (Enabled)");
 			
 			//set date for next backup
-			LocalDateTime now = LocalDateTime.now();
-			DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
-			next_date_backup = now.plusDays(days_interval_backup).format(formatter).toString();
+			date_now = LocalDate.now();
+			next_date_backup = date_now.plusDays(days_interval_backup).format(formatter).toString();
 			System.out.println("Event --> Next date backup setted to " + next_date_backup);
 			
 			System.out.println("Event --> Auto Backup setted to Enabled");
@@ -289,32 +290,20 @@ class AutoBackupProgram extends JFrame{
 		File directory = new File(".//res//saves");
 		File[] listOfFiles = directory.listFiles();
 		
-		LocalDateTime date_now = LocalDateTime.now();
-		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
+		date_now = LocalDate.now();
 		
 		for (int i=0; i<directory.list().length; i++) { //procedo l'iterazione quante volte sono i file nella directory
 			JSON.ReadJSONFile(listOfFiles[i].getName(), ".//res//saves//");
-			JSON.WriteJSONFile(listOfFiles[i].getName(), ".//res//saves//");
-		
+
 			if (next_date_backup != null && FrameAutoBackup.btn_automatic_backup.getText().equals("Auto Backup (Enabled)")) {
+				LocalDate time_next = LocalDate.parse(next_date_backup);
 				
-				int year = Integer.parseInt(next_date_backup.substring(6, 10));
-				int month = Integer.parseInt(next_date_backup.substring(3, 5));
-				int day = Integer.parseInt(next_date_backup.substring(0, 2));
-				LocalDateTime time_next = LocalDateTime.of(year, month, day, 0, 0, 0); // imposto ore minuti e secondio a 0
-				time_next.format(formatter);
-				
-				System.out.println(current_file_opened);
-				
-				if (time_next.compareTo(date_now.plusDays(days_interval_backup)) >= 0) {
-					//eseguo il backup
-					SingleBackup();
-					
-					//aggiorno il next day backup
-					next_date_backup = date_now.plusDays(days_interval_backup).format(formatter).toString();
+				if (time_next.compareTo(date_now) <= 0) {
+					SingleBackup(); //eseguo il backup
 				}
 			}
 		}
+		JSON.LoadJSONBackupList(); //aggiorno lista backup
 	}
 	
 	private String getFile(String directory_path) {
@@ -343,9 +332,8 @@ class AutoBackupProgram extends JFrame{
 	
 	public void setStringToText() {
 		try {
-			DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd-MM-yyyy hh:mm:ss a");
-			LocalDateTime now = LocalDateTime.now();
-			String last_date = dtf.format(now);
+			LocalDateTime date_now = LocalDateTime.now();
+			String last_date = formatter_last_backup.format(date_now);
 			FrameAutoBackup.last_backup.setText("last backup: " + last_date);
 			
 			JSON.WriteJSONFile("info.json", ".//res//");
@@ -410,7 +398,6 @@ class AutoBackupProgram extends JFrame{
 	}
 	
     public void copyDirectoryFileVisitor(String source, String target) throws IOException { //TODO: fix here
- 		
 		//TODO: conto il numero di file nella directory e sotto-directory
 		int file_number = countFilesInDirectory(new File(source));
 		//System.out.println(file_number);

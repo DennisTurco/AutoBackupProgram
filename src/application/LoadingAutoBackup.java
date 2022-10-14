@@ -17,7 +17,7 @@ class LoadingAutoBackup {
 
 	public void addLoadingProgression() {
 		
-		if (trace >= 22) return; 
+		if (trace >= 21) return; 
 		
 		trace++;
 		loading[trace] = '#';
@@ -29,7 +29,7 @@ class LoadingAutoBackup {
 	public void printLoadingProgression(String text) {
 		
 		System.out.println(text);
-		FrameAutoBackup.message.setText(text);
+		//FrameAutoBackup.message.setText(text);
 	}
 	
 	private String convertToString(char []array) {

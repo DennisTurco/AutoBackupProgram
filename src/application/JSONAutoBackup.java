@@ -1,15 +1,12 @@
 package application;
 
-import java.awt.Color;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.util.ArrayList;
 
 import javax.swing.BoxLayout;
-import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
@@ -71,7 +68,7 @@ class JSONAutoBackup {
 	public void WriteJSONFile(String filename, String directory_path) {
 		JSONObject list = new JSONObject();
 		
-		if (filename == "info.json") {
+		if (filename.equals("info.json")) {
 			list.put("filename", AutoBackupProgram.current_file_opened);
 		}
 		
@@ -79,7 +76,10 @@ class JSONAutoBackup {
 			list.put("filename", filename);
 			list.put("start_path", FrameAutoBackup.start_path.getText());
 			list.put("destination_path", FrameAutoBackup.destination_path.getText());
-			list.put("last_backup", FrameAutoBackup.last_backup.getText());
+			
+			if (FrameAutoBackup.last_backup.getText() != null) {
+				list.put("last_backup", FrameAutoBackup.last_backup.getText());
+			}
 			if (FrameAutoBackup.btn_automatic_backup.getText().equals("Auto Backup (Enabled)")) {
 				list.put("automatic_backup", "Auto Backup (Enabled)"); 
 				list.put("next_date_backup", AutoBackupProgram.next_date_backup); 

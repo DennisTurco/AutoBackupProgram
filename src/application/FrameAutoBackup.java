@@ -237,7 +237,7 @@ class FrameAutoBackup extends JFrame implements ActionListener{
 		});	
 		
 		//-------------------------------------------TOP ELEMENTS-------------------------------------------
-		JLabel author = new JLabel("Author: © DennisTurco 2021");
+		JLabel author = new JLabel("Author: © DennisTurco 2022");
 		author.setFont(new Font("Arial", Font.BOLD, 15));
 		author.setHorizontalTextPosition(0);
 		panNorth.add(author);		

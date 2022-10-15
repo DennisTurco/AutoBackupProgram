@@ -53,6 +53,7 @@ class JSONAutoBackup {
 			FrameAutoBackup.last_backup.setText(last_backup);
 			FrameAutoBackup.btn_automatic_backup.setText(automatic_backup);
 			AutoBackupProgram.next_date_backup = next_date;
+			
 			if (days_interval != null) AutoBackupProgram.days_interval_backup = Integer.parseInt(days_interval);
 				
 		} catch (FileNotFoundException e) {

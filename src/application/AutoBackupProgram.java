@@ -24,7 +24,6 @@ class AutoBackupProgram extends JFrame{
 	static String current_file_opened;
 	static String next_date_backup;
 	static Integer days_interval_backup;
-	static String last_backup;
 	
 	private static TimerAutoBackup timer;
 	private static JSONAutoBackup JSON;
@@ -43,11 +42,11 @@ class AutoBackupProgram extends JFrame{
 		
 		JSON = new JSONAutoBackup();
 		
-		//set text values
-		setTextValues();
-		
 		//auto backup control
 		autoBackupControl();
+		
+		//set text values
+		setTextValues();
 	}
 	
 	// JMenuItem function
@@ -146,9 +145,6 @@ class AutoBackupProgram extends JFrame{
 		
 		// leggo da file json
 		JSON.ReadJSONFile(current_file_opened, ".//res//saves//");
-		
-		// aggiorno info.json
-		JSON.WriteJSONFile("info.json", ".//res//");
 	}
 	
 	// JMenuItem function
@@ -162,8 +158,6 @@ class AutoBackupProgram extends JFrame{
 		current_file_opened += ".json";
 		
 		JSON.WriteJSONFile(current_file_opened, ".//res//saves//");
-		
-		JSON.LoadJSONBackupList(); //aggiorno lista backup
 	}
 	
 	// JMenuItem function
@@ -219,7 +213,11 @@ class AutoBackupProgram extends JFrame{
 		
 		//------------------------------COPY THE FILE OR DIRECTORY------------------------------
         System.out.println("date backup: " + date);
-    	setStringToText(); //chiamata alla funzione
+    	
+        if (current_file_opened != null) { // se current_file_opened è null significa che non sono in un salvataggio ma è un backup senza json file associato quindi non salvo la stringa last_backup
+        	setStringToText(); //chiamata alla funzione
+        }
+        
         try {
 			copyDirectoryFileVisitor(path1, path2); // funzione per copiare   
 		} catch (IOException e) {
@@ -232,12 +230,13 @@ class AutoBackupProgram extends JFrame{
         if (FrameAutoBackup.btn_automatic_backup.getText().equals("Auto Backup (Enabled)")) {
         	//aggiorno il next day backup
 			next_date_backup = date_now.plusDays(days_interval_backup).format(formatter).toString();
-        }
+        } 
         
-        JSON.WriteJSONFile("info.json", ".//res//");
-        JSON.WriteJSONFile(current_file_opened, ".//res//saves//");
-            
-        JSON.LoadJSONBackupList(); //aggiorno lista backup
+        if (current_file_opened != null) { // se current_file_opened è null significa che non sono in un salvataggio ma è un backup senza json file associato
+	        JSON.WriteJSONFile("info.json", ".//res//");
+	        JSON.WriteJSONFile(current_file_opened, ".//res//saves//");
+	        JSON.LoadJSONBackupList(); //aggiorno lista backup
+        }
         
         //attivo il timer di n secondi
 		timer = new TimerAutoBackup();
@@ -271,7 +270,6 @@ class AutoBackupProgram extends JFrame{
 			System.out.println("Event --> Next date backup setted to " + next_date_backup);
 			
 			System.out.println("Event --> Auto Backup setted to Enabled");
-			
 			JOptionPane.showMessageDialog(null, "Auto Backup has been activated\n\tFrom: " + FrameAutoBackup.start_path.getText() + "\n\tTo: " + FrameAutoBackup.destination_path.getText() + "\nIs setted every " + days_interval_backup + " days", "AutoBackupProgram", 1);
 		}
 		
@@ -282,7 +280,6 @@ class AutoBackupProgram extends JFrame{
 
 		// salvo nel JSON
 		JSON.WriteJSONFile(current_file_opened, ".//res//saves//");
-		
 		JSON.LoadJSONBackupList(); //aggiorno lista backup
 	}
 	
@@ -417,8 +414,7 @@ class AutoBackupProgram extends JFrame{
 	    	if (file.isDirectory()) {
 	    		count += countFilesInDirectory(file);
 	    	}
-    	}
-    	
+    	} 	
     	return count;
     }
     
@@ -435,7 +431,6 @@ class AutoBackupProgram extends JFrame{
 				FrameAutoBackup.start_path.setText(jfc.getSelectedFile().toString());
 			}
 		}
-
 	}
     
     public void SelectionDestination() {
@@ -450,7 +445,6 @@ class AutoBackupProgram extends JFrame{
 				FrameAutoBackup.destination_path.setText(jfc.getSelectedFile().toString());
 			}
 		}
-
 	}
 
 }

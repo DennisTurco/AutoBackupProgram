@@ -272,8 +272,9 @@ class FrameAutoBackup extends JFrame implements ActionListener{
 		else if (command.equals("History"))
 			try {
 				auto_backup.viewHistory();
-			} catch (Exception e1) {
-				System.out.println("Exception --> " + e);
+			} catch (Exception ex) {
+				System.err.println("Exception --> " + ex);
+				ex.printStackTrace();
 			}
 		else if (command.equals("Share")) auto_backup.Share();
 		else if (command.equals("Clear")) auto_backup.Clear();

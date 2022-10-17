@@ -18,12 +18,16 @@ import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.filechooser.FileSystemView;
 
-
 @SuppressWarnings("serial")
 class AutoBackupProgram extends JFrame{
 	static String current_file_opened;
 	static String next_date_backup;
 	static Integer days_interval_backup;
+	private static boolean auto_backup_option;
+	
+	private String info_fileString= "info.json";
+	private String info_file_directoryString = ".//res//";
+	private String saves_directoryString = ".//res//saves//";
 	
 	private static TimerAutoBackup timer;
 	private static JSONAutoBackup JSON;
@@ -115,7 +119,8 @@ class AutoBackupProgram extends JFrame{
 		Clear();
 		
 		// di base l'auto enable è disattivato
-		FrameAutoBackup.btn_automatic_backup.setText("Auto Backup (Disabled)");
+		auto_backup_option = false;
+		changeBTNAutoBackupOption(auto_backup_option);
 		
 		// tolgo il file attuale aperto
 		current_file_opened = null;
@@ -129,7 +134,7 @@ class AutoBackupProgram extends JFrame{
 		String filename = getFile(".//res//saves"); 
 		
 		//elimino
-		File file = new File(".//res//saves//" + filename);
+		File file = new File(saves_directoryString + filename);
 		if (file.delete()) System.out.println("Event --> file deleted: " + file.getName());
 		else System.out.println("Failed to delete the file.");	
 		
@@ -144,7 +149,7 @@ class AutoBackupProgram extends JFrame{
 		current_file_opened = getFile(".//res//saves"); 
 		
 		// leggo da file json
-		JSON.ReadJSONFile(current_file_opened, ".//res//saves//");
+		JSON.ReadJSONFile(current_file_opened, saves_directoryString);
 	}
 	
 	// JMenuItem function
@@ -157,7 +162,7 @@ class AutoBackupProgram extends JFrame{
 		
 		current_file_opened += ".json";
 		
-		JSON.WriteJSONFile(current_file_opened, ".//res//saves//");
+		JSON.WriteJSONFile(current_file_opened, saves_directoryString);
 	}
 	
 	// JMenuItem function
@@ -168,9 +173,9 @@ class AutoBackupProgram extends JFrame{
 			SaveWithName();
 		}
 		
-		File file = new File(".//res//saves//" + current_file_opened); // controllo se il file esiste
+		File file = new File(saves_directoryString + current_file_opened); // controllo se il file esiste
 		if(file.exists() && !file.isDirectory()) { 
-			JSON.WriteJSONFile(current_file_opened, ".//res//saves//");
+			JSON.WriteJSONFile(current_file_opened, saves_directoryString);
 		}
 		
 		JSON.LoadJSONBackupList(); //aggiorno lista backup
@@ -221,20 +226,21 @@ class AutoBackupProgram extends JFrame{
         try {
 			copyDirectoryFileVisitor(path1, path2); // funzione per copiare   
 		} catch (IOException e) {
-			System.out.println("Exception --> " + e);
+			System.err.println("Exception --> " + e);
+			e.printStackTrace();
 		} 
 		
         JOptionPane.showMessageDialog(null, "Files Copied!\nFrom: " + FrameAutoBackup.start_path.getText() + "\nTo: " + FrameAutoBackup.destination_path.getText(), "AutoBackupProgram", 1);
         FrameAutoBackup.message.setForeground(Color.GREEN);
         
-        if (FrameAutoBackup.btn_automatic_backup.getText().equals("Auto Backup (Enabled)")) {
+        if (auto_backup_option == true) {
         	//aggiorno il next day backup
 			next_date_backup = date_now.plusDays(days_interval_backup).format(formatter).toString();
         } 
         
         if (current_file_opened != null) { // se current_file_opened è null significa che non sono in un salvataggio ma è un backup senza json file associato
-	        JSON.WriteJSONFile("info.json", ".//res//");
-	        JSON.WriteJSONFile(current_file_opened, ".//res//saves//");
+	        JSON.WriteJSONFile(info_fileString, info_file_directoryString);
+	        JSON.WriteJSONFile(current_file_opened, saves_directoryString);
 	        JSON.LoadJSONBackupList(); //aggiorno lista backup
         }
         
@@ -249,11 +255,11 @@ class AutoBackupProgram extends JFrame{
 	public void AutomaticBackup() {
 		System.out.println("Event --> automatic backup");
 		
-		if (current_file_opened != null) JSON.ReadJSONFile("info.json", ".//res//");
+		if (current_file_opened != null) JSON.ReadJSONFile(info_fileString, info_file_directoryString);
 		
 		if(checkInputCorrect() == false) return;  //controllo errori tramite funzione 
 		
-		if(FrameAutoBackup.btn_automatic_backup.getText().equals("Auto Backup (Disabled)")) {
+		if(auto_backup_option == false) {
 			// se il file non è stato salvato bisogna salvarlo prima di settare l'auto backup
 			if (current_file_opened == null) SaveWithName();
 			if (current_file_opened == null) return;
@@ -262,24 +268,18 @@ class AutoBackupProgram extends JFrame{
 			days_interval_backup = Integer.parseInt(JOptionPane.showInputDialog(null, "Every how many days run the auto backup?")); //messaggio popup
 			if (days_interval_backup == JOptionPane.CANCEL_OPTION) return;
 			
-			FrameAutoBackup.btn_automatic_backup.setText("Auto Backup (Enabled)");
-			
 			//set date for next backup
 			date_now = LocalDate.now();
 			next_date_backup = date_now.plusDays(days_interval_backup).format(formatter).toString();
 			System.out.println("Event --> Next date backup setted to " + next_date_backup);
 			
-			System.out.println("Event --> Auto Backup setted to Enabled");
 			JOptionPane.showMessageDialog(null, "Auto Backup has been activated\n\tFrom: " + FrameAutoBackup.start_path.getText() + "\n\tTo: " + FrameAutoBackup.destination_path.getText() + "\nIs setted every " + days_interval_backup + " days", "AutoBackupProgram", 1);
 		}
 		
-		else if(FrameAutoBackup.btn_automatic_backup.getText().equals("Auto Backup (Enabled)")){
-			FrameAutoBackup.btn_automatic_backup.setText("Auto Backup (Disabled)");
-			System.out.println("Event --> Auto Backup setted to Disabled");
-		}
+		changeBTNAutoBackupOption();
 
 		// salvo nel JSON
-		JSON.WriteJSONFile(current_file_opened, ".//res//saves//");
+		JSON.WriteJSONFile(current_file_opened, saves_directoryString);
 		JSON.LoadJSONBackupList(); //aggiorno lista backup
 	}
 	
@@ -290,9 +290,9 @@ class AutoBackupProgram extends JFrame{
 		date_now = LocalDate.now();
 		
 		for (int i=0; i<directory.list().length; i++) { //procedo l'iterazione quante volte sono i file nella directory
-			JSON.ReadJSONFile(listOfFiles[i].getName(), ".//res//saves//");
+			JSON.ReadJSONFile(listOfFiles[i].getName(), saves_directoryString);
 
-			if (next_date_backup != null && FrameAutoBackup.btn_automatic_backup.getText().equals("Auto Backup (Enabled)")) {
+			if (next_date_backup != null && auto_backup_option == true) {
 				LocalDate time_next = LocalDate.parse(next_date_backup);
 				
 				if (time_next.compareTo(date_now) <= 0) {
@@ -327,27 +327,50 @@ class AutoBackupProgram extends JFrame{
 		return null;
 	}
 	
+	public void changeBTNAutoBackupOption() {
+		if (FrameAutoBackup.btn_automatic_backup.getText().equals("Auto Backup (Enabled)")) {
+			FrameAutoBackup.btn_automatic_backup.setText("Auto Backup (Disabled)");
+			auto_backup_option = false;
+			System.out.println("Event --> Auto Backup setted to Disabled");
+		}
+		else {
+			FrameAutoBackup.btn_automatic_backup.setText("Auto Backup (Enabled)");
+			auto_backup_option = true;
+			System.out.println("Event --> Auto Backup setted to Enabled");
+		}
+	}
+	
+	public void changeBTNAutoBackupOption(boolean option) {
+		if (option = true) {
+			FrameAutoBackup.btn_automatic_backup.setText("Auto Backup (Enabled)");
+			System.out.println("Event --> Auto Backup setted to Enabled");
+		}
+		else {
+			FrameAutoBackup.btn_automatic_backup.setText("Auto Backup (Disabled)");
+			System.out.println("Event --> Auto Backup setted to Disabled");
+		}
+	}
+	
 	public void setStringToText() {
 		try {
 			LocalDateTime date_now = LocalDateTime.now();
 			String last_date = formatter_last_backup.format(date_now);
 			FrameAutoBackup.last_backup.setText("last backup: " + last_date);
 			
-			JSON.WriteJSONFile("info.json", ".//res//");
-		} catch(Exception ex) {
-			System.out.println("Exception --> " + ex);
+			JSON.WriteJSONFile(info_fileString, info_file_directoryString);
+		} catch(Exception e) {
+			System.err.println("Exception --> " + e);
+			e.printStackTrace();
 		}
 	}
 	
 	public void setTextValues() {
-		JSON.ReadJSONFile("info.json", ".//res//");
+		JSON.ReadJSONFile(info_fileString, info_file_directoryString);
 		
-		if(days_interval_backup != null) {
-			FrameAutoBackup.btn_automatic_backup.setText("Auto Backup (Enabled)");
-		}
-		else {
-			FrameAutoBackup.btn_automatic_backup.setText("Auto Backup (Disabled)");
-		}
+		if(days_interval_backup != null) auto_backup_option = true;
+		else auto_backup_option = false;
+		
+		changeBTNAutoBackupOption(auto_backup_option);
 	}
 	
 	public boolean checkInputCorrect() {
@@ -355,14 +378,8 @@ class AutoBackupProgram extends JFrame{
 		
 		//check if inputs are null
 		if(FrameAutoBackup.start_path.getText().length() == 0 || FrameAutoBackup.destination_path.getText().length() == 0) {
-			System.out.println("Error --> Input Missing!");
-			FrameAutoBackup.message.setForeground(Color.RED);
-			FrameAutoBackup.message.setText("Input Missing!");
-			FrameAutoBackup.message.setVisible(true);
-			
-			//attivo il timer di n secondi
-			timer = new TimerAutoBackup();
-			timer.startTimer(); 
+			// messsaggio errore
+			setMessageError("Input Missing!");
 			
 			return false;
 		}
@@ -379,19 +396,24 @@ class AutoBackupProgram extends JFrame{
 		}
 		
 		if(check1 != true || check2 != true) {
-			System.out.println("Error --> Input Error!");
-			FrameAutoBackup.message.setForeground(Color.RED);
-			FrameAutoBackup.message.setText("Input Error!");
-			FrameAutoBackup.message.setVisible(true);
-			
-			//attivo il timer di n secondi
-			timer = new TimerAutoBackup();
-			timer.startTimer();
+			// messsaggio errore
+			setMessageError("Input Error!");
 			
 			return false;
 		}
 		
 		return true;
+	}
+	
+	private void setMessageError(String error_type) {
+		System.err.println("Error --> " + error_type);
+		FrameAutoBackup.message.setForeground(Color.RED);
+		FrameAutoBackup.message.setText(error_type);
+		FrameAutoBackup.message.setVisible(true);
+		
+		//attivo il timer di n secondi
+		timer = new TimerAutoBackup();
+		timer.startTimer();
 	}
 	
     public void copyDirectoryFileVisitor(String source, String target) throws IOException { //TODO: fix here

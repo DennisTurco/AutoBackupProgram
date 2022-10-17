@@ -4,16 +4,11 @@ import java.io.*;
 import java.nio.file.*;
 import java.nio.file.attribute.BasicFileAttributes;
 
-import javax.swing.JDialog;
-import javax.swing.JFrame;
-import javax.swing.JOptionPane;
-import javax.swing.JProgressBar;
-
 	public class TreeCopyFileVisitor extends SimpleFileVisitor<Path> {
     private Path source;
     private final Path target;
     private boolean copied = false;
-    LoadingAutoBackup loading;
+    private LoadingAutoBackup loading;
     
     public TreeCopyFileVisitor(String source, String target, int file_number) {
         this.source = Paths.get(source);
@@ -33,7 +28,8 @@ import javax.swing.JProgressBar;
     			bw.close();
 
             } catch(Exception ex) {
-            	System.out.println(ex);
+            	System.out.println("Exception --> " + ex);
+            	ex.printStackTrace();
             }
             System.out.println("Create directories : " + resolve);
             copied = true;
@@ -54,7 +50,8 @@ import javax.swing.JProgressBar;
 			bw.close();
 			
         } catch(Exception ex) {
-        	System.out.println(ex);
+        	System.err.println("Exception --> " + ex);
+        	ex.printStackTrace();
         }
         
         System.out.println(String.format("Copy File from \t'%s' to \t'%s'", file, resolve));
@@ -64,7 +61,7 @@ import javax.swing.JProgressBar;
 
     @Override
     public FileVisitResult visitFileFailed(Path file, IOException exc) {
-        System.err.format("Unable to copy: %s: %s%n", file, exc);
+        System.err.format("Error -> Unable to copy: %s: %s%n", file, exc);
         copied = false;
         return FileVisitResult.CONTINUE;
     }

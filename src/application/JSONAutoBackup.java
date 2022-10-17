@@ -57,11 +57,14 @@ class JSONAutoBackup {
 			if (days_interval != null) AutoBackupProgram.days_interval_backup = Integer.parseInt(days_interval);
 				
 		} catch (FileNotFoundException e) {
-			System.out.println("Exception --> " + e);
+			System.err.println("Exception --> " + e);
+			e.printStackTrace();
 		} catch (IOException e) {
-			System.out.println("Exception --> " + e);
+			System.err.println("Exception --> " + e);
+			e.printStackTrace();
 		} catch (ParseException e) {
-			System.out.println("Exception --> " + e);
+			System.err.println("Exception --> " + e);
+			e.printStackTrace();
 		}
 	}
 	
@@ -99,7 +102,8 @@ class JSONAutoBackup {
 			file.write(list.toJSONString());
 			file.flush();
 		} catch (IOException e) {
-			System.out.println("Exception --> " + e);
+			System.err.println("Exception --> " + e);
+			e.printStackTrace();
 		}
 	}	
 	
@@ -152,11 +156,14 @@ class JSONAutoBackup {
 				backup_list.add(list); 
 			
 			} catch (FileNotFoundException e) {
-				System.out.println("Exception --> " + e);
+				System.err.println("Exception --> " + e);
+				e.printStackTrace();
 			} catch (IOException e) {
-				System.out.println("Exception --> " + e);
+				System.err.println("Exception --> " + e);
+				e.printStackTrace();
 			} catch (ParseException e) {
-				System.out.println("Exception --> " + e);
+				System.err.println("Exception --> " + e);
+				e.printStackTrace();
 			}
 		}
 		
@@ -164,7 +171,8 @@ class JSONAutoBackup {
 			file.write(backup_list.toJSONString());
 			file.flush();
 		} catch (IOException e) {
-			System.out.println("Exception --> " + e);
+			System.err.println("Exception --> " + e);
+			e.printStackTrace();
 		}
 	}
 	

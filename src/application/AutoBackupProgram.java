@@ -23,7 +23,7 @@ class AutoBackupProgram extends JFrame{
 	static String current_file_opened;
 	static String next_date_backup;
 	static Integer days_interval_backup;
-	private static boolean auto_backup_option;
+	static boolean auto_backup_option;
 	
 	private String info_fileString= "info.json";
 	private String info_file_directoryString = ".//res//";
@@ -35,12 +35,6 @@ class AutoBackupProgram extends JFrame{
 	private static DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
 	private static DateTimeFormatter formatter_last_backup = DateTimeFormatter.ofPattern("yyyy-MM-dd hh:mm:ss a");
 	private static LocalDate date_now;
-	
-	String source;
-	String target;
-	
-	static int NORMAL_WRITE = 0;
-	static int MODIFY_INFO = 1;
 	
 	public AutoBackupProgram() { 
 		
@@ -291,7 +285,7 @@ class AutoBackupProgram extends JFrame{
 		
 		for (int i=0; i<directory.list().length; i++) { //procedo l'iterazione quante volte sono i file nella directory
 			JSON.ReadJSONFile(listOfFiles[i].getName(), saves_directoryString);
-
+			
 			if (next_date_backup != null && auto_backup_option == true) {
 				LocalDate time_next = LocalDate.parse(next_date_backup);
 				
@@ -341,7 +335,7 @@ class AutoBackupProgram extends JFrame{
 	}
 	
 	public void changeBTNAutoBackupOption(boolean option) {
-		if (option = true) {
+		if (option == true) {
 			FrameAutoBackup.btn_automatic_backup.setText("Auto Backup (Enabled)");
 			System.out.println("Event --> Auto Backup setted to Enabled");
 		}
@@ -349,6 +343,11 @@ class AutoBackupProgram extends JFrame{
 			FrameAutoBackup.btn_automatic_backup.setText("Auto Backup (Disabled)");
 			System.out.println("Event --> Auto Backup setted to Disabled");
 		}
+	}
+	
+	public static boolean getAutoBackupOption(String option) {
+		if (option.equals("Auto Backup (Enabled)")) return true;
+		else return false;
 	}
 	
 	public void setStringToText() {

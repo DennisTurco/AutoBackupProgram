@@ -13,6 +13,7 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
 import javax.swing.ImageIcon;
+import javax.swing.JDialog;
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
@@ -45,8 +46,6 @@ class AutoBackupProgram extends JFrame{
 		
 		//set text values
 		setTextValues();
-		
-		
 	}
 	
 	// JMenuItem function
@@ -80,7 +79,7 @@ class AutoBackupProgram extends JFrame{
 		System.out.println("Event --> credits");
 		ImageIcon icon = new ImageIcon(".//res//author_logo.png");
 		JOptionPane.showMessageDialog(null, 
-				"<html><u>2022 � Dennis Turco</u></html>\r\n"
+				"<html><u>2022 e' Dennis Turco</u></html>\r\n"
 				+ "<html><i>Author</i>: Dennis Turco</html>\r\n"
 				+ "<html><i>GitHub</i>: <a href='https://github.com/DennisTurco'>https://github.com/DennisTurco </a></html>\r\n"
 				+ "<html><i>Web Site</i>: <a href='https://dennisturco.github.io/'>https://dennisturco.github.io/ </a></html>",
@@ -222,7 +221,7 @@ class AutoBackupProgram extends JFrame{
 		//------------------------------COPY THE FILE OR DIRECTORY------------------------------
         System.out.println("date backup: " + date);
     	
-        if (current_file_opened != null) { // se current_file_opened � null significa che non sono in un salvataggio ma � un backup senza json file associato quindi non salvo la stringa last_backup
+        if (current_file_opened != null) { // se current_file_opened e' null significa che non sono in un salvataggio ma e' un backup senza json file associato quindi non salvo la stringa last_backup
         	setStringToText(); //chiamata alla funzione
         }
         
@@ -233,7 +232,8 @@ class AutoBackupProgram extends JFrame{
 			e.printStackTrace();
 		} 
 		
-        JOptionPane.showMessageDialog(null, "Files Copied!\nFrom: " + FrameAutoBackup.start_path.getText() + "\nTo: " + FrameAutoBackup.destination_path.getText(), "AutoBackupProgram", 1);
+        createMessagePopUp("AutoBackup", "Files Copied!\nFrom: " + FrameAutoBackup.start_path.getText() + "\nTo: " + FrameAutoBackup.destination_path.getText(), ".//res//info.png");
+        
         FrameAutoBackup.message.setForeground(Color.GREEN);
         
         if (auto_backup_option == true) {
@@ -241,7 +241,7 @@ class AutoBackupProgram extends JFrame{
 			next_date_backup = date_now.plusDays(days_interval_backup).format(formatter).toString();
         } 
         
-        if (current_file_opened != null) { // se current_file_opened � null significa che non sono in un salvataggio ma � un backup senza json file associato
+        if (current_file_opened != null) { // se current_file_opened e' null significa che non sono in un salvataggio ma e' un backup senza json file associato
 	        JSON.WriteJSONFile(info_fileString, info_file_directoryString);
 	        JSON.WriteJSONFile(current_file_opened, saves_directoryString);
 	        JSON.LoadJSONBackupList(); //aggiorno lista backup
@@ -276,7 +276,7 @@ class AutoBackupProgram extends JFrame{
 			next_date_backup = date_now.plusDays(days_interval_backup).format(formatter).toString();
 			System.out.println("Event --> Next date backup setted to " + next_date_backup);
 			
-			JOptionPane.showMessageDialog(null, "Auto Backup has been activated\n\tFrom: " + FrameAutoBackup.start_path.getText() + "\n\tTo: " + FrameAutoBackup.destination_path.getText() + "\nIs setted every " + days_interval_backup + " days", "AutoBackupProgram", 1);
+			JOptionPane.showMessageDialog(null, "Auto Backup has been activated\n\tFrom: " + FrameAutoBackup.start_path.getText() + "\n\tTo: " + FrameAutoBackup.destination_path.getText() + "\nIs setted every " + days_interval_backup + " days", "AutoBackup", 1);
 		}
 		
 		changeBTNAutoBackupOption();
@@ -431,6 +431,18 @@ class AutoBackupProgram extends JFrame{
 		
 		TreeCopyFileVisitor fileVisitor = new TreeCopyFileVisitor(source, target, file_number);
         Files.walkFileTree(Paths.get(source), fileVisitor);
+    }
+    
+    public void createMessagePopUp(String title, String message, String icon_path) {  
+        JOptionPane pane = new JOptionPane(message);
+        JDialog dialog = pane.createDialog(title);
+        dialog.setModal(false);
+        dialog.setVisible(true);
+        
+        if (icon_path != null) {
+            ImageIcon icon = new ImageIcon(icon_path);
+            dialog.setIconImage(icon.getImage());
+        } 
     }
     
     public int countFilesInDirectory(File directory) {

@@ -35,8 +35,6 @@ class FrameAutoBackup extends JFrame implements ActionListener{
 		this.setResizable(false);  //in questo modo la finestra non cambia dimensione
 		this.getContentPane().setBackground(bg_color); //setta il colore dello sfondo
 		
-		//------------------------------------------- Oggetto AutoBackupProgram -------------------------------------------
-		auto_backup = new AutoBackupProgram();
 		
 		//-------------------------------------------set icon-------------------------------------------
 		ImageIcon image = new ImageIcon("res//logo.png"); //crea un'icona
@@ -259,6 +257,9 @@ class FrameAutoBackup extends JFrame implements ActionListener{
 		author.setHorizontalTextPosition(0);
 		panNorth.add(author);
 		
+		
+		//------------------------------------------- Oggetto AutoBackupProgram -------------------------------------------
+		auto_backup = new AutoBackupProgram();
 		
 	}
 	

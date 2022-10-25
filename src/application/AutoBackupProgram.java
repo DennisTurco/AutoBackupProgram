@@ -29,7 +29,7 @@ class AutoBackupProgram extends JFrame{
 	private String info_file_directoryString = ".//res//";
 	private String saves_directoryString = ".//res//saves//";
 	
-	private static TimerAutoBackup timer;
+	private static TimerAutoBackup thread_timer;
 	private static JSONAutoBackup JSON;
 	
 	private static DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
@@ -45,6 +45,8 @@ class AutoBackupProgram extends JFrame{
 		
 		//set text values
 		setTextValues();
+		
+		
 	}
 	
 	// JMenuItem function
@@ -62,7 +64,7 @@ class AutoBackupProgram extends JFrame{
 		System.exit(EXIT_ON_CLOSE);
 	}
 	
-	// JMenuItem function //TODO: add
+	// JMenuItem function
 	public void Help() {
 		System.out.println("Event --> help");
 		
@@ -78,7 +80,7 @@ class AutoBackupProgram extends JFrame{
 		System.out.println("Event --> credits");
 		ImageIcon icon = new ImageIcon(".//res//author_logo.png");
 		JOptionPane.showMessageDialog(null, 
-				"<html><u>2022 © Dennis Turco</u></html>\r\n"
+				"<html><u>2022 ï¿½ Dennis Turco</u></html>\r\n"
 				+ "<html><i>Author</i>: Dennis Turco</html>\r\n"
 				+ "<html><i>GitHub</i>: <a href='https://github.com/DennisTurco'>https://github.com/DennisTurco </a></html>\r\n"
 				+ "<html><i>Web Site</i>: <a href='https://dennisturco.github.io/'>https://dennisturco.github.io/ </a></html>",
@@ -118,6 +120,8 @@ class AutoBackupProgram extends JFrame{
 		
 		// tolgo il file attuale aperto
 		current_file_opened = null;
+		
+		FrameAutoBackup.setCurrentFileName(current_file_opened);
 	}
 	
 	// JMenuItem function
@@ -151,8 +155,13 @@ class AutoBackupProgram extends JFrame{
 		System.out.println("Event --> save with name");
 		
 		//file
-		current_file_opened = JOptionPane.showInputDialog(null, "Name of the file"); //messaggio popup
-		if (current_file_opened == null) return;
+		String file_name;
+		do {
+		    file_name = JOptionPane.showInputDialog(null, "Name of the file"); //messaggio popup
+		} while (file_name.equals("null") ||  file_name.equals("null*"));	
+		if (file_name.length() == 0 || file_name == null) return; //caso in cui l'utente non abbia inserito il nome (stringa vuota)
+		
+		current_file_opened = file_name;
 		
 		current_file_opened += ".json";
 		
@@ -213,7 +222,7 @@ class AutoBackupProgram extends JFrame{
 		//------------------------------COPY THE FILE OR DIRECTORY------------------------------
         System.out.println("date backup: " + date);
     	
-        if (current_file_opened != null) { // se current_file_opened è null significa che non sono in un salvataggio ma è un backup senza json file associato quindi non salvo la stringa last_backup
+        if (current_file_opened != null) { // se current_file_opened ï¿½ null significa che non sono in un salvataggio ma ï¿½ un backup senza json file associato quindi non salvo la stringa last_backup
         	setStringToText(); //chiamata alla funzione
         }
         
@@ -232,15 +241,15 @@ class AutoBackupProgram extends JFrame{
 			next_date_backup = date_now.plusDays(days_interval_backup).format(formatter).toString();
         } 
         
-        if (current_file_opened != null) { // se current_file_opened è null significa che non sono in un salvataggio ma è un backup senza json file associato
+        if (current_file_opened != null) { // se current_file_opened ï¿½ null significa che non sono in un salvataggio ma ï¿½ un backup senza json file associato
 	        JSON.WriteJSONFile(info_fileString, info_file_directoryString);
 	        JSON.WriteJSONFile(current_file_opened, saves_directoryString);
 	        JSON.LoadJSONBackupList(); //aggiorno lista backup
         }
         
         //attivo il timer di n secondi
-		timer = new TimerAutoBackup();
-		timer.startTimer();
+		thread_timer = new TimerAutoBackup();
+		thread_timer.startTimer();
         FrameAutoBackup.message.setText("Files Copied!");
         FrameAutoBackup.message.setVisible(true);
     }
@@ -254,7 +263,7 @@ class AutoBackupProgram extends JFrame{
 		if(checkInputCorrect() == false) return;  //controllo errori tramite funzione 
 		
 		if(auto_backup_option == false) {
-			// se il file non è stato salvato bisogna salvarlo prima di settare l'auto backup
+			// se il file non e' stato salvato bisogna salvarlo prima di settare l'auto backup
 			if (current_file_opened == null) SaveWithName();
 			if (current_file_opened == null) return;
 			
@@ -411,11 +420,11 @@ class AutoBackupProgram extends JFrame{
 		FrameAutoBackup.message.setVisible(true);
 		
 		//attivo il timer di n secondi
-		timer = new TimerAutoBackup();
-		timer.startTimer();
+		thread_timer = new TimerAutoBackup();
+		thread_timer.startTimer();
 	}
 	
-    public void copyDirectoryFileVisitor(String source, String target) throws IOException { //TODO: fix here
+    public void copyDirectoryFileVisitor(String source, String target) throws IOException {
 		//TODO: conto il numero di file nella directory e sotto-directory
 		int file_number = countFilesInDirectory(new File(source));
 		//System.out.println(file_number);

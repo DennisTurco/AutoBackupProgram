@@ -41,7 +41,4 @@ class TimerAutoBackup {
 	public boolean isTimeRunning() {
 		return timer_running;
 	}
-	
-	
-	
 }

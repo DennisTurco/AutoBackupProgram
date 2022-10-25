@@ -14,24 +14,29 @@ class FrameAutoBackup extends JFrame implements ActionListener{
 	static JLabel message = new JLabel("");
 	static JLabel last_backup = new JLabel();
 	static JButton btn_automatic_backup = new JButton();
+	static JLabel name_file_label = new JLabel(" Current File:  ");
 	private JMenuBar menu_bar;
+	
+	private Color bg_color = new Color(18, 15, 37);
+	private Color font_color_path = new Color(0, 255, 0);
+	private Color font_color_messages = new Color(192, 192, 192);
 	
 	private AutoBackupProgram auto_backup;
 	
 	private int width = 500;
 	private int height = 400;
 
-	public FrameAutoBackup() {  //costruttore senza parametri
+	public FrameAutoBackup() {  //costruttore senza parametri    
 		//------------------------------------------- set finestra ------------------------------------------- 
 		this.setTitle("AutoBackup");
 		this.setSize(width, height);
 		this.setLocation((Toolkit.getDefaultToolkit().getScreenSize().width - getScreenWidth()) / 2, (Toolkit.getDefaultToolkit().getScreenSize().height - getScreenHeight()) / 2); // setto la finestra al centro
 		this.setLayout(new BorderLayout());
 		this.setResizable(false);  //in questo modo la finestra non cambia dimensione
-		this.getContentPane().setBackground(new Color(18, 15, 37)); //setta il colore dello sfondo
+		this.getContentPane().setBackground(bg_color); //setta il colore dello sfondo
 		
 		//------------------------------------------- Oggetto AutoBackupProgram -------------------------------------------
-		auto_backup = new AutoBackupProgram();	
+		auto_backup = new AutoBackupProgram();
 		
 		//-------------------------------------------set icon-------------------------------------------
 		ImageIcon image = new ImageIcon("res//logo.png"); //crea un'icona
@@ -110,40 +115,42 @@ class FrameAutoBackup extends JFrame implements ActionListener{
 		help.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_H, ActionEvent.CTRL_MASK)); // ctrl+h
 		quit.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_F4, ActionEvent.ALT_MASK)); // alt+f4
 		
+		
+		
 		//-------------------------------------------LATERAL ELEMENTS-------------------------------------------
 		JPanel panEast = new JPanel();
 		panEast.setLayout(new FlowLayout(1, 50, 50));
-		panEast.setBackground(new Color(18, 15, 37));
+		panEast.setBackground(bg_color);
 		this.add(panEast, BorderLayout.EAST);
 		
 		JPanel panWest = new JPanel();
 		panWest.setLayout(new FlowLayout(1, 50, 50));
-		panWest.setBackground(new Color(18, 15, 37));
+		panWest.setBackground(bg_color);
 		this.add(panWest, BorderLayout.WEST);
 		
 		JPanel panNorth = new JPanel();
 		panNorth.setLayout(new FlowLayout(1, 20, 20));
-		panNorth.setBackground(new Color(18, 15, 37));
+		panNorth.setBackground(bg_color);
 		this.add(panNorth, BorderLayout.NORTH);
 		
 		
 		//-------------------------------------------CENTRAL ELEMENTS-------------------------------------------
 		JPanel pan1 = new JPanel();
 		pan1.setLayout(new GridLayout(10, 0, 0, 7));
-		pan1.setBackground(new Color(18, 15, 37));
+		pan1.setBackground(bg_color);
 		this.add(pan1, BorderLayout.CENTER);
 		
 		JPanel pan3 = new JPanel();
 		pan3.setLayout(new FlowLayout(1, 10, 0));
-		pan3.setBackground(new Color(18, 15, 37));
+		pan3.setBackground(bg_color);
 		
 		JPanel pan4 = new JPanel();
 		pan4.setLayout(new FlowLayout(1, 10, 0));
-		pan4.setBackground(new Color(18, 15, 37));
+		pan4.setBackground(bg_color);
 		
 		//Start Path label
 		JLabel path1_text = new JLabel("Start Path");
-		path1_text.setForeground(Color.GREEN);
+		path1_text.setForeground(font_color_path);
 		path1_text.setFont(new Font("Arial", Font.BOLD, 12));
 		pan1.add(path1_text);
 		
@@ -152,13 +159,12 @@ class FrameAutoBackup extends JFrame implements ActionListener{
 		
 		//start_path TextField
 		start_path.setFont(new Font("Arial", Font.BOLD, 10));
-		start_path.setForeground(Color.BLACK);
 		start_path.setPreferredSize(new Dimension(230, 20));
 		pan3.add(start_path);
 		
 		//Destination Path label
 		JLabel path2_text = new JLabel("Destination Path");
-		path2_text.setForeground(Color.GREEN);
+		path2_text.setForeground(font_color_path);
 		path2_text.setFont(new Font("Arial", Font.BOLD, 12));
 		pan1.add(path2_text);
 		
@@ -167,13 +173,11 @@ class FrameAutoBackup extends JFrame implements ActionListener{
 		
 		//destination_path TextField
 		destination_path.setFont(new Font("Arial", Font.BOLD, 10));
-		destination_path.setForeground(Color.BLACK);
 		destination_path.setPreferredSize(new Dimension(230, 20));
 		pan4.add(destination_path);
 		
 		//Single Backup Button
 		JButton btn1 = new JButton("Single Backup");
-		btn1.setForeground(Color.BLACK);
 		btn1.setFont(new Font("Arial", Font.BOLD, 12));
 		pan1.add(btn1);
 		btn1.addActionListener(new ActionListener() {
@@ -184,7 +188,6 @@ class FrameAutoBackup extends JFrame implements ActionListener{
 		});
 		
 		//Automatic Backup Button
-		btn_automatic_backup.setForeground(Color.BLACK);
 		btn_automatic_backup.setFont(new Font("Arial", Font.BOLD, 12));
 		pan1.add(btn_automatic_backup);
 		btn_automatic_backup.addActionListener(new ActionListener() {
@@ -197,7 +200,7 @@ class FrameAutoBackup extends JFrame implements ActionListener{
 		//current_date
 		last_backup.setVisible(true);
 		last_backup.setFont(new Font("Arial", Font.BOLD, 10));
-		last_backup.setForeground(Color.WHITE);
+		last_backup.setForeground(font_color_messages);
 		pan1.add(last_backup);
 		
 		//message
@@ -236,11 +239,26 @@ class FrameAutoBackup extends JFrame implements ActionListener{
 			}
 		});	
 		
-		//-------------------------------------------TOP ELEMENTS-------------------------------------------
+		//-------------------------------------------TOP ELEMENTS-------------------------------------------  
+		
+		// ------------------------------------------- ToolBar
+        JToolBar tool_bar = new JToolBar();
+        name_file_label.setFont(new Font("Arial", Font.BOLD, 12));
+        name_file_label.setForeground(font_color_messages);
+
+        tool_bar = new JToolBar();
+        tool_bar.setFloatable(false);
+        tool_bar.setOpaque(false);
+        this.add(tool_bar, BorderLayout.NORTH);
+        
+        tool_bar.add(name_file_label);
+        this.add(tool_bar, BorderLayout.PAGE_START);
+        
 		JLabel author = new JLabel("Author: © DennisTurco 2022");
 		author.setFont(new Font("Arial", Font.BOLD, 15));
 		author.setHorizontalTextPosition(0);
-		panNorth.add(author);		
+		panNorth.add(author);
+		
 		
 	}
 	
@@ -257,6 +275,11 @@ class FrameAutoBackup extends JFrame implements ActionListener{
  	
  	public int getScreenHeight(){
  		return height;
+ 	}
+ 	
+ 	// SETTER
+ 	public static void setCurrentFileName(String name) {
+ 	    name_file_label.setText(" Current File:  " + name);
  	}
  	
  	@Override

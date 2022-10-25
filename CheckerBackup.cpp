@@ -4,56 +4,45 @@
 
     WebSite -> https://dennisturco.github.io/
     GitHub  -> https://github.com/DennisTurco?tab=repositories
-
-    Notes:
-        for compile use Linux terminal.
-        it require libjsoncpp-dev library so you need to install it from terminal with: sudo apt-get install libjsoncpp-dev
-        compile with:   g++ -xc++ CheckerBackup.cpp -ljsoncpp
-        run with:       ./a.out
 */
 
 #include <iostream>
-#include <jsoncpp/json/value.h>
-#include <jsoncpp/json/json.h>
 #include <fstream>
 #include <string>
-#include <boost/json/src.hpp>
+#include <chrono>
+#include <ctime> 
+#include <time.h>
 
-#include <filesystem>
-#include <stdio.h>
-#include <dirent.h>
+// Get current date/time, format is YYYY-MM-DD
+const std::string currentDateTime() {
+    time_t     now = time(0);
+    struct tm  tstruct;
+    char       buf[80];
+    tstruct = *localtime(&now);
+    strftime(buf, sizeof(buf), "%Y-%m-%d", &tstruct);
 
-// https://stackoverflow.com/questions/5283120/date-comparison-to-find-which-is-bigger-in-c
-void comparison_dates() {
-
+    return buf;
 }
 
-// https://stackoverflow.com/questions/1442116/how-to-get-the-date-and-time-values-in-a-c-program
-void get_date () {
+int main() {
 
-}
+    // ottengo la prossima data per il backup dal file
+    std::string new_date;
+    std::ifstream file("./res/next_backup.json");
+    if (file.is_open()){
+        getline(file, new_date); //ottengo la stringa dal file
+        file.close();
+    }
 
-// https://stackoverflow.com/questions/72497520/how-to-know-count-of-json-objects-in-the-file
-int get_number_object() {
-    auto v = boost::json::parse(sample, {}, {.allow_trailing_commas=true});
-    return v.at("media").as_array().size();
-}
+    //ottengo il tempo attuale
+    std::string current_date = currentDateTime();
 
-using std::cout; using std::cin;
-using std::endl; using std::string;
-using std::filesystem::directory_iterator;
 
-int main(){
-
-    std::ifstream file("./res/backup_list.json");
-    Json::Value actualJson;
-    Json::Reader reader;
-    	
-    reader.parse(file, actualJson);
-
-    // print the whole file: std::cout << actualJson;
-
-    
+    // confronto le date per vedere se eseguire un backup automatico
+    if (new_date <= current_date) {
+        // a questo punto avvio il programma automaticamente
+        system("java -jar AutoBackupProgram.jar");
+    }
 
     return EXIT_SUCCESS;
 }

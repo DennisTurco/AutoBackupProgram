@@ -5,16 +5,12 @@ package application;
 
 class LoadingAutoBackup {
 	
-	private int counter;
 	private int trace;
-	private int dimension_number;
 	char []loading = {'[','_','_','_','_','_','_','_','_','_','_','_','_','_','_','_','_','_','_','_','_',']'};
 	String loadingS;
 	
 	LoadingAutoBackup(int dimension_number) {
-		this.counter = 0;
 	    this.trace = 0;
-	    this.dimension_number = dimension_number;
 	    FrameAutoBackup.message.setVisible(true);
 	}
 

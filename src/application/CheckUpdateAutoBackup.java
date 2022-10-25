@@ -1,0 +1,47 @@
+package application;
+
+import java.util.Timer;
+import java.util.TimerTask;
+
+class CheckUpdateAutoBackup {
+
+	private static boolean timer_running;
+	private static Timer timer = new Timer();
+	private static TimerTask task;
+	
+	CheckUpdateAutoBackup () {
+		
+		timer = new Timer();
+		
+		task = new TimerTask() {
+			String path1 = FrameAutoBackup.start_path.getText();
+            String path2 = FrameAutoBackup.destination_path.getText();
+            
+            
+			public void run() { // si aggiorna ogni secondo
+				String name = AutoBackupProgram.current_file_opened;
+				if (path1.equals(FrameAutoBackup.start_path.getText()) == false) FrameAutoBackup.setCurrentFileName(name+"*");
+				else if (path2.equals(FrameAutoBackup.destination_path.getText()) == false) FrameAutoBackup.setCurrentFileName(name+"*");
+				
+				else FrameAutoBackup.setCurrentFileName(name);
+			}
+		};
+		
+		timer_running = false;
+	}
+	
+	public void startTimer() {
+		timer.scheduleAtFixedRate(task, 1000, 100); // aggiornamento ogni 100 ms
+		timer_running = true;
+	}
+	
+	public void stopTimer() {
+		timer.cancel();
+		timer_running = false;
+	}
+	
+	// GETTER & SETTER
+	public boolean isTimeRunning() {
+		return timer_running;
+	}
+}

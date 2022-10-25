@@ -5,6 +5,7 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.time.LocalDate;
 
 import javax.swing.BoxLayout;
 import javax.swing.JLabel;
@@ -19,6 +20,7 @@ import org.json.simple.parser.ParseException;
 class JSONAutoBackup {
 	
 	private JSONArray backup_list;
+	private static CheckUpdateAutoBackup thread_check_update;
 	
 	JSONAutoBackup() {}
 	
@@ -56,7 +58,13 @@ class JSONAutoBackup {
 			if (AutoBackupProgram.getAutoBackupOption(automatic_backup)) AutoBackupProgram.auto_backup_option = true;
 			else AutoBackupProgram.auto_backup_option = false;
 			if (days_interval != null) AutoBackupProgram.days_interval_backup = Integer.parseInt(days_interval);
-				
+			FrameAutoBackup.setCurrentFileName(name);
+			
+			//thread per impostare '*' al nome file in caso non siano state salvate le ultime modifiche
+			if (thread_check_update != null) if (thread_check_update.isTimeRunning()) thread_check_update.stopTimer();
+			thread_check_update = new CheckUpdateAutoBackup();
+	        thread_check_update.startTimer();
+			
 		} catch (FileNotFoundException e) {
 			System.err.println("Exception --> " + e);
 			e.printStackTrace();
@@ -98,19 +106,21 @@ class JSONAutoBackup {
 
 		}
 		
-		// scrittura file json
-		try (FileWriter file = new FileWriter(directory_path + filename)){
-			file.write(list.toJSONString());
-			file.flush();
-		} catch (IOException e) {
-			System.err.println("Exception --> " + e);
-			e.printStackTrace();
-		}
+		
+		//thread per impostare '*' al nome file in caso non siano state salvate le ultime modifiche
+		if (thread_check_update != null) if (thread_check_update.isTimeRunning()) thread_check_update.stopTimer();
+        thread_check_update = new CheckUpdateAutoBackup();
+        thread_check_update.startTimer();
+		
+        // scrittura su file
+		printOnFile(list.toJSONString(), directory_path, filename);
 	}	
 	
 	@SuppressWarnings("unchecked")
 	public void LoadJSONBackupList() {	
 		backup_list = new JSONArray();
+		
+		printOnFile("", ".//res//", "next_backup.json"); // pulisco il file
 		
 		File directory = new File(".//res//saves");
 		File[] listOfFiles = directory.listFiles();
@@ -155,6 +165,9 @@ class JSONAutoBackup {
 				
 				//aggiungo alla lista
 				backup_list.add(list); 
+				
+				// salvo il primo auto_backup da fare
+		        updateNextAutoBackup(next_date);
 			
 			} catch (FileNotFoundException e) {
 				System.err.println("Exception --> " + e);
@@ -166,15 +179,10 @@ class JSONAutoBackup {
 				System.err.println("Exception --> " + e);
 				e.printStackTrace();
 			}
-		}
+		}	
 		
-		try (FileWriter file = new FileWriter(".//res//backup_list.json")){
-			file.write(backup_list.toJSONString());
-			file.flush();
-		} catch (IOException e) {
-			System.err.println("Exception --> " + e);
-			e.printStackTrace();
-		}
+		// scrittura su file
+		printOnFile(backup_list.toJSONString(), ".//res//", "backup_list.json");
 	}
 	
 	
@@ -201,6 +209,29 @@ class JSONAutoBackup {
 		}
 				
 		JOptionPane.showMessageDialog(null, pnl, "Backup List", JOptionPane.PLAIN_MESSAGE, null); //messaggio popup
+	}
+	
+	public void updateNextAutoBackup(String new_date) {
+	    //confronto le date
+	    if (AutoBackupProgram.next_date_backup == null) return;
+	    if (new_date == null) return;
+	    
+	    LocalDate next_date = LocalDate.parse(AutoBackupProgram.next_date_backup);
+	    LocalDate new_next_date = LocalDate.parse(new_date);
+	    if (next_date.compareTo(new_next_date) > 0) { //la data piu' vicina la salvo nel file
+	        printOnFile(new_next_date.toString(), ".//res//", "next_backup.json"); // scrittura su file
+	    }
+	}
+	
+	private void printOnFile(String text, String directory_path, String filename) {
+	  //scrivo nel file
+        try (FileWriter file = new FileWriter(directory_path + filename)){
+            file.write(text);
+            file.flush();
+        } catch (IOException e) {
+            System.err.println("Exception --> " + e);
+            e.printStackTrace();
+        }
 	}
 	
 }

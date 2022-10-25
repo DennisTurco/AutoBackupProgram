@@ -218,7 +218,7 @@ class JSONAutoBackup {
 	    
 	    LocalDate next_date = LocalDate.parse(AutoBackupProgram.next_date_backup);
 	    LocalDate new_next_date = LocalDate.parse(new_date);
-	    if (next_date.compareTo(new_next_date) > 0) { //la data piu' vicina la salvo nel file
+	    if (next_date.compareTo(new_next_date) >= 0 || new_next_date == null) { //la data piu' vicina la salvo nel file
 	        printOnFile(new_next_date.toString(), ".//res//", "next_backup.json"); // scrittura su file
 	    }
 	}

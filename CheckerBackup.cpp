@@ -12,6 +12,7 @@
 #include <chrono>
 #include <ctime> 
 #include <time.h>
+#include <windows.h>
 
 // Get current date/time, format is YYYY-MM-DD
 const std::string currentDateTime() {
@@ -26,6 +27,10 @@ const std::string currentDateTime() {
 
 int main() {
 
+    // nascondo la console
+    HWND windowHandle = GetConsoleWindow();
+    ShowWindow(windowHandle, SW_HIDE);
+
     // ottengo la prossima data per il backup dal file
     std::string new_date;
     std::ifstream file("./res/next_backup.json");
@@ -34,9 +39,11 @@ int main() {
         file.close();
     }
 
+    // se la stringa e' vuota esco
+    if (new_date.length() == 0) return EXIT_SUCCESS;
+
     //ottengo il tempo attuale
     std::string current_date = currentDateTime();
-
 
     // confronto le date per vedere se eseguire un backup automatico
     if (new_date <= current_date) {

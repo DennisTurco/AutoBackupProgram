@@ -48,7 +48,7 @@ int main() {
     // confronto le date per vedere se eseguire un backup automatico
     if (new_date <= current_date) {
         // a questo punto avvio il programma automaticamente
-        system("java -jar AutoBackup.jar");
+        system("AutoBackup.exe");
     }
 
     return EXIT_SUCCESS;

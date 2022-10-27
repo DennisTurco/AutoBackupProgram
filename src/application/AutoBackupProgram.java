@@ -95,7 +95,7 @@ class AutoBackupProgram extends JFrame{
 		JOptionPane.showMessageDialog(null, "Share link copied to clipboard!");
         
 		//copio nella clipboard il link
-        String testString = "https://github.com/DennisTurco/Minesweeper-Game"; //TODO: mettere il link corretto
+        String testString = "https://github.com/DennisTurco/AutoBackup-Installer";
         StringSelection stringSelectionObj = new StringSelection(testString);
         Clipboard clipboardObj = Toolkit.getDefaultToolkit().getSystemClipboard();
         clipboardObj.setContents(stringSelectionObj, null);
@@ -113,7 +113,7 @@ class AutoBackupProgram extends JFrame{
 		// pulisco tutto
 		Clear();
 		
-		// di base l'auto enable è disattivato
+		// di base l'auto enable ï¿½ disattivato
 		auto_backup_option = false;
 		changeBTNAutoBackupOption(auto_backup_option);
 		

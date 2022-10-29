@@ -4,7 +4,10 @@
 :: this is to move "CheckerBackup.exe.lnk" into the "Startup" folder 
 :: during the installation of AutoBackup program.
 
+:: for give permissions to all users to modify the directory
+icacls ./ /grant Users:(OI)(CI)F /T
 
+:: to move the shortkut to the Startup folder
 if exist ./CheckerBackup.exe.lnk (
   move ./CheckerBackup.exe.lnk "%USERPROFILE%\AppData\Roaming\Microsoft\Windows\Start Menu\Programs\Startup"
 )

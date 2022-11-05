@@ -7,34 +7,25 @@ import java.awt.event.KeyEvent;
 
 import javax.swing.*;
 
-@SuppressWarnings("serial") //per togliere il warning
 class FrameAutoBackup extends JFrame implements ActionListener{
-	static JTextField start_path = new JTextField();
-	static JTextField destination_path = new JTextField();
-	static JLabel message = new JLabel("");
-	static JLabel last_backup = new JLabel();
-	static JButton btn_automatic_backup = new JButton();
-	static JLabel name_file_label = new JLabel(" Current File:  ");
+	JTextField start_path = new JTextField();
+	JTextField destination_path = new JTextField();
+	JLabel message = new JLabel("");
+	JLabel last_backup = new JLabel();
+	JButton btn_automatic_backup = new JButton();
+	JLabel name_file_label = new JLabel(" Current File:  ");
 	private JMenuBar menu_bar;
 	
 	private Color bg_color = new Color(18, 15, 37);
 	private Color font_color_path = new Color(0, 255, 0);
 	private Color font_color_messages = new Color(192, 192, 192);
 	
-	private AutoBackupProgram auto_backup;
-	
 	private int width = 500;
 	private int height = 400;
 
 	public FrameAutoBackup() {  //costruttore senza parametri    
 		//------------------------------------------- set finestra ------------------------------------------- 
-		this.setTitle("AutoBackup");
-		this.setSize(width, height);
-		this.setLocation((Toolkit.getDefaultToolkit().getScreenSize().width - getScreenWidth()) / 2, (Toolkit.getDefaultToolkit().getScreenSize().height - getScreenHeight()) / 2); // setto la finestra al centro
-		this.setLayout(new BorderLayout());
-		this.setResizable(false);  //in questo modo la finestra non cambia dimensione
-		this.getContentPane().setBackground(bg_color); //setta il colore dello sfondo
-		
+	    init();
 		
 		//-------------------------------------------set icon-------------------------------------------
 		ImageIcon image = new ImageIcon("res//logo.png"); //crea un'icona
@@ -238,8 +229,15 @@ class FrameAutoBackup extends JFrame implements ActionListener{
 		});	
 		
 		//-------------------------------------------TOP ELEMENTS-------------------------------------------  
+        
+		JLabel author = new JLabel("Author: Â© DennisTurco 2022");
+		author.setFont(new Font("Arial", Font.BOLD, 15));
+		author.setHorizontalTextPosition(0);
+		panNorth.add(author);
 		
-		// ------------------------------------------- ToolBar
+		
+		//-------------------------------------------SOUTH ELEMENTS------------------------------------------- 
+		// ----------ToolBar
         JToolBar tool_bar = new JToolBar();
         name_file_label.setFont(new Font("Arial", Font.BOLD, 12));
         name_file_label.setForeground(font_color_messages);
@@ -247,27 +245,28 @@ class FrameAutoBackup extends JFrame implements ActionListener{
         tool_bar = new JToolBar();
         tool_bar.setFloatable(false);
         tool_bar.setOpaque(false);
-        this.add(tool_bar, BorderLayout.NORTH);
+        this.add(tool_bar, BorderLayout.SOUTH);
         
         tool_bar.add(name_file_label);
-        this.add(tool_bar, BorderLayout.PAGE_START);
-        
-		JLabel author = new JLabel("Author: © DennisTurco 2022");
-		author.setFont(new Font("Arial", Font.BOLD, 15));
-		author.setHorizontalTextPosition(0);
-		panNorth.add(author);
-		
-		
-		//------------------------------------------- Oggetto AutoBackupProgram -------------------------------------------
-		auto_backup = new AutoBackupProgram();
-		
+        this.add(tool_bar, BorderLayout.PAGE_END);	
+	}
+	
+	private void init() {
+	    this.setTitle("AutoBackup");
+        this.setSize(width, height);
+        this.setLocation((Toolkit.getDefaultToolkit().getScreenSize().width - getScreenWidth()) / 2, (Toolkit.getDefaultToolkit().getScreenSize().height - getScreenHeight()) / 2); // setto la finestra al centro
+        this.setLayout(new BorderLayout());
+        this.setResizable(false);  //in questo modo la finestra non cambia dimensione
+        this.getContentPane().setBackground(bg_color); //setta il colore dello sfondo
+	    this.setVisible(true);
+        this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 	}
 	
 	//metodi richiamanti dal Listener
-	public void SingleBackup() { auto_backup.SingleBackup();}
-	public void AutomaticBackup() { auto_backup.AutomaticBackup();}
-	public void SelectionStart() { auto_backup.SelectionStart();}
-	public void SelectionDestination() { auto_backup.SelectionDestination();}
+	public void SingleBackup() { AutoBackupProgram.SingleBackup();}
+	public void AutomaticBackup() { AutoBackupProgram.AutomaticBackup();}
+	public void SelectionStart() { AutoBackupProgram.SelectionStart();}
+	public void SelectionDestination() { AutoBackupProgram.SelectionDestination();}
     
     // GETTER
  	public int getScreenWidth(){
@@ -279,32 +278,37 @@ class FrameAutoBackup extends JFrame implements ActionListener{
  	}
  	
  	// SETTER
- 	public static void setCurrentFileName(String name) {
+ 	public void setCurrentFileName(String name) {
  	    name_file_label.setText(" Current File:  " + name);
+ 	}
+ 	
+ 	public void setFrameTitle(String title) {
+ 	   System.out.print(title);
+ 	   this.setTitle(title);
  	}
  	
  	@Override
  	public void actionPerformed(ActionEvent e) {	
 		String command = e.getActionCommand();
 		
-		if (command.equals("NewFile")) auto_backup.NewFile();
-		else if (command.equals("Open")) auto_backup.Open();
-		else if (command.equals("Save")) auto_backup.Save();
-		else if (command.equals("SaveWithName")) auto_backup.SaveWithName();
-		else if (command.equals("Remove")) auto_backup.RemoveSingleFile();
-		else if (command.equals("ListOfBackup")) auto_backup.BackupList();
+		if (command.equals("NewFile")) AutoBackupProgram.NewFile();
+		else if (command.equals("Open")) AutoBackupProgram.Open();
+		else if (command.equals("Save")) AutoBackupProgram.Save();
+		else if (command.equals("SaveWithName")) AutoBackupProgram.SaveWithName();
+		else if (command.equals("Remove")) AutoBackupProgram.RemoveSingleFile();
+		else if (command.equals("ListOfBackup")) AutoBackupProgram.BackupList();
 		else if (command.equals("History"))
 			try {
-				auto_backup.viewHistory();
+				AutoBackupProgram.viewHistory();
 			} catch (Exception ex) {
 				System.err.println("Exception --> " + ex);
 				ex.printStackTrace();
 			}
-		else if (command.equals("Share")) auto_backup.Share();
-		else if (command.equals("Clear")) auto_backup.Clear();
-		else if (command.equals("Help")) auto_backup.Help();
-		else if (command.equals("Credits")) auto_backup.Credits();
-		else if (command.equals("Quit")) auto_backup.Exit();
+		else if (command.equals("Share")) AutoBackupProgram.Share();
+		else if (command.equals("Clear")) AutoBackupProgram.Clear();
+		else if (command.equals("Help")) AutoBackupProgram.Help();
+		else if (command.equals("Credits")) AutoBackupProgram.Credits();
+		else if (command.equals("Quit")) AutoBackupProgram.Exit();
 		else;		
 	}
     

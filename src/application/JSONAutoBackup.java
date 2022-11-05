@@ -21,8 +21,11 @@ class JSONAutoBackup {
 	
 	private JSONArray backup_list;
 	private static CheckUpdateAutoBackup thread_check_update;
+	private FrameAutoBackup frame;
 	
-	JSONAutoBackup() {}
+	JSONAutoBackup(FrameAutoBackup frame) {
+	    this.frame = frame;
+	}
 	
 	//READ & WRITE JSON
     public void ReadJSONFile(String filename, String directory_path) {
@@ -38,7 +41,7 @@ class JSONAutoBackup {
 			if (filename.equals("info.json")) {
 				System.out.println("Event --> current file: " + name);
 				ReadJSONFile(name, ".//res//saves//");
-				return; //il return è essenziale per stoppare la ricorsione
+				return; //il return e' essenziale per stoppare la ricorsione
 			}
 			
 			String path1 = (String) list.get("start_path");
@@ -50,20 +53,21 @@ class JSONAutoBackup {
 			
 			//update the variables
 			AutoBackupProgram.current_file_opened = name;
-			FrameAutoBackup.start_path.setText(path1);
-			FrameAutoBackup.destination_path.setText(path2);
-			FrameAutoBackup.last_backup.setText(last_backup);
-			FrameAutoBackup.btn_automatic_backup.setText(automatic_backup);
+			frame.start_path.setText(path1);
+			frame.destination_path.setText(path2);
+			frame.last_backup.setText(last_backup);
+			frame.btn_automatic_backup.setText(automatic_backup);
 			AutoBackupProgram.next_date_backup = next_date;
 			if (AutoBackupProgram.getAutoBackupOption(automatic_backup)) AutoBackupProgram.auto_backup_option = true;
 			else AutoBackupProgram.auto_backup_option = false;
 			if (days_interval != null) AutoBackupProgram.days_interval_backup = Integer.parseInt(days_interval);
-			FrameAutoBackup.setCurrentFileName(name);
+			frame.setCurrentFileName(name);
 			
 			//thread per impostare '*' al nome file in caso non siano state salvate le ultime modifiche
 			if (thread_check_update != null) if (thread_check_update.isTimeRunning()) thread_check_update.stopTimer();
-			thread_check_update = new CheckUpdateAutoBackup();
+			thread_check_update = new CheckUpdateAutoBackup(frame);
 	        thread_check_update.startTimer();
+	        frame.message.setVisible(false);
 			
 		} catch (FileNotFoundException e) {
 			System.err.println("Exception --> " + e);
@@ -87,13 +91,13 @@ class JSONAutoBackup {
 		
 		else {
 			list.put("filename", filename);
-			list.put("start_path", FrameAutoBackup.start_path.getText());
-			list.put("destination_path", FrameAutoBackup.destination_path.getText());
+			list.put("start_path", frame.start_path.getText());
+			list.put("destination_path", frame.destination_path.getText());
 			
-			if (FrameAutoBackup.last_backup.getText() != null) {
-				list.put("last_backup", FrameAutoBackup.last_backup.getText());
+			if (frame.last_backup.getText() != null) {
+				list.put("last_backup", frame.last_backup.getText());
 			}
-			if (FrameAutoBackup.btn_automatic_backup.getText().equals("Auto Backup (Enabled)")) {
+			if (frame.btn_automatic_backup.getText().equals("Auto Backup (Enabled)")) {
 				list.put("automatic_backup", "Auto Backup (Enabled)"); 
 				list.put("next_date_backup", AutoBackupProgram.next_date_backup); 
 				list.put("days_interval_backup", "" + AutoBackupProgram.days_interval_backup); 
@@ -109,8 +113,9 @@ class JSONAutoBackup {
 		
 		//thread per impostare '*' al nome file in caso non siano state salvate le ultime modifiche
 		if (thread_check_update != null) if (thread_check_update.isTimeRunning()) thread_check_update.stopTimer();
-        thread_check_update = new CheckUpdateAutoBackup();
+        thread_check_update = new CheckUpdateAutoBackup(frame);
         thread_check_update.startTimer();
+        frame.message.setVisible(false);
 		
         // scrittura su file
 		printOnFile(list.toJSONString(), directory_path, filename);

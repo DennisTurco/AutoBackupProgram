@@ -9,21 +9,21 @@ class CheckUpdateAutoBackup {
 	private static Timer timer = new Timer();
 	private static TimerTask task;
 	
-	CheckUpdateAutoBackup () {
-		
+	CheckUpdateAutoBackup (FrameAutoBackup frame) {
+	    
 		timer = new Timer();
 		
 		task = new TimerTask() {
-			String path1 = FrameAutoBackup.start_path.getText();
-            String path2 = FrameAutoBackup.destination_path.getText();
+			String path1 = frame.start_path.getText();
+            String path2 = frame.destination_path.getText();
             
             
 			public void run() { // si aggiorna ogni secondo
 				String name = AutoBackupProgram.current_file_opened;
-				if (path1.equals(FrameAutoBackup.start_path.getText()) == false) FrameAutoBackup.setCurrentFileName(name+"*");
-				else if (path2.equals(FrameAutoBackup.destination_path.getText()) == false) FrameAutoBackup.setCurrentFileName(name+"*");
+				if (path1.equals(frame.start_path.getText()) == false) frame.setCurrentFileName(name+"*");
+				else if (path2.equals(frame.destination_path.getText()) == false) frame.setCurrentFileName(name+"*");
 				
-				else FrameAutoBackup.setCurrentFileName(name);
+				else frame.setCurrentFileName(name);
 			}
 		};
 		

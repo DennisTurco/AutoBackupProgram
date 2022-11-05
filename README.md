@@ -14,7 +14,8 @@ If you want to see the code, please contact me: dennisturco@gmail.com
 
 ## Screenshots
 
-![App Screenshot](https://via.placeholder.com/468x300?text=App+Screenshot+Here)
+![image](https://user-images.githubusercontent.com/57963761/200114896-d6e0ce97-5be5-42b1-851d-368eb9ec1f9b.png)
+
 
 
 ## Licence

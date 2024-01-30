@@ -105,14 +105,17 @@ class AutoBackupProgram extends JFrame{
 	}
 	
 	// JMenuItem function
-	public static void viewHistory() throws Exception {
-		System.out.println("Event --> history");
-		Runtime.getRuntime().exec("notepad.exe .//res//log_file");
+	public static void viewHistory() {
+		try {
+			System.out.println("Event --> history");
+			new ProcessBuilder("notepad.exe", ".\\res\\log_file").start();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}	
 	}
 	
 	// JMenuItem function
 	public static void NewFile() {
-		
 		// pulisco tutto
 		Clear();
 		
@@ -133,7 +136,7 @@ class AutoBackupProgram extends JFrame{
 		// ottengo il nome del file selezionato
 		String filename = getFile(".//res//saves"); 
 		
-		//elimino
+		// elimino
 		File file = new File(saves_directoryString + filename);
 		if (file.delete()) System.out.println("Event --> file deleted: " + file.getName());
 		else System.out.println("Failed to delete the file.");	
@@ -192,7 +195,6 @@ class AutoBackupProgram extends JFrame{
 	}
 	
 	// button function
-	
 	public static void SingleBackup() {   
 		System.out.println("Event --> single backup");
 		
@@ -426,17 +428,14 @@ class AutoBackupProgram extends JFrame{
 		thread_timer.startTimer();
 	}
 	
-	
     public static void copyDirectoryFileVisitor(String source, String target) throws IOException {
 		//TODO: conto il numero di file nella directory e sotto-directory
 		int file_number = countFilesInDirectory(new File(source));
 		//System.out.println(file_number);
 		
-		
 		//TODO: multi threads
 		TreeCopyFileVisitor fileVisitor = new TreeCopyFileVisitor(source, target, file_number);
         Files.walkFileTree(Paths.get(source), fileVisitor);
-	    
     }
     
     public static void createMessagePopUp(String title, String message, String icon_path) {  
@@ -466,7 +465,6 @@ class AutoBackupProgram extends JFrame{
     	return count;
     }
     
-    
     public static void SelectionStart() {
 		JFileChooser jfc = new JFileChooser(FileSystemView.getFileSystemView().getHomeDirectory());
 		jfc.setDialogTitle("Choose a directory to save your file: ");
@@ -494,7 +492,4 @@ class AutoBackupProgram extends JFrame{
 			}
 		}
 	}
-
-    
-
 }

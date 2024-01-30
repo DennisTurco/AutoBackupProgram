@@ -10,7 +10,7 @@ import javax.swing.*;
 class FrameAutoBackup extends JFrame implements ActionListener{
 	JTextField start_path = new JTextField();
 	JTextField destination_path = new JTextField();
-	JLabel message = new JLabel("");
+	static JLabel message = new JLabel("");
 	JLabel last_backup = new JLabel();
 	JButton btn_automatic_backup = new JButton();
 	JLabel name_file_label = new JLabel(" Current File:  ");
@@ -308,8 +308,7 @@ class FrameAutoBackup extends JFrame implements ActionListener{
 		else if (command.equals("Clear")) AutoBackupProgram.Clear();
 		else if (command.equals("Help")) AutoBackupProgram.Help();
 		else if (command.equals("Credits")) AutoBackupProgram.Credits();
-		else if (command.equals("Quit")) AutoBackupProgram.Exit();
-		else;		
+		else if (command.equals("Quit")) AutoBackupProgram.Exit();	
 	}
     
 }

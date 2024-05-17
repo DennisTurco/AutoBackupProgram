@@ -23,7 +23,7 @@ class FrameAutoBackup extends JFrame implements ActionListener{
 	private int width = 500;
 	private int height = 400;
 
-	public FrameAutoBackup() {  //costruttore senza parametri    
+	public FrameAutoBackup() {  
 		//------------------------------------------- set finestra ------------------------------------------- 
 	    init();
 		
@@ -256,32 +256,27 @@ class FrameAutoBackup extends JFrame implements ActionListener{
         this.setSize(width, height);
         this.setLocation((Toolkit.getDefaultToolkit().getScreenSize().width - getScreenWidth()) / 2, (Toolkit.getDefaultToolkit().getScreenSize().height - getScreenHeight()) / 2); // setto la finestra al centro
         this.setLayout(new BorderLayout());
-        this.setResizable(false);  //in questo modo la finestra non cambia dimensione
-        this.getContentPane().setBackground(bg_color); //setta il colore dello sfondo
+        this.setResizable(false);  // in questo modo la finestra non cambia dimensione
+        this.getContentPane().setBackground(bg_color); // setta il colore dello sfondo
 	    this.setVisible(true);
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 	}
 	
-	//metodi richiamanti dal Listener
+	// metodi richiamanti dal Listener
 	public void SingleBackup() { AutoBackupProgram.SingleBackup();}
 	public void AutomaticBackup() { AutoBackupProgram.AutomaticBackup();}
 	public void SelectionStart() { AutoBackupProgram.SelectionStart();}
 	public void SelectionDestination() { AutoBackupProgram.SelectionDestination();}
     
-    // GETTER
  	public int getScreenWidth(){
  		return width;
  	}
- 	
  	public int getScreenHeight(){
  		return height;
- 	}
- 	
- 	// SETTER
+ 	} 	
  	public void setCurrentFileName(String name) {
  	    name_file_label.setText(" Current File:  " + name);
  	}
- 	
  	public void setFrameTitle(String title) {
  	   System.out.print(title);
  	   this.setTitle(title);
@@ -297,13 +292,14 @@ class FrameAutoBackup extends JFrame implements ActionListener{
 		else if (command.equals("SaveWithName")) AutoBackupProgram.SaveWithName();
 		else if (command.equals("Remove")) AutoBackupProgram.RemoveSingleFile();
 		else if (command.equals("ListOfBackup")) AutoBackupProgram.BackupList();
-		else if (command.equals("History"))
+		else if (command.equals("History")) {
 			try {
 				AutoBackupProgram.viewHistory();
 			} catch (Exception ex) {
 				System.err.println("Exception --> " + ex);
 				ex.printStackTrace();
 			}
+		}
 		else if (command.equals("Share")) AutoBackupProgram.Share();
 		else if (command.equals("Clear")) AutoBackupProgram.Clear();
 		else if (command.equals("Help")) AutoBackupProgram.Help();

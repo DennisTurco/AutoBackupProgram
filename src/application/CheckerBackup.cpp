@@ -7,12 +7,11 @@
 using namespace std;
 
 int main(){
-
     ifstream f1;
     ifstream f2;
     string text;
 
-    //controllo se e' attivo la modalita' automatica del backup
+    // check if automatic backup mode is on
     f2.open("res/auto_generation");
     if(f2.fail()) return 1;
     getline(f2, text, '\n');
@@ -20,10 +19,10 @@ int main(){
         f2.close();
         return 0;
     } 
-    
 
     f1.open("res/info"); 
-    if(f1.fail()) return 1;
+    if(f1.fail()) 
+        return 1;
 
     for(int i=0; i<3; i++){
         getline(f1, text, '\n');
@@ -39,9 +38,8 @@ int main(){
     cout<< last_date_in_seconds<<endl;*/
     cout<<"Time Passed From last Backup: "<< current_date_in_seconds - last_date_in_seconds<<endl;
 
-    if(current_date_in_seconds - last_date_in_seconds >= 2592000){ //2592000 sono circa 30 giorni
+    if(current_date_in_seconds - last_date_in_seconds >= 2592000) // 2592000 is about 30 days
         system("java -jar AutoBackupProgramv1.jar");
-    }
 
     f1.close();
 

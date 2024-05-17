@@ -40,7 +40,6 @@ class TimerAutoBackup {
 		timer_running = false;
 	}
 	
-	// GETTER & SETTER
 	public boolean isTimeRunning() {
 		return timer_running;
 	}

@@ -87,17 +87,17 @@ class AutoBackupProgram extends JFrame{
 				+ "<html><i>GitHub</i>: <a href='https://github.com/DennisTurco'>https://github.com/DennisTurco </a></html>\r\n"
 				+ "<html><i>Web Site</i>: <a href='https://dennisturco.github.io/'>https://dennisturco.github.io/ </a></html>",
 				"Credits",
-				JOptionPane.PLAIN_MESSAGE, icon); //messaggio popup
+				JOptionPane.PLAIN_MESSAGE, icon); // pop-up message
 	}
 	
 	// JMenuItem function
 	public static void Share() {
 		System.out.println("Event --> share");
 		
-		//messaggio pop-up
+		// pop-up message
 		JOptionPane.showMessageDialog(null, "Share link copied to clipboard!");
         
-		//copio nella clipboard il link
+		// copy link to the clipboard
         String testString = "https://github.com/DennisTurco/AutoBackup-Installer";
         StringSelection stringSelectionObj = new StringSelection(testString);
         Clipboard clipboardObj = Toolkit.getDefaultToolkit().getSystemClipboard();
@@ -116,14 +116,13 @@ class AutoBackupProgram extends JFrame{
 	
 	// JMenuItem function
 	public static void NewFile() {
-		// pulisco tutto
 		Clear();
 		
-		// di base l'auto enable � disattivato
+		// basic auto enable is disabled
 		auto_backup_option = false;
 		changeBTNAutoBackupOption(auto_backup_option);
 		
-		// tolgo il file attuale aperto
+		// I remove the current open file
 		current_file_opened = null;
 		
 		frame.setCurrentFileName(current_file_opened);
@@ -133,25 +132,26 @@ class AutoBackupProgram extends JFrame{
 	public static void RemoveSingleFile() {
 		System.out.println("Event --> remove file");
 		
-		// ottengo il nome del file selezionato
+		// get the name of the selected file
 		String filename = getFile(".//res//saves"); 
 		
-		// elimino
+		// delete
 		File file = new File(saves_directoryString + filename);
 		if (file.delete()) System.out.println("Event --> file deleted: " + file.getName());
 		else System.out.println("Failed to delete the file.");	
-		
-		JSON.LoadJSONBackupList(); //aggiorno lista backup
+
+		// backup list update
+		JSON.LoadJSONBackupList(); 
 	}
 	
 	// JMenuItem function
 	public static void Open() {
 		System.out.println("Event --> open");
 		
-		// ottengo il nome del file selezionato
+		// get the name of the selected file
 		current_file_opened = getFile(".//res//saves"); 
 		
-		// leggo da file json
+		// read from json file
 		JSON.ReadJSONFile(current_file_opened, saves_directoryString);
 	}
 	
@@ -159,12 +159,11 @@ class AutoBackupProgram extends JFrame{
 	public static void SaveWithName() {
 		System.out.println("Event --> save with name");
 		
-		//file
 		String file_name;
 		do {
-		    file_name = JOptionPane.showInputDialog(null, "Name of the file"); //messaggio popup
+		    file_name = JOptionPane.showInputDialog(null, "Name of the file"); // pop-up message
 		} while (file_name.equals("null") ||  file_name.equals("null*"));	
-		if (file_name.length() == 0 || file_name == null) return; //caso in cui l'utente non abbia inserito il nome (stringa vuota)
+		if (file_name.length() == 0 || file_name == null) return;
 		
 		current_file_opened = file_name;
 		
@@ -181,12 +180,15 @@ class AutoBackupProgram extends JFrame{
 			SaveWithName();
 		}
 		
-		File file = new File(saves_directoryString + current_file_opened); // controllo se il file esiste
+		File file = new File(saves_directoryString + current_file_opened); 
+
+		// check if file exists
 		if(file.exists() && !file.isDirectory()) { 
 			JSON.WriteJSONFile(current_file_opened, saves_directoryString);
 		}
 		
-		JSON.LoadJSONBackupList(); //aggiorno lista backup
+		// backup list update
+		JSON.LoadJSONBackupList();
 	}
 	
 	// JMenuItem function
@@ -201,7 +203,7 @@ class AutoBackupProgram extends JFrame{
 		String temp = "\\";
 		
 		//------------------------------INPUT CONTROL ERRORS------------------------------
-		if(checkInputCorrect() == false) return;  //controllo errori tramite funzione
+		if(checkInputCorrect() == false) return;
 		
 		//------------------------------TO GET THE CURRENT DATE------------------------------
 		date_now = LocalDate.now();
@@ -209,7 +211,7 @@ class AutoBackupProgram extends JFrame{
 		//------------------------------SET ALL THE VARIABLES------------------------------
 		String path1 = frame.start_path.getText();
 		String path2 = frame.destination_path.getText();
-		String name1; //nome cartella/file iniziale
+		String name1; // folder name/initial file
 		String date = formatter.format(date_now);
 		
 		//------------------------------SET ALL THE STRINGS------------------------------
@@ -226,12 +228,13 @@ class AutoBackupProgram extends JFrame{
 		//------------------------------COPY THE FILE OR DIRECTORY------------------------------
         System.out.println("date backup: " + date);
     	
-        if (current_file_opened != null) { // se current_file_opened e' null significa che non sono in un salvataggio ma e' un backup senza json file associato quindi non salvo la stringa last_backup
-        	setStringToText(); //chiamata alla funzione
+		// if current_file_opened is null it means I'm not in a backup but it's a backup with no associated json file so I don't save the string last_backup
+        if (current_file_opened != null) { 
+        	setStringToText();
         }
         
         try {
-			copyDirectoryFileVisitor(path1, path2); // funzione per copiare   
+			copyDirectoryFileVisitor(path1, path2);
 		} catch (IOException e) {
 			System.err.println("Exception --> " + e);
 			e.printStackTrace();
@@ -241,15 +244,16 @@ class AutoBackupProgram extends JFrame{
         
         frame.message.setForeground(Color.GREEN);
         
+		// next day backup update
         if (auto_backup_option == true) {
-        	//aggiorno il next day backup
 			next_date_backup = date_now.plusDays(days_interval_backup).format(formatter).toString();
         } 
         
-        if (current_file_opened != null) { // se current_file_opened e' null significa che non sono in un salvataggio ma e' un backup senza json file associato
+		// if current_file_opened is null it means they are not in a backup but it is a backup with no associated json file
+        if (current_file_opened != null) { 
 	        JSON.WriteJSONFile(info_fileString, info_file_directoryString);
 	        JSON.WriteJSONFile(current_file_opened, saves_directoryString);
-	        JSON.LoadJSONBackupList(); //aggiorno lista backup
+	        JSON.LoadJSONBackupList(); // backup list update
         }
         
         //attivo il timer di n secondi
@@ -264,15 +268,15 @@ class AutoBackupProgram extends JFrame{
 		
 		if (current_file_opened != null) JSON.ReadJSONFile(info_fileString, info_file_directoryString);
 		
-		if(checkInputCorrect() == false) return;  //controllo errori tramite funzione 
+		if(checkInputCorrect() == false) return;
 		
+		// if the file has not been saved you need to save it before setting the auto backup
 		if(auto_backup_option == false) {
-			// se il file non e' stato salvato bisogna salvarlo prima di settare l'auto backup
 			if (current_file_opened == null) SaveWithName();
 			if (current_file_opened == null) return;
 			
 			// message
-			days_interval_backup = Integer.parseInt(JOptionPane.showInputDialog(null, "Every how many days run the auto backup?")); //messaggio popup
+			days_interval_backup = Integer.parseInt(JOptionPane.showInputDialog(null, "Every how many days run the auto backup?")); // pop-up message
 			if (days_interval_backup == JOptionPane.CANCEL_OPTION) return;
 			
 			//set date for next backup
@@ -285,9 +289,9 @@ class AutoBackupProgram extends JFrame{
 		
 		changeBTNAutoBackupOption();
 
-		// salvo nel JSON
+		// save to JSON file
 		JSON.WriteJSONFile(current_file_opened, saves_directoryString);
-		JSON.LoadJSONBackupList(); //aggiorno lista backup
+		JSON.LoadJSONBackupList(); // backup list update
 	}
 	
 	public void autoBackupControl() {
@@ -296,18 +300,18 @@ class AutoBackupProgram extends JFrame{
 		
 		date_now = LocalDate.now();
 		
-		for (int i=0; i<directory.list().length; i++) { //procedo l'iterazione quante volte sono i file nella directory
+		for (int i=0; i<directory.list().length; i++) {
 			JSON.ReadJSONFile(listOfFiles[i].getName(), saves_directoryString);
 			
 			if (next_date_backup != null && auto_backup_option == true) {
 				LocalDate time_next = LocalDate.parse(next_date_backup);
 				
 				if (time_next.compareTo(date_now) <= 0) {
-					SingleBackup(); //eseguo il backup
+					SingleBackup(); // start backup
 				}
 			}
 		}
-		JSON.LoadJSONBackupList(); //aggiorno lista backup
+		JSON.LoadJSONBackupList(); // backup list update
 	}
 	
 	private static String getFile(String directory_path) {
@@ -321,7 +325,7 @@ class AutoBackupProgram extends JFrame{
 			if (jfc.getSelectedFile().isFile()) {
 				System.out.println("You selected the file: " + jfc.getSelectedFile());
 				
-				//	dal percorso assoluto ottengo il nome 
+				// from the absolute path I get the name 
 				int counter = 0;
 				for (long i=jfc.getSelectedFile().toString().length()-1; i>=0; i--) {
 					if (jfc.getSelectedFile().toString().charAt((int) i) != '\\') counter++;
@@ -390,15 +394,14 @@ class AutoBackupProgram extends JFrame{
 		
 		//check if inputs are null
 		if(frame.start_path.getText().length() == 0 || frame.destination_path.getText().length() == 0) {
-			// messsaggio errore
 			setMessageError("Input Missing!");
-			
 			return false;
 		}
 		
 		//check if there is a \ char
 		boolean check1 = false;
 		boolean check2 = false;
+
 		for(int i=0; i<frame.start_path.getText().length(); i++) {
 			if(frame.start_path.getText().charAt(i) == temp.charAt(0)) check1 = true;
 		}
@@ -408,9 +411,7 @@ class AutoBackupProgram extends JFrame{
 		}
 		
 		if(check1 != true || check2 != true) {
-			// messsaggio errore
 			setMessageError("Input Error!");
-			
 			return false;
 		}
 		
@@ -423,13 +424,13 @@ class AutoBackupProgram extends JFrame{
 		frame.message.setText(error_type);
 		frame.message.setVisible(true);
 		
-		//attivo il timer di n secondi
+		// start timer of n seconds
 		thread_timer = new TimerAutoBackup(frame);
 		thread_timer.startTimer();
 	}
 	
     public static void copyDirectoryFileVisitor(String source, String target) throws IOException {
-		//TODO: conto il numero di file nella directory e sotto-directory
+		//TODO: I count the number of files in the directory and sub-directory
 		int file_number = countFilesInDirectory(new File(source));
 		//System.out.println(file_number);
 		

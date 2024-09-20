@@ -1,0 +1,65 @@
+package com.mycompany.autobackupprogram;
+
+import java.util.Timer;
+import java.util.TimerTask;
+
+class TimerAutoBackup {
+
+    private boolean timerRunning;
+    private Timer timer;
+    private float timeCounter;
+    private AutoBackupGUI autoBackupFrame = null;
+    
+    public TimerAutoBackup() {}
+    
+    public TimerAutoBackup(AutoBackupGUI autoBackupFrame) {
+        this.autoBackupFrame = autoBackupFrame;
+        this.timerRunning = false;
+        this.timeCounter = 0;
+    }
+
+    public synchronized void startTimer() {
+        if (timerRunning) {
+            stopTimer();
+        }
+
+        timer = new Timer();
+        TimerTask task = new TimerTask() {
+            @Override
+            public void run() {
+                timeCounter += 1; // increment by one second
+                if (timeCounter >= 2) {
+                    stopTimer();
+                }
+            }
+        };
+        
+        try {
+            autoBackupFrame.SetMessageLabel(true);
+            timer.scheduleAtFixedRate(task, 1000, 1000); // update every second
+            timerRunning = true;
+        } catch (Exception ex) {
+            System.err.println("Exception --> " + ex);
+        }
+        
+    }
+
+    public synchronized void stopTimer() {
+        if (timer != null) {
+            timer.cancel();
+            timer = null;
+        }
+        
+        try {
+            autoBackupFrame.SetMessageLabel(false);
+            timeCounter = 0; // reset the counter
+            timerRunning = false;
+        } catch (Exception ex) {
+            System.err.println("Exception --> " + ex);
+        }
+    }
+
+    public boolean isTimerRunning() {
+        return timerRunning;
+    }
+}

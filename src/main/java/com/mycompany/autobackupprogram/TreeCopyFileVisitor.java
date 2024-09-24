@@ -1,10 +1,12 @@
 package com.mycompany.autobackupprogram;
 
+import static com.mycompany.autobackupprogram.AutoBackupGUI.OpenExceptionMessage;
 import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.nio.file.*;
 import java.nio.file.attribute.BasicFileAttributes;
+import java.util.Arrays;
 
 public class TreeCopyFileVisitor extends SimpleFileVisitor<Path> implements Runnable {
     private final Path source;
@@ -12,7 +14,7 @@ public class TreeCopyFileVisitor extends SimpleFileVisitor<Path> implements Runn
     private boolean copied = false;
     private final FileCopyListener listener;
     private int copiedFilesCount;
-    private int totalFilesCount;
+    private final int totalFilesCount;
 
     public TreeCopyFileVisitor(String source, String target, int totalFilesCount, FileCopyListener listener) {
         this.source = Paths.get(source);
@@ -37,7 +39,7 @@ public class TreeCopyFileVisitor extends SimpleFileVisitor<Path> implements Runn
     public FileVisitResult visitFile(Path file, BasicFileAttributes attrs) throws IOException {
         Path resolve = target.resolve(source.relativize(file));
         Files.copy(file, resolve, StandardCopyOption.REPLACE_EXISTING);
-        logMessage("Copia del file da \t" + file + "\t a " + resolve);
+        logMessage("Copying file from \t" + file + "\t to " + resolve);
         copiedFilesCount++;
         int progress = (int) (((double) copiedFilesCount / totalFilesCount) * 100);
         listener.onFileCopied(progress);
@@ -59,17 +61,19 @@ public class TreeCopyFileVisitor extends SimpleFileVisitor<Path> implements Runn
     public void run() {
         try {
             Files.walkFileTree(source, this);
-        } catch (IOException e) {
-            System.err.println("Exception --> " + e);
+        } catch (IOException ex) {
+            System.err.println("Exception --> " + ex);
+            OpenExceptionMessage(ex.getMessage(), Arrays.toString(ex.getStackTrace()));
         }
     }
 
     private void logMessage(String message) {
-        try (BufferedWriter bw = new BufferedWriter(new FileWriter("res//log_file", true))) {
+        try (BufferedWriter bw = new BufferedWriter(new FileWriter(AutoBackupGUI.INFO_FILE_DIRECTORY_STRING + AutoBackupGUI.LOG_FILE_STRING, true))) {
             bw.write(message);
             bw.newLine();
         } catch (IOException ex) {
             System.err.println("Exception --> " + ex);
+            OpenExceptionMessage(ex.getMessage(), Arrays.toString(ex.getStackTrace()));
         }
         System.out.println(message);
     }

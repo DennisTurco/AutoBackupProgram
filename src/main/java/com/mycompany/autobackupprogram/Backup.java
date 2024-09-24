@@ -1,16 +1,28 @@
 package com.mycompany.autobackupprogram;
 
+import java.time.LocalDateTime;
+
 public class Backup {
 
     private String _filename;
     private String _initialPath;
     private String _destinationPath;
-    private String _lastBackup;
-    private Boolean _autoBackup;
-    private String _nextDateBackup;
-    private String _daysIntervalBackup;
+    private LocalDateTime _lastBackup;
+    private boolean _autoBackup;
+    private LocalDateTime _nextDateBackup;
+    private Integer _daysIntervalBackup;
     
-    public Backup(String filename, String initialPath, String destinationPath, String lastBackup, Boolean autoBackup, String nextDateBackup, String daysIntervalBackup) {
+    public Backup() {
+        _filename = "";
+        _initialPath = "";
+        _destinationPath = "";
+        _lastBackup = null;
+        _autoBackup = false;
+        _nextDateBackup = null;
+        _daysIntervalBackup = null;
+    }
+    
+    public Backup(String filename, String initialPath, String destinationPath, LocalDateTime lastBackup, Boolean autoBackup, LocalDateTime nextDateBackup, Integer daysIntervalBackup) {
         this._filename = filename;
         this._initialPath = initialPath;
         this._destinationPath = destinationPath;
@@ -29,6 +41,11 @@ public class Backup {
         this._nextDateBackup = backupUpdated.getNextDateBackup();
         this._daysIntervalBackup = backupUpdated.getDaysIntervalBackup();
     }
+    
+    @Override
+    public String toString() {
+        return _filename + " " + _initialPath + " " + _destinationPath + " " + _lastBackup + " " + _autoBackup + " " + _nextDateBackup + " " + _daysIntervalBackup; 
+    }
 
     public String getFilename() {
         return _filename;
@@ -42,7 +59,7 @@ public class Backup {
         return _destinationPath;
     }
 
-    public String getLastBackup() {
+    public LocalDateTime getLastBackup() {
         return _lastBackup;
     }
 
@@ -50,11 +67,11 @@ public class Backup {
         return _autoBackup;
     }
 
-    public String getNextDateBackup() {
+    public LocalDateTime getNextDateBackup() {
         return _nextDateBackup;
     }
 
-    public String getDaysIntervalBackup() {
+    public Integer getDaysIntervalBackup() {
         return _daysIntervalBackup;
     }
 
@@ -70,7 +87,7 @@ public class Backup {
         this._destinationPath = _destinationPath;
     }
 
-    public void setLastBackup(String _lastBackup) {
+    public void setLastBackup(LocalDateTime _lastBackup) {
         this._lastBackup = _lastBackup;
     }
 
@@ -78,11 +95,11 @@ public class Backup {
         this._autoBackup = _autoBackup;
     }
 
-    public void setNextDateBackup(String _nextDateBackup) {
+    public void setNextDateBackup(LocalDateTime _nextDateBackup) {
         this._nextDateBackup = _nextDateBackup;
     }
 
-    public void setDaysIntervalBackup(String _daysIntervalBackup) {
+    public void setDaysIntervalBackup(Integer _daysIntervalBackup) {
         this._daysIntervalBackup = _daysIntervalBackup;
     }
 }

@@ -1,5 +1,7 @@
 package com.mycompany.autobackupprogram;
 
+import static com.mycompany.autobackupprogram.AutoBackupGUI.OpenExceptionMessage;
+import java.util.Arrays;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -9,8 +11,6 @@ class TimerAutoBackup {
     private Timer timer;
     private float timeCounter;
     private AutoBackupGUI autoBackupFrame = null;
-    
-    public TimerAutoBackup() {}
     
     public TimerAutoBackup(AutoBackupGUI autoBackupFrame) {
         this.autoBackupFrame = autoBackupFrame;
@@ -40,6 +40,7 @@ class TimerAutoBackup {
             timerRunning = true;
         } catch (Exception ex) {
             System.err.println("Exception --> " + ex);
+            OpenExceptionMessage(ex.getMessage(), Arrays.toString(ex.getStackTrace()));
         }
         
     }
@@ -56,6 +57,7 @@ class TimerAutoBackup {
             timerRunning = false;
         } catch (Exception ex) {
             System.err.println("Exception --> " + ex);
+            OpenExceptionMessage(ex.getMessage(), Arrays.toString(ex.getStackTrace()));
         }
     }
 

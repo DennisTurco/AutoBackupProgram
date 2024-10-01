@@ -1,6 +1,6 @@
 package com.mycompany.autobackupprogram;
 
-import static com.mycompany.autobackupprogram.AutoBackupGUI.OpenExceptionMessage;
+import static com.mycompany.autobackupprogram.BackupManagerGUI.OpenExceptionMessage;
 import java.util.Arrays;
 import java.util.Timer;
 import java.util.TimerTask;
@@ -10,9 +10,9 @@ class TimerAutoBackup {
     private boolean timerRunning;
     private Timer timer;
     private float timeCounter;
-    private AutoBackupGUI autoBackupFrame = null;
+    private BackupManagerGUI autoBackupFrame = null;
     
-    public TimerAutoBackup(AutoBackupGUI autoBackupFrame) {
+    public TimerAutoBackup(BackupManagerGUI autoBackupFrame) {
         this.autoBackupFrame = autoBackupFrame;
         this.timerRunning = false;
         this.timeCounter = 0;

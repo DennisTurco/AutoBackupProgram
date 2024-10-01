@@ -1,7 +1,7 @@
 package com.mycompany.autobackupprogram;
 
 import com.formdev.flatlaf.FlatIntelliJLaf;
-import static com.mycompany.autobackupprogram.AutoBackupGUI.OpenExceptionMessage;
+import static com.mycompany.autobackupprogram.BackupManagerGUI.OpenExceptionMessage;
 import java.awt.Image;
 import java.util.Arrays;
 import javax.swing.ImageIcon;
@@ -42,6 +42,7 @@ public class BackupProgressGUI extends javax.swing.JFrame {
         if (value == 100) {
             loadingMessageLabel.setText("backup completed!");
             closeButton.setEnabled(true);
+            CancelButton.setEnabled(false);
         } 
     }
 
@@ -142,7 +143,7 @@ public class BackupProgressGUI extends javax.swing.JFrame {
     private void CancelButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CancelButtonActionPerformed
         int response = JOptionPane.showConfirmDialog(null, "Are you sure you want to stop this backup?", "Confimation required", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
         if (response == JOptionPane.YES_OPTION) {
-            AutoBackupGUI.StopCopyFiles();
+            BackupManagerGUI.StopCopyFiles();
             this.dispose();
         }
     }//GEN-LAST:event_CancelButtonActionPerformed

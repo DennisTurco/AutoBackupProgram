@@ -15,31 +15,30 @@ import java.net.URI;
 import java.net.URISyntaxException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import javax.swing.ImageIcon;
+import javax.swing.JCheckBox;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
-import javax.swing.SwingConstants;
+import javax.swing.SwingUtilities;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
 import javax.swing.filechooser.FileSystemView;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
-import table.TableActionCellEditor;
-import table.TableActionCellRender;
-import table.TableActionEvent;
+import javax.swing.table.TableCellRenderer;
+import javax.swing.table.TableColumnModel;
 
 /**
  * @author Dennis Turco
  */
-public class AutoBackupGUI extends javax.swing.JFrame {
+public class BackupManagerGUI extends javax.swing.JFrame {
     
     public static final String INFO_FILE_STRING = "info.json";
     public static final String LOG_FILE_STRING = "log_file";
@@ -57,12 +56,17 @@ public class AutoBackupGUI extends javax.swing.JFrame {
     private BackupProgressGUI progressBar;
     private static Thread copyThread;
     private boolean saveCanched;
+    private Integer selectedRow;
     
     public static final DateTimeFormatter dayFormatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
     public static final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm:ss");
     private static LocalDateTime dateNow;
 
-    public AutoBackupGUI() {
+    public BackupManagerGUI() {
+        try {
+            UIManager.setLookAndFeel(new FlatIntelliJLaf());
+        } catch (UnsupportedLookAndFeelException ex) {}
+        
         initComponents();
         
         // logo application
@@ -75,11 +79,6 @@ public class AutoBackupGUI extends javax.swing.JFrame {
         
         try {
             backups = JSON.ReadBackupListFromJSON(BACKUP_FILE_STRING, INFO_FILE_DIRECTORY_STRING);
-            
-            for (Backup b : backups) {
-                System.out.println(b.toString());
-            }
-            
             displayBackupList(backups);
         } catch (IOException ex) {
             backups = null;
@@ -97,6 +96,9 @@ public class AutoBackupGUI extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        TablePopup = new javax.swing.JPopupMenu();
+        EditPoputItem = new javax.swing.JMenuItem();
+        DeletePopupItem = new javax.swing.JMenuItem();
         TabbedPane = new javax.swing.JTabbedPane();
         jPanel1 = new javax.swing.JPanel();
         txtTitle = new javax.swing.JLabel();
@@ -116,6 +118,8 @@ public class AutoBackupGUI extends javax.swing.JFrame {
         researchButton = new javax.swing.JButton();
         addBackupEntryButton = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
+        detailsLabel = new javax.swing.JLabel();
+        jPanel3 = new javax.swing.JPanel();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
         MenuNew = new javax.swing.JMenuItem();
@@ -130,6 +134,24 @@ public class AutoBackupGUI extends javax.swing.JFrame {
         MenuHelp = new javax.swing.JMenuItem();
         MenuCredits = new javax.swing.JMenuItem();
         MenuQuit = new javax.swing.JMenuItem();
+
+        EditPoputItem.setIcon(new javax.swing.ImageIcon(getClass().getResource("/res/img/pencil.png"))); // NOI18N
+        EditPoputItem.setText("Edit");
+        EditPoputItem.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                EditPoputItemActionPerformed(evt);
+            }
+        });
+        TablePopup.add(EditPoputItem);
+
+        DeletePopupItem.setIcon(new javax.swing.ImageIcon(getClass().getResource("/res/img/delete.png"))); // NOI18N
+        DeletePopupItem.setText("Delete");
+        DeletePopupItem.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                DeletePopupItemActionPerformed(evt);
+            }
+        });
+        TablePopup.add(DeletePopupItem);
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("AutoBackup");
@@ -293,14 +315,14 @@ public class AutoBackupGUI extends javax.swing.JFrame {
 
             },
             new String [] {
-                "Filename", "Initial path", "Destination path", "Last backup", "Auto backup", "Next date backup", "Days interval backup", "Actions"
+                "Filename", "Initial path", "Destination path", "Last backup", "Auto backup", "Next date backup", "Days interval backup"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.Boolean.class, java.lang.String.class, java.lang.Integer.class, java.lang.Object.class
+                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.Boolean.class, java.lang.String.class, java.lang.Integer.class
             };
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false, false, false, false
+                false, false, false, false, false, false, false
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -312,6 +334,11 @@ public class AutoBackupGUI extends javax.swing.JFrame {
             }
         });
         table.setRowHeight(50);
+        table.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tableMouseClicked(evt);
+            }
+        });
         jScrollPane1.setViewportView(table);
 
         researchField.setToolTipText("research bar");
@@ -345,6 +372,8 @@ public class AutoBackupGUI extends javax.swing.JFrame {
         jLabel1.setText("|");
         jLabel1.setAlignmentY(0.0F);
 
+        detailsLabel.setText("details");
+
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
@@ -354,13 +383,16 @@ public class AutoBackupGUI extends javax.swing.JFrame {
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 819, Short.MAX_VALUE)
                     .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addComponent(addBackupEntryButton, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 9, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(researchField, javax.swing.GroupLayout.PREFERRED_SIZE, 321, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(researchButton, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel2Layout.createSequentialGroup()
+                                .addComponent(addBackupEntryButton, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 9, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(researchField, javax.swing.GroupLayout.PREFERRED_SIZE, 321, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(researchButton, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(detailsLabel))
                         .addGap(0, 0, Short.MAX_VALUE))))
         );
         jPanel2Layout.setVerticalGroup(
@@ -374,12 +406,26 @@ public class AutoBackupGUI extends javax.swing.JFrame {
                     .addComponent(researchButton, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(addBackupEntryButton, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 535, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 454, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(detailsLabel)
+                .addGap(84, 84, 84))
         );
 
         researchField.getAccessibleContext().setAccessibleName("");
 
         TabbedPane.addTab("BackupList", jPanel2);
+
+        javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
+        jPanel3.setLayout(jPanel3Layout);
+        jPanel3Layout.setHorizontalGroup(
+            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 0, Short.MAX_VALUE)
+        );
+        jPanel3Layout.setVerticalGroup(
+            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 0, Short.MAX_VALUE)
+        );
 
         jMenu1.setText("File");
         jMenu1.addActionListener(new java.awt.event.ActionListener() {
@@ -496,13 +542,17 @@ public class AutoBackupGUI extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(TabbedPane)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(TabbedPane)
+                    .addComponent(jPanel3, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addComponent(TabbedPane, javax.swing.GroupLayout.PREFERRED_SIZE, 636, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
 
@@ -511,7 +561,7 @@ public class AutoBackupGUI extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void displayBackupList(List<Backup> backups) {
-        model = new DefaultTableModel(new Object[]{"Filename", "Initial path", "Destination path", "Last backup", "Auto backup", "Next date backup", "Days interval backup", "Actions"}, 0) {
+        model = new DefaultTableModel(new Object[]{"Filename", "Initial path", "Destination path", "Last backup", "Auto backup", "Next date backup", "Days interval backup"}, 0) {
 
             @Override
             public Class<?> getColumnClass(int columnIndex) {
@@ -523,8 +573,7 @@ public class AutoBackupGUI extends javax.swing.JFrame {
 
             @Override
             public boolean isCellEditable(int row, int column) {
-                // Make all columns except the "Actions" column (index 7) non-editable
-                return column == 7;
+                return false;
             }
         };
 
@@ -533,12 +582,10 @@ public class AutoBackupGUI extends javax.swing.JFrame {
         for (int i = 0; i < backups.size(); i++) {
             Backup backup = backups.get(i);
 
-            // Add rows if necessary
             if (i >= model.getRowCount()) {
-                model.addRow(new Object[]{"", "", "", "", "", "", "", ""});
+                model.addRow(new Object[]{"", "", "", "", "", "", ""});
             }
 
-            // Set values for each cell
             model.setValueAt(backup.getFilename(), i, 0);
             model.setValueAt(backup.getInitialPath(), i, 1);
             model.setValueAt(backup.getDestinationPath(), i, 2);
@@ -546,48 +593,70 @@ public class AutoBackupGUI extends javax.swing.JFrame {
             model.setValueAt(backup.isAutoBackup(), i, 4);
             model.setValueAt(backup.getNextDateBackup() != null ? backup.getNextDateBackup().format(formatter) : "", i, 5);
             model.setValueAt(backup.getDaysIntervalBackup(), i, 6);
-            model.setValueAt("Actions", i, 7); // Placeholder for actions
         }
 
-        TableActionEvent event = new TableActionEvent() {
+        DefaultTableCellRenderer renderer = new DefaultTableCellRenderer() {
             @Override
-            public void onEdit(int row) {
-                System.out.println("Edit row : " + row);
-                OpenFile(backups.get(row).getFilename());
-                TabbedPane.setSelectedIndex(0);
-            }
+            public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column) {
+                Component c = super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column);
 
-            @Override
-            public void onDelete(int row) {
-                if (table.isEditing()) {
-                    table.getCellEditor().stopCellEditing();
+                if (row % 2 == 0) {
+                    c.setBackground(new Color(223, 222, 243));
+                } else {
+                    c.setBackground(Color.WHITE);
                 }
 
-                int response = JOptionPane.showConfirmDialog(null, "Are you sure you want to delete this item? Please note, this action cannot be undone", "Confirmation required", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
-                if (response == JOptionPane.YES_OPTION) {
-                    RemoveBackupFile(backups.get(row).getFilename());
-                    DefaultTableModel model = (DefaultTableModel) table.getModel();
-                    model.removeRow(row);
+                if (isSelected) {
+                    c.setBackground(table.getSelectionBackground());
+                    c.setForeground(table.getSelectionForeground());
+                } else {
+                    c.setForeground(Color.BLACK);
                 }
+
+                return c;
             }
         };
 
-        table.getColumnModel().getColumn(7).setCellRenderer(new TableActionCellRender());
-        table.getColumnModel().getColumn(7).setCellEditor(new TableActionCellEditor(event));
-        table.getColumnModel().getColumn(0).setCellRenderer(new DefaultTableCellRenderer() {
+        TableCellRenderer checkboxRenderer = new DefaultTableCellRenderer() {
+            private final JCheckBox checkBox = new JCheckBox();
+
             @Override
-            public Component getTableCellRendererComponent(JTable jtable, Object o, boolean bln, boolean bln1, int i, int i1) {
-                setHorizontalAlignment(SwingConstants.CENTER);
-                return super.getTableCellRendererComponent(jtable, o, bln, bln1, i, i1);
+            public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column) {
+                if (value instanceof Boolean) {
+                    checkBox.setSelected((Boolean) value);
+                    checkBox.setHorizontalAlignment(CENTER);
+
+                    if (row % 2 == 0) {
+                        checkBox.setBackground(new Color(223, 222, 243));
+                    } else {
+                        checkBox.setBackground(Color.WHITE);
+                    }
+
+                    if (isSelected) {
+                        checkBox.setBackground(table.getSelectionBackground());
+                        checkBox.setForeground(table.getSelectionForeground());
+                    } else {
+                        checkBox.setForeground(Color.BLACK);
+                    }
+
+                    return checkBox;
+                }
+                return super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column);
             }
-        });
+        };
+
+        TableColumnModel columnModel = table.getColumnModel();
+        for (int i = 0; i < columnModel.getColumnCount(); i++) {
+            columnModel.getColumn(i).setCellRenderer(renderer);
+        }
+
+        columnModel.getColumn(4).setCellRenderer(checkboxRenderer);
+        columnModel.getColumn(4).setCellEditor(table.getDefaultEditor(Boolean.class));  // Usa l'editor di default per il Boolean
     }
     
     private void updateTableWithNewBackupList(List<Backup> updatedBackups) {
-        // Cancella tutte le righe esistenti
         model.setRowCount(0);
 
-        // Reinserisci i backup aggiornati
         for (Backup backup : updatedBackups) {
             model.addRow(new Object[]{
                 backup.getFilename(),
@@ -596,8 +665,7 @@ public class AutoBackupGUI extends javax.swing.JFrame {
                 backup.getLastBackup() != null ? backup.getLastBackup().format(formatter) : "",
                 backup.isAutoBackup(),
                 backup.getNextDateBackup() != null ? backup.getNextDateBackup().format(formatter) : "",
-                backup.getDaysIntervalBackup(),
-                "Actions"
+                backup.getDaysIntervalBackup()
             });
         }
 }
@@ -814,7 +882,7 @@ public class AutoBackupGUI extends javax.swing.JFrame {
     }//GEN-LAST:event_AutoBackupPreferenceStateChanged
 
     private void SingleBackupActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SingleBackupActionPerformed
-        SingleBackup();
+        SingleBackup(startPathField.getText(), destinationPathField.getText());
     }//GEN-LAST:event_SingleBackupActionPerformed
 
     private void btnPathSearch2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPathSearch2ActionPerformed
@@ -895,6 +963,51 @@ public class AutoBackupGUI extends javax.swing.JFrame {
     private void researchFieldKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_researchFieldKeyTyped
         researchInTable();
     }//GEN-LAST:event_researchFieldKeyTyped
+
+    private void tableMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tableMouseClicked
+        selectedRow = table.rowAtPoint(evt.getPoint()); // gte index of the row
+        
+        if (SwingUtilities.isRightMouseButton(evt)) {
+            if (selectedRow != -1) { // check if click is inside a valid row
+                table.setRowSelectionInterval(selectedRow, selectedRow); // select clicked row
+                TablePopup.show(evt.getComponent(), evt.getX(), evt.getY()); // show popup
+            }
+        } else if (SwingUtilities.isLeftMouseButton(evt) && evt.getClickCount() == 2) {
+            if (selectedRow != -1) {
+                System.out.println("Edit row : " + selectedRow);
+                OpenFile(backups.get(selectedRow).getFilename());
+                TabbedPane.setSelectedIndex(0);
+            }
+        } else if (SwingUtilities.isLeftMouseButton(evt)) {
+            detailsLabel.setText(
+                "Filename: " + backups.get(selectedRow).getFilename() + ", " +
+                "InitialPath: " + backups.get(selectedRow).getInitialPath()+ ", " +
+                "DestinationPath: " + backups.get(selectedRow).getDestinationPath()+ ", " +
+                "LastBackup: " + backups.get(selectedRow).getLastBackup()+ ", " +
+                "NextBackup: " + backups.get(selectedRow).getNextDateBackup()+ ", " +
+                "DaysIntervalBackup: " + backups.get(selectedRow).getDaysIntervalBackup()
+            );
+        } 
+    }//GEN-LAST:event_tableMouseClicked
+
+    private void EditPoputItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_EditPoputItemActionPerformed
+        if (selectedRow != -1) {
+            System.out.println("Edit row : " + selectedRow);
+            OpenFile(backups.get(selectedRow).getFilename());
+            TabbedPane.setSelectedIndex(0);
+        }
+    }//GEN-LAST:event_EditPoputItemActionPerformed
+
+    private void DeletePopupItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_DeletePopupItemActionPerformed
+        if (selectedRow != -1) {
+            int response = JOptionPane.showConfirmDialog(null, "Are you sure you want to delete this item? Please note, this action cannot be undone", "Confirmation required", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
+            if (response == JOptionPane.YES_OPTION) {
+                RemoveBackupFile(backups.get(selectedRow).getFilename());
+                DefaultTableModel model = (DefaultTableModel) table.getModel();
+                model.removeRow(selectedRow);
+            }
+        }
+    }//GEN-LAST:event_DeletePopupItemActionPerformed
     
     private void savedChanges(boolean saved) {
         if (saved || currentBackup.getFilename() == null || currentBackup.getFilename().isEmpty() || (currentBackup.getInitialPath().equals(startPathField.getText())) && currentBackup.getDestinationPath().equals(destinationPathField.getText())) {
@@ -926,11 +1039,8 @@ public class AutoBackupGUI extends javax.swing.JFrame {
         System.out.println("Event --> automatic backup");
         
         try {
-            if (currentBackup.getFilename() != null && !currentBackup.getFilename().isEmpty()){
-                JSON.ReadJSONFile(INFO_FILE_STRING, INFO_FILE_DIRECTORY_STRING);
-            }
 
-            if(!CheckInputCorrect()) return false;
+            if(!CheckInputCorrect(startPathField.getText(), destinationPathField.getText())) return false;
 
             // if the file has not been saved you need to save it before setting the auto backup
             if(currentBackup.isAutoBackup() == false) {
@@ -942,8 +1052,8 @@ public class AutoBackupGUI extends javax.swing.JFrame {
                 if (daysIntervalBackup == JOptionPane.CANCEL_OPTION) return false;
 
                 //set date for next backup
-                LocalDate dateNow = LocalDate.now();
-                LocalDateTime nextDateBackup = dateNow.plusDays(daysIntervalBackup).atStartOfDay();  // Set the time to start of day
+                LocalDateTime dateNow = LocalDateTime.now();
+                LocalDateTime nextDateBackup = dateNow.plusDays(daysIntervalBackup);  // Set the time to start of day
                 
                 currentBackup.setDaysIntervalBackup(daysIntervalBackup);
                 currentBackup.setNextDateBackup(nextDateBackup);
@@ -1005,20 +1115,18 @@ public class AutoBackupGUI extends javax.swing.JFrame {
         }
     }
     
-    private void SingleBackup() {
+    public void SingleBackup(String path1, String path2) {
         System.out.println("Event --> single backup");
 		
         String temp = "\\";
 
         //------------------------------INPUT CONTROL ERRORS------------------------------
-        if(CheckInputCorrect() == false) return;
+        if(!CheckInputCorrect(path1, path2)) return;
 
         //------------------------------TO GET THE CURRENT DATE------------------------------
         dateNow = LocalDateTime.now();
 
         //------------------------------SET ALL THE VARIABLES------------------------------
-        String path1 = startPathField.getText();
-        String path2 = destinationPathField.getText();
         String name1; // folder name/initial file
         String date = dateNow.format(dayFormatter);
 
@@ -1026,8 +1134,8 @@ public class AutoBackupGUI extends javax.swing.JFrame {
         name1 = path1.substring(path1.length()-1, path1.length()-1);
 
         for(int i=path1.length()-1; i>=0; i--) {
-                if(path1.charAt(i) != temp.charAt(0)) name1 = path1.charAt(i) + name1;
-                else break;
+            if(path1.charAt(i) != temp.charAt(0)) name1 = path1.charAt(i) + name1;
+            else break;
         }
 
         path2 = path2 + "\\" + name1 + " (Backup " + date + ")";
@@ -1081,35 +1189,6 @@ public class AutoBackupGUI extends javax.swing.JFrame {
             OpenExceptionMessage(e.getMessage(), Arrays.toString(e.getStackTrace()));
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, "Error saving file", "Error", JOptionPane.ERROR_MESSAGE);
-        }
-    }
-    
-    public void autoBackupControl() {
-        File directory = new File(SAVES_DIRECTORY_STRING);
-        File[] listOfFiles = directory.listFiles();
-
-        dateNow = LocalDateTime.now();
-
-        for (int i=0; i<directory.list().length; i++) {
-            try {
-                JSON.ReadJSONFile(listOfFiles[i].getName(), SAVES_DIRECTORY_STRING);
-            } catch (IllegalArgumentException ex) {
-                System.err.println("Exception (autoBackupControl) --> " + ex);
-                OpenExceptionMessage(ex.getMessage(), Arrays.toString(ex.getStackTrace()));
-            }
-
-            if (currentBackup.getNextDateBackup() != null && currentBackup.isAutoBackup() == true) {
-
-                if (currentBackup.getNextDateBackup().compareTo(dateNow) <= 0) {
-                    SingleBackup(); // start backup
-                }
-            }
-        }
-        try {
-            JSON.LoadJSONBackupList(); // backup list update
-        } catch (IOException ex) {
-            System.err.println("Exception (autoBackupControl) --> " + ex);
-            OpenExceptionMessage(ex.getMessage(), Arrays.toString(ex.getStackTrace()));
         }
     }
     
@@ -1179,11 +1258,11 @@ public class AutoBackupGUI extends javax.swing.JFrame {
         setAutoBackupPreference(currentBackup.isAutoBackup());
     }
 	
-    public boolean CheckInputCorrect() {
+    public boolean CheckInputCorrect(String path1, String path2) {
         String temp = "\\";
 
         //check if inputs are null
-        if(startPathField.getText().length() == 0 || destinationPathField.getText().length() == 0) {
+        if(path1.length() == 0 || path2.length() == 0) {
             setMessageError("Input Missing!");
             return false;
         }
@@ -1192,12 +1271,12 @@ public class AutoBackupGUI extends javax.swing.JFrame {
         boolean check1 = false;
         boolean check2 = false;
 
-        for(int i=0; i<startPathField.getText().length(); i++) {
-            if(startPathField.getText().charAt(i) == temp.charAt(0)) check1 = true;
+        for(int i=0; i<path1.length(); i++) {
+            if(path1.charAt(i) == temp.charAt(0)) check1 = true;
         }
 
-        for(int i=0; i<destinationPathField.getText().length(); i++) {
-            if(destinationPathField.getText().charAt(i) == temp.charAt(0)) check2 = true;
+        for(int i=0; i<path2.length(); i++) {
+            if(path2.charAt(i) == temp.charAt(0)) check2 = true;
         }
 
         if(check1 != true || check2 != true) {
@@ -1272,17 +1351,9 @@ public class AutoBackupGUI extends javax.swing.JFrame {
     	return count;
     }
     
-    public static void main(String args[]) {
-        // Theme selection
-        try {
-            UIManager.setLookAndFeel(new FlatIntelliJLaf());
-        } catch (UnsupportedLookAndFeelException ex) {
-            System.err.println("Exception (main) --> " + ex);
-            OpenExceptionMessage(ex.getMessage(), Arrays.toString(ex.getStackTrace()));
-        }
-        
+    public static void main(String args[]) {        
         java.awt.EventQueue.invokeLater(() -> {
-            new AutoBackupGUI().setVisible(true);
+            new BackupManagerGUI().setVisible(true);
         });
     }
     
@@ -1317,27 +1388,34 @@ public class AutoBackupGUI extends javax.swing.JFrame {
         Object[] options = {"Close", "Copy to clipboard", "Report the Problem"};
 
         if (errorMessage == null ) {
-            errorMessage = "\n\n";
+            errorMessage = "";
         }
-        stackTrace = errorMessage + stackTrace;
+        stackTrace = !errorMessage.isEmpty() ? errorMessage + "\n" + stackTrace : errorMessage + stackTrace;
         String stackTraceMessage = "Please report this error, either with an image of the screen or by copying the following error text (it is appreciable to provide a description of the operations performed before the error): \n" +  stackTrace;
 
         int choice;
 
         // Keep displaying the dialog until the "Close" option (index 0) is chosen
         do {
+            
+            System.out.println(stackTraceMessage.length());
+            
+            if (stackTraceMessage.length() > 1500) {
+                stackTraceMessage = stackTraceMessage.substring(0, 1500) + "...";     
+            }
+                                
             // Display the option dialog
             choice = JOptionPane.showOptionDialog(
                 null,
-                stackTraceMessage,                          // The detailed message or stack trace
-                "Error...",                        // The error message/title
+                stackTraceMessage,                   // The detailed message or stack trace
+                "Error...",                          // The error message/title
                 JOptionPane.DEFAULT_OPTION,          // Option type (default option type)
                 JOptionPane.ERROR_MESSAGE,           // Message type (error message icon)
                 null,                                // Icon (null means default icon)
                 options,                             // The options for the buttons
                 options[0]                           // The default option (Close)
             );
-
+            
             if (choice == 1) {
                 StringSelection selection = new StringSelection(stackTrace);
                 Toolkit.getDefaultToolkit().getSystemClipboard().setContents(selection, null);
@@ -1361,6 +1439,8 @@ public class AutoBackupGUI extends javax.swing.JFrame {
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JCheckBox AutoBackupPreference;
+    private javax.swing.JMenuItem DeletePopupItem;
+    private javax.swing.JMenuItem EditPoputItem;
     private javax.swing.JMenuItem MenuClear;
     private javax.swing.JMenuItem MenuCredits;
     private javax.swing.JMenuItem MenuHelp;
@@ -1374,17 +1454,20 @@ public class AutoBackupGUI extends javax.swing.JFrame {
     private javax.swing.JMenuItem MenuShare;
     private javax.swing.JButton SingleBackup;
     private javax.swing.JTabbedPane TabbedPane;
+    private javax.swing.JPopupMenu TablePopup;
     private javax.swing.JButton addBackupEntryButton;
     private javax.swing.JButton btnPathSearch1;
     private javax.swing.JButton btnPathSearch2;
     private javax.swing.JLabel currentFileLabel;
     private javax.swing.JTextField destinationPathField;
+    private javax.swing.JLabel detailsLabel;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
+    private javax.swing.JPanel jPanel3;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLabel lastBackupLabel;
     private javax.swing.JLabel messageLabel;

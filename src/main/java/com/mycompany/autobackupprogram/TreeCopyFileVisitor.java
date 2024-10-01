@@ -1,6 +1,6 @@
 package com.mycompany.autobackupprogram;
 
-import static com.mycompany.autobackupprogram.AutoBackupGUI.OpenExceptionMessage;
+import static com.mycompany.autobackupprogram.BackupManagerGUI.OpenExceptionMessage;
 import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -68,7 +68,7 @@ public class TreeCopyFileVisitor extends SimpleFileVisitor<Path> implements Runn
     }
 
     private void logMessage(String message) {
-        try (BufferedWriter bw = new BufferedWriter(new FileWriter(AutoBackupGUI.INFO_FILE_DIRECTORY_STRING + AutoBackupGUI.LOG_FILE_STRING, true))) {
+        try (BufferedWriter bw = new BufferedWriter(new FileWriter(BackupManagerGUI.INFO_FILE_DIRECTORY_STRING + BackupManagerGUI.LOG_FILE_STRING, true))) {
             bw.write(message);
             bw.newLine();
         } catch (IOException ex) {

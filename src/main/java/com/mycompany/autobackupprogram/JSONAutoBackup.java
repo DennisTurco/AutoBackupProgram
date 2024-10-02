@@ -45,6 +45,8 @@ class JSONAutoBackup implements IJSONAutoBackup {
             String lastBackupStr = (String) list.get("last_backup");
             String nextDateStr = (String) list.get("next_date_backup");
             Integer daysInterval = (Integer) list.get("days_interval_backup");
+            String creationDateStr = (String) list.get("creation_date");
+            String lastUpdateDateStr = (String) list.get("last_update_date");
             Object value = list.get("automatic_backup");
             Boolean automaticBackup = null;
             if (value instanceof Boolean aBoolean) {
@@ -57,6 +59,8 @@ class JSONAutoBackup implements IJSONAutoBackup {
             
             LocalDateTime lastBackupValue = lastBackupStr != null && !lastBackupStr.isEmpty() ? LocalDateTime.parse(lastBackupStr) : null;
             LocalDateTime nextDateBackupValue = nextDateStr != null && !nextDateStr.isEmpty() ? LocalDateTime.parse(lastBackupStr) : null;
+            LocalDateTime creationDateValue = creationDateStr != null && !creationDateStr.isEmpty() ? LocalDateTime.parse(creationDateStr) : null;
+            LocalDateTime lastUpdateDateValue = lastUpdateDateStr != null && !lastUpdateDateStr.isEmpty() ? LocalDateTime.parse(lastUpdateDateStr) : null;
 
             Backup backup = new Backup(
                 name,
@@ -65,7 +69,9 @@ class JSONAutoBackup implements IJSONAutoBackup {
                 lastBackupValue,
                 automaticBackup,
                 nextDateBackupValue,
-                daysInterval
+                daysInterval,
+                creationDateValue,
+                lastUpdateDateValue
             );
             
             frame.SetStartPathField(path1);
@@ -104,11 +110,15 @@ class JSONAutoBackup implements IJSONAutoBackup {
         Boolean autoBackup = frame.GetAutomaticBackupPreference();
         list.put("automatic_backup", autoBackup);
         LocalDateTime nextDate = BackupManagerGUI.currentBackup.getNextDateBackup();
+        LocalDateTime creationDate = BackupManagerGUI.currentBackup.getCreationDate();
+        LocalDateTime lastUpdateDate = BackupManagerGUI.currentBackup.getLastUpdateDate();
         Integer daysInterval = BackupManagerGUI.currentBackup.getDaysIntervalBackup();
-        list.put("next_date_backup", autoBackup == true && nextDate != null ? nextDate.toString() : null);  
-        list.put("days_interval_backup", autoBackup == true ? daysInterval : null);
+        list.put("next_date_backup", autoBackup == true && nextDate != null ? nextDate.toString() : null);
+        list.put("creation_date", creationDate != null ? creationDate.toString() : null);
+        list.put("last_update_date", lastUpdateDate != null ? lastUpdateDate.toString() : null);
+        list.put("days_interval_backup", autoBackup == true ? daysInterval.toString() : null);
         
-        backup = new Backup(filename, frame.GetStartPathField(), frame.GetDestinationPathField(), date, autoBackup, nextDate, daysInterval);
+        backup = new Backup(filename, frame.GetStartPathField(), frame.GetDestinationPathField(), date, autoBackup, nextDate, daysInterval, creationDate, lastUpdateDate);
 
         // file writing
         PrintToFile(list.toJSONString(), directoryPath, filename);
@@ -148,6 +158,9 @@ class JSONAutoBackup implements IJSONAutoBackup {
                 String startPathValue = (String) backupObj.get("start_path");
                 String destinationPathValue = (String) backupObj.get("destination_path");
                 String lastBackupStr = (String) backupObj.get("last_backup");
+                String creationDateStr = (String) backupObj.get("creation_date");
+                String lastUpdateDateStr = (String) backupObj.get("last_update_date");
+
                 Object value = backupObj.get("automatic_backup");
                 Boolean automaticBackupValue = null;
                 if (value instanceof Boolean aBoolean) {
@@ -162,6 +175,8 @@ class JSONAutoBackup implements IJSONAutoBackup {
 
                 LocalDateTime lastBackupValue = lastBackupStr != null ? LocalDateTime.parse(lastBackupStr) : null;
                 LocalDateTime nextDateBackupValue = nextDateBackupStr != null ? LocalDateTime.parse(nextDateBackupStr) : null;
+                LocalDateTime creationDateValue = creationDateStr != null ? LocalDateTime.parse(creationDateStr) : null;
+                LocalDateTime lastUpdateDateValue = lastUpdateDateStr != null ? LocalDateTime.parse(lastUpdateDateStr) : null;
 
                 backupList.add(new Backup(
                     filenameValue,
@@ -170,13 +185,16 @@ class JSONAutoBackup implements IJSONAutoBackup {
                     lastBackupValue,
                     automaticBackupValue,
                     nextDateBackupValue,
-                    daysIntervalBackup != null ? daysIntervalBackup.intValue() : null // Convert Long to Integer
+                    daysIntervalBackup != null ? daysIntervalBackup.intValue() : null, // Convert Long to Integer
+                    creationDateValue,
+                    lastUpdateDateValue
                 ));
             }
 
         } catch (IOException | ParseException e) {
             System.err.println("IOException | ParseException (ReadBackupListFromJSON) --> " + e);
             OpenExceptionMessage(e.getMessage(), Arrays.toString(e.getStackTrace()));
+            e.printStackTrace();
         }
         return backupList;
     }
@@ -205,6 +223,8 @@ class JSONAutoBackup implements IJSONAutoBackup {
                         String path2 = (String) list.get("destination_path");
                         String lastBackup = (String) list.get("last_backup");
                         String nextDate = (String) list.get("next_date_backup");
+                        String creationDate = (String) list.get("creation_date");
+                        String lastUpdateDate = (String) list.get("last_update_date");
                         Long daysInterval = (Long) list.get("days_interval_backup");
                         Object value = list.get("automatic_backup");
                         Boolean automaticBackup = null;
@@ -223,6 +243,8 @@ class JSONAutoBackup implements IJSONAutoBackup {
                         list.put("last_backup", lastBackup != null ? lastBackup : null);
                         list.put("automatic_backup", automaticBackup);
                         list.put("next_date_backup", automaticBackup == true ? nextDate : null);
+                        list.put("creation_date", creationDate != null ? creationDate : null);
+                        list.put("last_update_date", lastUpdateDate != null ? lastUpdateDate : null);
                         list.put("days_interval_backup", automaticBackup == true ? daysInterval : null); 
                         
                         if (automaticBackup) {
@@ -263,6 +285,8 @@ class JSONAutoBackup implements IJSONAutoBackup {
             backupObject.put("automatic_backup", backup.isAutoBackup());
             backupObject.put("next_date_backup", backup.getNextDateBackup());
             backupObject.put("days_interval_backup", backup.getDaysIntervalBackup());
+            backupObject.put("creation_date", backup.getCreationDate());
+            backupObject.put("last_update_date", backup.getLastUpdateDate());
 
             updatedBackupArray.add(backupObject);
         }

@@ -112,14 +112,15 @@ public class BackupManagerGUI extends javax.swing.JFrame {
         messageLabel = new javax.swing.JLabel();
         AutoBackupPreference = new javax.swing.JCheckBox();
         jPanel2 = new javax.swing.JPanel();
+        tablePanel = new javax.swing.JPanel();
+        addBackupEntryButton = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         table = new javax.swing.JTable();
+        jLabel1 = new javax.swing.JLabel();
         researchField = new javax.swing.JTextField();
         researchButton = new javax.swing.JButton();
-        addBackupEntryButton = new javax.swing.JButton();
-        jLabel1 = new javax.swing.JLabel();
+        detailsPanel = new javax.swing.JPanel();
         detailsLabel = new javax.swing.JLabel();
-        jPanel3 = new javax.swing.JPanel();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
         MenuNew = new javax.swing.JMenuItem();
@@ -265,7 +266,7 @@ public class BackupManagerGUI extends javax.swing.JFrame {
                             .addComponent(messageLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 178, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(SingleBackup, javax.swing.GroupLayout.PREFERRED_SIZE, 178, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(AutoBackupPreference, javax.swing.GroupLayout.PREFERRED_SIZE, 172, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addContainerGap(328, Short.MAX_VALUE))
+                .addContainerGap(340, Short.MAX_VALUE))
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(233, 233, 233)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -310,6 +311,22 @@ public class BackupManagerGUI extends javax.swing.JFrame {
 
         TabbedPane.addTab("AutoBackup", jPanel1);
 
+        tablePanel.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tablePanelMouseClicked(evt);
+            }
+        });
+
+        addBackupEntryButton.setForeground(new java.awt.Color(0, 0, 0));
+        addBackupEntryButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/res/img/plus.png"))); // NOI18N
+        addBackupEntryButton.setToolTipText("add new backup");
+        addBackupEntryButton.setPreferredSize(new java.awt.Dimension(25, 25));
+        addBackupEntryButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                addBackupEntryButtonActionPerformed(evt);
+            }
+        });
+
         table.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
@@ -341,6 +358,10 @@ public class BackupManagerGUI extends javax.swing.JFrame {
         });
         jScrollPane1.setViewportView(table);
 
+        jLabel1.setFont(new java.awt.Font("Segoe UI", 0, 20)); // NOI18N
+        jLabel1.setText("|");
+        jLabel1.setAlignmentY(0.0F);
+
         researchField.setToolTipText("research bar");
         researchField.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyTyped(java.awt.event.KeyEvent evt) {
@@ -358,21 +379,58 @@ public class BackupManagerGUI extends javax.swing.JFrame {
             }
         });
 
-        addBackupEntryButton.setForeground(new java.awt.Color(0, 0, 0));
-        addBackupEntryButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/res/img/plus.png"))); // NOI18N
-        addBackupEntryButton.setToolTipText("add new backup");
-        addBackupEntryButton.setPreferredSize(new java.awt.Dimension(25, 25));
-        addBackupEntryButton.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                addBackupEntryButtonActionPerformed(evt);
-            }
-        });
+        javax.swing.GroupLayout tablePanelLayout = new javax.swing.GroupLayout(tablePanel);
+        tablePanel.setLayout(tablePanelLayout);
+        tablePanelLayout.setHorizontalGroup(
+            tablePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(tablePanelLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(tablePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(tablePanelLayout.createSequentialGroup()
+                        .addComponent(addBackupEntryButton, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 9, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(researchField, javax.swing.GroupLayout.PREFERRED_SIZE, 321, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(researchButton, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addGroup(tablePanelLayout.createSequentialGroup()
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 819, Short.MAX_VALUE)
+                        .addContainerGap())))
+        );
+        tablePanelLayout.setVerticalGroup(
+            tablePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(tablePanelLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(tablePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(addBackupEntryButton, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(tablePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jLabel1)
+                        .addComponent(researchField, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(researchButton, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 485, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
 
-        jLabel1.setFont(new java.awt.Font("Segoe UI", 0, 20)); // NOI18N
-        jLabel1.setText("|");
-        jLabel1.setAlignmentY(0.0F);
+        researchField.getAccessibleContext().setAccessibleName("");
 
-        detailsLabel.setText("details");
+        javax.swing.GroupLayout detailsPanelLayout = new javax.swing.GroupLayout(detailsPanel);
+        detailsPanel.setLayout(detailsPanelLayout);
+        detailsPanelLayout.setHorizontalGroup(
+            detailsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, detailsPanelLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(detailsLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
+        );
+        detailsPanelLayout.setVerticalGroup(
+            detailsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, detailsPanelLayout.createSequentialGroup()
+                .addComponent(detailsLabel, javax.swing.GroupLayout.DEFAULT_SIZE, 78, Short.MAX_VALUE)
+                .addContainerGap())
+        );
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -381,51 +439,20 @@ public class BackupManagerGUI extends javax.swing.JFrame {
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 819, Short.MAX_VALUE)
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel2Layout.createSequentialGroup()
-                                .addComponent(addBackupEntryButton, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 9, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(researchField, javax.swing.GroupLayout.PREFERRED_SIZE, 321, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(researchButton, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(detailsLabel))
-                        .addGap(0, 0, Short.MAX_VALUE))))
+                    .addComponent(detailsPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(tablePanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(researchField, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(jLabel1))
-                    .addComponent(researchButton, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(addBackupEntryButton, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 454, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(tablePanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(detailsLabel)
-                .addGap(84, 84, 84))
+                .addComponent(detailsPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
         );
-
-        researchField.getAccessibleContext().setAccessibleName("");
 
         TabbedPane.addTab("BackupList", jPanel2);
-
-        javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
-        jPanel3.setLayout(jPanel3Layout);
-        jPanel3Layout.setHorizontalGroup(
-            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
-        );
-        jPanel3Layout.setVerticalGroup(
-            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
-        );
 
         jMenu1.setText("File");
         jMenu1.addActionListener(new java.awt.event.ActionListener() {
@@ -542,18 +569,14 @@ public class BackupManagerGUI extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(TabbedPane)
-                    .addComponent(jPanel3, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addComponent(TabbedPane)
                 .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addComponent(TabbedPane, javax.swing.GroupLayout.PREFERRED_SIZE, 636, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
+                .addContainerGap(12, Short.MAX_VALUE))
         );
 
         pack();
@@ -784,6 +807,9 @@ public class BackupManagerGUI extends javax.swing.JFrame {
 
         try {
             Backup backup = JSON.WriteJSONFile(currentBackup.getFilename(), SAVES_DIRECTORY_STRING);
+            dateNow = LocalDateTime.now();
+            backup.setLastUpdateDate(dateNow);
+            
             for (Backup b : backups) {
                 if (b.getFilename().equals(backup.getFilename())) {
                     b.UpdateBackup(backup);
@@ -916,10 +942,6 @@ public class BackupManagerGUI extends javax.swing.JFrame {
 
     }//GEN-LAST:event_startPathFieldActionPerformed
 
-    private void researchButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_researchButtonActionPerformed
-        researchInTable();
-    }//GEN-LAST:event_researchButtonActionPerformed
-
     private void researchInTable() {
         List<Backup> tempBackups = new ArrayList<>();
         
@@ -939,11 +961,6 @@ public class BackupManagerGUI extends javax.swing.JFrame {
         updateTableWithNewBackupList(tempBackups);
     }
     
-    private void addBackupEntryButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addBackupEntryButtonActionPerformed
-        TabbedPane.setSelectedIndex(0);
-        NewFile();
-    }//GEN-LAST:event_addBackupEntryButtonActionPerformed
-
     private void startPathFieldKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_startPathFieldKeyTyped
         savedChanges(false);
     }//GEN-LAST:event_startPathFieldKeyTyped
@@ -959,36 +976,6 @@ public class BackupManagerGUI extends javax.swing.JFrame {
     private void destinationPathFieldInputMethodTextChanged(java.awt.event.InputMethodEvent evt) {//GEN-FIRST:event_destinationPathFieldInputMethodTextChanged
         savedChanges(false);
     }//GEN-LAST:event_destinationPathFieldInputMethodTextChanged
-
-    private void researchFieldKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_researchFieldKeyTyped
-        researchInTable();
-    }//GEN-LAST:event_researchFieldKeyTyped
-
-    private void tableMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tableMouseClicked
-        selectedRow = table.rowAtPoint(evt.getPoint()); // gte index of the row
-        
-        if (SwingUtilities.isRightMouseButton(evt)) {
-            if (selectedRow != -1) { // check if click is inside a valid row
-                table.setRowSelectionInterval(selectedRow, selectedRow); // select clicked row
-                TablePopup.show(evt.getComponent(), evt.getX(), evt.getY()); // show popup
-            }
-        } else if (SwingUtilities.isLeftMouseButton(evt) && evt.getClickCount() == 2) {
-            if (selectedRow != -1) {
-                System.out.println("Edit row : " + selectedRow);
-                OpenFile(backups.get(selectedRow).getFilename());
-                TabbedPane.setSelectedIndex(0);
-            }
-        } else if (SwingUtilities.isLeftMouseButton(evt)) {
-            detailsLabel.setText(
-                "Filename: " + backups.get(selectedRow).getFilename() + ", " +
-                "InitialPath: " + backups.get(selectedRow).getInitialPath()+ ", " +
-                "DestinationPath: " + backups.get(selectedRow).getDestinationPath()+ ", " +
-                "LastBackup: " + backups.get(selectedRow).getLastBackup()+ ", " +
-                "NextBackup: " + backups.get(selectedRow).getNextDateBackup()+ ", " +
-                "DaysIntervalBackup: " + backups.get(selectedRow).getDaysIntervalBackup()
-            );
-        } 
-    }//GEN-LAST:event_tableMouseClicked
 
     private void EditPoputItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_EditPoputItemActionPerformed
         if (selectedRow != -1) {
@@ -1008,6 +995,61 @@ public class BackupManagerGUI extends javax.swing.JFrame {
             }
         }
     }//GEN-LAST:event_DeletePopupItemActionPerformed
+
+    private void addBackupEntryButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addBackupEntryButtonActionPerformed
+        TabbedPane.setSelectedIndex(0);
+        NewFile();
+    }//GEN-LAST:event_addBackupEntryButtonActionPerformed
+
+    private void researchButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_researchButtonActionPerformed
+        researchInTable();
+    }//GEN-LAST:event_researchButtonActionPerformed
+
+    private void researchFieldKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_researchFieldKeyTyped
+        researchInTable();
+    }//GEN-LAST:event_researchFieldKeyTyped
+
+    private void tableMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tableMouseClicked
+        selectedRow = table.rowAtPoint(evt.getPoint()); // get index of the row
+
+        if (selectedRow == -1) { // if clicked outside valid rows
+            table.clearSelection(); // deselect any selected row
+            detailsLabel.setText(""); // clear the label
+        } else {
+            // Handling right mouse button click
+            if (SwingUtilities.isRightMouseButton(evt)) {
+                table.setRowSelectionInterval(selectedRow, selectedRow); // select clicked row
+                TablePopup.show(evt.getComponent(), evt.getX(), evt.getY()); // show popup
+            }
+
+            // Handling left mouse button double-click
+            else if (SwingUtilities.isLeftMouseButton(evt) && evt.getClickCount() == 2) {
+                System.out.println("Edit row : " + selectedRow);
+                OpenFile(backups.get(selectedRow).getFilename());
+                TabbedPane.setSelectedIndex(0);
+            }
+
+            // Handling single left mouse button click
+            else if (SwingUtilities.isLeftMouseButton(evt)) {
+                detailsLabel.setText(
+                    "<html><b>Filename:</b> " + backups.get(selectedRow).getFilename() + ", " +
+                    "<b>InitialPath:</b> " + backups.get(selectedRow).getInitialPath() + ", " +
+                    "<b>DestinationPath:</b> " + backups.get(selectedRow).getDestinationPath() + ", " +
+                    "<b>LastBackup:</b> " + (backups.get(selectedRow).getLastBackup() != null ? backups.get(selectedRow).getLastBackup().format(formatter) : "") + ", " +
+                    "<b>NextBackup:</b> " + (backups.get(selectedRow).getNextDateBackup() != null ? backups.get(selectedRow).getNextDateBackup().format(formatter) : "_") + ", " +
+                    "<b>DaysIntervalBackup:</b> " + (backups.get(selectedRow).getDaysIntervalBackup() != null ? backups.get(selectedRow).getDaysIntervalBackup() : "_") + ", " +
+                    "<b>CreationDate:</b> " + (backups.get(selectedRow).getCreationDate() != null ? backups.get(selectedRow).getCreationDate().format(formatter) : "_") + ", " +
+                    "<b>LastUpdateDate:</b> " + (backups.get(selectedRow).getLastUpdateDate() != null ? backups.get(selectedRow).getLastUpdateDate().format(formatter) : "_") +
+                    "</html>"
+                );
+            }
+        }
+    }//GEN-LAST:event_tableMouseClicked
+
+    private void tablePanelMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tablePanelMouseClicked
+        table.clearSelection(); // deselect any selected row
+        detailsLabel.setText(""); // clear the label
+    }//GEN-LAST:event_tablePanelMouseClicked
     
     private void savedChanges(boolean saved) {
         if (saved || currentBackup.getFilename() == null || currentBackup.getFilename().isEmpty() || (currentBackup.getInitialPath().equals(startPathField.getText())) && currentBackup.getDestinationPath().equals(destinationPathField.getText())) {
@@ -1031,7 +1073,6 @@ public class BackupManagerGUI extends javax.swing.JFrame {
             AutoBackupPreference.setSelected(false);
             currentBackup.setAutoBackup(false);
         }
-        
     }
     
     // it returns true if is correctly setted, false otherwise
@@ -1039,7 +1080,6 @@ public class BackupManagerGUI extends javax.swing.JFrame {
         System.out.println("Event --> automatic backup");
         
         try {
-
             if(!CheckInputCorrect(startPathField.getText(), destinationPathField.getText())) return false;
 
             // if the file has not been saved you need to save it before setting the auto backup
@@ -1097,6 +1137,11 @@ public class BackupManagerGUI extends javax.swing.JFrame {
             Backup backup;
             try {
                 backup = JSON.WriteJSONFile(currentBackup.getFilename(), SAVES_DIRECTORY_STRING);
+                
+                dateNow = LocalDateTime.now();
+                backup.setCreationDate(dateNow);
+                backup.setLastUpdateDate(dateNow);
+                
                 backups.add(backup);
                 currentBackup.UpdateBackup(backup);
             } catch (IOException ex) {
@@ -1461,13 +1506,13 @@ public class BackupManagerGUI extends javax.swing.JFrame {
     private javax.swing.JLabel currentFileLabel;
     private javax.swing.JTextField destinationPathField;
     private javax.swing.JLabel detailsLabel;
+    private javax.swing.JPanel detailsPanel;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
-    private javax.swing.JPanel jPanel3;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLabel lastBackupLabel;
     private javax.swing.JLabel messageLabel;
@@ -1475,6 +1520,7 @@ public class BackupManagerGUI extends javax.swing.JFrame {
     private javax.swing.JTextField researchField;
     private javax.swing.JTextField startPathField;
     private javax.swing.JTable table;
+    private javax.swing.JPanel tablePanel;
     private javax.swing.JLabel txtTitle;
     // End of variables declaration//GEN-END:variables
 }

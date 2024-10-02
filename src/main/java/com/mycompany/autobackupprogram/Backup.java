@@ -11,6 +11,8 @@ public class Backup {
     private boolean _autoBackup;
     private LocalDateTime _nextDateBackup;
     private Integer _daysIntervalBackup;
+    private LocalDateTime _creationDate;
+    private LocalDateTime _lastUpdateDate;
     
     public Backup() {
         _filename = "";
@@ -20,9 +22,11 @@ public class Backup {
         _autoBackup = false;
         _nextDateBackup = null;
         _daysIntervalBackup = null;
+        _creationDate = null;
+        _lastUpdateDate = null;
     }
     
-    public Backup(String filename, String initialPath, String destinationPath, LocalDateTime lastBackup, Boolean autoBackup, LocalDateTime nextDateBackup, Integer daysIntervalBackup) {
+    public Backup(String filename, String initialPath, String destinationPath, LocalDateTime lastBackup, Boolean autoBackup, LocalDateTime nextDateBackup, Integer daysIntervalBackup, LocalDateTime creationDate, LocalDateTime lastUpdateDate) {
         this._filename = filename;
         this._initialPath = initialPath;
         this._destinationPath = destinationPath;
@@ -30,6 +34,8 @@ public class Backup {
         this._autoBackup = autoBackup;
         this._nextDateBackup = nextDateBackup;
         this._daysIntervalBackup = daysIntervalBackup;
+        this._creationDate = creationDate;
+        this._lastUpdateDate = lastUpdateDate;
     }
     
     public void UpdateBackup(Backup backupUpdated) {
@@ -40,6 +46,8 @@ public class Backup {
         this._autoBackup = backupUpdated.isAutoBackup();
         this._nextDateBackup = backupUpdated.getNextDateBackup();
         this._daysIntervalBackup = backupUpdated.getDaysIntervalBackup();
+        this._creationDate = backupUpdated.getCreationDate();
+        this._lastUpdateDate = backupUpdated.getLastUpdateDate();
     }
     
     @Override
@@ -75,6 +83,14 @@ public class Backup {
         return _daysIntervalBackup;
     }
 
+    public LocalDateTime getCreationDate() {
+        return _creationDate;
+    }
+
+    public LocalDateTime getLastUpdateDate() {
+        return _lastUpdateDate;
+    }
+    
     public void setFilename(String _filename) {
         this._filename = _filename;
     }
@@ -101,5 +117,13 @@ public class Backup {
 
     public void setDaysIntervalBackup(Integer _daysIntervalBackup) {
         this._daysIntervalBackup = _daysIntervalBackup;
+    }
+
+    public void setCreationDate(LocalDateTime _creationDate) {
+        this._creationDate = _creationDate;
+    }
+
+    public void setLastUpdateDate(LocalDateTime _lastUpdateDate) {
+        this._lastUpdateDate = _lastUpdateDate;
     }
 }

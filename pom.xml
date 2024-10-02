@@ -33,7 +33,7 @@
             <configuration>
                 <archive>
                     <manifest>
-                        <mainClass>com.mycompany.autobackupprogram.MainApp</mainClass> <!-- Sostituisci con la tua classe principale -->
+                        <mainClass>com.mycompany.autobackupprogram.MainApp</mainClass>
                     </manifest>
                 </archive>
                 <descriptorRefs>

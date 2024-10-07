@@ -2,7 +2,6 @@ package com.mycompany.autobackupprogram;
 
 import static com.mycompany.autobackupprogram.BackupManagerGUI.OpenExceptionMessage;
 import java.io.*;
-import java.nio.file.*;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -13,124 +12,12 @@ import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 
 class JSONAutoBackup implements IJSONAutoBackup {
-
-    private JSONArray backupList;
-    private final BackupManagerGUI frame;
-
-    public JSONAutoBackup(BackupManagerGUI frame) {
-        this.frame = frame;
-    }
-
-    @Override
-    public Backup ReadJSONFile(String filename, String directoryPath) {
-        if (filename == null || filename.isEmpty()) throw new IllegalArgumentException();
-        
-        JSONParser jsonP = new JSONParser();
-        Path filePath = Paths.get(directoryPath, filename);
-
-        try (FileReader reader = new FileReader(filePath.toFile())) {
-            Object obj = jsonP.parse(reader);
-            JSONObject list = (JSONObject) obj;
-
-            String name = (String) list.get("filename");
-
-            if (filename.equals(BackupManagerGUI.INFO_FILE_STRING)) {
-                System.out.println("Event --> current file: " + name);
-                ReadJSONFile(name, BackupManagerGUI.SAVES_DIRECTORY_STRING);
-                return null; // return is essential to stop the recursion
-            }
-
-            String path1 = (String) list.get("start_path");
-            String path2 = (String) list.get("destination_path");
-            String lastBackupStr = (String) list.get("last_backup");
-            String nextDateStr = (String) list.get("next_date_backup");
-            Integer daysInterval = (Integer) list.get("days_interval_backup");
-            String creationDateStr = (String) list.get("creation_date");
-            String lastUpdateDateStr = (String) list.get("last_update_date");
-            Object value = list.get("automatic_backup");
-            Boolean automaticBackup = null;
-            if (value instanceof Boolean aBoolean) {
-                automaticBackup = aBoolean;
-            } else if (value instanceof String string) {
-                automaticBackup = Boolean.valueOf(string);
-            } else if (value instanceof Integer integer) {
-                automaticBackup = (integer == 1);
-            }
-            
-            LocalDateTime lastBackupValue = lastBackupStr != null && !lastBackupStr.isEmpty() ? LocalDateTime.parse(lastBackupStr) : null;
-            LocalDateTime nextDateBackupValue = nextDateStr != null && !nextDateStr.isEmpty() ? LocalDateTime.parse(lastBackupStr) : null;
-            LocalDateTime creationDateValue = creationDateStr != null && !creationDateStr.isEmpty() ? LocalDateTime.parse(creationDateStr) : null;
-            LocalDateTime lastUpdateDateValue = lastUpdateDateStr != null && !lastUpdateDateStr.isEmpty() ? LocalDateTime.parse(lastUpdateDateStr) : null;
-
-            Backup backup = new Backup(
-                name,
-                path1,
-                path2,
-                lastBackupValue,
-                automaticBackup,
-                nextDateBackupValue,
-                daysInterval,
-                creationDateValue,
-                lastUpdateDateValue
-            );
-            
-            frame.SetStartPathField(path1);
-            frame.SetDestinationPathField(path2);
-            frame.SetLastBackupLabel(lastBackupValue);
-            frame.setAutoBackupPreference(automaticBackup);
-            frame.setCurrentFileName(name);
-
-            return backup;
-        } catch (FileNotFoundException ex) {
-            System.err.println("FileNotFoundException (ReadJSONFile) --> " + ex);
-            OpenExceptionMessage(ex.getMessage(), Arrays.toString(ex.getStackTrace()));
-        } catch (IOException | ParseException ex) {
-            System.err.println("IOException | ParseException (ReadJSONFile) --> " + ex);
-            OpenExceptionMessage(ex.getMessage(), Arrays.toString(ex.getStackTrace()));
-            ex.printStackTrace();
-        } catch (Exception ex) {
-            System.err.println("Exception (ReadJSONFile) --> " + ex);
-            OpenExceptionMessage(ex.getMessage(), Arrays.toString(ex.getStackTrace()));
-        }
-        return null;
-    }
-    
-    @Override
-    public Backup WriteJSONFile(String filename, String directoryPath) throws IOException {
-        if (filename == null || filename.isEmpty()) throw new IllegalArgumentException("filename cannot be null or empty");
-        
-        Backup backup;
-        
-        JSONObject list = new JSONObject();
-        list.put("filename", filename);
-        list.put("start_path", frame.GetStartPathField());
-        list.put("destination_path", frame.GetDestinationPathField());
-        LocalDateTime date = BackupManagerGUI.currentBackup.getLastBackup();
-        list.put("last_backup", date != null ? date.toString() : null);
-        Boolean autoBackup = frame.GetAutomaticBackupPreference();
-        list.put("automatic_backup", autoBackup);
-        LocalDateTime nextDate = BackupManagerGUI.currentBackup.getNextDateBackup();
-        LocalDateTime creationDate = BackupManagerGUI.currentBackup.getCreationDate();
-        LocalDateTime lastUpdateDate = BackupManagerGUI.currentBackup.getLastUpdateDate();
-        Integer daysInterval = BackupManagerGUI.currentBackup.getDaysIntervalBackup();
-        list.put("next_date_backup", autoBackup == true && nextDate != null ? nextDate.toString() : null);
-        list.put("creation_date", creationDate != null ? creationDate.toString() : null);
-        list.put("last_update_date", lastUpdateDate != null ? lastUpdateDate.toString() : null);
-        list.put("days_interval_backup", autoBackup == true ? daysInterval.toString() : null);
-        
-        backup = new Backup(filename, frame.GetStartPathField(), frame.GetDestinationPathField(), date, autoBackup, nextDate, daysInterval, creationDate, lastUpdateDate);
-
-        // file writing
-        PrintToFile(list.toJSONString(), directoryPath, filename);
-        
-        return backup;
-    }
     
     @Override
     public void WriteInfoJSONFile(String filename, String directoryPath) {
         if (filename == null) throw new IllegalArgumentException();
         
-        new JSONObject().put("filename", BackupManagerGUI.currentBackup.getFilename());
+        new JSONObject().put("filename", BackupManagerGUI.currentBackup.getBackupName());
     }
     
     @Override
@@ -200,93 +87,21 @@ class JSONAutoBackup implements IJSONAutoBackup {
     }
     
     @Override
-    public void LoadJSONBackupList() throws IOException {
-        backupList = new JSONArray();
-
-        PrintToFile("", BackupManagerGUI.INFO_FILE_DIRECTORY_STRING, BackupManagerGUI.BACKUP_FILE_STRING); // clean the file
-
-        File directory = new File(BackupManagerGUI.SAVES_DIRECTORY_STRING);
-        File[] listOfFiles = directory.listFiles();
-
-        if (listOfFiles != null) {
-            for (File file : listOfFiles) {
-                if (file.isFile()) {
-                    JSONParser jsonP = new JSONParser();
-
-                    try (FileReader reader = new FileReader(file)) {
-                        Object obj = jsonP.parse(reader);
-                        JSONObject list = (JSONObject) obj;
-
-                        // reading
-                        String name = (String) list.get("filename");
-                        String path1 = (String) list.get("start_path");
-                        String path2 = (String) list.get("destination_path");
-                        String lastBackup = (String) list.get("last_backup");
-                        String nextDate = (String) list.get("next_date_backup");
-                        String creationDate = (String) list.get("creation_date");
-                        String lastUpdateDate = (String) list.get("last_update_date");
-                        Long daysInterval = (Long) list.get("days_interval_backup");
-                        Object value = list.get("automatic_backup");
-                        Boolean automaticBackup = null;
-                        if (value instanceof Boolean) {
-                            automaticBackup = (Boolean) value;
-                        } else if (value instanceof String string) {
-                            automaticBackup = Boolean.valueOf(string);
-                        } else if (value instanceof Integer integer) {
-                            automaticBackup = (integer == 1);
-                        }
-
-                        // writing
-                        list.put("filename", name);
-                        list.put("start_path", path1);
-                        list.put("destination_path", path2);
-                        list.put("last_backup", lastBackup != null ? lastBackup : null);
-                        list.put("automatic_backup", automaticBackup);
-                        list.put("next_date_backup", automaticBackup == true ? nextDate : null);
-                        list.put("creation_date", creationDate != null ? creationDate : null);
-                        list.put("last_update_date", lastUpdateDate != null ? lastUpdateDate : null);
-                        list.put("days_interval_backup", automaticBackup == true ? daysInterval : null); 
-                        
-                        if (automaticBackup) {
-                            // save the first auto_backup to do
-                            LocalDateTime nextDateTime = LocalDateTime.parse(nextDate);
-                            UpdateNextAutoBackup(nextDateTime);
-                        }
-
-                        // add to the list
-                        backupList.add(list);
-
-                    } catch (FileNotFoundException ex) {
-                        System.err.println("FileNotFoundException (LoadJSONBackupList) --> " + ex);
-                        OpenExceptionMessage(ex.getMessage(), Arrays.toString(ex.getStackTrace()));
-                    } catch (IOException | ParseException ex) {
-                        System.err.println("IOException | ParseException (LoadJSONBackupList) --> " + ex);
-                        OpenExceptionMessage(ex.getMessage(), Arrays.toString(ex.getStackTrace()));
-                    }
-                }
-            }
-        }
-
-        // write to file
-        PrintToFile(backupList.toJSONString(), BackupManagerGUI.INFO_FILE_DIRECTORY_STRING, BackupManagerGUI.BACKUP_FILE_STRING);
-    }
-    
-    @Override
     public void UpdateBackupListJSON(String filename, String directoryPath, List<Backup> backups) {
         String filePath = directoryPath + filename;
         
         JSONArray updatedBackupArray = new JSONArray();
         for (Backup backup : backups) {
             JSONObject backupObject = new JSONObject();
-            backupObject.put("filename", backup.getFilename());
+            backupObject.put("filename", backup.getBackupName());
             backupObject.put("start_path", backup.getInitialPath());
             backupObject.put("destination_path", backup.getDestinationPath());
-            backupObject.put("last_backup", backup.getLastBackup());
+            backupObject.put("last_backup", backup.getLastBackup() != null ? backup.getLastBackup().toString() : null);
             backupObject.put("automatic_backup", backup.isAutoBackup());
-            backupObject.put("next_date_backup", backup.getNextDateBackup());
+            backupObject.put("next_date_backup", backup.getNextDateBackup() != null ? backup.getNextDateBackup().toString() : null);
             backupObject.put("days_interval_backup", backup.getDaysIntervalBackup());
-            backupObject.put("creation_date", backup.getCreationDate());
-            backupObject.put("last_update_date", backup.getLastUpdateDate());
+            backupObject.put("creation_date", backup.getCreationDate() != null ? backup.getCreationDate().toString() : null);
+            backupObject.put("last_update_date", backup.getLastUpdateDate() != null ? backup.getLastUpdateDate().toString() : null);
 
             updatedBackupArray.add(backupObject);
         }
@@ -297,31 +112,6 @@ class JSONAutoBackup implements IJSONAutoBackup {
         } catch (IOException ex) {
             System.err.println("IOException (UpdateBackupListJSON) --> " + ex);
             OpenExceptionMessage(ex.getMessage(), Arrays.toString(ex.getStackTrace()));
-        }
-    }
-
-    public void UpdateNextAutoBackup(LocalDateTime newNextDate) throws IOException {
-        if (BackupManagerGUI.currentBackup.getNextDateBackup() == null || newNextDate == null) return;
-
-        LocalDateTime nextDate = BackupManagerGUI.currentBackup.getNextDateBackup();
-
-        // the earliest date, save it in the file
-        if (nextDate.compareTo(newNextDate) >= 0) {
-            PrintToFile(newNextDate.toString(), BackupManagerGUI.INFO_FILE_DIRECTORY_STRING, BackupManagerGUI.NEXT_BACKUP_FILE_STRING);
-        }
-    }
-
-    private void PrintToFile(String text, String directoryPath, String filename) throws IOException {
-        if (directoryPath == null) throw new IllegalArgumentException("Directory path is null or empty");
-        if (filename == null) throw new IllegalArgumentException("Filename is null or empty");
-                
-        File file = new File(directoryPath, filename);
-        
-        try (BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(file), "UTF-8"))) {
-            writer.write(text);
-        } catch (IOException ex) {
-            System.err.println("IOException (PrintToFile) --> " + ex);
-            throw ex;
         }
     }
 }

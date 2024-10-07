@@ -9,7 +9,7 @@ import java.util.TimerTask;
 
 public class BackupService {
     private Timer timer;
-    private final JSONAutoBackup json = new JSONAutoBackup(null);
+    private final JSONAutoBackup json = new JSONAutoBackup();
 
     public void startService() {
         timer = new Timer();

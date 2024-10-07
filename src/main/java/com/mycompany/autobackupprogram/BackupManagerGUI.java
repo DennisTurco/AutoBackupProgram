@@ -42,7 +42,6 @@ public class BackupManagerGUI extends javax.swing.JFrame {
     
     public static final String INFO_FILE_STRING = "info.json";
     public static final String LOG_FILE_STRING = "log_file";
-    public static final String NEXT_BACKUP_FILE_STRING = "next_backup.json";
     public static final String BACKUP_FILE_STRING = "backup_list.json";
     public static final String INFO_FILE_DIRECTORY_STRING = "src/main/resources/res/";
     public static final String SAVES_DIRECTORY_STRING = "src/main/resources/res/saves/";    
@@ -55,7 +54,7 @@ public class BackupManagerGUI extends javax.swing.JFrame {
     private static DefaultTableModel model;
     private BackupProgressGUI progressBar;
     private static Thread copyThread;
-    private boolean saveCanched;
+    private boolean saveChanged;
     private Integer selectedRow;
     
     public static final DateTimeFormatter dayFormatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
@@ -73,9 +72,9 @@ public class BackupManagerGUI extends javax.swing.JFrame {
         Image icon = new ImageIcon(this.getClass().getResource("/res/img/logo.png")).getImage();
         this.setIconImage(icon);
         
-        JSON = new JSONAutoBackup(this);
+        JSON = new JSONAutoBackup();
         currentBackup = new Backup();
-        saveCanched = true;
+        saveChanged = true;
         
         try {
             backups = JSON.ReadBackupListFromJSON(BACKUP_FILE_STRING, INFO_FILE_DIRECTORY_STRING);
@@ -99,6 +98,19 @@ public class BackupManagerGUI extends javax.swing.JFrame {
         TablePopup = new javax.swing.JPopupMenu();
         EditPoputItem = new javax.swing.JMenuItem();
         DeletePopupItem = new javax.swing.JMenuItem();
+        DuplicatePopupItem = new javax.swing.JMenuItem();
+        jSeparator1 = new javax.swing.JPopupMenu.Separator();
+        OpenInitialFolderItem = new javax.swing.JMenuItem();
+        OpenInitialDestinationItem = new javax.swing.JMenuItem();
+        jSeparator3 = new javax.swing.JPopupMenu.Separator();
+        Backup = new javax.swing.JMenu();
+        RunBackupPopupItem = new javax.swing.JMenuItem();
+        AutoBackupMenuItem = new javax.swing.JCheckBoxMenuItem();
+        jSeparator2 = new javax.swing.JPopupMenu.Separator();
+        jMenu4 = new javax.swing.JMenu();
+        CopyFilenamePopupItem = new javax.swing.JMenuItem();
+        CopyInitialPathPopupItem = new javax.swing.JMenuItem();
+        CopyDestinationPathPopupItem = new javax.swing.JMenuItem();
         TabbedPane = new javax.swing.JTabbedPane();
         jPanel1 = new javax.swing.JPanel();
         txtTitle = new javax.swing.JLabel();
@@ -124,10 +136,8 @@ public class BackupManagerGUI extends javax.swing.JFrame {
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
         MenuNew = new javax.swing.JMenuItem();
-        MenuOpen = new javax.swing.JMenuItem();
         MenuSave = new javax.swing.JMenuItem();
         MenuSaveWithName = new javax.swing.JMenuItem();
-        MenuRemove = new javax.swing.JMenuItem();
         MenuClear = new javax.swing.JMenuItem();
         MenuHistory = new javax.swing.JMenuItem();
         jMenu2 = new javax.swing.JMenu();
@@ -153,6 +163,85 @@ public class BackupManagerGUI extends javax.swing.JFrame {
             }
         });
         TablePopup.add(DeletePopupItem);
+
+        DuplicatePopupItem.setText("Duplicate");
+        DuplicatePopupItem.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                DuplicatePopupItemActionPerformed(evt);
+            }
+        });
+        TablePopup.add(DuplicatePopupItem);
+        TablePopup.add(jSeparator1);
+
+        OpenInitialFolderItem.setText("Open initial folder");
+        OpenInitialFolderItem.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                OpenInitialFolderItemActionPerformed(evt);
+            }
+        });
+        TablePopup.add(OpenInitialFolderItem);
+
+        OpenInitialDestinationItem.setText("Open destination folder");
+        OpenInitialDestinationItem.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                OpenInitialDestinationItemActionPerformed(evt);
+            }
+        });
+        TablePopup.add(OpenInitialDestinationItem);
+        TablePopup.add(jSeparator3);
+
+        Backup.setText("Backup");
+
+        RunBackupPopupItem.setText("Run single backup");
+        RunBackupPopupItem.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                RunBackupPopupItemActionPerformed(evt);
+            }
+        });
+        Backup.add(RunBackupPopupItem);
+
+        AutoBackupMenuItem.setSelected(true);
+        AutoBackupMenuItem.setText("Auto Backup");
+        AutoBackupMenuItem.setToolTipText("");
+        AutoBackupMenuItem.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                AutoBackupMenuItemActionPerformed(evt);
+            }
+        });
+        Backup.add(AutoBackupMenuItem);
+
+        TablePopup.add(Backup);
+        TablePopup.add(jSeparator2);
+
+        jMenu4.setText("Copy text");
+
+        CopyFilenamePopupItem.setText("Copy filename");
+        CopyFilenamePopupItem.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                CopyFilenamePopupItemActionPerformed(evt);
+            }
+        });
+        jMenu4.add(CopyFilenamePopupItem);
+
+        CopyInitialPathPopupItem.setText("Copy initial path");
+        CopyInitialPathPopupItem.setToolTipText("");
+        CopyInitialPathPopupItem.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                CopyInitialPathPopupItemActionPerformed(evt);
+            }
+        });
+        jMenu4.add(CopyInitialPathPopupItem);
+
+        CopyDestinationPathPopupItem.setText("Copy destination path");
+        CopyDestinationPathPopupItem.setToolTipText("");
+        CopyDestinationPathPopupItem.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                CopyDestinationPathPopupItemActionPerformed(evt);
+            }
+        });
+        jMenu4.add(CopyDestinationPathPopupItem);
+
+        TablePopup.add(jMenu4);
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("AutoBackup");
@@ -258,21 +347,11 @@ public class BackupManagerGUI extends javax.swing.JFrame {
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(currentFileLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 298, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(319, 319, 319)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(messageLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 178, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(SingleBackup, javax.swing.GroupLayout.PREFERRED_SIZE, 178, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(AutoBackupPreference, javax.swing.GroupLayout.PREFERRED_SIZE, 172, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addContainerGap(340, Short.MAX_VALUE))
-            .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(233, 233, 233)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(startPathField, javax.swing.GroupLayout.PREFERRED_SIZE, 312, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 13, Short.MAX_VALUE)
                         .addComponent(btnPathSearch1, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(destinationPathField, javax.swing.GroupLayout.PREFERRED_SIZE, 312, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -283,10 +362,23 @@ public class BackupManagerGUI extends javax.swing.JFrame {
                         .addGap(0, 0, Short.MAX_VALUE))
                     .addComponent(lastBackupLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGap(234, 234, 234))
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(319, 319, 319)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(messageLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 178, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(SingleBackup, javax.swing.GroupLayout.PREFERRED_SIZE, 178, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(AutoBackupPreference, javax.swing.GroupLayout.PREFERRED_SIZE, 172, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(currentFileLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 298, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
+                .addContainerGap()
                 .addComponent(currentFileLabel)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(txtTitle, javax.swing.GroupLayout.PREFERRED_SIZE, 58, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -306,7 +398,7 @@ public class BackupManagerGUI extends javax.swing.JFrame {
                 .addComponent(AutoBackupPreference)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(messageLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 13, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(326, 326, 326))
+                .addGap(358, 358, 358))
         );
 
         TabbedPane.addTab("AutoBackup", jPanel1);
@@ -332,7 +424,7 @@ public class BackupManagerGUI extends javax.swing.JFrame {
 
             },
             new String [] {
-                "Filename", "Initial path", "Destination path", "Last backup", "Auto backup", "Next date backup", "Days interval backup"
+                "Backup name", "Initial path", "Destination path", "Last backup", "Auto backup", "Next date backup", "Days interval backup"
             }
         ) {
             Class[] types = new Class [] {
@@ -394,9 +486,9 @@ public class BackupManagerGUI extends javax.swing.JFrame {
                         .addComponent(researchField, javax.swing.GroupLayout.PREFERRED_SIZE, 321, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(researchButton, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 0, Short.MAX_VALUE))
+                        .addGap(0, 378, Short.MAX_VALUE))
                     .addGroup(tablePanelLayout.createSequentialGroup()
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 819, Short.MAX_VALUE)
+                        .addComponent(jScrollPane1)
                         .addContainerGap())))
         );
         tablePanelLayout.setVerticalGroup(
@@ -415,6 +507,8 @@ public class BackupManagerGUI extends javax.swing.JFrame {
         );
 
         researchField.getAccessibleContext().setAccessibleName("");
+
+        detailsLabel.setVerticalAlignment(javax.swing.SwingConstants.TOP);
 
         javax.swing.GroupLayout detailsPanelLayout = new javax.swing.GroupLayout(detailsPanel);
         detailsPanel.setLayout(detailsPanelLayout);
@@ -470,15 +564,6 @@ public class BackupManagerGUI extends javax.swing.JFrame {
         });
         jMenu1.add(MenuNew);
 
-        MenuOpen.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_O, java.awt.event.InputEvent.CTRL_DOWN_MASK));
-        MenuOpen.setText("open");
-        MenuOpen.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                MenuOpenActionPerformed(evt);
-            }
-        });
-        jMenu1.add(MenuOpen);
-
         MenuSave.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_S, java.awt.event.InputEvent.CTRL_DOWN_MASK));
         MenuSave.setText("save");
         MenuSave.addActionListener(new java.awt.event.ActionListener() {
@@ -495,14 +580,6 @@ public class BackupManagerGUI extends javax.swing.JFrame {
             }
         });
         jMenu1.add(MenuSaveWithName);
-
-        MenuRemove.setText("remove");
-        MenuRemove.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                MenuRemoveActionPerformed(evt);
-            }
-        });
-        jMenu1.add(MenuRemove);
 
         MenuClear.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_C, java.awt.event.InputEvent.CTRL_DOWN_MASK));
         MenuClear.setText("clear");
@@ -609,7 +686,7 @@ public class BackupManagerGUI extends javax.swing.JFrame {
                 model.addRow(new Object[]{"", "", "", "", "", "", ""});
             }
 
-            model.setValueAt(backup.getFilename(), i, 0);
+            model.setValueAt(backup.getBackupName(), i, 0);
             model.setValueAt(backup.getInitialPath(), i, 1);
             model.setValueAt(backup.getDestinationPath(), i, 2);
             model.setValueAt(backup.getLastBackup() != null ? backup.getLastBackup().format(formatter) : "", i, 3);
@@ -682,7 +759,7 @@ public class BackupManagerGUI extends javax.swing.JFrame {
 
         for (Backup backup : updatedBackups) {
             model.addRow(new Object[]{
-                backup.getFilename(),
+                backup.getBackupName(),
                 backup.getInitialPath(),
                 backup.getDestinationPath(),
                 backup.getLastBackup() != null ? backup.getLastBackup().format(formatter) : "",
@@ -757,32 +834,11 @@ public class BackupManagerGUI extends javax.swing.JFrame {
         messageLabel.setText("");
         lastBackupLabel.setText("");
     }
-    
-    private void MenuRemoveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MenuRemoveActionPerformed
-        System.out.println("Event --> remove file");
-
-        // get the name of the selected file
-        String filename = getFile(SAVES_DIRECTORY_STRING);
-        if (filename == null) return;
-
-        RemoveBackupFile(filename);
-    }//GEN-LAST:event_MenuRemoveActionPerformed
-    
-    private void RemoveBackupFile(String filename) {
-        // delete
-        File file = new File(SAVES_DIRECTORY_STRING + filename);
-        if (file.delete()) {
-            System.out.println("Event --> file deleted: " + file.getName());
-            JOptionPane.showMessageDialog(this, "File '" + filename + "' deleted successfully!", "File deleted", JOptionPane.INFORMATION_MESSAGE);
-        }
-        else {
-            System.out.println("Failed to delete the file.");
-            return;
-        }
         
+    private void RemoveBackup(String backupName) {
         // backup list update
         for (Backup backup : backups) {
-            if (filename.equals(backup.getFilename())) {
+            if (backupName.equals(backup.getBackupName())) {
                 backups.remove(backup);
                 break;
             }
@@ -801,45 +857,34 @@ public class BackupManagerGUI extends javax.swing.JFrame {
 
     private void saveFile() {
         System.out.println("Event --> save");
-        if (currentBackup.getFilename() == null || currentBackup.getFilename().isEmpty()) {
+        if (currentBackup.getBackupName() == null || currentBackup.getBackupName().isEmpty()) {
             SaveWithName();
         }
 
         try {
-            Backup backup = JSON.WriteJSONFile(currentBackup.getFilename(), SAVES_DIRECTORY_STRING);
+            currentBackup.setInitialPath(GetStartPathField());
+            currentBackup.setDestinationPath(GetDestinationPathField());
+            
             dateNow = LocalDateTime.now();
-            backup.setLastUpdateDate(dateNow);
+            currentBackup.setLastUpdateDate(dateNow);
             
             for (Backup b : backups) {
-                if (b.getFilename().equals(backup.getFilename())) {
-                    b.UpdateBackup(backup);
+                if (b.getBackupName().equals(currentBackup.getBackupName())) {
+                    b.UpdateBackup(currentBackup);
                     break;
                 }
             }
-            currentBackup.UpdateBackup(backup);
             JSON.UpdateBackupListJSON(BACKUP_FILE_STRING, INFO_FILE_DIRECTORY_STRING, backups);
             updateTableWithNewBackupList(backups);
-            JSON.LoadJSONBackupList();
             savedChanges(true);
         } catch (IllegalArgumentException ex) {
             System.err.println("IllegalArgumentException (MenuSaveActionPerformed) --> " + ex);
             OpenExceptionMessage(ex.getMessage(), Arrays.toString(ex.getStackTrace()));
-        } catch (IOException ex) {
-            System.err.println("IOException (MenuSaveActionPerformed) --> " + ex);
-            OpenExceptionMessage(ex.getMessage(), Arrays.toString(ex.getStackTrace()));
         }
     }
     
-    private void MenuOpenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MenuOpenActionPerformed
-        System.out.println("Event --> open");
-
-        // get the name of the selected file
-        String filename = getFile(SAVES_DIRECTORY_STRING);
-        OpenFile(filename);
-    }//GEN-LAST:event_MenuOpenActionPerformed
-
-    private void OpenFile(String filename) {
-        if (!saveCanched && !currentBackup.getFilename().isEmpty()) {
+    private void OpenBackup(String backupName) {
+        if (!saveChanged && !currentBackup.getBackupName().isEmpty()) {
             int response = JOptionPane.showConfirmDialog(null, "There are unsaved changes, do you want to save them before moving to another file?", "Confimation required", JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE);
             if (response == JOptionPane.YES_OPTION) {
                 saveFile();
@@ -848,9 +893,16 @@ public class BackupManagerGUI extends javax.swing.JFrame {
             }
         }
         
-        // read from json file
         try {
-            currentBackup = JSON.ReadJSONFile(filename, SAVES_DIRECTORY_STRING);
+            for(Backup backup : backups) {
+                if (backup.getBackupName().equals(backupName)) {
+                    currentBackup = backup;
+                    break;
+                }
+            }
+            
+            updateCurrentFiedsByBackup(currentBackup);
+            
         } catch (IllegalArgumentException ex) {
             System.err.println("Exception (OpenFile) --> " + ex);
             OpenExceptionMessage(ex.getMessage(), Arrays.toString(ex.getStackTrace()));
@@ -858,12 +910,20 @@ public class BackupManagerGUI extends javax.swing.JFrame {
     }
     
     private void MenuNewActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MenuNewActionPerformed
-        NewFile();
+        NewBackup();
     }//GEN-LAST:event_MenuNewActionPerformed
 
-    private void NewFile() {
-        if (!saveCanched && !currentBackup.getFilename().isEmpty()) {
-            int response = JOptionPane.showConfirmDialog(null, "There are unsaved changes, do you want to save them before moving to another file?", "Confimation required", JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE);
+    private void updateCurrentFiedsByBackup(Backup backup) {
+        SetStartPathField(backup.getInitialPath());
+        SetDestinationPathField(backup.getDestinationPath());
+        SetLastBackupLabel(backup.getLastUpdateDate());
+        setAutoBackupPreference(backup.isAutoBackup());
+        setCurrentBackupName(backup.getBackupName());
+    }
+    
+    private void NewBackup() {
+        if (!saveChanged && !currentBackup.getBackupName().isEmpty()) {
+            int response = JOptionPane.showConfirmDialog(null, "There are unsaved changes, do you want to save them before moving to another backup?", "Confimation required", JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE);
             if (response == JOptionPane.YES_OPTION) {
                 saveFile();
             } else if (response == JOptionPane.CANCEL_OPTION) {
@@ -874,13 +934,13 @@ public class BackupManagerGUI extends javax.swing.JFrame {
         Clear();
         currentBackup = new Backup();
         currentBackup.setAutoBackup(false);
-        currentBackup.setFilename("");
+        currentBackup.setBackupName("");
         
         // basic auto enable is disabled
         setAutoBackupPreference(currentBackup.isAutoBackup());
 
-        // I remove the current open file
-        setCurrentFileName("untitled*");
+        // I remove the current open backup
+        setCurrentBackupName("untitled*");
     }
     
     private void AutoBackupPreferenceActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AutoBackupPreferenceActionPerformed
@@ -889,18 +949,18 @@ public class BackupManagerGUI extends javax.swing.JFrame {
 
     private void AutoBackupPreferenceMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_AutoBackupPreferenceMouseReleased
         // case when the state didn't change
-        if (AutoBackupPreference.isSelected() == currentBackup.isAutoBackup()) return;
+        boolean enabled = AutoBackupPreference.isSelected();
+        if (enabled == currentBackup.isAutoBackup()) return;
 
-        if (AutoBackupPreference.isSelected() && AutomaticBackup()) {
+        if (enabled && AutomaticBackup()) {
             System.out.println("Event --> Auto Backup setted to Enabled");
-            AutoBackupPreference.setSelected(true);
-            currentBackup.setAutoBackup(true);
         }
         else {
             System.out.println("Event --> Auto Backup setted to Disabled");
-            AutoBackupPreference.setSelected(false);
-            currentBackup.setAutoBackup(false);
+            disableAutoBackup(currentBackup);
         }
+        AutoBackupPreference.setSelected(enabled);
+        currentBackup.setAutoBackup(enabled);
     }//GEN-LAST:event_AutoBackupPreferenceMouseReleased
 
     private void AutoBackupPreferenceStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_AutoBackupPreferenceStateChanged
@@ -948,7 +1008,7 @@ public class BackupManagerGUI extends javax.swing.JFrame {
         String research = researchField.getText();
         
         for (Backup backup : backups) {
-            if (backup.getFilename().contains(research) || 
+            if (backup.getBackupName().contains(research) || 
                     backup.getInitialPath().contains(research) || 
                     backup.getDestinationPath().contains(research) || 
                     (backup.getLastBackup() != null && backup.getLastBackup().toString().contains(research)) ||
@@ -980,7 +1040,7 @@ public class BackupManagerGUI extends javax.swing.JFrame {
     private void EditPoputItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_EditPoputItemActionPerformed
         if (selectedRow != -1) {
             System.out.println("Edit row : " + selectedRow);
-            OpenFile(backups.get(selectedRow).getFilename());
+            OpenBackup(backups.get(selectedRow).getBackupName());
             TabbedPane.setSelectedIndex(0);
         }
     }//GEN-LAST:event_EditPoputItemActionPerformed
@@ -989,16 +1049,14 @@ public class BackupManagerGUI extends javax.swing.JFrame {
         if (selectedRow != -1) {
             int response = JOptionPane.showConfirmDialog(null, "Are you sure you want to delete this item? Please note, this action cannot be undone", "Confirmation required", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
             if (response == JOptionPane.YES_OPTION) {
-                RemoveBackupFile(backups.get(selectedRow).getFilename());
-                DefaultTableModel model = (DefaultTableModel) table.getModel();
-                model.removeRow(selectedRow);
+                RemoveBackup(backups.get(selectedRow).getBackupName());
             }
         }
     }//GEN-LAST:event_DeletePopupItemActionPerformed
 
     private void addBackupEntryButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addBackupEntryButtonActionPerformed
         TabbedPane.setSelectedIndex(0);
-        NewFile();
+        NewBackup();
     }//GEN-LAST:event_addBackupEntryButtonActionPerformed
 
     private void researchButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_researchButtonActionPerformed
@@ -1018,6 +1076,7 @@ public class BackupManagerGUI extends javax.swing.JFrame {
         } else {
             // Handling right mouse button click
             if (SwingUtilities.isRightMouseButton(evt)) {
+                AutoBackupMenuItem.setSelected(backups.get(selectedRow).isAutoBackup());
                 table.setRowSelectionInterval(selectedRow, selectedRow); // select clicked row
                 TablePopup.show(evt.getComponent(), evt.getX(), evt.getY()); // show popup
             }
@@ -1025,14 +1084,14 @@ public class BackupManagerGUI extends javax.swing.JFrame {
             // Handling left mouse button double-click
             else if (SwingUtilities.isLeftMouseButton(evt) && evt.getClickCount() == 2) {
                 System.out.println("Edit row : " + selectedRow);
-                OpenFile(backups.get(selectedRow).getFilename());
+                OpenBackup(backups.get(selectedRow).getBackupName());
                 TabbedPane.setSelectedIndex(0);
             }
 
             // Handling single left mouse button click
             else if (SwingUtilities.isLeftMouseButton(evt)) {
                 detailsLabel.setText(
-                    "<html><b>Filename:</b> " + backups.get(selectedRow).getFilename() + ", " +
+                    "<html><b>BackupName:</b> " + backups.get(selectedRow).getBackupName() + ", " +
                     "<b>InitialPath:</b> " + backups.get(selectedRow).getInitialPath() + ", " +
                     "<b>DestinationPath:</b> " + backups.get(selectedRow).getDestinationPath() + ", " +
                     "<b>LastBackup:</b> " + (backups.get(selectedRow).getLastBackup() != null ? backups.get(selectedRow).getLastBackup().format(formatter) : "") + ", " +
@@ -1050,28 +1109,135 @@ public class BackupManagerGUI extends javax.swing.JFrame {
         table.clearSelection(); // deselect any selected row
         detailsLabel.setText(""); // clear the label
     }//GEN-LAST:event_tablePanelMouseClicked
+
+    private void DuplicatePopupItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_DuplicatePopupItemActionPerformed
+        System.out.println("Event --> duplicating backup");
+        
+        if (selectedRow != -1) {        
+            Backup backup = backups.get(selectedRow);
+            dateNow = LocalDateTime.now();
+            Backup newBackup = new Backup(
+                    backup.getBackupName() + "_copy",
+                    backup.getInitialPath(),
+                    backup.getDestinationPath(),
+                    backup.getLastBackup(),
+                    backup.isAutoBackup(),
+                    backup.getNextDateBackup(),
+                    backup.getDaysIntervalBackup(),
+                    dateNow,
+                    dateNow
+            );
+            
+            backups.add(newBackup);
+            JSON.UpdateBackupListJSON(BACKUP_FILE_STRING, INFO_FILE_DIRECTORY_STRING, backups);
+            updateTableWithNewBackupList(backups);
+            
+        }
+    }//GEN-LAST:event_DuplicatePopupItemActionPerformed
+
+    private void RunBackupPopupItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_RunBackupPopupItemActionPerformed
+        if (selectedRow != -1) {
+            SingleBackup(backups.get(selectedRow).getInitialPath(), backups.get(selectedRow).getDestinationPath());
+        }
+    }//GEN-LAST:event_RunBackupPopupItemActionPerformed
+
+    private void CopyFilenamePopupItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CopyFilenamePopupItemActionPerformed
+        if (selectedRow != -1) {
+            StringSelection selection = new StringSelection(backups.get(selectedRow).getBackupName());
+            Toolkit.getDefaultToolkit().getSystemClipboard().setContents(selection, null);
+        }
+    }//GEN-LAST:event_CopyFilenamePopupItemActionPerformed
+
+    private void CopyInitialPathPopupItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CopyInitialPathPopupItemActionPerformed
+        if (selectedRow != -1) {
+            StringSelection selection = new StringSelection(backups.get(selectedRow).getInitialPath());
+            Toolkit.getDefaultToolkit().getSystemClipboard().setContents(selection, null);
+        }
+    }//GEN-LAST:event_CopyInitialPathPopupItemActionPerformed
+
+    private void CopyDestinationPathPopupItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CopyDestinationPathPopupItemActionPerformed
+        if (selectedRow != -1) {
+            StringSelection selection = new StringSelection(backups.get(selectedRow).getDestinationPath());
+            Toolkit.getDefaultToolkit().getSystemClipboard().setContents(selection, null);
+        }
+    }//GEN-LAST:event_CopyDestinationPathPopupItemActionPerformed
+
+    private void AutoBackupMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AutoBackupMenuItemActionPerformed
+        if (selectedRow != -1) {
+            Backup backup = backups.get(selectedRow);
+            boolean res = !backup.isAutoBackup();
+            setAutoBackupPreference(backup, res);
+            AutoBackupMenuItem.setSelected(res);
+            if (res) {
+                AutomaticBackup(backup);
+            }
+        }
+    }//GEN-LAST:event_AutoBackupMenuItemActionPerformed
+
+    private void disableAutoBackup(Backup backup) {
+        backup.setDaysIntervalBackup(null);
+        backup.setNextDateBackup(null);
+        backup.setLastUpdateDate(LocalDateTime.now());
+        updateTableWithNewBackupList(backups);
+    }
     
-    private void savedChanges(boolean saved) {
-        if (saved || currentBackup.getFilename() == null || currentBackup.getFilename().isEmpty() || (currentBackup.getInitialPath().equals(startPathField.getText())) && currentBackup.getDestinationPath().equals(destinationPathField.getText())) {
-            setCurrentFileName(currentBackup.getFilename());
-            saveCanched = true;
+    private void OpenInitialFolderItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_OpenInitialFolderItemActionPerformed
+        if (selectedRow != -1) {
+            OpenFolder(backups.get(selectedRow).getInitialPath());
+        }
+    }//GEN-LAST:event_OpenInitialFolderItemActionPerformed
+
+    private void OpenInitialDestinationItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_OpenInitialDestinationItemActionPerformed
+        if (selectedRow != -1) {
+            OpenFolder(backups.get(selectedRow).getDestinationPath());
+        }
+    }//GEN-LAST:event_OpenInitialDestinationItemActionPerformed
+    
+    private void OpenFolder(String path) {
+        System.out.println("Event --> opening folder");
+        
+        File folder = new File(path);
+        if (folder.exists() && folder.isDirectory()) {
+            if (Desktop.isDesktopSupported()) {
+                Desktop desktop = Desktop.getDesktop();
+                try {
+                    desktop.open(folder);
+                } catch (IOException ex) {
+                    OpenExceptionMessage(ex.getMessage(), Arrays.toString(ex.getStackTrace()));
+                }
+            } else {
+                System.out.println("Desktop not supported on this operating system");
+            }
         } else {
-            setCurrentFileName(currentBackup.getFilename() + "*");
-            saveCanched = false;
+            JOptionPane.showMessageDialog(null, "The folder does not exist or is invalid", "Error", JOptionPane.ERROR_MESSAGE);
         }
     }
     
-    public void setAutoBackupPreference(boolean option) {
-        // case when the state didn't change
-        if (option == currentBackup.isAutoBackup()) return;
-         
-        if (option) {
-            AutoBackupPreference.setSelected(true);
-            currentBackup.setAutoBackup(true);
+    private void savedChanges(boolean saved) {
+        if (saved || currentBackup.getBackupName() == null || currentBackup.getBackupName().isEmpty() || (currentBackup.getInitialPath().equals(startPathField.getText())) && currentBackup.getDestinationPath().equals(destinationPathField.getText())) {
+            setCurrentBackupName(currentBackup.getBackupName());
+        } else {
+            setCurrentBackupName(currentBackup.getBackupName() + "*");
         }
-        else {
-            AutoBackupPreference.setSelected(false);
-            currentBackup.setAutoBackup(false);
+        saveChanged = saved;
+    }
+    
+    public void setAutoBackupPreference(boolean option) {         
+        AutoBackupPreference.setSelected(option);
+        currentBackup.setAutoBackup(option);
+        
+        if (!option) {
+            disableAutoBackup(currentBackup);
+        }
+    }
+    
+    public void setAutoBackupPreference(Backup backup, boolean option) {        
+        backup.setAutoBackup(option);
+        if (backup.getBackupName().equals(currentBackup.getBackupName())) {
+            AutoBackupPreference.setSelected(option);
+        }
+        if (!option) {
+            disableAutoBackup(backup);
         }
     }
     
@@ -1079,84 +1245,126 @@ public class BackupManagerGUI extends javax.swing.JFrame {
     public boolean AutomaticBackup() {
         System.out.println("Event --> automatic backup");
         
-        try {
-            if(!CheckInputCorrect(startPathField.getText(), destinationPathField.getText())) return false;
+        if(!CheckInputCorrect(startPathField.getText(), destinationPathField.getText())) return false;
 
-            // if the file has not been saved you need to save it before setting the auto backup
-            if(currentBackup.isAutoBackup() == false) {
-                if (currentBackup.getFilename() == null || currentBackup.getFilename().isEmpty()) SaveWithName();
-                if (currentBackup.getFilename() == null || currentBackup.getFilename().isEmpty()) return false;
+        // if the file has not been saved you need to save it before setting the auto backup
+        if(currentBackup.isAutoBackup() == false || currentBackup.getNextDateBackup() == null || currentBackup.getDaysIntervalBackup() == null) {
+            if (currentBackup.getBackupName() == null || currentBackup.getBackupName().isEmpty()) SaveWithName();
+            if (currentBackup.getBackupName() == null || currentBackup.getBackupName().isEmpty()) return false;
 
-                // message
-                Integer daysIntervalBackup = Integer.parseInt(JOptionPane.showInputDialog(null, "Every how many days run the auto backup?")); // pop-up message
-                if (daysIntervalBackup == JOptionPane.CANCEL_OPTION) return false;
+            // message
+            Integer daysIntervalBackup = Integer.parseInt(JOptionPane.showInputDialog(null, "Every how many days run the auto backup?")); // pop-up message
+            if (daysIntervalBackup == JOptionPane.CANCEL_OPTION) return false;
 
-                //set date for next backup
-                LocalDateTime dateNow = LocalDateTime.now();
-                LocalDateTime nextDateBackup = dateNow.plusDays(daysIntervalBackup);  // Set the time to start of day
-                
-                currentBackup.setDaysIntervalBackup(daysIntervalBackup);
-                currentBackup.setNextDateBackup(nextDateBackup);
-                
-                System.out.println("Event --> Next date backup setted to " + nextDateBackup);
-                JOptionPane.showMessageDialog(null, "Auto Backup has been activated\n\tFrom: " + startPathField.getText() + "\n\tTo: " + destinationPathField.getText() + "\nIs setted every " + daysIntervalBackup + " days", "AutoBackup", 1);
-            }
+            //set date for next backup
+            LocalDateTime dateNow = LocalDateTime.now();
+            LocalDateTime nextDateBackup = dateNow.plusDays(daysIntervalBackup);  // Set the time to start of day
 
-            // save to JSON file
-            Backup backup = JSON.WriteJSONFile(currentBackup.getFilename(), SAVES_DIRECTORY_STRING);
-            for (Backup b : backups) {
-                if (b.getFilename().equals(backup.getFilename())) {
-                    b.UpdateBackup(backup);
-                    break;
-                }
-            }
-            currentBackup.UpdateBackup(backup);
-            JSON.UpdateBackupListJSON(BACKUP_FILE_STRING, INFO_FILE_DIRECTORY_STRING, backups);
-            updateTableWithNewBackupList(backups);
-            JSON.LoadJSONBackupList(); // backup list update
-            return true;
-        } catch (HeadlessException | NumberFormatException | IOException ex) {
-            return false;
+            currentBackup.setDaysIntervalBackup(daysIntervalBackup);
+            currentBackup.setNextDateBackup(nextDateBackup);
+
+            System.out.println("Event --> Next date backup setted to " + nextDateBackup);
+            JOptionPane.showMessageDialog(null, "Auto Backup has been activated\n\tFrom: " + startPathField.getText() + "\n\tTo: " + destinationPathField.getText() + "\nIs setted every " + daysIntervalBackup + " days", "AutoBackup", 1);
         }
+
+        currentBackup.setInitialPath(GetStartPathField());
+        currentBackup.setDestinationPath(GetDestinationPathField());
+        for (Backup b : backups) {
+            if (b.getBackupName().equals(currentBackup.getBackupName())) {
+                b.UpdateBackup(currentBackup);
+                break;
+            }
+        }
+        //currentBackup.UpdateBackup(backup);
+        JSON.UpdateBackupListJSON(BACKUP_FILE_STRING, INFO_FILE_DIRECTORY_STRING, backups);
+        updateTableWithNewBackupList(backups);
+        return true;
+
+    }
+    
+    public boolean AutomaticBackup(Backup backup) {
+        System.out.println("Event --> automatic backup");
+    
+        if(backup.isAutoBackup() == false || backup.getNextDateBackup() == null || backup.getDaysIntervalBackup() == null) {
+            // if the file has not been saved you need to save it before setting the auto backup
+            if (backup.getBackupName() == null || backup.getBackupName().isEmpty()) SaveWithName();
+            if (backup.getBackupName() == null || backup.getBackupName().isEmpty()) return false;
+
+            // message
+            Integer daysIntervalBackup = Integer.parseInt(JOptionPane.showInputDialog(null, "Every how many days run the auto backup?")); // pop-up message
+            if (daysIntervalBackup == JOptionPane.CANCEL_OPTION) return false;
+
+            //set date for next backup
+            LocalDateTime dateNow = LocalDateTime.now();
+            LocalDateTime nextDateBackup = dateNow.plusDays(daysIntervalBackup);  // Set the time to start of day
+
+            backup.setDaysIntervalBackup(daysIntervalBackup);
+            backup.setNextDateBackup(nextDateBackup);
+
+            System.out.println("Event --> Next date backup setted to " + nextDateBackup);
+            JOptionPane.showMessageDialog(null, "Auto Backup has been activated\n\tFrom: " + backup.getInitialPath() + "\n\tTo: " + backup.getDestinationPath() + "\nIs setted every " + daysIntervalBackup + " days", "AutoBackup", 1);
+        }
+
+        for (Backup b : backups) {
+            if (b.getBackupName().equals(backup.getBackupName())) {
+                b.UpdateBackup(backup);
+                break;
+            }
+        }
+        currentBackup.UpdateBackup(backup);
+        JSON.UpdateBackupListJSON(BACKUP_FILE_STRING, INFO_FILE_DIRECTORY_STRING, backups);
+        updateTableWithNewBackupList(backups);
+        return true;
+
     }
     
     private void SaveWithName() {
         System.out.println("Event --> save with name");
-        System.out.println(System.getProperty("user.dir"));
 
-        String file_name;
+        String backup_name;
         do {
-            file_name = JOptionPane.showInputDialog(null, "Name of the file"); // pop-up message
-            if (file_name == null) return;
-        } while (file_name.equals("null") ||  file_name.equals("null*"));	
-        if (file_name.isEmpty()) return;
-
-        currentBackup.setFilename(file_name + ".json");
+            backup_name = JOptionPane.showInputDialog(null, "Name of the backup"); // pop-up message
+            for (Backup backup : backups) {
+                if (backup.getBackupName().equals(backup_name)) {
+                    int response = JOptionPane.showConfirmDialog(null, "A backup with the same name already exists, do you want to overwrite it?", "Confimation required", JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE);
+                    if (response == JOptionPane.YES_OPTION) {
+                        backups.remove(backup);
+                        break;
+                    } else {
+                        backup_name = null;
+                    }
+                }
+            }
+            if (backup_name == null) return;
+        } while (backup_name.equals("null") ||  backup_name.equals("null*"));	
+        if (backup_name.isEmpty()) return;
 
         try {
-            Backup backup;
-            try {
-                backup = JSON.WriteJSONFile(currentBackup.getFilename(), SAVES_DIRECTORY_STRING);
-                
-                dateNow = LocalDateTime.now();
-                backup.setCreationDate(dateNow);
-                backup.setLastUpdateDate(dateNow);
-                
-                backups.add(backup);
-                currentBackup.UpdateBackup(backup);
-            } catch (IOException ex) {
-                System.err.println("Exception (SaveWithName) --> " + ex);
-                OpenExceptionMessage(ex.getMessage(), Arrays.toString(ex.getStackTrace()));
-            }
+            dateNow = LocalDateTime.now();
+            Backup backup = new Backup (
+                    backup_name,
+                    GetStartPathField(),
+                    GetDestinationPathField(),
+                    currentBackup.getLastBackup(),
+                    currentBackup.isAutoBackup(),
+                    currentBackup.getNextDateBackup(),
+                    currentBackup.getDaysIntervalBackup(),
+                    dateNow,
+                    dateNow
+            );
+            
+            backups.add(backup);
+            currentBackup = backup;
+            
             JSON.UpdateBackupListJSON(BACKUP_FILE_STRING, INFO_FILE_DIRECTORY_STRING, backups);
             updateTableWithNewBackupList(backups);
-            JOptionPane.showMessageDialog(this, "File '" + file_name + "' saved successfully!", "File saved", JOptionPane.INFORMATION_MESSAGE);
+            JOptionPane.showMessageDialog(this, "Backup '" + currentBackup.getBackupName() + "' saved successfully!", "Backup saved", JOptionPane.INFORMATION_MESSAGE);
             savedChanges(true);
         } catch (IllegalArgumentException ex) {
             System.err.println("Exception (SaveWithName) --> " + ex);
         } catch (HeadlessException ex) {
             System.err.println("Exception (SaveWithName) --> " + ex);
-            JOptionPane.showMessageDialog(null, "Error saving file.", "Error", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(null, "Error saving backup.", "Error", JOptionPane.ERROR_MESSAGE);
         }
     }
     
@@ -1189,7 +1397,7 @@ public class BackupManagerGUI extends javax.swing.JFrame {
         System.out.println("date backup: " + date);
     	
         // if current_file_opened is null it means I'm not in a backup but it's a backup with no associated json file so I don't save the string last_backup
-        if (currentBackup != null && currentBackup.getFilename() != null) { 
+        if (currentBackup != null && currentBackup.getBackupName() != null) { 
             setStringToText();
         }
         
@@ -1213,31 +1421,28 @@ public class BackupManagerGUI extends javax.swing.JFrame {
         
         // if current_file_opened is null it means they are not in a backup but it is a backup with no associated json file
         try {
-            if (currentBackup.getFilename() != null && !currentBackup.getFilename().isEmpty()) { 
+            if (currentBackup.getBackupName() != null && !currentBackup.getBackupName().isEmpty()) { 
                 JSON.WriteInfoJSONFile(INFO_FILE_STRING, INFO_FILE_DIRECTORY_STRING);
-                Backup backup = JSON.WriteJSONFile(currentBackup.getFilename(), SAVES_DIRECTORY_STRING);
+                currentBackup.setInitialPath(GetStartPathField());
+                currentBackup.setDestinationPath(GetDestinationPathField());
                 for (Backup b : backups) {
-                    if (b.getFilename().equals(backup.getFilename())) {
-                        b.UpdateBackup(backup);
+                    if (b.getBackupName().equals(currentBackup.getBackupName())) {
+                        b.UpdateBackup(currentBackup);
                         break;
                     }
                 }
-                currentBackup.UpdateBackup(backup);
+                //currentBackup.UpdateBackup(backup);
                 JSON.UpdateBackupListJSON(BACKUP_FILE_STRING, INFO_FILE_DIRECTORY_STRING, backups);
                 updateTableWithNewBackupList(backups);
-                JSON.LoadJSONBackupList(); // backup list update
             }
         } catch (IllegalArgumentException e) {
             System.err.println("Exception (SingleBackup) --> " + e);
-        } catch (IOException e) {
-            System.err.println("Exception (SingleBackup) --> " + e);
-            OpenExceptionMessage(e.getMessage(), Arrays.toString(e.getStackTrace()));
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, "Error saving file", "Error", JOptionPane.ERROR_MESSAGE);
         }
     }
     
-    public void setCurrentFileName(String name) {
+    public void setCurrentBackupName(String name) {
         currentFileLabel.setText("Current File: " + name);
     }
     
@@ -1295,7 +1500,7 @@ public class BackupManagerGUI extends javax.swing.JFrame {
 	
     public void setTextValues() {
         try {
-            currentBackup = JSON.ReadJSONFile(INFO_FILE_STRING, INFO_FILE_DIRECTORY_STRING);
+            updateCurrentFiedsByBackup(currentBackup);
         } catch (IllegalArgumentException ex) {
             System.err.println("Exception (setTextValues) --> " + ex);
             OpenExceptionMessage(ex.getMessage(), Arrays.toString(ex.getStackTrace()));
@@ -1483,20 +1688,27 @@ public class BackupManagerGUI extends javax.swing.JFrame {
     }
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JCheckBoxMenuItem AutoBackupMenuItem;
     private javax.swing.JCheckBox AutoBackupPreference;
+    private javax.swing.JMenu Backup;
+    private javax.swing.JMenuItem CopyDestinationPathPopupItem;
+    private javax.swing.JMenuItem CopyFilenamePopupItem;
+    private javax.swing.JMenuItem CopyInitialPathPopupItem;
     private javax.swing.JMenuItem DeletePopupItem;
+    private javax.swing.JMenuItem DuplicatePopupItem;
     private javax.swing.JMenuItem EditPoputItem;
     private javax.swing.JMenuItem MenuClear;
     private javax.swing.JMenuItem MenuCredits;
     private javax.swing.JMenuItem MenuHelp;
     private javax.swing.JMenuItem MenuHistory;
     private javax.swing.JMenuItem MenuNew;
-    private javax.swing.JMenuItem MenuOpen;
     private javax.swing.JMenuItem MenuQuit;
-    private javax.swing.JMenuItem MenuRemove;
     private javax.swing.JMenuItem MenuSave;
     private javax.swing.JMenuItem MenuSaveWithName;
     private javax.swing.JMenuItem MenuShare;
+    private javax.swing.JMenuItem OpenInitialDestinationItem;
+    private javax.swing.JMenuItem OpenInitialFolderItem;
+    private javax.swing.JMenuItem RunBackupPopupItem;
     private javax.swing.JButton SingleBackup;
     private javax.swing.JTabbedPane TabbedPane;
     private javax.swing.JPopupMenu TablePopup;
@@ -1510,10 +1722,14 @@ public class BackupManagerGUI extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
+    private javax.swing.JMenu jMenu4;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JPopupMenu.Separator jSeparator1;
+    private javax.swing.JPopupMenu.Separator jSeparator2;
+    private javax.swing.JPopupMenu.Separator jSeparator3;
     private javax.swing.JLabel lastBackupLabel;
     private javax.swing.JLabel messageLabel;
     private javax.swing.JButton researchButton;

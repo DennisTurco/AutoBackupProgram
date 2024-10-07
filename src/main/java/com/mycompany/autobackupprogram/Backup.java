@@ -4,7 +4,7 @@ import java.time.LocalDateTime;
 
 public class Backup {
 
-    private String _filename;
+    private String _backupName;
     private String _initialPath;
     private String _destinationPath;
     private LocalDateTime _lastBackup;
@@ -15,7 +15,7 @@ public class Backup {
     private LocalDateTime _lastUpdateDate;
     
     public Backup() {
-        _filename = "";
+        _backupName = "";
         _initialPath = "";
         _destinationPath = "";
         _lastBackup = null;
@@ -26,8 +26,8 @@ public class Backup {
         _lastUpdateDate = null;
     }
     
-    public Backup(String filename, String initialPath, String destinationPath, LocalDateTime lastBackup, Boolean autoBackup, LocalDateTime nextDateBackup, Integer daysIntervalBackup, LocalDateTime creationDate, LocalDateTime lastUpdateDate) {
-        this._filename = filename;
+    public Backup(String backupName, String initialPath, String destinationPath, LocalDateTime lastBackup, Boolean autoBackup, LocalDateTime nextDateBackup, Integer daysIntervalBackup, LocalDateTime creationDate, LocalDateTime lastUpdateDate) {
+        this._backupName = backupName;
         this._initialPath = initialPath;
         this._destinationPath = destinationPath;
         this._lastBackup = lastBackup;
@@ -39,7 +39,7 @@ public class Backup {
     }
     
     public void UpdateBackup(Backup backupUpdated) {
-        this._filename = backupUpdated.getFilename();
+        this._backupName = backupUpdated.getBackupName();
         this._initialPath = backupUpdated.getInitialPath();
         this._destinationPath = backupUpdated.getDestinationPath();
         this._lastBackup = backupUpdated.getLastBackup();
@@ -52,11 +52,11 @@ public class Backup {
     
     @Override
     public String toString() {
-        return _filename + " " + _initialPath + " " + _destinationPath + " " + _lastBackup + " " + _autoBackup + " " + _nextDateBackup + " " + _daysIntervalBackup; 
+        return _backupName + " " + _initialPath + " " + _destinationPath + " " + _lastBackup + " " + _autoBackup + " " + _nextDateBackup + " " + _daysIntervalBackup; 
     }
 
-    public String getFilename() {
-        return _filename;
+    public String getBackupName() {
+        return _backupName;
     }
 
     public String getInitialPath() {
@@ -91,39 +91,39 @@ public class Backup {
         return _lastUpdateDate;
     }
     
-    public void setFilename(String _filename) {
-        this._filename = _filename;
+    public void setBackupName(String backupName) {
+        this._backupName = backupName;
     }
 
-    public void setInitialPath(String _initialPath) {
-        this._initialPath = _initialPath;
+    public void setInitialPath(String initialPath) {
+        this._initialPath = initialPath;
     }
 
-    public void setDestinationPath(String _destinationPath) {
-        this._destinationPath = _destinationPath;
+    public void setDestinationPath(String destinationPath) {
+        this._destinationPath = destinationPath;
     }
 
-    public void setLastBackup(LocalDateTime _lastBackup) {
-        this._lastBackup = _lastBackup;
+    public void setLastBackup(LocalDateTime lastBackup) {
+        this._lastBackup = lastBackup;
     }
 
-    public void setAutoBackup(Boolean _autoBackup) {
-        this._autoBackup = _autoBackup;
+    public void setAutoBackup(Boolean autoBackup) {
+        this._autoBackup = autoBackup;
     }
 
-    public void setNextDateBackup(LocalDateTime _nextDateBackup) {
-        this._nextDateBackup = _nextDateBackup;
+    public void setNextDateBackup(LocalDateTime nextDateBackup) {
+        this._nextDateBackup = nextDateBackup;
     }
 
-    public void setDaysIntervalBackup(Integer _daysIntervalBackup) {
-        this._daysIntervalBackup = _daysIntervalBackup;
+    public void setDaysIntervalBackup(Integer daysIntervalBackup) {
+        this._daysIntervalBackup = daysIntervalBackup;
     }
 
-    public void setCreationDate(LocalDateTime _creationDate) {
-        this._creationDate = _creationDate;
+    public void setCreationDate(LocalDateTime creationDate) {
+        this._creationDate = creationDate;
     }
 
-    public void setLastUpdateDate(LocalDateTime _lastUpdateDate) {
-        this._lastUpdateDate = _lastUpdateDate;
+    public void setLastUpdateDate(LocalDateTime lastUpdateDate) {
+        this._lastUpdateDate = lastUpdateDate;
     }
 }

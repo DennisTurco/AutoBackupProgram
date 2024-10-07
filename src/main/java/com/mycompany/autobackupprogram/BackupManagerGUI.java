@@ -45,6 +45,9 @@ public class BackupManagerGUI extends javax.swing.JFrame {
     public static final String BACKUP_FILE_STRING = "backup_list.json";
     public static final String INFO_FILE_DIRECTORY_STRING = "src/main/resources/res/";
     public static final String SAVES_DIRECTORY_STRING = "src/main/resources/res/saves/";    
+    
+    public static final String DONATE_PAGE_LINK = "https://buymeacoffee.com/denno";
+    public static final String ISSUE_PAGE_LINK = "https://github.com/DennisTurco/AutoBackupProgram/issues";
 
     public static Backup currentBackup;
     
@@ -146,10 +149,11 @@ public class BackupManagerGUI extends javax.swing.JFrame {
         MenuClear = new javax.swing.JMenuItem();
         MenuHistory = new javax.swing.JMenuItem();
         jMenu2 = new javax.swing.JMenu();
-        MenuShare = new javax.swing.JMenuItem();
-        MenuHelp = new javax.swing.JMenuItem();
-        MenuCredits = new javax.swing.JMenuItem();
+        MenuBugReport = new javax.swing.JMenuItem();
         MenuQuit = new javax.swing.JMenuItem();
+        jMenu3 = new javax.swing.JMenu();
+        MenuShare = new javax.swing.JMenuItem();
+        MenuDonate = new javax.swing.JMenuItem();
 
         EditPoputItem.setIcon(new javax.swing.ImageIcon(getClass().getResource("/res/img/pencil.png"))); // NOI18N
         EditPoputItem.setText("Edit");
@@ -650,30 +654,14 @@ public class BackupManagerGUI extends javax.swing.JFrame {
 
         jMenu2.setText("Options");
 
-        MenuShare.setText("share");
-        MenuShare.addActionListener(new java.awt.event.ActionListener() {
+        MenuBugReport.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_H, java.awt.event.InputEvent.CTRL_DOWN_MASK));
+        MenuBugReport.setText("report a bug");
+        MenuBugReport.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                MenuShareActionPerformed(evt);
+                MenuBugReportActionPerformed(evt);
             }
         });
-        jMenu2.add(MenuShare);
-
-        MenuHelp.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_H, java.awt.event.InputEvent.CTRL_DOWN_MASK));
-        MenuHelp.setText("help");
-        MenuHelp.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                MenuHelpActionPerformed(evt);
-            }
-        });
-        jMenu2.add(MenuHelp);
-
-        MenuCredits.setText("credits");
-        MenuCredits.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                MenuCreditsActionPerformed(evt);
-            }
-        });
-        jMenu2.add(MenuCredits);
+        jMenu2.add(MenuBugReport);
 
         MenuQuit.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_F4, java.awt.event.InputEvent.ALT_DOWN_MASK));
         MenuQuit.setText("quit");
@@ -685,6 +673,26 @@ public class BackupManagerGUI extends javax.swing.JFrame {
         jMenu2.add(MenuQuit);
 
         jMenuBar1.add(jMenu2);
+
+        jMenu3.setText("About");
+
+        MenuShare.setText("share");
+        MenuShare.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                MenuShareActionPerformed(evt);
+            }
+        });
+        jMenu3.add(MenuShare);
+
+        MenuDonate.setText("donate");
+        MenuDonate.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                MenuDonateActionPerformed(evt);
+            }
+        });
+        jMenu3.add(MenuDonate);
+
+        jMenuBar1.add(jMenu3);
 
         setJMenuBar(jMenuBar1);
 
@@ -818,44 +826,10 @@ public class BackupManagerGUI extends javax.swing.JFrame {
         }
 }
     
-    private void MenuShareActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MenuShareActionPerformed
-        System.out.println("Event --> share");
-
-        // pop-up message
-        JOptionPane.showMessageDialog(null, "Share link copied to clipboard!");
-
-        // copy link to the clipboard
-        String testString = "https://github.com/DennisTurco/AutoBackup-Installer";
-        StringSelection stringSelectionObj = new StringSelection(testString);
-        Clipboard clipboardObj = Toolkit.getDefaultToolkit().getSystemClipboard();
-        clipboardObj.setContents(stringSelectionObj, null);
-    }//GEN-LAST:event_MenuShareActionPerformed
-
     private void MenuQuitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MenuQuitActionPerformed
         System.out.println("Event --> exit");
         System.exit(EXIT_ON_CLOSE);
     }//GEN-LAST:event_MenuQuitActionPerformed
-
-    private void MenuHelpActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MenuHelpActionPerformed
-        System.out.println("Event --> help");
-        ImageIcon icon = new ImageIcon("/img/info.png");
-        JOptionPane.showMessageDialog(null,
-                        "For questions please contact the author: -> dennisturco.github.io",
-                        "Help",
-                        JOptionPane.PLAIN_MESSAGE, icon);
-    }//GEN-LAST:event_MenuHelpActionPerformed
-
-    private void MenuCreditsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MenuCreditsActionPerformed
-        System.out.println("Event --> credits");
-        ImageIcon icon = new ImageIcon(".//res//author_logo.png");
-        JOptionPane.showMessageDialog(null, """
-                                            <html><u>2022 e' Dennis Turco</u></html>\r
-                                            <html><i>Author</i>: Dennis Turco</html>\r
-                                            <html><i>GitHub</i>: <a href='https://github.com/DennisTurco'>https://github.com/DennisTurco </a></html>\r
-                                            <html><i>Web Site</i>: <a href='https://dennisturco.github.io/'>https://dennisturco.github.io/ </a></html>""",
-            "Credits",
-            JOptionPane.PLAIN_MESSAGE, icon); // pop-up message
-    }//GEN-LAST:event_MenuCreditsActionPerformed
 
     private void jMenu1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenu1ActionPerformed
         // TODO add your handling code here:
@@ -1272,6 +1246,29 @@ public class BackupManagerGUI extends javax.swing.JFrame {
     private void daysIntervalSpinnerFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_daysIntervalSpinnerFocusLost
         daysIntervalSpinnerChange();
     }//GEN-LAST:event_daysIntervalSpinnerFocusLost
+
+    private void MenuDonateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MenuDonateActionPerformed
+        System.out.println("Event --> donate");
+        openGithubIssuePage(DONATE_PAGE_LINK);
+    }//GEN-LAST:event_MenuDonateActionPerformed
+
+    private void MenuBugReportActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MenuBugReportActionPerformed
+        System.out.println("Event --> bug report");
+        openGithubIssuePage(ISSUE_PAGE_LINK);
+    }//GEN-LAST:event_MenuBugReportActionPerformed
+
+    private void MenuShareActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MenuShareActionPerformed
+        System.out.println("Event --> share");
+
+        // pop-up message
+        JOptionPane.showMessageDialog(null, "Share link copied to clipboard!");
+
+        // copy link to the clipboard
+        String testString = "https://github.com/DennisTurco/AutoBackup-Installer";
+        StringSelection stringSelectionObj = new StringSelection(testString);
+        Clipboard clipboardObj = Toolkit.getDefaultToolkit().getSystemClipboard();
+        clipboardObj.setContents(stringSelectionObj, null);
+    }//GEN-LAST:event_MenuShareActionPerformed
     
     private void daysIntervalSpinnerChange() {
         Integer days = (Integer) daysIntervalSpinner.getValue();
@@ -1790,20 +1787,22 @@ public class BackupManagerGUI extends javax.swing.JFrame {
                 Toolkit.getDefaultToolkit().getSystemClipboard().setContents(selection, null);
                 JOptionPane.showMessageDialog(null, "Error text has been copied to the clipboard.");
             } else if (choice == 2) {
-                try {
-                    String reportUrl = "https://github.com/DennisTurco/AutoBackupProgram/issues";
-
-                    if (Desktop.isDesktopSupported()) {
-                        Desktop desktop = Desktop.getDesktop();
-                        if (desktop.isSupported(Desktop.Action.BROWSE)) {
-                            desktop.browse(new URI(reportUrl));
-                        }
-                    }
-                } catch (IOException | URISyntaxException e) {
-                    JOptionPane.showMessageDialog(null, "Failed to open the web page. Please try again.", "Error", JOptionPane.ERROR_MESSAGE);
-                }
+                openGithubIssuePage(ISSUE_PAGE_LINK);
             }
         } while (choice == 1 || choice == 2);
+    }
+    
+    private static void openGithubIssuePage(String reportUrl) {
+        try {
+            if (Desktop.isDesktopSupported()) {
+                Desktop desktop = Desktop.getDesktop();
+                if (desktop.isSupported(Desktop.Action.BROWSE)) {
+                    desktop.browse(new URI(reportUrl));
+                }
+            }
+        } catch (IOException | URISyntaxException e) {
+            JOptionPane.showMessageDialog(null, "Failed to open the web page. Please try again.", "Error", JOptionPane.ERROR_MESSAGE);
+        }
     }
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -1816,9 +1815,9 @@ public class BackupManagerGUI extends javax.swing.JFrame {
     private javax.swing.JMenuItem DeletePopupItem;
     private javax.swing.JMenuItem DuplicatePopupItem;
     private javax.swing.JMenuItem EditPoputItem;
+    private javax.swing.JMenuItem MenuBugReport;
     private javax.swing.JMenuItem MenuClear;
-    private javax.swing.JMenuItem MenuCredits;
-    private javax.swing.JMenuItem MenuHelp;
+    private javax.swing.JMenuItem MenuDonate;
     private javax.swing.JMenuItem MenuHistory;
     private javax.swing.JMenuItem MenuNew;
     private javax.swing.JMenuItem MenuQuit;
@@ -1844,6 +1843,7 @@ public class BackupManagerGUI extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel2;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
+    private javax.swing.JMenu jMenu3;
     private javax.swing.JMenu jMenu4;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JPanel jPanel1;

@@ -99,6 +99,7 @@ public class BackupManagerGUI extends javax.swing.JFrame {
         EditPoputItem = new javax.swing.JMenuItem();
         DeletePopupItem = new javax.swing.JMenuItem();
         DuplicatePopupItem = new javax.swing.JMenuItem();
+        renamePopupItem = new javax.swing.JMenuItem();
         jSeparator1 = new javax.swing.JPopupMenu.Separator();
         OpenInitialFolderItem = new javax.swing.JMenuItem();
         OpenInitialDestinationItem = new javax.swing.JMenuItem();
@@ -171,6 +172,14 @@ public class BackupManagerGUI extends javax.swing.JFrame {
             }
         });
         TablePopup.add(DuplicatePopupItem);
+
+        renamePopupItem.setText("Rename backup");
+        renamePopupItem.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                renamePopupItemActionPerformed(evt);
+            }
+        });
+        TablePopup.add(renamePopupItem);
         TablePopup.add(jSeparator1);
 
         OpenInitialFolderItem.setText("Open initial folder");
@@ -347,42 +356,45 @@ public class BackupManagerGUI extends javax.swing.JFrame {
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(233, 233, 233)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(startPathField, javax.swing.GroupLayout.PREFERRED_SIZE, 312, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 13, Short.MAX_VALUE)
-                        .addComponent(btnPathSearch1, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(destinationPathField, javax.swing.GroupLayout.PREFERRED_SIZE, 312, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(btnPathSearch2, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(txtTitle)
-                        .addGap(0, 0, Short.MAX_VALUE))
-                    .addComponent(lastBackupLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addGap(234, 234, 234))
-            .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(319, 319, 319)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(messageLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 178, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(SingleBackup, javax.swing.GroupLayout.PREFERRED_SIZE, 178, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(AutoBackupPreference, javax.swing.GroupLayout.PREFERRED_SIZE, 172, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(messageLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 178, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, Short.MAX_VALUE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(currentFileLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 298, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGap(233, 233, 233)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(lastBackupLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGap(86, 86, 86)
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(SingleBackup, javax.swing.GroupLayout.PREFERRED_SIZE, 178, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(AutoBackupPreference, javax.swing.GroupLayout.PREFERRED_SIZE, 172, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 329, Short.MAX_VALUE))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(jPanel1Layout.createSequentialGroup()
+                                        .addComponent(destinationPathField, javax.swing.GroupLayout.PREFERRED_SIZE, 312, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(btnPathSearch2, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addGroup(jPanel1Layout.createSequentialGroup()
+                                        .addComponent(startPathField, javax.swing.GroupLayout.PREFERRED_SIZE, 312, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(btnPathSearch1, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                        .addComponent(currentFileLabel, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                        .addComponent(txtTitle, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                                .addGap(0, 0, Short.MAX_VALUE)))))
+                .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(currentFileLabel)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGap(28, 28, 28)
                 .addComponent(txtTitle, javax.swing.GroupLayout.PREFERRED_SIZE, 58, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(currentFileLabel)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(startPathField, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnPathSearch1, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -1192,6 +1204,22 @@ public class BackupManagerGUI extends javax.swing.JFrame {
             OpenFolder(backups.get(selectedRow).getDestinationPath());
         }
     }//GEN-LAST:event_OpenInitialDestinationItemActionPerformed
+
+    private void renamePopupItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_renamePopupItemActionPerformed
+        if (selectedRow != -1) {
+            renameBackup(backups.get(selectedRow));
+        }
+    }//GEN-LAST:event_renamePopupItemActionPerformed
+    
+    private void renameBackup(Backup backup) {
+        String backup_name = getBackupName(false);
+        if (backup_name == null || backup_name.isEmpty()) return;
+        
+        backup.setBackupName(backup_name);
+        backup.setLastUpdateDate(LocalDateTime.now());
+        JSON.UpdateBackupListJSON(BACKUP_FILE_STRING, INFO_FILE_DIRECTORY_STRING, backups);
+        updateTableWithNewBackupList(backups);
+    }
     
     private void OpenFolder(String path) {
         System.out.println("Event --> opening folder");
@@ -1321,23 +1349,7 @@ public class BackupManagerGUI extends javax.swing.JFrame {
     private void SaveWithName() {
         System.out.println("Event --> save with name");
 
-        String backup_name;
-        do {
-            backup_name = JOptionPane.showInputDialog(null, "Name of the backup"); // pop-up message
-            for (Backup backup : backups) {
-                if (backup.getBackupName().equals(backup_name)) {
-                    int response = JOptionPane.showConfirmDialog(null, "A backup with the same name already exists, do you want to overwrite it?", "Confimation required", JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE);
-                    if (response == JOptionPane.YES_OPTION) {
-                        backups.remove(backup);
-                        break;
-                    } else {
-                        backup_name = null;
-                    }
-                }
-            }
-            if (backup_name == null) return;
-        } while (backup_name.equals("null") ||  backup_name.equals("null*"));	
-        if (backup_name.isEmpty()) return;
+        String backup_name = getBackupName(true);
 
         try {
             dateNow = LocalDateTime.now();
@@ -1366,6 +1378,29 @@ public class BackupManagerGUI extends javax.swing.JFrame {
             System.err.println("Exception (SaveWithName) --> " + ex);
             JOptionPane.showMessageDialog(null, "Error saving backup.", "Error", JOptionPane.ERROR_MESSAGE);
         }
+    }
+    
+    private String getBackupName(boolean canOverwrite) {
+        String backup_name;
+        do {
+            backup_name = JOptionPane.showInputDialog(null, "Name of the backup"); // pop-up message
+            for (Backup backup : backups) {
+                if (backup.getBackupName().equals(backup_name) && canOverwrite) {
+                    int response = JOptionPane.showConfirmDialog(null, "A backup with the same name already exists, do you want to overwrite it?", "Confimation required", JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE);
+                    if (response == JOptionPane.YES_OPTION) {
+                        backups.remove(backup);
+                        break;
+                    } else {
+                        backup_name = null;
+                    }
+                } else if (backup.getBackupName().equals(backup_name)) {
+                    JOptionPane.showConfirmDialog(null, "Backup name already used!", "Error", JOptionPane.OK_OPTION, JOptionPane.ERROR_MESSAGE);
+                }
+            }
+            if (backup_name == null) return null;
+        } while (backup_name.equals("null") ||  backup_name.equals("null*"));	
+        if (backup_name.isEmpty()) return null;
+        return backup_name;
     }
     
     public void SingleBackup(String path1, String path2) {
@@ -1732,6 +1767,7 @@ public class BackupManagerGUI extends javax.swing.JFrame {
     private javax.swing.JPopupMenu.Separator jSeparator3;
     private javax.swing.JLabel lastBackupLabel;
     private javax.swing.JLabel messageLabel;
+    private javax.swing.JMenuItem renamePopupItem;
     private javax.swing.JButton researchButton;
     private javax.swing.JTextField researchField;
     private javax.swing.JTextField startPathField;

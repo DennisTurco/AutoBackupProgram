@@ -40,6 +40,7 @@ com\mycompany\autobackupprogram\BackupManagerGUI$1.class
 com\mycompany\autobackupprogram\JSONAutoBackup.class
 com\mycompany\autobackupprogram\TreeCopyFileVisitor.class
 com\mycompany\autobackupprogram\BackupManagerGUI$25.class
+com\mycompany\autobackupprogram\BackupManagerGUI$45.class
 com\mycompany\autobackupprogram\BackupManagerGUI$9.class
 com\mycompany\autobackupprogram\BackupManagerGUI$33.class
 com\mycompany\autobackupprogram\BackupManagerGUI$37.class

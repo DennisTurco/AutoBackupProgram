@@ -11,8 +11,10 @@ public class Backup {
     private boolean _autoBackup;
     private LocalDateTime _nextDateBackup;
     private Integer _daysIntervalBackup;
+    private String _notes;
     private LocalDateTime _creationDate;
     private LocalDateTime _lastUpdateDate;
+
     
     public Backup() {
         _backupName = "";
@@ -22,11 +24,12 @@ public class Backup {
         _autoBackup = false;
         _nextDateBackup = null;
         _daysIntervalBackup = null;
+        _notes = "";
         _creationDate = null;
         _lastUpdateDate = null;
     }
     
-    public Backup(String backupName, String initialPath, String destinationPath, LocalDateTime lastBackup, Boolean autoBackup, LocalDateTime nextDateBackup, Integer daysIntervalBackup, LocalDateTime creationDate, LocalDateTime lastUpdateDate) {
+    public Backup(String backupName, String initialPath, String destinationPath, LocalDateTime lastBackup, Boolean autoBackup, LocalDateTime nextDateBackup, Integer daysIntervalBackup, String notes, LocalDateTime creationDate, LocalDateTime lastUpdateDate) {
         this._backupName = backupName;
         this._initialPath = initialPath;
         this._destinationPath = destinationPath;
@@ -34,6 +37,7 @@ public class Backup {
         this._autoBackup = autoBackup;
         this._nextDateBackup = nextDateBackup;
         this._daysIntervalBackup = daysIntervalBackup;
+        this._notes = notes;
         this._creationDate = creationDate;
         this._lastUpdateDate = lastUpdateDate;
     }
@@ -46,6 +50,7 @@ public class Backup {
         this._autoBackup = backupUpdated.isAutoBackup();
         this._nextDateBackup = backupUpdated.getNextDateBackup();
         this._daysIntervalBackup = backupUpdated.getDaysIntervalBackup();
+        this._notes = backupUpdated.getNotes();
         this._creationDate = backupUpdated.getCreationDate();
         this._lastUpdateDate = backupUpdated.getLastUpdateDate();
     }
@@ -83,6 +88,10 @@ public class Backup {
         return _daysIntervalBackup;
     }
 
+    public String getNotes() {
+        return _notes;
+    }
+
     public LocalDateTime getCreationDate() {
         return _creationDate;
     }
@@ -117,6 +126,10 @@ public class Backup {
 
     public void setDaysIntervalBackup(Integer daysIntervalBackup) {
         this._daysIntervalBackup = daysIntervalBackup;
+    }
+
+    public void setNotes(String notes) {
+        this._notes = notes;
     }
 
     public void setCreationDate(LocalDateTime creationDate) {

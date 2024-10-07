@@ -45,6 +45,7 @@ class JSONAutoBackup implements IJSONAutoBackup {
                 String startPathValue = (String) backupObj.get("start_path");
                 String destinationPathValue = (String) backupObj.get("destination_path");
                 String lastBackupStr = (String) backupObj.get("last_backup");
+                String notesValue = (String) backupObj.get("notes");
                 String creationDateStr = (String) backupObj.get("creation_date");
                 String lastUpdateDateStr = (String) backupObj.get("last_update_date");
 
@@ -73,6 +74,7 @@ class JSONAutoBackup implements IJSONAutoBackup {
                     automaticBackupValue,
                     nextDateBackupValue,
                     daysIntervalBackup != null ? daysIntervalBackup.intValue() : null, // Convert Long to Integer
+                    notesValue,    
                     creationDateValue,
                     lastUpdateDateValue
                 ));
@@ -100,6 +102,7 @@ class JSONAutoBackup implements IJSONAutoBackup {
             backupObject.put("automatic_backup", backup.isAutoBackup());
             backupObject.put("next_date_backup", backup.getNextDateBackup() != null ? backup.getNextDateBackup().toString() : null);
             backupObject.put("days_interval_backup", backup.getDaysIntervalBackup());
+            backupObject.put("notes", backup.getNotes());
             backupObject.put("creation_date", backup.getCreationDate() != null ? backup.getCreationDate().toString() : null);
             backupObject.put("last_update_date", backup.getLastUpdateDate() != null ? backup.getLastUpdateDate().toString() : null);
 

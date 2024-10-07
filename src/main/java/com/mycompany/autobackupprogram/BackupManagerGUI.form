@@ -305,16 +305,17 @@
                               <EmptySpace min="-2" pref="233" max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="0" attributes="0">
                                   <Component id="lastBackupLabel" alignment="0" max="32767" attributes="0"/>
-                                  <Group type="102" alignment="0" attributes="0">
-                                      <EmptySpace min="-2" pref="86" max="-2" attributes="0"/>
-                                      <Group type="103" groupAlignment="1" attributes="0">
-                                          <Component id="SingleBackup" min="-2" pref="178" max="-2" attributes="0"/>
-                                          <Component id="AutoBackupPreference" alignment="1" min="-2" pref="172" max="-2" attributes="0"/>
-                                      </Group>
-                                      <EmptySpace pref="329" max="32767" attributes="0"/>
-                                  </Group>
                                   <Group type="102" attributes="0">
                                       <Group type="103" groupAlignment="0" attributes="0">
+                                          <Group type="102" alignment="0" attributes="0">
+                                              <EmptySpace min="-2" pref="86" max="-2" attributes="0"/>
+                                              <Group type="103" groupAlignment="1" attributes="0">
+                                                  <Component id="SingleBackup" min="-2" pref="178" max="-2" attributes="0"/>
+                                                  <Component id="AutoBackupPreference" min="-2" pref="172" max="-2" attributes="0"/>
+                                              </Group>
+                                              <EmptySpace max="-2" attributes="0"/>
+                                              <Component id="daysIntervalSpinner" min="-2" pref="60" max="-2" attributes="0"/>
+                                          </Group>
                                           <Group type="102" alignment="0" attributes="0">
                                               <Component id="destinationPathField" min="-2" pref="312" max="-2" attributes="0"/>
                                               <EmptySpace max="-2" attributes="0"/>
@@ -330,7 +331,7 @@
                                               <Component id="txtTitle" alignment="0" max="32767" attributes="0"/>
                                           </Group>
                                       </Group>
-                                      <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+                                      <EmptySpace min="0" pref="235" max="32767" attributes="0"/>
                                   </Group>
                               </Group>
                           </Group>
@@ -360,11 +361,14 @@
                       <Component id="lastBackupLabel" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
                       <Component id="SingleBackup" min="-2" pref="36" max="-2" attributes="0"/>
-                      <EmptySpace max="-2" attributes="0"/>
-                      <Component id="AutoBackupPreference" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace max="-2" attributes="0"/>
+                      <EmptySpace type="separate" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="0" attributes="0">
+                          <Component id="daysIntervalSpinner" alignment="0" max="32767" attributes="0"/>
+                          <Component id="AutoBackupPreference" min="-2" pref="31" max="-2" attributes="0"/>
+                      </Group>
+                      <EmptySpace max="32767" attributes="0"/>
                       <Component id="messageLabel" min="-2" pref="13" max="-2" attributes="0"/>
-                      <EmptySpace min="-2" pref="358" max="-2" attributes="0"/>
+                      <EmptySpace min="-2" pref="304" max="-2" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
@@ -468,6 +472,15 @@
                 <EventHandler event="stateChanged" listener="javax.swing.event.ChangeListener" parameters="javax.swing.event.ChangeEvent" handler="AutoBackupPreferenceStateChanged"/>
                 <EventHandler event="mouseReleased" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="AutoBackupPreferenceMouseReleased"/>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="AutoBackupPreferenceActionPerformed"/>
+              </Events>
+            </Component>
+            <Component class="javax.swing.JSpinner" name="daysIntervalSpinner">
+              <Properties>
+                <Property name="toolTipText" type="java.lang.String" value="days interval backup"/>
+                <Property name="enabled" type="boolean" value="false"/>
+              </Properties>
+              <Events>
+                <EventHandler event="stateChanged" listener="javax.swing.event.ChangeListener" parameters="javax.swing.event.ChangeEvent" handler="daysIntervalSpinnerStateChanged"/>
               </Events>
             </Component>
           </SubComponents>

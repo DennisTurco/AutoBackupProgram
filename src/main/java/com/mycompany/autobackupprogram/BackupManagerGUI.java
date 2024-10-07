@@ -124,6 +124,7 @@ public class BackupManagerGUI extends javax.swing.JFrame {
         SingleBackup = new javax.swing.JButton();
         messageLabel = new javax.swing.JLabel();
         AutoBackupPreference = new javax.swing.JCheckBox();
+        daysIntervalSpinner = new javax.swing.JSpinner();
         jPanel2 = new javax.swing.JPanel();
         tablePanel = new javax.swing.JPanel();
         addBackupEntryButton = new javax.swing.JButton();
@@ -351,6 +352,14 @@ public class BackupManagerGUI extends javax.swing.JFrame {
             }
         });
 
+        daysIntervalSpinner.setToolTipText("days interval backup");
+        daysIntervalSpinner.setEnabled(false);
+        daysIntervalSpinner.addChangeListener(new javax.swing.event.ChangeListener() {
+            public void stateChanged(javax.swing.event.ChangeEvent evt) {
+                daysIntervalSpinnerStateChanged(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -366,13 +375,14 @@ public class BackupManagerGUI extends javax.swing.JFrame {
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(lastBackupLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGap(86, 86, 86)
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addComponent(SingleBackup, javax.swing.GroupLayout.PREFERRED_SIZE, 178, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(AutoBackupPreference, javax.swing.GroupLayout.PREFERRED_SIZE, 172, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 329, Short.MAX_VALUE))
-                            .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(jPanel1Layout.createSequentialGroup()
+                                        .addGap(86, 86, 86)
+                                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                            .addComponent(SingleBackup, javax.swing.GroupLayout.PREFERRED_SIZE, 178, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addComponent(AutoBackupPreference, javax.swing.GroupLayout.PREFERRED_SIZE, 172, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(daysIntervalSpinner, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE))
                                     .addGroup(jPanel1Layout.createSequentialGroup()
                                         .addComponent(destinationPathField, javax.swing.GroupLayout.PREFERRED_SIZE, 312, javax.swing.GroupLayout.PREFERRED_SIZE)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -384,7 +394,7 @@ public class BackupManagerGUI extends javax.swing.JFrame {
                                     .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                                         .addComponent(currentFileLabel, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                         .addComponent(txtTitle, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                                .addGap(0, 0, Short.MAX_VALUE)))))
+                                .addGap(0, 235, Short.MAX_VALUE)))))
                 .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
@@ -406,11 +416,13 @@ public class BackupManagerGUI extends javax.swing.JFrame {
                 .addComponent(lastBackupLabel)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(SingleBackup, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(AutoBackupPreference)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGap(18, 18, 18)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(daysIntervalSpinner)
+                    .addComponent(AutoBackupPreference, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(messageLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 13, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(358, 358, 358))
+                .addGap(304, 304, 304))
         );
 
         TabbedPane.addTab("AutoBackup", jPanel1);
@@ -931,6 +943,15 @@ public class BackupManagerGUI extends javax.swing.JFrame {
         SetLastBackupLabel(backup.getLastUpdateDate());
         setAutoBackupPreference(backup.isAutoBackup());
         setCurrentBackupName(backup.getBackupName());
+        
+        if (backup.getDaysIntervalBackup() != null) {
+            daysIntervalSpinner.setValue(backup.getDaysIntervalBackup());
+            daysIntervalSpinner.setEnabled(true);
+        } else {
+            daysIntervalSpinner.setValue(0);
+            daysIntervalSpinner.setEnabled(false);
+        }
+        
     }
     
     private void NewBackup() {
@@ -1191,6 +1212,12 @@ public class BackupManagerGUI extends javax.swing.JFrame {
         backup.setNextDateBackup(null);
         backup.setLastUpdateDate(LocalDateTime.now());
         updateTableWithNewBackupList(backups);
+        
+        // if the backup is the current backup i have to update the main panel
+        if (backup.getBackupName().equals(currentBackup.getBackupName())) {
+            daysIntervalSpinner.setValue(0);
+            daysIntervalSpinner.setEnabled(false);
+        }
     }
     
     private void OpenInitialFolderItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_OpenInitialFolderItemActionPerformed
@@ -1210,6 +1237,20 @@ public class BackupManagerGUI extends javax.swing.JFrame {
             renameBackup(backups.get(selectedRow));
         }
     }//GEN-LAST:event_renamePopupItemActionPerformed
+
+    private void daysIntervalSpinnerStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_daysIntervalSpinnerStateChanged
+        Integer days = (Integer) daysIntervalSpinner.getValue();
+        
+        if (days != null && days > 0) {
+            currentBackup.setDaysIntervalBackup(days);
+            currentBackup.setNextDateBackup(LocalDateTime.now().plusDays(days));
+            currentBackup.setLastUpdateDate(LocalDateTime.now());
+            updateTableWithNewBackupList(backups);
+            JSON.UpdateBackupListJSON(BACKUP_FILE_STRING, INFO_FILE_DIRECTORY_STRING, backups);
+        } else {
+            daysIntervalSpinner.setValue(1);
+        }
+    }//GEN-LAST:event_daysIntervalSpinnerStateChanged
     
     private void renameBackup(Backup backup) {
         String backup_name = getBackupName(false);
@@ -1290,6 +1331,8 @@ public class BackupManagerGUI extends javax.swing.JFrame {
 
             currentBackup.setDaysIntervalBackup(daysIntervalBackup);
             currentBackup.setNextDateBackup(nextDateBackup);
+            daysIntervalSpinner.setValue(daysIntervalBackup);
+            daysIntervalSpinner.setEnabled(true);
 
             System.out.println("Event --> Next date backup setted to " + nextDateBackup);
             JOptionPane.showMessageDialog(null, "Auto Backup has been activated\n\tFrom: " + startPathField.getText() + "\n\tTo: " + destinationPathField.getText() + "\nIs setted every " + daysIntervalBackup + " days", "AutoBackup", 1);
@@ -1328,6 +1371,8 @@ public class BackupManagerGUI extends javax.swing.JFrame {
 
             backup.setDaysIntervalBackup(daysIntervalBackup);
             backup.setNextDateBackup(nextDateBackup);
+            daysIntervalSpinner.setValue(daysIntervalBackup);
+            daysIntervalSpinner.setEnabled(true);
 
             System.out.println("Event --> Next date backup setted to " + nextDateBackup);
             JOptionPane.showMessageDialog(null, "Auto Backup has been activated\n\tFrom: " + backup.getInitialPath() + "\n\tTo: " + backup.getDestinationPath() + "\nIs setted every " + daysIntervalBackup + " days", "AutoBackup", 1);
@@ -1751,6 +1796,7 @@ public class BackupManagerGUI extends javax.swing.JFrame {
     private javax.swing.JButton btnPathSearch1;
     private javax.swing.JButton btnPathSearch2;
     private javax.swing.JLabel currentFileLabel;
+    private javax.swing.JSpinner daysIntervalSpinner;
     private javax.swing.JTextField destinationPathField;
     private javax.swing.JLabel detailsLabel;
     private javax.swing.JPanel detailsPanel;

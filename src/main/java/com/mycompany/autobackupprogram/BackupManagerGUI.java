@@ -448,7 +448,7 @@ public class BackupManagerGUI extends javax.swing.JFrame {
                         .addComponent(SingleBackup, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(daysIntervalSpinner, javax.swing.GroupLayout.DEFAULT_SIZE, 63, Short.MAX_VALUE)
+                            .addComponent(daysIntervalSpinner)
                             .addComponent(AutoBackupPreference, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(106, 106, 106))))
         );
@@ -608,6 +608,7 @@ public class BackupManagerGUI extends javax.swing.JFrame {
         });
 
         MenuNew.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_N, java.awt.event.InputEvent.CTRL_DOWN_MASK));
+        MenuNew.setIcon(new javax.swing.ImageIcon(getClass().getResource("/res/img/add-file.png"))); // NOI18N
         MenuNew.setText("new");
         MenuNew.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -617,6 +618,7 @@ public class BackupManagerGUI extends javax.swing.JFrame {
         jMenu1.add(MenuNew);
 
         MenuSave.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_S, java.awt.event.InputEvent.CTRL_DOWN_MASK));
+        MenuSave.setIcon(new javax.swing.ImageIcon(getClass().getResource("/res/img/diskette.png"))); // NOI18N
         MenuSave.setText("save");
         MenuSave.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -654,7 +656,7 @@ public class BackupManagerGUI extends javax.swing.JFrame {
 
         jMenu2.setText("Options");
 
-        MenuBugReport.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_H, java.awt.event.InputEvent.CTRL_DOWN_MASK));
+        MenuBugReport.setIcon(new javax.swing.ImageIcon(getClass().getResource("/res/img/bug.png"))); // NOI18N
         MenuBugReport.setText("report a bug");
         MenuBugReport.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -664,6 +666,7 @@ public class BackupManagerGUI extends javax.swing.JFrame {
         jMenu2.add(MenuBugReport);
 
         MenuQuit.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_F4, java.awt.event.InputEvent.ALT_DOWN_MASK));
+        MenuQuit.setIcon(new javax.swing.ImageIcon(getClass().getResource("/res/img/door.png"))); // NOI18N
         MenuQuit.setText("quit");
         MenuQuit.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -676,6 +679,7 @@ public class BackupManagerGUI extends javax.swing.JFrame {
 
         jMenu3.setText("About");
 
+        MenuShare.setIcon(new javax.swing.ImageIcon(getClass().getResource("/res/img/share.png"))); // NOI18N
         MenuShare.setText("share");
         MenuShare.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -684,6 +688,7 @@ public class BackupManagerGUI extends javax.swing.JFrame {
         });
         jMenu3.add(MenuShare);
 
+        MenuDonate.setIcon(new javax.swing.ImageIcon(getClass().getResource("/res/img/donation.png"))); // NOI18N
         MenuDonate.setText("donate");
         MenuDonate.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {

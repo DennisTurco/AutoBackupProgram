@@ -143,6 +143,9 @@
                 <Property name="accelerator" type="javax.swing.KeyStroke" editor="org.netbeans.modules.form.editors.KeyStrokeEditor">
                   <KeyStroke key="Ctrl+N"/>
                 </Property>
+                <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+                  <Image iconType="3" name="/res/img/add-file.png"/>
+                </Property>
                 <Property name="text" type="java.lang.String" value="new"/>
               </Properties>
               <Events>
@@ -153,6 +156,9 @@
               <Properties>
                 <Property name="accelerator" type="javax.swing.KeyStroke" editor="org.netbeans.modules.form.editors.KeyStrokeEditor">
                   <KeyStroke key="Ctrl+S"/>
+                </Property>
+                <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+                  <Image iconType="3" name="/res/img/diskette.png"/>
                 </Property>
                 <Property name="text" type="java.lang.String" value="save"/>
               </Properties>
@@ -196,8 +202,8 @@
           <SubComponents>
             <MenuItem class="javax.swing.JMenuItem" name="MenuBugReport">
               <Properties>
-                <Property name="accelerator" type="javax.swing.KeyStroke" editor="org.netbeans.modules.form.editors.KeyStrokeEditor">
-                  <KeyStroke key="Ctrl+H"/>
+                <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+                  <Image iconType="3" name="/res/img/bug.png"/>
                 </Property>
                 <Property name="text" type="java.lang.String" value="report a bug"/>
               </Properties>
@@ -209,6 +215,9 @@
               <Properties>
                 <Property name="accelerator" type="javax.swing.KeyStroke" editor="org.netbeans.modules.form.editors.KeyStrokeEditor">
                   <KeyStroke key="Alt+F4"/>
+                </Property>
+                <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+                  <Image iconType="3" name="/res/img/door.png"/>
                 </Property>
                 <Property name="text" type="java.lang.String" value="quit"/>
               </Properties>
@@ -225,6 +234,9 @@
           <SubComponents>
             <MenuItem class="javax.swing.JMenuItem" name="MenuShare">
               <Properties>
+                <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+                  <Image iconType="3" name="/res/img/share.png"/>
+                </Property>
                 <Property name="text" type="java.lang.String" value="share"/>
               </Properties>
               <Events>
@@ -233,6 +245,9 @@
             </MenuItem>
             <MenuItem class="javax.swing.JMenuItem" name="MenuDonate">
               <Properties>
+                <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+                  <Image iconType="3" name="/res/img/donation.png"/>
+                </Property>
                 <Property name="text" type="java.lang.String" value="donate"/>
               </Properties>
               <Events>
@@ -379,7 +394,7 @@
                               <Component id="SingleBackup" min="-2" pref="36" max="-2" attributes="0"/>
                               <EmptySpace type="separate" max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="0" attributes="0">
-                                  <Component id="daysIntervalSpinner" alignment="0" pref="63" max="32767" attributes="0"/>
+                                  <Component id="daysIntervalSpinner" alignment="0" max="32767" attributes="0"/>
                                   <Component id="AutoBackupPreference" min="-2" pref="31" max="-2" attributes="0"/>
                               </Group>
                               <EmptySpace min="-2" pref="106" max="-2" attributes="0"/>

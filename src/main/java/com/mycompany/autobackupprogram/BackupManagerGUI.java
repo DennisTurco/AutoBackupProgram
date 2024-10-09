@@ -40,10 +40,9 @@ import javax.swing.table.TableColumnModel;
  */
 public class BackupManagerGUI extends javax.swing.JFrame {
     
-    public static final String INFO_FILE_STRING = "info.json";
     public static final String LOG_FILE_STRING = "log_file";
     public static final String BACKUP_FILE_STRING = "backup_list.json";
-    public static final String INFO_FILE_DIRECTORY_STRING = "src/main/resources/res/";
+    public static final String RES_DIRECTORY_STRING = "src/main/resources/res/";
     public static final String SAVES_DIRECTORY_STRING = "src/main/resources/res/saves/";    
     
     public static final String DONATE_PAGE_LINK = "https://buymeacoffee.com/denno";
@@ -80,7 +79,7 @@ public class BackupManagerGUI extends javax.swing.JFrame {
         saveChanged = true;
                 
         try {
-            backups = JSON.ReadBackupListFromJSON(BACKUP_FILE_STRING, INFO_FILE_DIRECTORY_STRING);
+            backups = JSON.ReadBackupListFromJSON(BACKUP_FILE_STRING, RES_DIRECTORY_STRING);
             displayBackupList(backups);
         } catch (IOException ex) {
             backups = null;
@@ -155,7 +154,7 @@ public class BackupManagerGUI extends javax.swing.JFrame {
         MenuShare = new javax.swing.JMenuItem();
         MenuDonate = new javax.swing.JMenuItem();
 
-        EditPoputItem.setIcon(new javax.swing.ImageIcon(getClass().getResource("/res/img/pencil.png"))); // NOI18N
+        EditPoputItem.setIcon(new javax.swing.ImageIcon(getClass().getResource("/res/img/pen.png"))); // NOI18N
         EditPoputItem.setText("Edit");
         EditPoputItem.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -164,7 +163,7 @@ public class BackupManagerGUI extends javax.swing.JFrame {
         });
         TablePopup.add(EditPoputItem);
 
-        DeletePopupItem.setIcon(new javax.swing.ImageIcon(getClass().getResource("/res/img/delete.png"))); // NOI18N
+        DeletePopupItem.setIcon(new javax.swing.ImageIcon(getClass().getResource("/res/img/bin.png"))); // NOI18N
         DeletePopupItem.setText("Delete");
         DeletePopupItem.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -666,7 +665,7 @@ public class BackupManagerGUI extends javax.swing.JFrame {
         jMenu2.add(MenuBugReport);
 
         MenuQuit.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_F4, java.awt.event.InputEvent.ALT_DOWN_MASK));
-        MenuQuit.setIcon(new javax.swing.ImageIcon(getClass().getResource("/res/img/door.png"))); // NOI18N
+        MenuQuit.setIcon(new javax.swing.ImageIcon(getClass().getResource("/res/img/remove.png"))); // NOI18N
         MenuQuit.setText("quit");
         MenuQuit.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -843,7 +842,7 @@ public class BackupManagerGUI extends javax.swing.JFrame {
     private void MenuHistoryActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MenuHistoryActionPerformed
         System.out.println("Event --> history");
         try {
-            new ProcessBuilder("notepad.exe", INFO_FILE_DIRECTORY_STRING + "log_file").start();
+            new ProcessBuilder("notepad.exe", RES_DIRECTORY_STRING + "log_file").start();
         } catch (IOException e) {
             // Gestione dell'eccezione in modo più robusto
             JOptionPane.showMessageDialog(null, "Error opening history file.", "Error", JOptionPane.ERROR_MESSAGE);
@@ -860,6 +859,7 @@ public class BackupManagerGUI extends javax.swing.JFrame {
         destinationPathField.setText("");
         messageLabel.setText("");
         lastBackupLabel.setText("");
+        backupNoteTextArea.setText("");
     }
         
     private void RemoveBackup(String backupName) {
@@ -870,7 +870,7 @@ public class BackupManagerGUI extends javax.swing.JFrame {
                 break;
             }
         }
-        JSON.UpdateBackupListJSON(BACKUP_FILE_STRING, INFO_FILE_DIRECTORY_STRING, backups);
+        JSON.UpdateBackupListJSON(BACKUP_FILE_STRING, RES_DIRECTORY_STRING, backups);
         updateTableWithNewBackupList(backups);
     }
     
@@ -902,7 +902,7 @@ public class BackupManagerGUI extends javax.swing.JFrame {
                     break;
                 }
             }
-            JSON.UpdateBackupListJSON(BACKUP_FILE_STRING, INFO_FILE_DIRECTORY_STRING, backups);
+            JSON.UpdateBackupListJSON(BACKUP_FILE_STRING, RES_DIRECTORY_STRING, backups);
             updateTableWithNewBackupList(backups);
             savedChanges(true);
         } catch (IllegalArgumentException ex) {
@@ -948,6 +948,7 @@ public class BackupManagerGUI extends javax.swing.JFrame {
         SetLastBackupLabel(backup.getLastUpdateDate());
         setAutoBackupPreference(backup.isAutoBackup());
         setCurrentBackupName(backup.getBackupName());
+        setCurrentBackupNotes(backup.getNotes());
         
         if (backup.getDaysIntervalBackup() != null) {
             daysIntervalSpinner.setValue(backup.getDaysIntervalBackup());
@@ -1128,6 +1129,7 @@ public class BackupManagerGUI extends javax.swing.JFrame {
                     "<b>DaysIntervalBackup:</b> " + (backups.get(selectedRow).getDaysIntervalBackup() != null ? backups.get(selectedRow).getDaysIntervalBackup() : "_") + ", " +
                     "<b>CreationDate:</b> " + (backups.get(selectedRow).getCreationDate() != null ? backups.get(selectedRow).getCreationDate().format(formatter) : "_") + ", " +
                     "<b>LastUpdateDate:</b> " + (backups.get(selectedRow).getLastUpdateDate() != null ? backups.get(selectedRow).getLastUpdateDate().format(formatter) : "_") + ", " +
+                    "<b>BackupCount:</b> " + (backups.get(selectedRow).getBackupCount()) + ", " +
                     "<b>Notes:</b> " + (backups.get(selectedRow).getNotes()) +
                     "</html>"
                 );
@@ -1156,11 +1158,12 @@ public class BackupManagerGUI extends javax.swing.JFrame {
                     backup.getDaysIntervalBackup(),
                     backup.getNotes(),
                     dateNow,
-                    dateNow
+                    dateNow,
+                    backup.getBackupCount()
             );
             
             backups.add(newBackup);
-            JSON.UpdateBackupListJSON(BACKUP_FILE_STRING, INFO_FILE_DIRECTORY_STRING, backups);
+            JSON.UpdateBackupListJSON(BACKUP_FILE_STRING, RES_DIRECTORY_STRING, backups);
             updateTableWithNewBackupList(backups);
             
         }
@@ -1283,7 +1286,7 @@ public class BackupManagerGUI extends javax.swing.JFrame {
             currentBackup.setNextDateBackup(LocalDateTime.now().plusDays(days));
             currentBackup.setLastUpdateDate(LocalDateTime.now());
             updateTableWithNewBackupList(backups);
-            JSON.UpdateBackupListJSON(BACKUP_FILE_STRING, INFO_FILE_DIRECTORY_STRING, backups);
+            JSON.UpdateBackupListJSON(BACKUP_FILE_STRING, RES_DIRECTORY_STRING, backups);
         } else {
             daysIntervalSpinner.setValue(1);
         }
@@ -1295,7 +1298,7 @@ public class BackupManagerGUI extends javax.swing.JFrame {
         
         backup.setBackupName(backup_name);
         backup.setLastUpdateDate(LocalDateTime.now());
-        JSON.UpdateBackupListJSON(BACKUP_FILE_STRING, INFO_FILE_DIRECTORY_STRING, backups);
+        JSON.UpdateBackupListJSON(BACKUP_FILE_STRING, RES_DIRECTORY_STRING, backups);
         updateTableWithNewBackupList(backups);
     }
     
@@ -1384,7 +1387,7 @@ public class BackupManagerGUI extends javax.swing.JFrame {
             }
         }
         //currentBackup.UpdateBackup(backup);
-        JSON.UpdateBackupListJSON(BACKUP_FILE_STRING, INFO_FILE_DIRECTORY_STRING, backups);
+        JSON.UpdateBackupListJSON(BACKUP_FILE_STRING, RES_DIRECTORY_STRING, backups);
         updateTableWithNewBackupList(backups);
         return true;
 
@@ -1422,7 +1425,7 @@ public class BackupManagerGUI extends javax.swing.JFrame {
             }
         }
         currentBackup.UpdateBackup(backup);
-        JSON.UpdateBackupListJSON(BACKUP_FILE_STRING, INFO_FILE_DIRECTORY_STRING, backups);
+        JSON.UpdateBackupListJSON(BACKUP_FILE_STRING, RES_DIRECTORY_STRING, backups);
         updateTableWithNewBackupList(backups);
         return true;
 
@@ -1445,13 +1448,14 @@ public class BackupManagerGUI extends javax.swing.JFrame {
                     currentBackup.getDaysIntervalBackup(),
                     GetNotesTextArea(),
                     dateNow,
-                    dateNow
+                    dateNow,
+                    0
             );
             
             backups.add(backup);
             currentBackup = backup;
             
-            JSON.UpdateBackupListJSON(BACKUP_FILE_STRING, INFO_FILE_DIRECTORY_STRING, backups);
+            JSON.UpdateBackupListJSON(BACKUP_FILE_STRING, RES_DIRECTORY_STRING, backups);
             updateTableWithNewBackupList(backups);
             JOptionPane.showMessageDialog(this, "Backup '" + currentBackup.getBackupName() + "' saved successfully!", "Backup saved", JOptionPane.INFORMATION_MESSAGE);
             savedChanges(true);
@@ -1540,7 +1544,6 @@ public class BackupManagerGUI extends javax.swing.JFrame {
         // if current_file_opened is null it means they are not in a backup but it is a backup with no associated json file
         try {
             if (currentBackup.getBackupName() != null && !currentBackup.getBackupName().isEmpty()) { 
-                JSON.WriteInfoJSONFile(INFO_FILE_STRING, INFO_FILE_DIRECTORY_STRING);
                 currentBackup.setInitialPath(GetStartPathField());
                 currentBackup.setDestinationPath(GetDestinationPathField());
                 for (Backup b : backups) {
@@ -1549,8 +1552,9 @@ public class BackupManagerGUI extends javax.swing.JFrame {
                         break;
                     }
                 }
-                //currentBackup.UpdateBackup(backup);
-                JSON.UpdateBackupListJSON(BACKUP_FILE_STRING, INFO_FILE_DIRECTORY_STRING, backups);
+                
+                currentBackup.setBackupCount(currentBackup.getBackupCount()+1);
+                JSON.UpdateBackupListJSON(BACKUP_FILE_STRING, RES_DIRECTORY_STRING, backups);
                 updateTableWithNewBackupList(backups);
             }
         } catch (IllegalArgumentException e) {
@@ -1560,8 +1564,12 @@ public class BackupManagerGUI extends javax.swing.JFrame {
         }
     }
     
-    public void setCurrentBackupName(String name) {
+    private void setCurrentBackupName(String name) {
         currentFileLabel.setText("Current File: " + name);
+    }
+    
+    private void setCurrentBackupNotes(String notes) {
+        backupNoteTextArea.setText(notes);
     }
     
     private static String getFile(String directory_path) {
@@ -1593,9 +1601,6 @@ public class BackupManagerGUI extends javax.swing.JFrame {
         progressBar.UpdateProgressBar(value);
         
         if (value == 100) {
-            messageLabel.setText("Files Copied!");
-            JOptionPane.showMessageDialog(this, "Files Copied!\nFrom: " + startPathField.getText() + "\nTo: " + destinationPathField.getText(), "Single backup", JOptionPane.INFORMATION_MESSAGE);
-            
             currentBackup.setLastBackup(dateNow);
             threadTimer = new TimerAutoBackup(this);
             threadTimer.startTimer();
@@ -1606,7 +1611,6 @@ public class BackupManagerGUI extends javax.swing.JFrame {
         try {
             String last_date = LocalDateTime.now().format(formatter);
             lastBackupLabel.setText("last backup: " + last_date);
-            JSON.WriteInfoJSONFile(INFO_FILE_STRING, INFO_FILE_DIRECTORY_STRING);
         } catch (IllegalArgumentException ex) {
             System.err.println("Exception (setStringToText) --> " + ex);
             OpenExceptionMessage(ex.getMessage(), Arrays.toString(ex.getStackTrace()));

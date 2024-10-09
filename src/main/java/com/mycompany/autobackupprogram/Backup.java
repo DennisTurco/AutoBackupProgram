@@ -14,6 +14,7 @@ public class Backup {
     private String _notes;
     private LocalDateTime _creationDate;
     private LocalDateTime _lastUpdateDate;
+    private int _backupCount;
 
     
     public Backup() {
@@ -27,9 +28,10 @@ public class Backup {
         _notes = "";
         _creationDate = null;
         _lastUpdateDate = null;
+        _backupCount = 0;
     }
     
-    public Backup(String backupName, String initialPath, String destinationPath, LocalDateTime lastBackup, Boolean autoBackup, LocalDateTime nextDateBackup, Integer daysIntervalBackup, String notes, LocalDateTime creationDate, LocalDateTime lastUpdateDate) {
+    public Backup(String backupName, String initialPath, String destinationPath, LocalDateTime lastBackup, Boolean autoBackup, LocalDateTime nextDateBackup, Integer daysIntervalBackup, String notes, LocalDateTime creationDate, LocalDateTime lastUpdateDate, int backupCount) {
         this._backupName = backupName;
         this._initialPath = initialPath;
         this._destinationPath = destinationPath;
@@ -40,6 +42,7 @@ public class Backup {
         this._notes = notes;
         this._creationDate = creationDate;
         this._lastUpdateDate = lastUpdateDate;
+        this._backupCount = backupCount;
     }
     
     public void UpdateBackup(Backup backupUpdated) {
@@ -53,6 +56,7 @@ public class Backup {
         this._notes = backupUpdated.getNotes();
         this._creationDate = backupUpdated.getCreationDate();
         this._lastUpdateDate = backupUpdated.getLastUpdateDate();
+        this._backupCount = backupUpdated.getBackupCount();
     }
     
     @Override
@@ -99,6 +103,10 @@ public class Backup {
     public LocalDateTime getLastUpdateDate() {
         return _lastUpdateDate;
     }
+
+    public int getBackupCount() {
+        return _backupCount;
+    }
     
     public void setBackupName(String backupName) {
         this._backupName = backupName;
@@ -138,5 +146,9 @@ public class Backup {
 
     public void setLastUpdateDate(LocalDateTime lastUpdateDate) {
         this._lastUpdateDate = lastUpdateDate;
+    }
+
+    public void setBackupCount(int backupCount) {
+        this._backupCount = backupCount;
     }
 }

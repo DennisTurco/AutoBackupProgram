@@ -26,7 +26,7 @@ public class BackupService {
         @Override
         public void run() {
             try {
-                List<Backup> backups = json.ReadBackupListFromJSON(BackupManagerGUI.BACKUP_FILE_STRING, BackupManagerGUI.INFO_FILE_DIRECTORY_STRING);
+                List<Backup> backups = json.ReadBackupListFromJSON(BackupManagerGUI.BACKUP_FILE_STRING, BackupManagerGUI.RES_DIRECTORY_STRING);
                 List<Backup> needsBackup = getBackupsToDo(backups);
                 if (needsBackup != null && !needsBackup.isEmpty()) {
                     System.out.println("Start backup process.");

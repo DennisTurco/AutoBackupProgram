@@ -12,14 +12,6 @@ import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 
 class JSONAutoBackup implements IJSONAutoBackup {
-    
-    @Override
-    public void WriteInfoJSONFile(String filename, String directoryPath) {
-        if (filename == null) throw new IllegalArgumentException();
-        
-        new JSONObject().put("filename", BackupManagerGUI.currentBackup.getBackupName());
-    }
-    
     @Override
     public List<Backup> ReadBackupListFromJSON(String filename, String directoryPath) throws IOException {
 
@@ -48,6 +40,7 @@ class JSONAutoBackup implements IJSONAutoBackup {
                 String notesValue = (String) backupObj.get("notes");
                 String creationDateStr = (String) backupObj.get("creation_date");
                 String lastUpdateDateStr = (String) backupObj.get("last_update_date");
+                int backupCountValue = Math.toIntExact((Long) backupObj.get("backup_count"));
 
                 Object value = backupObj.get("automatic_backup");
                 Boolean automaticBackupValue = null;
@@ -76,7 +69,8 @@ class JSONAutoBackup implements IJSONAutoBackup {
                     daysIntervalBackup != null ? daysIntervalBackup.intValue() : null, // Convert Long to Integer
                     notesValue,    
                     creationDateValue,
-                    lastUpdateDateValue
+                    lastUpdateDateValue,
+                    backupCountValue
                 ));
             }
 
@@ -105,6 +99,7 @@ class JSONAutoBackup implements IJSONAutoBackup {
             backupObject.put("notes", backup.getNotes());
             backupObject.put("creation_date", backup.getCreationDate() != null ? backup.getCreationDate().toString() : null);
             backupObject.put("last_update_date", backup.getLastUpdateDate() != null ? backup.getLastUpdateDate().toString() : null);
+            backupObject.put("backup_count", backup.getBackupCount());
 
             updatedBackupArray.add(backupObject);
         }

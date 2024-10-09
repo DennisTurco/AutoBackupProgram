@@ -68,7 +68,7 @@ public class TreeCopyFileVisitor extends SimpleFileVisitor<Path> implements Runn
     }
 
     private void logMessage(String message) {
-        try (BufferedWriter bw = new BufferedWriter(new FileWriter(BackupManagerGUI.INFO_FILE_DIRECTORY_STRING + BackupManagerGUI.LOG_FILE_STRING, true))) {
+        try (BufferedWriter bw = new BufferedWriter(new FileWriter(BackupManagerGUI.RES_DIRECTORY_STRING + BackupManagerGUI.LOG_FILE_STRING, true))) {
             bw.write(message);
             bw.newLine();
         } catch (IOException ex) {

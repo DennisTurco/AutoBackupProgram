@@ -36,6 +36,11 @@ import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableCellRenderer;
 import javax.swing.table.TableColumnModel;
+import java.io.*;
+import java.nio.file.*;
+import java.nio.file.attribute.BasicFileAttributes;
+import java.util.zip.ZipEntry;
+import java.util.zip.ZipOutputStream;
 
 /**
  * @author Dennis Turco
@@ -1549,6 +1554,7 @@ public class BackupManagerGUI extends javax.swing.JFrame {
             progressBar = new BackupProgressGUI(path1, path2);
             progressBar.setVisible(true);
             copyDirectoryFileVisitor(path1, path2);
+            copyDirectoryAndZip(path1, path2+".zip");
         } catch (IOException e) {
             System.err.println("Exception (SingleBackup) --> " + e);
             JOptionPane.showMessageDialog(null, "Error during the backup operation: the initial path is incorrect!", "Error", JOptionPane.ERROR_MESSAGE);
@@ -1726,6 +1732,49 @@ public class BackupManagerGUI extends javax.swing.JFrame {
             throw new IOException();
         }
     }
+    
+    
+    public void copyDirectoryAndZip(String source, String targetZipPath) throws IOException {
+        Path sourceDir = Paths.get(source);
+        try (ZipOutputStream zipOut = new ZipOutputStream(new FileOutputStream(targetZipPath))) {
+            Files.walkFileTree(sourceDir, new SimpleFileVisitor<Path>() {
+                @Override
+                public FileVisitResult visitFile(Path file, BasicFileAttributes attrs) throws IOException {
+                    // Calculate the relative path inside the zip
+                    Path targetFile = sourceDir.relativize(file);
+
+                    // Create a new zip entry
+                    zipOut.putNextEntry(new ZipEntry(targetFile.toString()));
+
+                    // Copy the file content to the zip output stream
+                    try (InputStream in = Files.newInputStream(file)) {
+                        byte[] buffer = new byte[1024];
+                        int len;
+                        while ((len = in.read(buffer)) > 0) {
+                            zipOut.write(buffer, 0, len);
+                        }
+                    }
+
+                    // Close the zip entry after the file is written
+                    zipOut.closeEntry();
+                    return FileVisitResult.CONTINUE;
+                }
+
+                @Override
+                public FileVisitResult preVisitDirectory(Path dir, BasicFileAttributes attrs) throws IOException {
+                    // Create a directory entry in the zip file
+                    Path targetDir = sourceDir.relativize(dir);
+                    zipOut.putNextEntry(new ZipEntry(targetDir.toString() + "/"));
+                    zipOut.closeEntry();
+                    return FileVisitResult.CONTINUE;
+                }
+            });
+        } catch (IOException e) {
+            e.printStackTrace();
+            throw e;  // Rethrow the exception if needed
+        }
+    }
+
     
     public static void StopCopyFiles() {
         copyThread.interrupt();

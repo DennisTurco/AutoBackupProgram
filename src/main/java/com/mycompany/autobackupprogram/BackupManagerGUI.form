@@ -525,7 +525,6 @@
                 <Property name="text" type="java.lang.String" value="Automatic Backup"/>
               </Properties>
               <Events>
-                <EventHandler event="stateChanged" listener="javax.swing.event.ChangeListener" parameters="javax.swing.event.ChangeEvent" handler="AutoBackupPreferenceStateChanged"/>
                 <EventHandler event="mouseReleased" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="AutoBackupPreferenceMouseReleased"/>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="AutoBackupPreferenceActionPerformed"/>
               </Events>
@@ -566,9 +565,6 @@
               </Properties>
             </Component>
             <Component class="toggle.SwitchButton" name="switchButton1">
-              <Events>
-                <EventHandler event="propertyChange" listener="java.beans.PropertyChangeListener" parameters="java.beans.PropertyChangeEvent" handler="switchButton1PropertyChange"/>
-              </Events>
             </Component>
           </SubComponents>
         </Container>

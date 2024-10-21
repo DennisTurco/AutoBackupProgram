@@ -61,7 +61,7 @@ public class BackupManagerGUI extends javax.swing.JFrame {
     private boolean saveChanged;
     private Integer selectedRow;
     
-    public static final DateTimeFormatter dayFormatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
+    public static final DateTimeFormatter dateForfolderNameFormatter = DateTimeFormatter.ofPattern("dd-MM-yyyy HH.mm.ss");
     public static final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm:ss");
     private static LocalDateTime dateNow;
 
@@ -339,11 +339,6 @@ public class BackupManagerGUI extends javax.swing.JFrame {
         messageLabel.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
 
         AutoBackupPreference.setText("Automatic Backup");
-        AutoBackupPreference.addChangeListener(new javax.swing.event.ChangeListener() {
-            public void stateChanged(javax.swing.event.ChangeEvent evt) {
-                AutoBackupPreferenceStateChanged(evt);
-            }
-        });
         AutoBackupPreference.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseReleased(java.awt.event.MouseEvent evt) {
                 AutoBackupPreferenceMouseReleased(evt);
@@ -386,12 +381,6 @@ public class BackupManagerGUI extends javax.swing.JFrame {
         jScrollPane2.setViewportView(backupNoteTextArea);
 
         jLabel2.setText("notes:");
-
-        switchButton1.addPropertyChangeListener(new java.beans.PropertyChangeListener() {
-            public void propertyChange(java.beans.PropertyChangeEvent evt) {
-                switchButton1PropertyChange(evt);
-            }
-        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -1310,14 +1299,6 @@ public class BackupManagerGUI extends javax.swing.JFrame {
         AutoBackupPreference.setSelected(enabled);
         currentBackup.setAutoBackup(enabled);
     }//GEN-LAST:event_AutoBackupPreferenceMouseReleased
-
-    private void AutoBackupPreferenceStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_AutoBackupPreferenceStateChanged
-        System.out.println("dasdas");
-    }//GEN-LAST:event_AutoBackupPreferenceStateChanged
-
-    private void switchButton1PropertyChange(java.beans.PropertyChangeEvent evt) {//GEN-FIRST:event_switchButton1PropertyChange
-        // TODO add your handling code here:
-    }//GEN-LAST:event_switchButton1PropertyChange
     
     private void daysIntervalSpinnerChange() {
         Integer days = (Integer) daysIntervalSpinner.getValue();
@@ -1544,7 +1525,7 @@ public class BackupManagerGUI extends javax.swing.JFrame {
 
         //------------------------------SET ALL THE VARIABLES------------------------------
         String name1; // folder name/initial file
-        String date = dateNow.format(dayFormatter);
+        String date = dateNow.format(dateForfolderNameFormatter);
 
         //------------------------------SET ALL THE STRINGS------------------------------
         name1 = path1.substring(path1.length()-1, path1.length()-1);

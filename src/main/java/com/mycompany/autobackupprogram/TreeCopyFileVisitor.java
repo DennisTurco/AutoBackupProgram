@@ -29,7 +29,6 @@ public class TreeCopyFileVisitor extends SimpleFileVisitor<Path> implements Runn
         Path resolve = target.resolve(source.relativize(dir));
         if (Files.notExists(resolve)) {
             Files.createDirectories(resolve);
-            logMessage("Create directories : " + resolve);
             copied = true;
         }
         return FileVisitResult.CONTINUE;
@@ -39,7 +38,6 @@ public class TreeCopyFileVisitor extends SimpleFileVisitor<Path> implements Runn
     public FileVisitResult visitFile(Path file, BasicFileAttributes attrs) throws IOException {
         Path resolve = target.resolve(source.relativize(file));
         Files.copy(file, resolve, StandardCopyOption.REPLACE_EXISTING);
-        logMessage("Copying file from \t" + file + "\t to " + resolve);
         copiedFilesCount++;
         int progress = (int) (((double) copiedFilesCount / totalFilesCount) * 100);
         listener.onFileCopied(progress);
@@ -65,16 +63,5 @@ public class TreeCopyFileVisitor extends SimpleFileVisitor<Path> implements Runn
             System.err.println("Exception --> " + ex);
             OpenExceptionMessage(ex.getMessage(), Arrays.toString(ex.getStackTrace()));
         }
-    }
-
-    private void logMessage(String message) {
-        try (BufferedWriter bw = new BufferedWriter(new FileWriter(BackupManagerGUI.RES_DIRECTORY_STRING + BackupManagerGUI.LOG_FILE_STRING, true))) {
-            bw.write(message);
-            bw.newLine();
-        } catch (IOException ex) {
-            System.err.println("Exception --> " + ex);
-            OpenExceptionMessage(ex.getMessage(), Arrays.toString(ex.getStackTrace()));
-        }
-        System.out.println(message);
     }
 }

@@ -9,7 +9,9 @@ import java.awt.Image;
 import java.awt.Toolkit;
 import java.awt.datatransfer.Clipboard;
 import java.awt.datatransfer.StringSelection;
+import java.io.BufferedWriter;
 import java.io.File;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
@@ -140,6 +142,7 @@ public class BackupManagerGUI extends javax.swing.JFrame {
         researchButton = new javax.swing.JButton();
         detailsPanel = new javax.swing.JPanel();
         detailsLabel = new javax.swing.JLabel();
+        jLabel3 = new javax.swing.JLabel();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
         MenuNew = new javax.swing.JMenuItem();
@@ -599,6 +602,8 @@ public class BackupManagerGUI extends javax.swing.JFrame {
 
         TabbedPane.addTab("BackupList", jPanel2);
 
+        jLabel3.setText("Version 2.03");
+
         jMenu1.setText("File");
         jMenu1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -635,6 +640,7 @@ public class BackupManagerGUI extends javax.swing.JFrame {
         jMenu1.add(MenuSaveWithName);
 
         MenuClear.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_C, java.awt.event.InputEvent.CTRL_DOWN_MASK));
+        MenuClear.setIcon(new javax.swing.ImageIcon(getClass().getResource("/res/img/clean.png"))); // NOI18N
         MenuClear.setText("clear");
         MenuClear.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -643,6 +649,7 @@ public class BackupManagerGUI extends javax.swing.JFrame {
         });
         jMenu1.add(MenuClear);
 
+        MenuHistory.setIcon(new javax.swing.ImageIcon(getClass().getResource("/res/img/clock.png"))); // NOI18N
         MenuHistory.setText("history");
         MenuHistory.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -706,14 +713,20 @@ public class BackupManagerGUI extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(TabbedPane)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(TabbedPane)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(jLabel3)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addComponent(TabbedPane, javax.swing.GroupLayout.PREFERRED_SIZE, 636, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(12, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jLabel3)
+                .addContainerGap())
         );
 
         pack();
@@ -1723,10 +1736,15 @@ public class BackupManagerGUI extends javax.swing.JFrame {
     	return count;
     }
     
-    public static void main(String args[]) {        
-        java.awt.EventQueue.invokeLater(() -> {
-            new BackupManagerGUI().setVisible(true);
-        });
+    private void logMessage(String message) {
+        try (BufferedWriter bw = new BufferedWriter(new FileWriter(BackupManagerGUI.RES_DIRECTORY_STRING + BackupManagerGUI.LOG_FILE_STRING, true))) {
+            bw.write(message);
+            bw.newLine();
+        } catch (IOException ex) {
+            System.err.println("Exception --> " + ex);
+            OpenExceptionMessage(ex.getMessage(), Arrays.toString(ex.getStackTrace()));
+        }
+        System.out.println(message);
     }
     
     public String GetStartPathField() {
@@ -1814,6 +1832,12 @@ public class BackupManagerGUI extends javax.swing.JFrame {
         }
     }
     
+    public static void main(String args[]) {        
+        java.awt.EventQueue.invokeLater(() -> {
+            new BackupManagerGUI().setVisible(true);
+        });
+    }
+    
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JCheckBoxMenuItem AutoBackupMenuItem;
     private javax.swing.JCheckBox AutoBackupPreference;
@@ -1850,6 +1874,7 @@ public class BackupManagerGUI extends javax.swing.JFrame {
     private javax.swing.JPanel detailsPanel;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenu jMenu3;

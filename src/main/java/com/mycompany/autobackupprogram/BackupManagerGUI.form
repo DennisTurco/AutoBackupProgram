@@ -367,7 +367,7 @@
                                   <Component id="jScrollPane2" alignment="0" min="-2" pref="353" max="-2" attributes="0"/>
                                   <Component id="jLabel2" alignment="0" min="-2" pref="40" max="-2" attributes="0"/>
                               </Group>
-                              <EmptySpace min="0" pref="1" max="32767" attributes="0"/>
+                              <EmptySpace min="0" pref="31" max="32767" attributes="0"/>
                           </Group>
                       </Group>
                       <EmptySpace max="-2" attributes="0"/>
@@ -606,7 +606,7 @@
                                   <Component id="researchField" min="-2" pref="321" max="-2" attributes="0"/>
                                   <EmptySpace max="-2" attributes="0"/>
                                   <Component id="researchButton" min="-2" pref="41" max="-2" attributes="0"/>
-                                  <EmptySpace min="0" pref="378" max="32767" attributes="0"/>
+                                  <EmptySpace min="0" pref="408" max="32767" attributes="0"/>
                               </Group>
                               <Group type="102" alignment="0" attributes="0">
                                   <Component id="jScrollPane1" max="32767" attributes="0"/>
@@ -797,7 +797,7 @@
     </Container>
     <Component class="javax.swing.JLabel" name="jLabel3">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Version 2.03"/>
+        <Property name="text" type="java.lang.String" value="Version 2.0.2"/>
       </Properties>
     </Component>
   </SubComponents>

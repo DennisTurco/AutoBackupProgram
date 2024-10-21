@@ -416,7 +416,7 @@ public class BackupManagerGUI extends javax.swing.JFrame {
                                 .addComponent(messageLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 178, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 353, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(0, 1, Short.MAX_VALUE)))
+                        .addGap(0, 31, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
@@ -540,7 +540,7 @@ public class BackupManagerGUI extends javax.swing.JFrame {
                         .addComponent(researchField, javax.swing.GroupLayout.PREFERRED_SIZE, 321, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(researchButton, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 378, Short.MAX_VALUE))
+                        .addGap(0, 408, Short.MAX_VALUE))
                     .addGroup(tablePanelLayout.createSequentialGroup()
                         .addComponent(jScrollPane1)
                         .addContainerGap())))
@@ -602,7 +602,7 @@ public class BackupManagerGUI extends javax.swing.JFrame {
 
         TabbedPane.addTab("BackupList", jPanel2);
 
-        jLabel3.setText("Version 2.03");
+        jLabel3.setText("Version 2.0.2");
 
         jMenu1.setText("File");
         jMenu1.addActionListener(new java.awt.event.ActionListener() {
@@ -868,6 +868,12 @@ public class BackupManagerGUI extends javax.swing.JFrame {
 
     private void Clear() {
         System.out.println("Event --> clear");
+        
+        int response = JOptionPane.showConfirmDialog(null, "Are you sure you want to clean the fields?", "Confimation required", JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE);
+        if (response != JOptionPane.YES_OPTION) {
+            return;
+        }
+        
         startPathField.setText("");
         destinationPathField.setText("");
         messageLabel.setText("");

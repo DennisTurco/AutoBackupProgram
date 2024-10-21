@@ -330,16 +330,6 @@
           <Layout>
             <DimensionLayout dim="0">
               <Group type="103" groupAlignment="0" attributes="0">
-                  <Group type="102" alignment="1" attributes="0">
-                      <EmptySpace max="32767" attributes="0"/>
-                      <Group type="103" groupAlignment="1" attributes="0">
-                          <Component id="SingleBackup" min="-2" pref="178" max="-2" attributes="0"/>
-                          <Component id="AutoBackupPreference" min="-2" pref="172" max="-2" attributes="0"/>
-                      </Group>
-                      <EmptySpace max="-2" attributes="0"/>
-                      <Component id="daysIntervalSpinner" min="-2" pref="60" max="-2" attributes="0"/>
-                      <EmptySpace min="-2" pref="262" max="-2" attributes="0"/>
-                  </Group>
                   <Group type="102" alignment="0" attributes="0">
                       <EmptySpace min="-2" pref="260" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
@@ -371,6 +361,24 @@
                           </Group>
                       </Group>
                       <EmptySpace max="-2" attributes="0"/>
+                  </Group>
+                  <Group type="102" alignment="1" attributes="0">
+                      <EmptySpace max="32767" attributes="0"/>
+                      <Group type="103" groupAlignment="0" attributes="0">
+                          <Group type="102" alignment="1" attributes="0">
+                              <Group type="103" groupAlignment="1" attributes="0">
+                                  <Component id="SingleBackup" min="-2" pref="178" max="-2" attributes="0"/>
+                                  <Component id="AutoBackupPreference" alignment="1" min="-2" pref="172" max="-2" attributes="0"/>
+                              </Group>
+                              <EmptySpace max="-2" attributes="0"/>
+                              <Component id="daysIntervalSpinner" min="-2" pref="60" max="-2" attributes="0"/>
+                              <EmptySpace min="-2" pref="262" max="-2" attributes="0"/>
+                          </Group>
+                          <Group type="102" alignment="1" attributes="0">
+                              <Component id="switchButton1" min="-2" max="-2" attributes="0"/>
+                              <EmptySpace min="-2" pref="399" max="-2" attributes="0"/>
+                          </Group>
+                      </Group>
                   </Group>
               </Group>
             </DimensionLayout>
@@ -411,7 +419,9 @@
                                   <Component id="daysIntervalSpinner" alignment="0" max="32767" attributes="0"/>
                                   <Component id="AutoBackupPreference" min="-2" pref="31" max="-2" attributes="0"/>
                               </Group>
-                              <EmptySpace min="-2" pref="106" max="-2" attributes="0"/>
+                              <EmptySpace max="-2" attributes="0"/>
+                              <Component id="switchButton1" min="-2" max="-2" attributes="0"/>
+                              <EmptySpace min="-2" pref="71" max="-2" attributes="0"/>
                           </Group>
                       </Group>
                   </Group>
@@ -441,7 +451,7 @@
             </Component>
             <Component class="javax.swing.JTextField" name="startPathField">
               <Properties>
-                <Property name="toolTipText" type="java.lang.String" value="Start Path"/>
+                <Property name="toolTipText" type="java.lang.String" value="(Required) Initial path"/>
                 <Property name="actionCommand" type="java.lang.String" value="null"/>
                 <Property name="alignmentX" type="float" value="0.0"/>
                 <Property name="alignmentY" type="float" value="0.0"/>
@@ -456,6 +466,7 @@
                 <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
                   <Image iconType="3" name="/res/img/folder.png"/>
                 </Property>
+                <Property name="toolTipText" type="java.lang.String" value="Open file explorer"/>
               </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnPathSearch1ActionPerformed"/>
@@ -463,7 +474,7 @@
             </Component>
             <Component class="javax.swing.JTextField" name="destinationPathField">
               <Properties>
-                <Property name="toolTipText" type="java.lang.String" value="Destination Path"/>
+                <Property name="toolTipText" type="java.lang.String" value="(Required) Destination path"/>
                 <Property name="actionCommand" type="java.lang.String" value="&lt;Not Set&gt;"/>
               </Properties>
               <Events>
@@ -476,6 +487,7 @@
                 <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
                   <Image iconType="3" name="/res/img/folder.png"/>
                 </Property>
+                <Property name="toolTipText" type="java.lang.String" value="Open file explorer"/>
               </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnPathSearch2ActionPerformed"/>
@@ -495,6 +507,7 @@
                   <Color blue="ff" green="ff" red="ff" type="rgb"/>
                 </Property>
                 <Property name="text" type="java.lang.String" value="Single Backup"/>
+                <Property name="toolTipText" type="java.lang.String" value="Perform the backup"/>
               </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="SingleBackupActionPerformed"/>
@@ -538,6 +551,7 @@
                   <Properties>
                     <Property name="columns" type="int" value="20"/>
                     <Property name="rows" type="int" value="5"/>
+                    <Property name="toolTipText" type="java.lang.String" value="(Optional) Backup description"/>
                   </Properties>
                   <Events>
                     <EventHandler event="inputMethodTextChanged" listener="java.awt.event.InputMethodListener" parameters="java.awt.event.InputMethodEvent" handler="backupNoteTextAreaInputMethodTextChanged"/>
@@ -550,6 +564,11 @@
               <Properties>
                 <Property name="text" type="java.lang.String" value="notes:"/>
               </Properties>
+            </Component>
+            <Component class="toggle.SwitchButton" name="switchButton1">
+              <Events>
+                <EventHandler event="propertyChange" listener="java.beans.PropertyChangeListener" parameters="java.beans.PropertyChangeEvent" handler="switchButton1PropertyChange"/>
+              </Events>
             </Component>
           </SubComponents>
         </Container>
@@ -644,7 +663,7 @@
                     <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
                       <Image iconType="3" name="/res/img/plus.png"/>
                     </Property>
-                    <Property name="toolTipText" type="java.lang.String" value="add new backup"/>
+                    <Property name="toolTipText" type="java.lang.String" value="Add new backup"/>
                     <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
                       <Dimension value="[25, 25]"/>
                     </Property>
@@ -734,7 +753,7 @@
                 </Component>
                 <Component class="javax.swing.JTextField" name="researchField">
                   <Properties>
-                    <Property name="toolTipText" type="java.lang.String" value="research bar"/>
+                    <Property name="toolTipText" type="java.lang.String" value="Research bar"/>
                   </Properties>
                   <AccessibilityProperties>
                     <Property name="AccessibleContext.accessibleName" type="java.lang.String" value=""/>
@@ -751,7 +770,7 @@
                     <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
                       <Image iconType="3" name="/res/img/search.png"/>
                     </Property>
-                    <Property name="toolTipText" type="java.lang.String" value="research"/>
+                    <Property name="toolTipText" type="java.lang.String" value="Research"/>
                     <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
                       <Dimension value="[25, 25]"/>
                     </Property>

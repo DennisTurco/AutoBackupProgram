@@ -132,6 +132,7 @@ public class BackupManagerGUI extends javax.swing.JFrame {
         jScrollPane2 = new javax.swing.JScrollPane();
         backupNoteTextArea = new javax.swing.JTextArea();
         jLabel2 = new javax.swing.JLabel();
+        switchButton1 = new toggle.SwitchButton();
         jPanel2 = new javax.swing.JPanel();
         tablePanel = new javax.swing.JPanel();
         addBackupEntryButton = new javax.swing.JButton();
@@ -273,7 +274,7 @@ public class BackupManagerGUI extends javax.swing.JFrame {
 
         currentFileLabel.setText("Current file: ");
 
-        startPathField.setToolTipText("Start Path");
+        startPathField.setToolTipText("(Required) Initial path");
         startPathField.setActionCommand("null");
         startPathField.setAlignmentX(0.0F);
         startPathField.setAlignmentY(0.0F);
@@ -291,13 +292,14 @@ public class BackupManagerGUI extends javax.swing.JFrame {
         });
 
         btnPathSearch1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/res/img/folder.png"))); // NOI18N
+        btnPathSearch1.setToolTipText("Open file explorer");
         btnPathSearch1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnPathSearch1ActionPerformed(evt);
             }
         });
 
-        destinationPathField.setToolTipText("Destination Path");
+        destinationPathField.setToolTipText("(Required) Destination path");
         destinationPathField.setActionCommand("<Not Set>");
         destinationPathField.addInputMethodListener(new java.awt.event.InputMethodListener() {
             public void caretPositionChanged(java.awt.event.InputMethodEvent evt) {
@@ -313,6 +315,7 @@ public class BackupManagerGUI extends javax.swing.JFrame {
         });
 
         btnPathSearch2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/res/img/folder.png"))); // NOI18N
+        btnPathSearch2.setToolTipText("Open file explorer");
         btnPathSearch2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnPathSearch2ActionPerformed(evt);
@@ -324,6 +327,7 @@ public class BackupManagerGUI extends javax.swing.JFrame {
         SingleBackup.setBackground(new java.awt.Color(51, 153, 255));
         SingleBackup.setForeground(new java.awt.Color(255, 255, 255));
         SingleBackup.setText("Single Backup");
+        SingleBackup.setToolTipText("Perform the backup");
         SingleBackup.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 SingleBackupActionPerformed(evt);
@@ -366,6 +370,7 @@ public class BackupManagerGUI extends javax.swing.JFrame {
 
         backupNoteTextArea.setColumns(20);
         backupNoteTextArea.setRows(5);
+        backupNoteTextArea.setToolTipText("(Optional) Backup description");
         backupNoteTextArea.addInputMethodListener(new java.awt.event.InputMethodListener() {
             public void caretPositionChanged(java.awt.event.InputMethodEvent evt) {
             }
@@ -382,18 +387,16 @@ public class BackupManagerGUI extends javax.swing.JFrame {
 
         jLabel2.setText("notes:");
 
+        switchButton1.addPropertyChangeListener(new java.beans.PropertyChangeListener() {
+            public void propertyChange(java.beans.PropertyChangeEvent evt) {
+                switchButton1PropertyChange(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(SingleBackup, javax.swing.GroupLayout.PREFERRED_SIZE, 178, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(AutoBackupPreference, javax.swing.GroupLayout.PREFERRED_SIZE, 172, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(daysIntervalSpinner, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(262, 262, 262))
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(260, 260, 260)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -418,6 +421,19 @@ public class BackupManagerGUI extends javax.swing.JFrame {
                             .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(0, 31, Short.MAX_VALUE)))
                 .addContainerGap())
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(SingleBackup, javax.swing.GroupLayout.PREFERRED_SIZE, 178, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(AutoBackupPreference, javax.swing.GroupLayout.PREFERRED_SIZE, 172, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(daysIntervalSpinner, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(262, 262, 262))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                        .addComponent(switchButton1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(399, 399, 399))))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -452,7 +468,9 @@ public class BackupManagerGUI extends javax.swing.JFrame {
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(daysIntervalSpinner)
                             .addComponent(AutoBackupPreference, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(106, 106, 106))))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(switchButton1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(71, 71, 71))))
         );
 
         TabbedPane.addTab("AutoBackup", jPanel1);
@@ -465,7 +483,7 @@ public class BackupManagerGUI extends javax.swing.JFrame {
 
         addBackupEntryButton.setForeground(new java.awt.Color(0, 0, 0));
         addBackupEntryButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/res/img/plus.png"))); // NOI18N
-        addBackupEntryButton.setToolTipText("add new backup");
+        addBackupEntryButton.setToolTipText("Add new backup");
         addBackupEntryButton.setPreferredSize(new java.awt.Dimension(25, 25));
         addBackupEntryButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -508,7 +526,7 @@ public class BackupManagerGUI extends javax.swing.JFrame {
         jLabel1.setText("|");
         jLabel1.setAlignmentY(0.0F);
 
-        researchField.setToolTipText("research bar");
+        researchField.setToolTipText("Research bar");
         researchField.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyTyped(java.awt.event.KeyEvent evt) {
                 researchFieldKeyTyped(evt);
@@ -517,7 +535,7 @@ public class BackupManagerGUI extends javax.swing.JFrame {
 
         researchButton.setForeground(new java.awt.Color(0, 0, 0));
         researchButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/res/img/search.png"))); // NOI18N
-        researchButton.setToolTipText("research");
+        researchButton.setToolTipText("Research");
         researchButton.setPreferredSize(new java.awt.Dimension(25, 25));
         researchButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -1000,30 +1018,6 @@ public class BackupManagerGUI extends javax.swing.JFrame {
         setCurrentBackupName("untitled*");
     }
     
-    private void AutoBackupPreferenceActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AutoBackupPreferenceActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_AutoBackupPreferenceActionPerformed
-
-    private void AutoBackupPreferenceMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_AutoBackupPreferenceMouseReleased
-        // case when the state didn't change
-        boolean enabled = AutoBackupPreference.isSelected();
-        if (enabled == currentBackup.isAutoBackup()) return;
-
-        if (enabled && AutomaticBackup()) {
-            System.out.println("Event --> Auto Backup setted to Enabled");
-        }
-        else {
-            System.out.println("Event --> Auto Backup setted to Disabled");
-            disableAutoBackup(currentBackup);
-        }
-        AutoBackupPreference.setSelected(enabled);
-        currentBackup.setAutoBackup(enabled);
-    }//GEN-LAST:event_AutoBackupPreferenceMouseReleased
-
-    private void AutoBackupPreferenceStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_AutoBackupPreferenceStateChanged
-
-    }//GEN-LAST:event_AutoBackupPreferenceStateChanged
-
     private void SingleBackupActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SingleBackupActionPerformed
         SingleBackup(startPathField.getText(), destinationPathField.getText());
     }//GEN-LAST:event_SingleBackupActionPerformed
@@ -1296,6 +1290,34 @@ public class BackupManagerGUI extends javax.swing.JFrame {
         Clipboard clipboardObj = Toolkit.getDefaultToolkit().getSystemClipboard();
         clipboardObj.setContents(stringSelectionObj, null);
     }//GEN-LAST:event_MenuShareActionPerformed
+
+    private void AutoBackupPreferenceActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AutoBackupPreferenceActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_AutoBackupPreferenceActionPerformed
+
+    private void AutoBackupPreferenceMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_AutoBackupPreferenceMouseReleased
+        // case when the state didn't change
+        boolean enabled = AutoBackupPreference.isSelected();
+        if (enabled == currentBackup.isAutoBackup()) return;
+
+        if (enabled && AutomaticBackup()) {
+            System.out.println("Event --> Auto Backup setted to Enabled");
+        }
+        else {
+            System.out.println("Event --> Auto Backup setted to Disabled");
+            disableAutoBackup(currentBackup);
+        }
+        AutoBackupPreference.setSelected(enabled);
+        currentBackup.setAutoBackup(enabled);
+    }//GEN-LAST:event_AutoBackupPreferenceMouseReleased
+
+    private void AutoBackupPreferenceStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_AutoBackupPreferenceStateChanged
+        System.out.println("dasdas");
+    }//GEN-LAST:event_AutoBackupPreferenceStateChanged
+
+    private void switchButton1PropertyChange(java.beans.PropertyChangeEvent evt) {//GEN-FIRST:event_switchButton1PropertyChange
+        // TODO add your handling code here:
+    }//GEN-LAST:event_switchButton1PropertyChange
     
     private void daysIntervalSpinnerChange() {
         Integer days = (Integer) daysIntervalSpinner.getValue();
@@ -1899,6 +1921,7 @@ public class BackupManagerGUI extends javax.swing.JFrame {
     private javax.swing.JButton researchButton;
     private javax.swing.JTextField researchField;
     private javax.swing.JTextField startPathField;
+    private toggle.SwitchButton switchButton1;
     private javax.swing.JTable table;
     private javax.swing.JPanel tablePanel;
     private javax.swing.JLabel txtTitle;

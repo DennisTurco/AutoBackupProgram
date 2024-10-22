@@ -1,36 +1,66 @@
-2024-10-22T10:33:56.210863 Event --> history
-2024-10-22T10:33:51.414810700 Event --> single backup
-2024-10-22T10:33:49.462437900 Event --> time interval backup changed
-2024-10-22T10:33:49.457454800 Event --> opening backup
-2024-10-22T10:33:32.073852300 Event --> disabled
-2024-10-22T10:33:32.069083 Event --> automatic backup
-2024-10-22T10:33:32.064121200 Event --> auto backup preference changed
-2024-10-22T10:33:31.910376700 Event --> disabled
-2024-10-22T10:33:31.905889200 Event --> auto backup preference changed
-2024-10-22T10:33:31.761197 Event --> disabled
-2024-10-22T10:33:31.756733600 Event --> automatic backup
-2024-10-22T10:33:31.752269 Event --> auto backup preference changed
-2024-10-22T10:33:31.581643200 Event --> disabled
-2024-10-22T10:33:31.577161600 Event --> auto backup preference changed
-2024-10-22T10:33:31.440550500 Event --> disabled
-2024-10-22T10:33:31.436086600 Event --> automatic backup
-2024-10-22T10:33:31.431126700 Event --> auto backup preference changed
-2024-10-22T10:33:31.273927700 Event --> disabled
-2024-10-22T10:33:31.269430400 Event --> auto backup preference changed
-2024-10-22T10:33:31.133063 Event --> disabled
-2024-10-22T10:33:31.129094700 Event --> automatic backup
-2024-10-22T10:33:31.125125500 Event --> auto backup preference changed
-2024-10-22T10:33:30.969749400 Event --> disabled
-2024-10-22T10:33:30.965284100 Event --> auto backup preference changed
-2024-10-22T10:33:30.839404800 Event --> disabled
-2024-10-22T10:33:30.835436800 Event --> automatic backup
-2024-10-22T10:33:30.831499 Event --> auto backup preference changed
-2024-10-22T10:33:30.672573600 Event --> disabled
-2024-10-22T10:33:30.669066400 Event --> auto backup preference changed
-2024-10-22T10:33:30.509565100 Event --> disabled
-2024-10-22T10:33:30.503612800 Event --> automatic backup
-2024-10-22T10:33:30.499645200 Event --> auto backup preference changed
-2024-10-22T10:33:13.640027100 Event --> history
-2024-10-22T10:31:42.131557700 Event --> disabled
+2024-10-22T14:02:36.367324100 Event --> automatic backup
+2024-10-22T14:02:36.362364100 Event --> auto backup preference changed
+2024-10-22T14:02:34.189351500 Event --> auto backup disabled
+2024-10-22T14:02:34.181449900 Event --> opening backup
+2024-10-22T14:01:37.661135200 Event --> automatic backup
+2024-10-22T14:01:37.653668100 Event --> auto backup preference changed
+2024-10-22T14:01:35.362619200 Event --> auto backup disabled
+2024-10-22T14:01:35.356667200 Event --> opening backup
+2024-10-22T14:01:25.532378800 Event --> auto backup disabled
+2024-10-22T14:01:25.524936200 Event --> opening backup
+2024-10-22T14:01:14.089452900 Event --> opening backup
+2024-10-22T14:01:04.151322100 Event --> automatic backup
+2024-10-22T14:01:04.146360300 Event --> auto backup preference changed
+2024-10-22T14:01:02.558895100 Event --> auto backup disabled
+2024-10-22T14:01:02.552419100 Event --> opening backup
+2024-10-22T13:58:47.217246500 Event --> automatic backup
+2024-10-22T13:58:47.212286800 Event --> auto backup preference changed
+2024-10-22T13:58:45.223880200 Event --> auto backup disabled
+2024-10-22T13:58:45.217408500 Event --> opening backup
+2024-10-22T13:57:39.520296 Event --> auto backup disabled
+2024-10-22T13:57:39.512849400 Event --> opening backup
+2024-10-22T13:54:58.053466700 Event --> auto backup disabled
+2024-10-22T13:54:58.047018400 Event --> opening backup
+2024-10-22T13:43:52.596514200 Event --> auto backup disabled
+2024-10-22T13:43:34.342431800 Event --> automatic backup
+2024-10-22T13:43:34.337471900 Event --> auto backup preference changed
+2024-10-22T13:43:31.738742900 Event --> auto backup disabled
+2024-10-22T13:43:31.731358400 Event --> opening backup
+2024-10-22T13:32:05.196109500 Event --> automatic backup
+2024-10-22T13:32:05.191189600 Event --> auto backup preference changed
+2024-10-22T13:32:00.574848800 Event --> auto backup disabled
+2024-10-22T13:32:00.568400200 Event --> opening backup
+2024-10-22T13:31:39.693544900 Event --> automatic backup
+2024-10-22T13:31:39.688620700 Event --> auto backup preference changed
+2024-10-22T13:31:25.003538600 Event --> auto backup disabled
+2024-10-22T13:31:24.996504300 Event --> opening backup
+2024-10-22T13:29:53.216242700 Event --> automatic backup
+2024-10-22T13:29:53.210787800 Event --> auto backup preference changed
+2024-10-22T13:28:54.342123500 Event --> save with name
+2024-10-22T13:28:54.336171900 Event --> saving backup
+2024-10-22T13:23:24.375422700 Event --> saving backup
+2024-10-22T13:23:12.313285100 Event --> auto backup disabled
+2024-10-22T13:23:12.307804600 Event --> saving backup
+2024-10-22T13:23:11.295051500 Event --> opening backup
+2024-10-22T13:23:06.394440 Event --> saving backup
+2024-10-22T13:22:45.779365600 Event --> save with name
+2024-10-22T13:22:45.773944700 Event --> saving backup
+2024-10-22T13:21:43.629329100 Event --> save with name
+2024-10-22T13:21:43.623873200 Event --> saving backup
+2024-10-22T13:20:36.079831900 Event --> save with name
+2024-10-22T13:20:36.074870900 Event --> saving backup
+2024-10-22T13:20:19.410321500 Event --> auto backup disabled
+2024-10-22T13:20:17.089170300 Event --> clear
+2024-10-22T13:20:17.084181900 Event --> new backup
+2024-10-22T11:38:50.669790500 Event --> time interval backup changed
+2024-10-22T11:38:50.221714100 Event --> time interval backup changed
+2024-10-22T11:38:50.057828900 Event --> time interval backup changed
+2024-10-22T11:38:49.704464200 Event --> time interval backup changed
+2024-10-22T11:38:49.538614100 Event --> time interval backup changed
+2024-10-22T11:38:49.367199 Event --> time interval backup changed
+2024-10-22T11:38:46.741833900 Event --> time interval backup changed
+2024-10-22T11:38:46.736377900 Event --> opening backup
+2024-10-22T11:27:01.239625700 Event --> single backup
+2024-10-22T10:35:55.585543400 Event --> history
 2024-10-22T10:31:38.965671300 Event --> clear
 2024-10-22T10:31:38.960711100 Event --> new backup

@@ -41,6 +41,7 @@ import java.nio.file.*;
 import java.nio.file.attribute.BasicFileAttributes;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipOutputStream;
+import javax.swing.JDialog;
 
 /**
  * @author Dennis Turco
@@ -133,11 +134,11 @@ public class BackupManagerGUI extends javax.swing.JFrame {
         SingleBackup = new javax.swing.JButton();
         messageLabel = new javax.swing.JLabel();
         AutoBackupPreference = new javax.swing.JCheckBox();
-        daysIntervalSpinner = new javax.swing.JSpinner();
         jScrollPane2 = new javax.swing.JScrollPane();
         backupNoteTextArea = new javax.swing.JTextArea();
         jLabel2 = new javax.swing.JLabel();
         switchButton1 = new toggle.SwitchButton();
+        btnTimePicker = new javax.swing.JButton();
         jPanel2 = new javax.swing.JPanel();
         tablePanel = new javax.swing.JPanel();
         addBackupEntryButton = new javax.swing.JButton();
@@ -298,6 +299,7 @@ public class BackupManagerGUI extends javax.swing.JFrame {
 
         btnPathSearch1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/res/img/folder.png"))); // NOI18N
         btnPathSearch1.setToolTipText("Open file explorer");
+        btnPathSearch1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnPathSearch1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnPathSearch1ActionPerformed(evt);
@@ -321,6 +323,7 @@ public class BackupManagerGUI extends javax.swing.JFrame {
 
         btnPathSearch2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/res/img/folder.png"))); // NOI18N
         btnPathSearch2.setToolTipText("Open file explorer");
+        btnPathSearch2.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnPathSearch2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnPathSearch2ActionPerformed(evt);
@@ -333,6 +336,7 @@ public class BackupManagerGUI extends javax.swing.JFrame {
         SingleBackup.setForeground(new java.awt.Color(255, 255, 255));
         SingleBackup.setText("Single Backup");
         SingleBackup.setToolTipText("Perform the backup");
+        SingleBackup.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         SingleBackup.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 SingleBackupActionPerformed(evt);
@@ -344,6 +348,7 @@ public class BackupManagerGUI extends javax.swing.JFrame {
         messageLabel.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
 
         AutoBackupPreference.setText("Automatic Backup");
+        AutoBackupPreference.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         AutoBackupPreference.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseReleased(java.awt.event.MouseEvent evt) {
                 AutoBackupPreferenceMouseReleased(evt);
@@ -352,19 +357,6 @@ public class BackupManagerGUI extends javax.swing.JFrame {
         AutoBackupPreference.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 AutoBackupPreferenceActionPerformed(evt);
-            }
-        });
-
-        daysIntervalSpinner.setToolTipText("days interval backup");
-        daysIntervalSpinner.setEnabled(false);
-        daysIntervalSpinner.addChangeListener(new javax.swing.event.ChangeListener() {
-            public void stateChanged(javax.swing.event.ChangeEvent evt) {
-                daysIntervalSpinnerStateChanged(evt);
-            }
-        });
-        daysIntervalSpinner.addFocusListener(new java.awt.event.FocusAdapter() {
-            public void focusLost(java.awt.event.FocusEvent evt) {
-                daysIntervalSpinnerFocusLost(evt);
             }
         });
 
@@ -386,6 +378,16 @@ public class BackupManagerGUI extends javax.swing.JFrame {
         jScrollPane2.setViewportView(backupNoteTextArea);
 
         jLabel2.setText("notes:");
+
+        btnTimePicker.setIcon(new javax.swing.ImageIcon(getClass().getResource("/res/img/chronometer.png"))); // NOI18N
+        btnTimePicker.setToolTipText("Open file explorer");
+        btnTimePicker.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnTimePicker.setEnabled(false);
+        btnTimePicker.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnTimePickerActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -416,15 +418,16 @@ public class BackupManagerGUI extends javax.swing.JFrame {
                         .addGap(0, 31, Short.MAX_VALUE)))
                 .addContainerGap())
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap(350, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                             .addComponent(SingleBackup, javax.swing.GroupLayout.PREFERRED_SIZE, 178, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(AutoBackupPreference, javax.swing.GroupLayout.PREFERRED_SIZE, 172, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(daysIntervalSpinner, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(262, 262, 262))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(AutoBackupPreference, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(btnTimePicker, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(328, 328, 328))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                         .addComponent(switchButton1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(399, 399, 399))))
@@ -446,25 +449,25 @@ public class BackupManagerGUI extends javax.swing.JFrame {
                     .addComponent(btnPathSearch2, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(lastBackupLabel)
+                .addGap(18, 18, 18)
+                .addComponent(jLabel2)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(SingleBackup, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(messageLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 13, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap())
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(18, 18, 18)
-                        .addComponent(jLabel2)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(SingleBackup, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(daysIntervalSpinner)
-                            .addComponent(AutoBackupPreference, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(AutoBackupPreference, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(btnTimePicker, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(switchButton1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(71, 71, 71))))
+                        .addGap(17, 65, Short.MAX_VALUE))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(messageLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 13, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addContainerGap())))
         );
 
         TabbedPane.addTab("AutoBackup", jPanel1);
@@ -478,6 +481,7 @@ public class BackupManagerGUI extends javax.swing.JFrame {
         addBackupEntryButton.setForeground(new java.awt.Color(0, 0, 0));
         addBackupEntryButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/res/img/plus.png"))); // NOI18N
         addBackupEntryButton.setToolTipText("Add new backup");
+        addBackupEntryButton.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         addBackupEntryButton.setPreferredSize(new java.awt.Dimension(25, 25));
         addBackupEntryButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -508,6 +512,7 @@ public class BackupManagerGUI extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
+        table.setCursor(new java.awt.Cursor(java.awt.Cursor.CROSSHAIR_CURSOR));
         table.setRowHeight(50);
         table.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -530,6 +535,7 @@ public class BackupManagerGUI extends javax.swing.JFrame {
         researchButton.setForeground(new java.awt.Color(0, 0, 0));
         researchButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/res/img/search.png"))); // NOI18N
         researchButton.setToolTipText("Research");
+        researchButton.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         researchButton.setPreferredSize(new java.awt.Dimension(25, 25));
         researchButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -777,7 +783,7 @@ public class BackupManagerGUI extends javax.swing.JFrame {
             model.setValueAt(backup.getLastBackup() != null ? backup.getLastBackup().format(formatter) : "", i, 3);
             model.setValueAt(backup.isAutoBackup(), i, 4);
             model.setValueAt(backup.getNextDateBackup() != null ? backup.getNextDateBackup().format(formatter) : "", i, 5);
-            model.setValueAt(backup.getDaysIntervalBackup(), i, 6);
+            model.setValueAt(backup.getTimeIntervalBackup().toString(), i, 6);
         }
 
         DefaultTableCellRenderer renderer = new DefaultTableCellRenderer() {
@@ -850,7 +856,7 @@ public class BackupManagerGUI extends javax.swing.JFrame {
                 backup.getLastBackup() != null ? backup.getLastBackup().format(formatter) : "",
                 backup.isAutoBackup(),
                 backup.getNextDateBackup() != null ? backup.getNextDateBackup().format(formatter) : "",
-                backup.getDaysIntervalBackup()
+                backup.getTimeIntervalBackup() != null ? backup.getTimeIntervalBackup().toString() : ""
             });
         }
 }
@@ -988,12 +994,12 @@ public class BackupManagerGUI extends javax.swing.JFrame {
         setCurrentBackupName(backup.getBackupName());
         setCurrentBackupNotes(backup.getNotes());
         
-        if (backup.getDaysIntervalBackup() != null) {
-            daysIntervalSpinner.setValue(backup.getDaysIntervalBackup());
-            daysIntervalSpinner.setEnabled(true);
+        if (backup.getTimeIntervalBackup() != null) {
+            btnTimePicker.setToolTipText(backup.getTimeIntervalBackup().toString());
+            btnTimePicker.setEnabled(true);
         } else {
-            daysIntervalSpinner.setValue(0);
-            daysIntervalSpinner.setEnabled(false);
+            btnTimePicker.setToolTipText("");
+            btnTimePicker.setEnabled(false);
         }  
     }
     
@@ -1059,7 +1065,7 @@ public class BackupManagerGUI extends javax.swing.JFrame {
                     backup.getDestinationPath().contains(research) || 
                     (backup.getLastBackup() != null && backup.getLastBackup().toString().contains(research)) ||
                     (backup.getNextDateBackup() != null && backup.getNextDateBackup().toString().contains(research)) ||
-                    (backup.getDaysIntervalBackup()!= null && backup.getDaysIntervalBackup().toString().contains(research))) {
+                    (backup.getTimeIntervalBackup() != null && backup.getTimeIntervalBackup().toString().contains(research))) {
                 tempBackups.add(backup);
             }
         }
@@ -1144,7 +1150,7 @@ public class BackupManagerGUI extends javax.swing.JFrame {
                     "<b>DestinationPath:</b> " + backups.get(selectedRow).getDestinationPath() + ", " +
                     "<b>LastBackup:</b> " + (backups.get(selectedRow).getLastBackup() != null ? backups.get(selectedRow).getLastBackup().format(formatter) : "") + ", " +
                     "<b>NextBackup:</b> " + (backups.get(selectedRow).getNextDateBackup() != null ? backups.get(selectedRow).getNextDateBackup().format(formatter) : "_") + ", " +
-                    "<b>DaysIntervalBackup:</b> " + (backups.get(selectedRow).getDaysIntervalBackup() != null ? backups.get(selectedRow).getDaysIntervalBackup() : "_") + ", " +
+                    "<b>TimeIntervalBackup:</b> " + (backups.get(selectedRow).getTimeIntervalBackup() != null ? backups.get(selectedRow).getTimeIntervalBackup().toString() : "_") + ", " +
                     "<b>CreationDate:</b> " + (backups.get(selectedRow).getCreationDate() != null ? backups.get(selectedRow).getCreationDate().format(formatter) : "_") + ", " +
                     "<b>LastUpdateDate:</b> " + (backups.get(selectedRow).getLastUpdateDate() != null ? backups.get(selectedRow).getLastUpdateDate().format(formatter) : "_") + ", " +
                     "<b>BackupCount:</b> " + (backups.get(selectedRow).getBackupCount()) + ", " +
@@ -1173,7 +1179,7 @@ public class BackupManagerGUI extends javax.swing.JFrame {
                     backup.getLastBackup(),
                     backup.isAutoBackup(),
                     backup.getNextDateBackup(),
-                    backup.getDaysIntervalBackup(),
+                    backup.getTimeIntervalBackup(),
                     backup.getNotes(),
                     dateNow,
                     dateNow,
@@ -1229,15 +1235,15 @@ public class BackupManagerGUI extends javax.swing.JFrame {
     private void disableAutoBackup(Backup backup) {
         logMessage("Event --> auto backup disabled");
         
-        backup.setDaysIntervalBackup(null);
+        backup.setTimeIntervalBackup(null);
         backup.setNextDateBackup(null);
         backup.setLastUpdateDate(LocalDateTime.now());
         updateTableWithNewBackupList(backups);
         
         // if the backup is the current backup i have to update the main panel
         if (backup.getBackupName().equals(currentBackup.getBackupName())) {
-            daysIntervalSpinner.setValue(0);
-            daysIntervalSpinner.setEnabled(false);
+            btnTimePicker.setToolTipText("");
+            btnTimePicker.setEnabled(false);
         }
     }
     
@@ -1259,10 +1265,6 @@ public class BackupManagerGUI extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_renamePopupItemActionPerformed
 
-    private void daysIntervalSpinnerStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_daysIntervalSpinnerStateChanged
-        daysIntervalSpinnerChange();
-    }//GEN-LAST:event_daysIntervalSpinnerStateChanged
-
     private void backupNoteTextAreaKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_backupNoteTextAreaKeyTyped
         savedChanges(false);
     }//GEN-LAST:event_backupNoteTextAreaKeyTyped
@@ -1270,10 +1272,6 @@ public class BackupManagerGUI extends javax.swing.JFrame {
     private void backupNoteTextAreaInputMethodTextChanged(java.awt.event.InputMethodEvent evt) {//GEN-FIRST:event_backupNoteTextAreaInputMethodTextChanged
         savedChanges(false);
     }//GEN-LAST:event_backupNoteTextAreaInputMethodTextChanged
-
-    private void daysIntervalSpinnerFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_daysIntervalSpinnerFocusLost
-        daysIntervalSpinnerChange();
-    }//GEN-LAST:event_daysIntervalSpinnerFocusLost
 
     private void MenuDonateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MenuDonateActionPerformed
         logMessage("Event --> donate");
@@ -1318,22 +1316,18 @@ public class BackupManagerGUI extends javax.swing.JFrame {
         }
         AutoBackupPreference.setSelected(enabled);
         currentBackup.setAutoBackup(enabled);
+        updateTableWithNewBackupList(backups);
+        JSON.UpdateBackupListJSON(BACKUP_FILE_STRING, RES_DIRECTORY_STRING, backups);
     }//GEN-LAST:event_AutoBackupPreferenceMouseReleased
-    
-    private void daysIntervalSpinnerChange() {
-        logMessage("Event --> time interval backup changed");
-        
-        Integer days = (Integer) daysIntervalSpinner.getValue();
-        
-        if (days != null && days > 0) {
-            currentBackup.setDaysIntervalBackup(days);
-            currentBackup.setNextDateBackup(LocalDateTime.now().plusDays(days));
-            currentBackup.setLastUpdateDate(LocalDateTime.now());
-            updateTableWithNewBackupList(backups);
-            JSON.UpdateBackupListJSON(BACKUP_FILE_STRING, RES_DIRECTORY_STRING, backups);
-        } else {
-            daysIntervalSpinner.setValue(1);
-        }
+
+    private void btnTimePickerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTimePickerActionPerformed
+        openTimePicker();
+    }//GEN-LAST:event_btnTimePickerActionPerformed
+
+    private TimeInterval openTimePicker() {
+        TimePicker picker = new TimePicker(this, true);
+        picker.setVisible(true);
+        return picker.getTimeInterval();
     }
     
     private void renameBackup(Backup backup) {
@@ -1404,25 +1398,26 @@ public class BackupManagerGUI extends javax.swing.JFrame {
         if(!CheckInputCorrect(startPathField.getText(), destinationPathField.getText())) return false;
 
         // if the file has not been saved you need to save it before setting the auto backup
-        if(currentBackup.isAutoBackup() == false || currentBackup.getNextDateBackup() == null || currentBackup.getDaysIntervalBackup() == null) {
+        if(currentBackup.isAutoBackup() == false || currentBackup.getNextDateBackup() == null || currentBackup.getTimeIntervalBackup() == null) {
             if (currentBackup.getBackupName() == null || currentBackup.getBackupName().isEmpty()) SaveWithName();
             if (currentBackup.getBackupName() == null || currentBackup.getBackupName().isEmpty()) return false;
 
             // message
-            Integer daysIntervalBackup = Integer.parseInt(JOptionPane.showInputDialog(null, "Every how many days run the auto backup?")); // pop-up message
-            if (daysIntervalBackup == JOptionPane.CANCEL_OPTION) return false;
+            TimeInterval timeInterval = openTimePicker();
+            if (timeInterval == null) return false;
 
             //set date for next backup
-            LocalDateTime dateNow = LocalDateTime.now();
-            LocalDateTime nextDateBackup = dateNow.plusDays(daysIntervalBackup);  // Set the time to start of day
+            LocalDateTime nextDateBackup = LocalDateTime.now().plusDays(timeInterval.getDays())
+                    .plusHours(timeInterval.getHours())
+                    .plusMinutes(timeInterval.getMinutes());
 
-            currentBackup.setDaysIntervalBackup(daysIntervalBackup);
+            currentBackup.setTimeIntervalBackup(timeInterval);
             currentBackup.setNextDateBackup(nextDateBackup);
-            daysIntervalSpinner.setValue(daysIntervalBackup);
-            daysIntervalSpinner.setEnabled(true);
+            btnTimePicker.setToolTipText(timeInterval.toString());
+            btnTimePicker.setEnabled(true);
 
             System.out.println("Event --> Next date backup setted to " + nextDateBackup);
-            JOptionPane.showMessageDialog(null, "Auto Backup has been activated\n\tFrom: " + startPathField.getText() + "\n\tTo: " + destinationPathField.getText() + "\nIs setted every " + daysIntervalBackup + " days", "AutoBackup", 1);
+            JOptionPane.showMessageDialog(null, "Auto Backup has been activated\n\tFrom: " + startPathField.getText() + "\n\tTo: " + destinationPathField.getText() + "\nIs setted every " + timeInterval.toString() + " days", "AutoBackup", 1);
         }
 
         currentBackup.setInitialPath(GetStartPathField());
@@ -1442,26 +1437,27 @@ public class BackupManagerGUI extends javax.swing.JFrame {
     public boolean AutomaticBackup(Backup backup) {
         logMessage("Event --> automatic backup");
     
-        if(backup.isAutoBackup() == false || backup.getNextDateBackup() == null || backup.getDaysIntervalBackup() == null) {
+        if(backup.isAutoBackup() == false || backup.getNextDateBackup() == null || backup.getTimeIntervalBackup() == null) {
             // if the file has not been saved you need to save it before setting the auto backup
             if (backup.getBackupName() == null || backup.getBackupName().isEmpty()) SaveWithName();
             if (backup.getBackupName() == null || backup.getBackupName().isEmpty()) return false;
 
             // message
-            Integer daysIntervalBackup = Integer.parseInt(JOptionPane.showInputDialog(null, "Every how many days run the auto backup?")); // pop-up message
-            if (daysIntervalBackup == JOptionPane.CANCEL_OPTION) return false;
+            TimeInterval timeInterval = openTimePicker();
+            if (timeInterval == null) return false;
 
             //set date for next backup
-            LocalDateTime dateNow = LocalDateTime.now();
-            LocalDateTime nextDateBackup = dateNow.plusDays(daysIntervalBackup);  // Set the time to start of day
+            LocalDateTime nextDateBackup = LocalDateTime.now().plusDays(timeInterval.getDays())
+                    .plusHours(timeInterval.getHours())
+                    .plusMinutes(timeInterval.getMinutes());
 
-            backup.setDaysIntervalBackup(daysIntervalBackup);
+            backup.setTimeIntervalBackup(timeInterval);
             backup.setNextDateBackup(nextDateBackup);
-            daysIntervalSpinner.setValue(daysIntervalBackup);
-            daysIntervalSpinner.setEnabled(true);
+            btnTimePicker.setToolTipText(timeInterval.toString());
+            btnTimePicker.setEnabled(true);
 
             System.out.println("Event --> Next date backup setted to " + nextDateBackup);
-            JOptionPane.showMessageDialog(null, "Auto Backup has been activated\n\tFrom: " + backup.getInitialPath() + "\n\tTo: " + backup.getDestinationPath() + "\nIs setted every " + daysIntervalBackup + " days", "AutoBackup", 1);
+            JOptionPane.showMessageDialog(null, "Auto Backup has been activated\n\tFrom: " + backup.getInitialPath() + "\n\tTo: " + backup.getDestinationPath() + "\nIs setted every " + timeInterval.toString() + " days", "AutoBackup", 1);
         }
 
         for (Backup b : backups) {
@@ -1490,7 +1486,7 @@ public class BackupManagerGUI extends javax.swing.JFrame {
                     currentBackup.getLastBackup(),
                     currentBackup.isAutoBackup(),
                     currentBackup.getNextDateBackup(),
-                    currentBackup.getDaysIntervalBackup(),
+                    currentBackup.getTimeIntervalBackup(),
                     GetNotesTextArea(),
                     dateNow,
                     dateNow,
@@ -1584,7 +1580,10 @@ public class BackupManagerGUI extends javax.swing.JFrame {
         
         // next day backup update
         if (currentBackup.isAutoBackup() == true) {
-            LocalDateTime nextDateBackup = dateNow.plusDays(currentBackup.getDaysIntervalBackup());
+            TimeInterval time = currentBackup.getTimeIntervalBackup();
+            LocalDateTime nextDateBackup = dateNow.plusDays(time.getDays())
+                    .plusHours(time.getHours())
+                    .plusMinutes(time.getMinutes());
             currentBackup.setNextDateBackup(nextDateBackup);
         } 
         
@@ -1965,8 +1964,8 @@ public class BackupManagerGUI extends javax.swing.JFrame {
     private javax.swing.JTextArea backupNoteTextArea;
     private javax.swing.JButton btnPathSearch1;
     private javax.swing.JButton btnPathSearch2;
+    private javax.swing.JButton btnTimePicker;
     private javax.swing.JLabel currentFileLabel;
-    private javax.swing.JSpinner daysIntervalSpinner;
     private javax.swing.JTextField destinationPathField;
     private javax.swing.JLabel detailsLabel;
     private javax.swing.JPanel detailsPanel;

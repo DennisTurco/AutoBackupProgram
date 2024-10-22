@@ -363,16 +363,18 @@
                       <EmptySpace max="-2" attributes="0"/>
                   </Group>
                   <Group type="102" alignment="1" attributes="0">
-                      <EmptySpace max="32767" attributes="0"/>
+                      <EmptySpace pref="350" max="32767" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Group type="102" alignment="1" attributes="0">
-                              <Group type="103" groupAlignment="1" attributes="0">
+                              <Group type="103" groupAlignment="1" max="-2" attributes="0">
                                   <Component id="SingleBackup" min="-2" pref="178" max="-2" attributes="0"/>
-                                  <Component id="AutoBackupPreference" alignment="1" min="-2" pref="172" max="-2" attributes="0"/>
+                                  <Group type="102" alignment="1" attributes="0">
+                                      <Component id="AutoBackupPreference" max="32767" attributes="0"/>
+                                      <EmptySpace max="-2" attributes="0"/>
+                                      <Component id="btnTimePicker" min="-2" pref="34" max="-2" attributes="0"/>
+                                  </Group>
                               </Group>
-                              <EmptySpace max="-2" attributes="0"/>
-                              <Component id="daysIntervalSpinner" min="-2" pref="60" max="-2" attributes="0"/>
-                              <EmptySpace min="-2" pref="262" max="-2" attributes="0"/>
+                              <EmptySpace min="-2" pref="328" max="-2" attributes="0"/>
                           </Group>
                           <Group type="102" alignment="1" attributes="0">
                               <Component id="switchButton1" min="-2" max="-2" attributes="0"/>
@@ -401,27 +403,27 @@
                       </Group>
                       <EmptySpace max="-2" attributes="0"/>
                       <Component id="lastBackupLabel" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace type="separate" max="-2" attributes="0"/>
+                      <Component id="jLabel2" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace max="-2" attributes="0"/>
+                      <Component id="jScrollPane2" min="-2" pref="160" max="-2" attributes="0"/>
+                      <EmptySpace max="-2" attributes="0"/>
+                      <Component id="SingleBackup" min="-2" pref="36" max="-2" attributes="0"/>
+                      <EmptySpace type="separate" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Group type="102" attributes="0">
-                              <EmptySpace max="32767" attributes="0"/>
-                              <Component id="messageLabel" min="-2" pref="13" max="-2" attributes="0"/>
-                              <EmptySpace max="-2" attributes="0"/>
-                          </Group>
-                          <Group type="102" alignment="0" attributes="0">
-                              <EmptySpace type="separate" max="-2" attributes="0"/>
-                              <Component id="jLabel2" min="-2" max="-2" attributes="0"/>
-                              <EmptySpace max="-2" attributes="0"/>
-                              <Component id="jScrollPane2" min="-2" pref="160" max="-2" attributes="0"/>
-                              <EmptySpace max="-2" attributes="0"/>
-                              <Component id="SingleBackup" min="-2" pref="36" max="-2" attributes="0"/>
-                              <EmptySpace type="separate" max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="0" attributes="0">
-                                  <Component id="daysIntervalSpinner" alignment="0" max="32767" attributes="0"/>
                                   <Component id="AutoBackupPreference" min="-2" pref="31" max="-2" attributes="0"/>
+                                  <Component id="btnTimePicker" min="-2" pref="31" max="-2" attributes="0"/>
                               </Group>
                               <EmptySpace max="-2" attributes="0"/>
                               <Component id="switchButton1" min="-2" max="-2" attributes="0"/>
-                              <EmptySpace min="-2" pref="71" max="-2" attributes="0"/>
+                              <EmptySpace min="17" pref="65" max="32767" attributes="0"/>
+                          </Group>
+                          <Group type="102" alignment="0" attributes="0">
+                              <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+                              <Component id="messageLabel" min="-2" pref="13" max="-2" attributes="0"/>
+                              <EmptySpace max="-2" attributes="0"/>
                           </Group>
                       </Group>
                   </Group>
@@ -467,6 +469,9 @@
                   <Image iconType="3" name="/res/img/folder.png"/>
                 </Property>
                 <Property name="toolTipText" type="java.lang.String" value="Open file explorer"/>
+                <Property name="cursor" type="java.awt.Cursor" editor="org.netbeans.modules.form.editors2.CursorEditor">
+                  <Color id="Hand Cursor"/>
+                </Property>
               </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnPathSearch1ActionPerformed"/>
@@ -488,6 +493,9 @@
                   <Image iconType="3" name="/res/img/folder.png"/>
                 </Property>
                 <Property name="toolTipText" type="java.lang.String" value="Open file explorer"/>
+                <Property name="cursor" type="java.awt.Cursor" editor="org.netbeans.modules.form.editors2.CursorEditor">
+                  <Color id="Hand Cursor"/>
+                </Property>
               </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnPathSearch2ActionPerformed"/>
@@ -508,6 +516,9 @@
                 </Property>
                 <Property name="text" type="java.lang.String" value="Single Backup"/>
                 <Property name="toolTipText" type="java.lang.String" value="Perform the backup"/>
+                <Property name="cursor" type="java.awt.Cursor" editor="org.netbeans.modules.form.editors2.CursorEditor">
+                  <Color id="Hand Cursor"/>
+                </Property>
               </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="SingleBackupActionPerformed"/>
@@ -523,20 +534,13 @@
             <Component class="javax.swing.JCheckBox" name="AutoBackupPreference">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Automatic Backup"/>
+                <Property name="cursor" type="java.awt.Cursor" editor="org.netbeans.modules.form.editors2.CursorEditor">
+                  <Color id="Hand Cursor"/>
+                </Property>
               </Properties>
               <Events>
                 <EventHandler event="mouseReleased" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="AutoBackupPreferenceMouseReleased"/>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="AutoBackupPreferenceActionPerformed"/>
-              </Events>
-            </Component>
-            <Component class="javax.swing.JSpinner" name="daysIntervalSpinner">
-              <Properties>
-                <Property name="toolTipText" type="java.lang.String" value="days interval backup"/>
-                <Property name="enabled" type="boolean" value="false"/>
-              </Properties>
-              <Events>
-                <EventHandler event="stateChanged" listener="javax.swing.event.ChangeListener" parameters="javax.swing.event.ChangeEvent" handler="daysIntervalSpinnerStateChanged"/>
-                <EventHandler event="focusLost" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="daysIntervalSpinnerFocusLost"/>
               </Events>
             </Component>
             <Container class="javax.swing.JScrollPane" name="jScrollPane2">
@@ -565,6 +569,21 @@
               </Properties>
             </Component>
             <Component class="toggle.SwitchButton" name="switchButton1">
+            </Component>
+            <Component class="javax.swing.JButton" name="btnTimePicker">
+              <Properties>
+                <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+                  <Image iconType="3" name="/res/img/chronometer.png"/>
+                </Property>
+                <Property name="toolTipText" type="java.lang.String" value="Open file explorer"/>
+                <Property name="cursor" type="java.awt.Cursor" editor="org.netbeans.modules.form.editors2.CursorEditor">
+                  <Color id="Hand Cursor"/>
+                </Property>
+                <Property name="enabled" type="boolean" value="false"/>
+              </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnTimePickerActionPerformed"/>
+              </Events>
             </Component>
           </SubComponents>
         </Container>
@@ -660,6 +679,9 @@
                       <Image iconType="3" name="/res/img/plus.png"/>
                     </Property>
                     <Property name="toolTipText" type="java.lang.String" value="Add new backup"/>
+                    <Property name="cursor" type="java.awt.Cursor" editor="org.netbeans.modules.form.editors2.CursorEditor">
+                      <Color id="Hand Cursor"/>
+                    </Property>
                     <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
                       <Dimension value="[25, 25]"/>
                     </Property>
@@ -727,6 +749,9 @@
                             </Column>
                           </TableColumnModel>
                         </Property>
+                        <Property name="cursor" type="java.awt.Cursor" editor="org.netbeans.modules.form.editors2.CursorEditor">
+                          <Color id="Crosshair Cursor"/>
+                        </Property>
                         <Property name="rowHeight" type="int" value="50"/>
                         <Property name="tableHeader" type="javax.swing.table.JTableHeader" editor="org.netbeans.modules.form.editors2.JTableHeaderEditor">
                           <TableHeader reorderingAllowed="true" resizingAllowed="true"/>
@@ -767,6 +792,9 @@
                       <Image iconType="3" name="/res/img/search.png"/>
                     </Property>
                     <Property name="toolTipText" type="java.lang.String" value="Research"/>
+                    <Property name="cursor" type="java.awt.Cursor" editor="org.netbeans.modules.form.editors2.CursorEditor">
+                      <Color id="Hand Cursor"/>
+                    </Property>
                     <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
                       <Dimension value="[25, 25]"/>
                     </Property>

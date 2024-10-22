@@ -10,7 +10,7 @@ public class Backup {
     private LocalDateTime _lastBackup;
     private boolean _autoBackup;
     private LocalDateTime _nextDateBackup;
-    private Integer _daysIntervalBackup;
+    private TimeInterval _timeIntervalBackup;
     private String _notes;
     private LocalDateTime _creationDate;
     private LocalDateTime _lastUpdateDate;
@@ -24,21 +24,21 @@ public class Backup {
         _lastBackup = null;
         _autoBackup = false;
         _nextDateBackup = null;
-        _daysIntervalBackup = null;
+        _timeIntervalBackup = null;
         _notes = "";
         _creationDate = null;
         _lastUpdateDate = null;
         _backupCount = 0;
     }
     
-    public Backup(String backupName, String initialPath, String destinationPath, LocalDateTime lastBackup, Boolean autoBackup, LocalDateTime nextDateBackup, Integer daysIntervalBackup, String notes, LocalDateTime creationDate, LocalDateTime lastUpdateDate, int backupCount) {
+    public Backup(String backupName, String initialPath, String destinationPath, LocalDateTime lastBackup, Boolean autoBackup, LocalDateTime nextDateBackup, TimeInterval timeIntervalBackup, String notes, LocalDateTime creationDate, LocalDateTime lastUpdateDate, int backupCount) {
         this._backupName = backupName;
         this._initialPath = initialPath;
         this._destinationPath = destinationPath;
         this._lastBackup = lastBackup;
         this._autoBackup = autoBackup;
         this._nextDateBackup = nextDateBackup;
-        this._daysIntervalBackup = daysIntervalBackup;
+        this._timeIntervalBackup = timeIntervalBackup;
         this._notes = notes;
         this._creationDate = creationDate;
         this._lastUpdateDate = lastUpdateDate;
@@ -52,7 +52,7 @@ public class Backup {
         this._lastBackup = backupUpdated.getLastBackup();
         this._autoBackup = backupUpdated.isAutoBackup();
         this._nextDateBackup = backupUpdated.getNextDateBackup();
-        this._daysIntervalBackup = backupUpdated.getDaysIntervalBackup();
+        this._timeIntervalBackup = backupUpdated.getTimeIntervalBackup();
         this._notes = backupUpdated.getNotes();
         this._creationDate = backupUpdated.getCreationDate();
         this._lastUpdateDate = backupUpdated.getLastUpdateDate();
@@ -61,7 +61,7 @@ public class Backup {
     
     @Override
     public String toString() {
-        return _backupName + " " + _initialPath + " " + _destinationPath + " " + _lastBackup + " " + _autoBackup + " " + _nextDateBackup + " " + _daysIntervalBackup; 
+        return _backupName + " " + _initialPath + " " + _destinationPath + " " + _lastBackup + " " + _autoBackup + " " + _nextDateBackup + " " + _timeIntervalBackup.toString(); 
     }
 
     public String getBackupName() {
@@ -88,8 +88,8 @@ public class Backup {
         return _nextDateBackup;
     }
 
-    public Integer getDaysIntervalBackup() {
-        return _daysIntervalBackup;
+    public TimeInterval getTimeIntervalBackup() {
+        return _timeIntervalBackup;
     }
 
     public String getNotes() {
@@ -132,8 +132,8 @@ public class Backup {
         this._nextDateBackup = nextDateBackup;
     }
 
-    public void setDaysIntervalBackup(Integer daysIntervalBackup) {
-        this._daysIntervalBackup = daysIntervalBackup;
+    public void setTimeIntervalBackup(TimeInterval timeIntervalBackup) {
+        this._timeIntervalBackup = timeIntervalBackup;
     }
 
     public void setNotes(String notes) {

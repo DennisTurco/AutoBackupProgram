@@ -33,7 +33,7 @@ class JSONAutoBackup implements IJSONAutoBackup {
             for (Object obj : backupArray) {
                 JSONObject backupObj = (JSONObject) obj;
 
-                String filenameValue = (String) backupObj.get("filename");
+                String backupNameValue = (String) backupObj.get("backup_name");
                 String startPathValue = (String) backupObj.get("start_path");
                 String destinationPathValue = (String) backupObj.get("destination_path");
                 String lastBackupStr = (String) backupObj.get("last_backup");
@@ -52,7 +52,7 @@ class JSONAutoBackup implements IJSONAutoBackup {
                     automaticBackupValue = (integer == 1);
                 }
                 String nextDateBackupStr = (String) backupObj.get("next_date_backup");
-                Long daysIntervalBackup = (Long) backupObj.get("days_interval_backup"); // Use Long for JSON parsing
+                String daysIntervalBackupStr = (String) backupObj.get("time_interval_backup");
 
                 LocalDateTime lastBackupValue = lastBackupStr != null ? LocalDateTime.parse(lastBackupStr) : null;
                 LocalDateTime nextDateBackupValue = nextDateBackupStr != null ? LocalDateTime.parse(nextDateBackupStr) : null;
@@ -60,13 +60,13 @@ class JSONAutoBackup implements IJSONAutoBackup {
                 LocalDateTime lastUpdateDateValue = lastUpdateDateStr != null ? LocalDateTime.parse(lastUpdateDateStr) : null;
 
                 backupList.add(new Backup(
-                    filenameValue,
+                    backupNameValue,
                     startPathValue,
                     destinationPathValue,
                     lastBackupValue,
                     automaticBackupValue,
                     nextDateBackupValue,
-                    daysIntervalBackup != null ? daysIntervalBackup.intValue() : null, // Convert Long to Integer
+                    TimeInterval.getTimeIntervalFromString(daysIntervalBackupStr),
                     notesValue,    
                     creationDateValue,
                     lastUpdateDateValue,
@@ -89,13 +89,13 @@ class JSONAutoBackup implements IJSONAutoBackup {
         JSONArray updatedBackupArray = new JSONArray();
         for (Backup backup : backups) {
             JSONObject backupObject = new JSONObject();
-            backupObject.put("filename", backup.getBackupName());
+            backupObject.put("backup_name", backup.getBackupName());
             backupObject.put("start_path", backup.getInitialPath());
             backupObject.put("destination_path", backup.getDestinationPath());
             backupObject.put("last_backup", backup.getLastBackup() != null ? backup.getLastBackup().toString() : null);
             backupObject.put("automatic_backup", backup.isAutoBackup());
             backupObject.put("next_date_backup", backup.getNextDateBackup() != null ? backup.getNextDateBackup().toString() : null);
-            backupObject.put("days_interval_backup", backup.getDaysIntervalBackup());
+            backupObject.put("time_interval_backup", backup.getTimeIntervalBackup() != null ? backup.getTimeIntervalBackup().toString() : null);
             backupObject.put("notes", backup.getNotes());
             backupObject.put("creation_date", backup.getCreationDate() != null ? backup.getCreationDate().toString() : null);
             backupObject.put("last_update_date", backup.getLastUpdateDate() != null ? backup.getLastUpdateDate().toString() : null);

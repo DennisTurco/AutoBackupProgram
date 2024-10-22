@@ -50,7 +50,6 @@ public class BackupManagerGUI extends javax.swing.JFrame {
     public static final String LOG_FILE_STRING = "log_file";
     public static final String BACKUP_FILE_STRING = "backup_list.json";
     public static final String RES_DIRECTORY_STRING = "src/main/resources/res/";
-    public static final String SAVES_DIRECTORY_STRING = "src/main/resources/res/saves/";    
     
     public static final String DONATE_PAGE_LINK = "https://buymeacoffee.com/denno";
     public static final String ISSUE_PAGE_LINK = "https://github.com/DennisTurco/AutoBackupProgram/issues";
@@ -91,6 +90,7 @@ public class BackupManagerGUI extends javax.swing.JFrame {
         } catch (IOException ex) {
             backups = null;
             System.err.println("IOException (AutoBackupGUI) --> " + ex);
+            logMessage(ex.getMessage());
             OpenExceptionMessage(ex.getMessage(), Arrays.toString(ex.getStackTrace()));
         }
     }
@@ -856,7 +856,7 @@ public class BackupManagerGUI extends javax.swing.JFrame {
 }
     
     private void MenuQuitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MenuQuitActionPerformed
-        System.out.println("Event --> exit");
+        logMessage("Event --> exit");
         System.exit(EXIT_ON_CLOSE);
     }//GEN-LAST:event_MenuQuitActionPerformed
 
@@ -865,7 +865,7 @@ public class BackupManagerGUI extends javax.swing.JFrame {
     }//GEN-LAST:event_jMenu1ActionPerformed
 
     private void MenuHistoryActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MenuHistoryActionPerformed
-        System.out.println("Event --> history");
+        logMessage("Event --> history");
         try {
             new ProcessBuilder("notepad.exe", RES_DIRECTORY_STRING + "log_file").start();
         } catch (IOException e) {
@@ -879,7 +879,7 @@ public class BackupManagerGUI extends javax.swing.JFrame {
     }//GEN-LAST:event_MenuClearActionPerformed
 
     private void Clear() {
-        System.out.println("Event --> clear");
+        logMessage("Event --> clear");
         
         int response = JOptionPane.showConfirmDialog(null, "Are you sure you want to clean the fields?", "Confimation required", JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE);
         if (response != JOptionPane.YES_OPTION) {
@@ -894,6 +894,8 @@ public class BackupManagerGUI extends javax.swing.JFrame {
     }
         
     private void RemoveBackup(String backupName) {
+        logMessage("Event --> removing backup");
+
         // backup list update
         for (Backup backup : backups) {
             if (backupName.equals(backup.getBackupName())) {
@@ -914,7 +916,8 @@ public class BackupManagerGUI extends javax.swing.JFrame {
     }//GEN-LAST:event_MenuSaveActionPerformed
 
     private void saveFile() {
-        System.out.println("Event --> save");
+        logMessage("Event --> saving backup");
+        
         if (currentBackup.getBackupName() == null || currentBackup.getBackupName().isEmpty()) {
             SaveWithName();
         }
@@ -938,11 +941,14 @@ public class BackupManagerGUI extends javax.swing.JFrame {
             savedChanges(true);
         } catch (IllegalArgumentException ex) {
             System.err.println("IllegalArgumentException (MenuSaveActionPerformed) --> " + ex);
+            logMessage(ex.getMessage());
             OpenExceptionMessage(ex.getMessage(), Arrays.toString(ex.getStackTrace()));
         }
     }
     
     private void OpenBackup(String backupName) {
+        logMessage("Event --> opening backup");
+        
         if (!saveChanged && !currentBackup.getBackupName().isEmpty()) {
             int response = JOptionPane.showConfirmDialog(null, "There are unsaved changes, do you want to save them before moving to another file?", "Confimation required", JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE);
             if (response == JOptionPane.YES_OPTION) {
@@ -965,6 +971,7 @@ public class BackupManagerGUI extends javax.swing.JFrame {
             
         } catch (IllegalArgumentException ex) {
             System.err.println("Exception (OpenFile) --> " + ex);
+            logMessage(ex.getMessage());
             OpenExceptionMessage(ex.getMessage(), Arrays.toString(ex.getStackTrace()));
         }
     }
@@ -991,6 +998,8 @@ public class BackupManagerGUI extends javax.swing.JFrame {
     }
     
     private void NewBackup() {
+        logMessage("Event --> new backup");
+        
         if (!saveChanged && !currentBackup.getBackupName().isEmpty()) {
             int response = JOptionPane.showConfirmDialog(null, "There are unsaved changes, do you want to save them before moving to another backup?", "Confimation required", JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE);
             if (response == JOptionPane.YES_OPTION) {
@@ -1083,6 +1092,8 @@ public class BackupManagerGUI extends javax.swing.JFrame {
     }//GEN-LAST:event_EditPoputItemActionPerformed
 
     private void DeletePopupItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_DeletePopupItemActionPerformed
+        logMessage("Event --> deleting backup");
+        
         if (selectedRow != -1) {
             int response = JOptionPane.showConfirmDialog(null, "Are you sure you want to delete this item? Please note, this action cannot be undone", "Confirmation required", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
             if (response == JOptionPane.YES_OPTION) {
@@ -1150,7 +1161,7 @@ public class BackupManagerGUI extends javax.swing.JFrame {
     }//GEN-LAST:event_tablePanelMouseClicked
 
     private void DuplicatePopupItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_DuplicatePopupItemActionPerformed
-        System.out.println("Event --> duplicating backup");
+        logMessage("Event --> duplicating backup");
         
         if (selectedRow != -1) {        
             Backup backup = backups.get(selectedRow);
@@ -1216,6 +1227,8 @@ public class BackupManagerGUI extends javax.swing.JFrame {
     }//GEN-LAST:event_AutoBackupMenuItemActionPerformed
 
     private void disableAutoBackup(Backup backup) {
+        logMessage("Event --> auto backup disabled");
+        
         backup.setDaysIntervalBackup(null);
         backup.setNextDateBackup(null);
         backup.setLastUpdateDate(LocalDateTime.now());
@@ -1263,17 +1276,17 @@ public class BackupManagerGUI extends javax.swing.JFrame {
     }//GEN-LAST:event_daysIntervalSpinnerFocusLost
 
     private void MenuDonateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MenuDonateActionPerformed
-        System.out.println("Event --> donate");
+        logMessage("Event --> donate");
         openGithubIssuePage(DONATE_PAGE_LINK);
     }//GEN-LAST:event_MenuDonateActionPerformed
 
     private void MenuBugReportActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MenuBugReportActionPerformed
-        System.out.println("Event --> bug report");
+        logMessage("Event --> bug report");
         openGithubIssuePage(ISSUE_PAGE_LINK);
     }//GEN-LAST:event_MenuBugReportActionPerformed
 
     private void MenuShareActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MenuShareActionPerformed
-        System.out.println("Event --> share");
+        logMessage("Event --> share");
 
         // pop-up message
         JOptionPane.showMessageDialog(null, "Share link copied to clipboard!");
@@ -1290,6 +1303,8 @@ public class BackupManagerGUI extends javax.swing.JFrame {
     }//GEN-LAST:event_AutoBackupPreferenceActionPerformed
 
     private void AutoBackupPreferenceMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_AutoBackupPreferenceMouseReleased
+        logMessage("Event --> auto backup preference changed");
+
         // case when the state didn't change
         boolean enabled = AutoBackupPreference.isSelected();
         if (enabled == currentBackup.isAutoBackup()) return;
@@ -1306,6 +1321,8 @@ public class BackupManagerGUI extends javax.swing.JFrame {
     }//GEN-LAST:event_AutoBackupPreferenceMouseReleased
     
     private void daysIntervalSpinnerChange() {
+        logMessage("Event --> time interval backup changed");
+        
         Integer days = (Integer) daysIntervalSpinner.getValue();
         
         if (days != null && days > 0) {
@@ -1320,6 +1337,8 @@ public class BackupManagerGUI extends javax.swing.JFrame {
     }
     
     private void renameBackup(Backup backup) {
+        logMessage("Event --> backup renaming");
+        
         String backup_name = getBackupName(false);
         if (backup_name == null || backup_name.isEmpty()) return;
         
@@ -1330,7 +1349,7 @@ public class BackupManagerGUI extends javax.swing.JFrame {
     }
     
     private void OpenFolder(String path) {
-        System.out.println("Event --> opening folder");
+        logMessage("Event --> opening folder");
         
         File folder = new File(path);
         if (folder.exists() && folder.isDirectory()) {
@@ -1339,6 +1358,7 @@ public class BackupManagerGUI extends javax.swing.JFrame {
                 try {
                     desktop.open(folder);
                 } catch (IOException ex) {
+                    logMessage(ex.getMessage());
                     OpenExceptionMessage(ex.getMessage(), Arrays.toString(ex.getStackTrace()));
                 }
             } else {
@@ -1379,7 +1399,7 @@ public class BackupManagerGUI extends javax.swing.JFrame {
     
     // it returns true if is correctly setted, false otherwise
     public boolean AutomaticBackup() {
-        System.out.println("Event --> automatic backup");
+        logMessage("Event --> automatic backup");
         
         if(!CheckInputCorrect(startPathField.getText(), destinationPathField.getText())) return false;
 
@@ -1417,11 +1437,10 @@ public class BackupManagerGUI extends javax.swing.JFrame {
         JSON.UpdateBackupListJSON(BACKUP_FILE_STRING, RES_DIRECTORY_STRING, backups);
         updateTableWithNewBackupList(backups);
         return true;
-
     }
     
     public boolean AutomaticBackup(Backup backup) {
-        System.out.println("Event --> automatic backup");
+        logMessage("Event --> automatic backup");
     
         if(backup.isAutoBackup() == false || backup.getNextDateBackup() == null || backup.getDaysIntervalBackup() == null) {
             // if the file has not been saved you need to save it before setting the auto backup
@@ -1455,11 +1474,10 @@ public class BackupManagerGUI extends javax.swing.JFrame {
         JSON.UpdateBackupListJSON(BACKUP_FILE_STRING, RES_DIRECTORY_STRING, backups);
         updateTableWithNewBackupList(backups);
         return true;
-
     }
     
     private void SaveWithName() {
-        System.out.println("Event --> save with name");
+        logMessage("Event --> save with name");
 
         String backup_name = getBackupName(true);
 
@@ -1487,9 +1505,10 @@ public class BackupManagerGUI extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(this, "Backup '" + currentBackup.getBackupName() + "' saved successfully!", "Backup saved", JOptionPane.INFORMATION_MESSAGE);
             savedChanges(true);
         } catch (IllegalArgumentException ex) {
-            System.err.println("Exception (SaveWithName) --> " + ex);
+            logMessage(ex.getMessage());
+            OpenExceptionMessage(ex.getMessage(), Arrays.toString(ex.getStackTrace()));
         } catch (HeadlessException ex) {
-            System.err.println("Exception (SaveWithName) --> " + ex);
+            logMessage(ex.getMessage());
             JOptionPane.showMessageDialog(null, "Error saving backup.", "Error", JOptionPane.ERROR_MESSAGE);
         }
     }
@@ -1518,7 +1537,7 @@ public class BackupManagerGUI extends javax.swing.JFrame {
     }
     
     public void SingleBackup(String path1, String path2) {
-        System.out.println("Event --> single backup");
+        logMessage("Event --> single backup");
 		
         String temp = "\\";
 
@@ -1586,9 +1605,11 @@ public class BackupManagerGUI extends javax.swing.JFrame {
                 updateTableWithNewBackupList(backups);
             }
         } catch (IllegalArgumentException e) {
-            System.err.println("Exception (SingleBackup) --> " + e);
+            logMessage(e.getMessage());
+            OpenExceptionMessage(e.getMessage(), Arrays.toString(e.getStackTrace()));
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, "Error saving file", "Error", JOptionPane.ERROR_MESSAGE);
+            logMessage(e.getMessage());
         }
     }
     
@@ -1640,10 +1661,10 @@ public class BackupManagerGUI extends javax.swing.JFrame {
             String last_date = LocalDateTime.now().format(formatter);
             lastBackupLabel.setText("last backup: " + last_date);
         } catch (IllegalArgumentException ex) {
-            System.err.println("Exception (setStringToText) --> " + ex);
+            logMessage(ex.getMessage());
             OpenExceptionMessage(ex.getMessage(), Arrays.toString(ex.getStackTrace()));
         } catch(Exception ex) {
-            System.err.println("Exception (setStringToText) --> " + ex);
+            logMessage(ex.getMessage());
             OpenExceptionMessage(ex.getMessage(), Arrays.toString(ex.getStackTrace()));
         }
     }
@@ -1652,7 +1673,7 @@ public class BackupManagerGUI extends javax.swing.JFrame {
         try {
             updateCurrentFiedsByBackup(currentBackup);
         } catch (IllegalArgumentException ex) {
-            System.err.println("Exception (setTextValues) --> " + ex);
+            logMessage(ex.getMessage());
             OpenExceptionMessage(ex.getMessage(), Arrays.toString(ex.getStackTrace()));
         }
         setAutoBackupPreference(currentBackup.isAutoBackup());
@@ -1770,7 +1791,6 @@ public class BackupManagerGUI extends javax.swing.JFrame {
                 }
             });
         } catch (IOException e) {
-            e.printStackTrace();
             throw e;  // Rethrow the exception if needed
         }
     }
@@ -1795,13 +1815,33 @@ public class BackupManagerGUI extends javax.swing.JFrame {
     }
     
     private void logMessage(String message) {
-        try (BufferedWriter bw = new BufferedWriter(new FileWriter(BackupManagerGUI.RES_DIRECTORY_STRING + BackupManagerGUI.LOG_FILE_STRING, true))) {
-            bw.write(message);
-            bw.newLine();
+        File logFile = new File(BackupManagerGUI.RES_DIRECTORY_STRING + BackupManagerGUI.LOG_FILE_STRING);
+
+        try {
+            List<String> lines = new ArrayList<>();
+            if (logFile.exists()) {
+                lines = Files.readAllLines(logFile.toPath());
+            }
+            
+            // keep only 20 rows if file has more than 1000 rows
+            if (lines.size() > 1000) {
+                lines = lines.subList(lines.size() - 20, lines.size());
+            }
+
+            // add message in the top of the file
+            lines.add(0, LocalDateTime.now() + " " + message);
+
+            try (BufferedWriter bw = new BufferedWriter(new FileWriter(logFile))) {
+                for (String line : lines) {
+                    bw.write(line);
+                    bw.newLine();
+                }
+            }
+
         } catch (IOException ex) {
             System.err.println("Exception --> " + ex);
-            OpenExceptionMessage(ex.getMessage(), Arrays.toString(ex.getStackTrace()));
         }
+
         System.out.println(message);
     }
     

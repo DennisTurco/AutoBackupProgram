@@ -14,22 +14,28 @@ public class TimePicker extends javax.swing.JDialog {
     private TimeInterval timeInterval;
     private boolean closeOk;
     
-    public TimePicker(java.awt.Frame parent, boolean modal) {
+    public TimePicker(java.awt.Frame parent, TimeInterval timeInterval, boolean modal) {
         super(parent, modal);
         
         closeOk = false;
-        
+
         initComponents();
+        
+        if (timeInterval != null) {
+            daysSpinner.setValue(timeInterval.getDays());
+            hoursSpinner.setValue(timeInterval.getHours());
+            minutesSpinner.setValue(timeInterval.getMinutes());
+        }
         
         // logo application
         Image icon = new ImageIcon(this.getClass().getResource("/res/img/logo.png")).getImage();
-        this.setIconImage(icon);
+        this.setIconImage(icon); 
     }
     
     public TimeInterval getTimeInterval() {
         if (closeOk) return timeInterval;
         return null;
-    }
+    }        
     
     private void daysIntervalSpinnerChange() {        
         Integer days = (Integer) daysSpinner.getValue();
@@ -271,7 +277,7 @@ public class TimePicker extends javax.swing.JDialog {
         
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                TimePicker dialog = new TimePicker(new javax.swing.JFrame(), true);
+                TimePicker dialog = new TimePicker(new javax.swing.JFrame(), null, true);
                 dialog.addWindowListener(new java.awt.event.WindowAdapter() {
                     @Override
                     public void windowClosing(java.awt.event.WindowEvent e) {

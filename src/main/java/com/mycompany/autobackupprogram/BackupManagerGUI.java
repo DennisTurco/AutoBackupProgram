@@ -1319,13 +1319,36 @@ public class BackupManagerGUI extends javax.swing.JFrame {
         updateTableWithNewBackupList(backups);
         JSON.UpdateBackupListJSON(BACKUP_FILE_STRING, RES_DIRECTORY_STRING, backups);
     }//GEN-LAST:event_AutoBackupPreferenceMouseReleased
-
+    
     private void btnTimePickerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTimePickerActionPerformed
-        openTimePicker();
-    }//GEN-LAST:event_btnTimePickerActionPerformed
+        TimeInterval timeInterval = openTimePicker(currentBackup.getTimeIntervalBackup());
+        
+        if (timeInterval == null) return;
+        
+        btnTimePicker.setToolTipText(timeInterval.toString());
+        LocalDateTime nextDateBackup = LocalDateTime.now().plusDays(timeInterval.getDays())
+                    .plusHours(timeInterval.getHours())
+                    .plusMinutes(timeInterval.getMinutes());
 
-    private TimeInterval openTimePicker() {
-        TimePicker picker = new TimePicker(this, true);
+        currentBackup.setTimeIntervalBackup(timeInterval);
+        currentBackup.setNextDateBackup(nextDateBackup);
+        
+        currentBackup.setInitialPath(GetStartPathField());
+        currentBackup.setDestinationPath(GetDestinationPathField());
+        for (Backup b : backups) {
+            if (b.getBackupName().equals(currentBackup.getBackupName())) {
+                b.UpdateBackup(currentBackup);
+                break;
+            }
+        }
+        JSON.UpdateBackupListJSON(BACKUP_FILE_STRING, RES_DIRECTORY_STRING, backups);
+        updateTableWithNewBackupList(backups);
+        
+        JOptionPane.showMessageDialog(null, "Auto Backup has been activated\n\tFrom: " + startPathField.getText() + "\n\tTo: " + destinationPathField.getText() + "\nIs setted every " + timeInterval.toString() + " days", "AutoBackup", 1);
+    }//GEN-LAST:event_btnTimePickerActionPerformed
+    
+    private TimeInterval openTimePicker(TimeInterval time) {
+        TimePicker picker = new TimePicker(this, time, true);
         picker.setVisible(true);
         return picker.getTimeInterval();
     }
@@ -1403,7 +1426,7 @@ public class BackupManagerGUI extends javax.swing.JFrame {
             if (currentBackup.getBackupName() == null || currentBackup.getBackupName().isEmpty()) return false;
 
             // message
-            TimeInterval timeInterval = openTimePicker();
+            TimeInterval timeInterval = openTimePicker(null);
             if (timeInterval == null) return false;
 
             //set date for next backup
@@ -1428,7 +1451,6 @@ public class BackupManagerGUI extends javax.swing.JFrame {
                 break;
             }
         }
-        //currentBackup.UpdateBackup(backup);
         JSON.UpdateBackupListJSON(BACKUP_FILE_STRING, RES_DIRECTORY_STRING, backups);
         updateTableWithNewBackupList(backups);
         return true;
@@ -1443,7 +1465,7 @@ public class BackupManagerGUI extends javax.swing.JFrame {
             if (backup.getBackupName() == null || backup.getBackupName().isEmpty()) return false;
 
             // message
-            TimeInterval timeInterval = openTimePicker();
+            TimeInterval timeInterval = openTimePicker(null);
             if (timeInterval == null) return false;
 
             //set date for next backup

@@ -128,8 +128,6 @@
         </Menu>
       </SubComponents>
     </Container>
-    <Component class="java.awt.Canvas" name="canvas1">
-    </Component>
     <Menu class="javax.swing.JMenuBar" name="jMenuBar1">
       <SubComponents>
         <Menu class="javax.swing.JMenu" name="jMenu1">

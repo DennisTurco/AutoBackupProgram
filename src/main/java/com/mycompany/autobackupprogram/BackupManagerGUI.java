@@ -129,7 +129,6 @@ public class BackupManagerGUI extends javax.swing.JFrame {
         CopyFilenamePopupItem = new javax.swing.JMenuItem();
         CopyInitialPathPopupItem = new javax.swing.JMenuItem();
         CopyDestinationPathPopupItem = new javax.swing.JMenuItem();
-        canvas1 = new java.awt.Canvas();
         TabbedPane = new javax.swing.JTabbedPane();
         jPanel1 = new javax.swing.JPanel();
         txtTitle = new javax.swing.JLabel();
@@ -1251,6 +1250,13 @@ public class BackupManagerGUI extends javax.swing.JFrame {
 
     private void disableAutoBackup(Backup backup) {
         logMessage("Event --> auto backup disabled");
+                
+        if (backup.getBackupName() != null && backup.getBackupName().length() != 0) {
+           int response = JOptionPane.showConfirmDialog(null, "Are you sure you want to cancel automatic backup?", "Confimation required", JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE);
+            if (response != JOptionPane.YES_OPTION) {
+                return;
+            } 
+        }
         
         backup.setTimeIntervalBackup(null);
         backup.setNextDateBackup(null);
@@ -2042,7 +2048,6 @@ public class BackupManagerGUI extends javax.swing.JFrame {
     private javax.swing.JButton btnPathSearch1;
     private javax.swing.JButton btnPathSearch2;
     private javax.swing.JButton btnTimePicker;
-    private java.awt.Canvas canvas1;
     private javax.swing.JLabel currentFileLabel;
     private javax.swing.JTextField destinationPathField;
     private javax.swing.JLabel detailsLabel;

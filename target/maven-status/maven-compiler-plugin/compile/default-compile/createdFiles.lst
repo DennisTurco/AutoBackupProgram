@@ -1,4 +1,3 @@
-toggle\SwitchButton$1.class
 com\mycompany\autobackupprogram\BackupProgressGUI$1.class
 com\mycompany\autobackupprogram\BackupManagerGUI$42.class
 com\mycompany\autobackupprogram\BackupManagerGUI$3.class
@@ -6,7 +5,6 @@ com\mycompany\autobackupprogram\BackupManagerGUI$6.class
 com\mycompany\autobackupprogram\TimePicker$8.class
 com\mycompany\autobackupprogram\BackupManagerGUI$35.class
 com\mycompany\autobackupprogram\BackupManagerGUI$27.class
-toggle\EventSwitchSelected.class
 com\mycompany\autobackupprogram\BackupManagerGUI$12.class
 com\mycompany\autobackupprogram\BackupManagerGUI$38.class
 com\mycompany\autobackupprogram\BackupManagerGUI$32.class
@@ -30,12 +28,12 @@ com\mycompany\autobackupprogram\BackupManagerGUI$13.class
 com\mycompany\autobackupprogram\TimePicker.class
 com\mycompany\autobackupprogram\BackupService$BackupTask.class
 com\mycompany\autobackupprogram\BackupManagerGUI$5.class
-toggle\SwitchButton.class
 com\mycompany\autobackupprogram\TimePicker$2.class
 com\mycompany\autobackupprogram\BackupManagerGUI$30.class
 com\mycompany\autobackupprogram\TimePicker$4.class
 com\mycompany\autobackupprogram\BackupManagerGUI$16.class
 com\mycompany\autobackupprogram\BackupManagerGUI$26.class
+com\mycompany\autobackupprogram\BackupManagerGUI$46.class
 com\mycompany\autobackupprogram\BackupManagerGUI$36.class
 com\mycompany\autobackupprogram\TimePicker$1.class
 com\mycompany\autobackupprogram\FileCopyListener.class
@@ -45,7 +43,6 @@ com\mycompany\autobackupprogram\BackupManagerGUI$39.class
 com\mycompany\autobackupprogram\BackupManagerGUI$4.class
 com\mycompany\autobackupprogram\BackupManagerGUI$43.class
 com\mycompany\autobackupprogram\BackupProgressGUI$2.class
-toggle\SwitchButton$2.class
 com\mycompany\autobackupprogram\TimePicker$7.class
 com\mycompany\autobackupprogram\BackupManagerGUI$7.class
 com\mycompany\autobackupprogram\BackupManagerGUI$23.class
@@ -62,6 +59,7 @@ com\mycompany\autobackupprogram\BackupManagerGUI$34.class
 com\mycompany\autobackupprogram\BackupService.class
 com\mycompany\autobackupprogram\BackupManagerGUI$1.class
 com\mycompany\autobackupprogram\JSONAutoBackup.class
+com\mycompany\autobackupprogram\BackupManagerGUI$45.class
 com\mycompany\autobackupprogram\BackupManagerGUI$9.class
 com\mycompany\autobackupprogram\BackupManagerGUI$33.class
 com\mycompany\autobackupprogram\BackupManagerGUI$17.class

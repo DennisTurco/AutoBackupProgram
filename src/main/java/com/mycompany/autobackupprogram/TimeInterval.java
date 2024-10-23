@@ -21,10 +21,12 @@ public class TimeInterval {
     }
     
     public static TimeInterval getTimeIntervalFromString(String time) {
-        if (time == null || !time.matches("\\d+\\.\\d{1,2}:\\d{1,2}")) {
+        if (time != null && !time.matches("\\d+\\.\\d{1,2}:\\d{1,2}")) {
             throw new IllegalArgumentException("Invalid time format. Expected format: days.hours:minutes (e.g., 1.12:30)");
         }
-
+        
+        if (time == null) return null;
+       
         String[] dayAndTime = time.split("\\.");
         int parsedDays = Integer.parseInt(dayAndTime[0]);
 

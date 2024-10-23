@@ -41,7 +41,6 @@ import java.nio.file.*;
 import java.nio.file.attribute.BasicFileAttributes;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipOutputStream;
-import javax.swing.JDialog;
 
 /**
  * @author Dennis Turco
@@ -54,6 +53,9 @@ public class BackupManagerGUI extends javax.swing.JFrame {
     
     public static final String DONATE_PAGE_LINK = "https://buymeacoffee.com/denno";
     public static final String ISSUE_PAGE_LINK = "https://github.com/DennisTurco/AutoBackupProgram/issues";
+    public static final String INFO_PAGE_LINK = "https://github.com/DennisTurco/AutoBackupProgram";
+    public static final String EMAIL = "assistenza@shardpc.it";
+    public static final String SHARD_WEBSITE = "https://www.shardpc.it/";
 
     public static Backup currentBackup;
     
@@ -69,6 +71,9 @@ public class BackupManagerGUI extends javax.swing.JFrame {
     public static final DateTimeFormatter dateForfolderNameFormatter = DateTimeFormatter.ofPattern("dd-MM-yyyy HH.mm.ss");
     public static final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm:ss");
     private static LocalDateTime dateNow;
+    
+    private String backupOnText = "Auto Backup (ON)";
+    private String backupOffText = "Auto Backup (OFF)";
 
     public BackupManagerGUI() {
         try {
@@ -84,6 +89,8 @@ public class BackupManagerGUI extends javax.swing.JFrame {
         JSON = new JSONAutoBackup();
         currentBackup = new Backup();
         saveChanged = true;
+        
+        toggleAutoBackup.setText(toggleAutoBackup.isSelected() ? backupOnText : backupOffText);
                 
         try {
             backups = JSON.ReadBackupListFromJSON(BACKUP_FILE_STRING, RES_DIRECTORY_STRING);
@@ -122,6 +129,7 @@ public class BackupManagerGUI extends javax.swing.JFrame {
         CopyFilenamePopupItem = new javax.swing.JMenuItem();
         CopyInitialPathPopupItem = new javax.swing.JMenuItem();
         CopyDestinationPathPopupItem = new javax.swing.JMenuItem();
+        canvas1 = new java.awt.Canvas();
         TabbedPane = new javax.swing.JTabbedPane();
         jPanel1 = new javax.swing.JPanel();
         txtTitle = new javax.swing.JLabel();
@@ -132,13 +140,11 @@ public class BackupManagerGUI extends javax.swing.JFrame {
         btnPathSearch2 = new javax.swing.JButton();
         lastBackupLabel = new javax.swing.JLabel();
         SingleBackup = new javax.swing.JButton();
-        messageLabel = new javax.swing.JLabel();
-        AutoBackupPreference = new javax.swing.JCheckBox();
         jScrollPane2 = new javax.swing.JScrollPane();
         backupNoteTextArea = new javax.swing.JTextArea();
         jLabel2 = new javax.swing.JLabel();
-        switchButton1 = new toggle.SwitchButton();
         btnTimePicker = new javax.swing.JButton();
+        toggleAutoBackup = new javax.swing.JToggleButton();
         jPanel2 = new javax.swing.JPanel();
         tablePanel = new javax.swing.JPanel();
         addBackupEntryButton = new javax.swing.JButton();
@@ -163,6 +169,10 @@ public class BackupManagerGUI extends javax.swing.JFrame {
         jMenu3 = new javax.swing.JMenu();
         MenuShare = new javax.swing.JMenuItem();
         MenuDonate = new javax.swing.JMenuItem();
+        MenuInfoPage = new javax.swing.JMenuItem();
+        jMenu5 = new javax.swing.JMenu();
+        MenuWebsite = new javax.swing.JMenuItem();
+        MenuSupport = new javax.swing.JMenuItem();
 
         EditPoputItem.setIcon(new javax.swing.ImageIcon(getClass().getResource("/res/img/pen.png"))); // NOI18N
         EditPoputItem.setText("Edit");
@@ -271,6 +281,7 @@ public class BackupManagerGUI extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("AutoBackup");
+        setResizable(false);
 
         txtTitle.setFont(new java.awt.Font("Segoe UI", 0, 36)); // NOI18N
         txtTitle.setLabelFor(txtTitle);
@@ -343,23 +354,6 @@ public class BackupManagerGUI extends javax.swing.JFrame {
             }
         });
 
-        messageLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        messageLabel.setToolTipText("");
-        messageLabel.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-
-        AutoBackupPreference.setText("Automatic Backup");
-        AutoBackupPreference.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        AutoBackupPreference.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseReleased(java.awt.event.MouseEvent evt) {
-                AutoBackupPreferenceMouseReleased(evt);
-            }
-        });
-        AutoBackupPreference.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                AutoBackupPreferenceActionPerformed(evt);
-            }
-        });
-
         backupNoteTextArea.setColumns(20);
         backupNoteTextArea.setRows(5);
         backupNoteTextArea.setToolTipText("(Optional) Backup description");
@@ -389,6 +383,16 @@ public class BackupManagerGUI extends javax.swing.JFrame {
             }
         });
 
+        toggleAutoBackup.setText("Auto Backup");
+        toggleAutoBackup.setToolTipText("Enable/Disable automatic backup");
+        toggleAutoBackup.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        toggleAutoBackup.setPreferredSize(new java.awt.Dimension(108, 27));
+        toggleAutoBackup.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                toggleAutoBackupActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -396,7 +400,6 @@ public class BackupManagerGUI extends javax.swing.JFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(260, 260, 260)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(lastBackupLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel1Layout.createSequentialGroup()
@@ -410,27 +413,18 @@ public class BackupManagerGUI extends javax.swing.JFrame {
                             .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                                 .addComponent(currentFileLabel, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addComponent(txtTitle, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGap(381, 381, 381)
-                                .addComponent(messageLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 178, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 353, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(0, 31, Short.MAX_VALUE)))
-                .addContainerGap())
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addContainerGap(350, Short.MAX_VALUE)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                            .addComponent(SingleBackup, javax.swing.GroupLayout.PREFERRED_SIZE, 178, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(AutoBackupPreference, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addGap(90, 90, 90)
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                    .addComponent(toggleAutoBackup, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(SingleBackup, javax.swing.GroupLayout.DEFAULT_SIZE, 178, Short.MAX_VALUE))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(btnTimePicker, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGap(328, 328, 328))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                        .addComponent(switchButton1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(399, 399, 399))))
+                        .addGap(0, 237, Short.MAX_VALUE))
+                    .addComponent(lastBackupLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -453,21 +447,13 @@ public class BackupManagerGUI extends javax.swing.JFrame {
                 .addComponent(jLabel2)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 19, Short.MAX_VALUE)
                 .addComponent(SingleBackup, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(AutoBackupPreference, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(btnTimePicker, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(switchButton1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(17, 65, Short.MAX_VALUE))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
-                        .addComponent(messageLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 13, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap())))
+                    .addComponent(toggleAutoBackup, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnTimePicker, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(94, 94, 94))
         );
 
         TabbedPane.addTab("AutoBackup", jPanel1);
@@ -714,6 +700,7 @@ public class BackupManagerGUI extends javax.swing.JFrame {
 
         MenuDonate.setIcon(new javax.swing.ImageIcon(getClass().getResource("/res/img/donation.png"))); // NOI18N
         MenuDonate.setText("donate");
+        MenuDonate.setEnabled(false);
         MenuDonate.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 MenuDonateActionPerformed(evt);
@@ -721,7 +708,38 @@ public class BackupManagerGUI extends javax.swing.JFrame {
         });
         jMenu3.add(MenuDonate);
 
+        MenuInfoPage.setIcon(new javax.swing.ImageIcon(getClass().getResource("/res/img/info.png"))); // NOI18N
+        MenuInfoPage.setText("info");
+        MenuInfoPage.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                MenuInfoPageActionPerformed(evt);
+            }
+        });
+        jMenu3.add(MenuInfoPage);
+
         jMenuBar1.add(jMenu3);
+
+        jMenu5.setText("Help");
+
+        MenuWebsite.setIcon(new javax.swing.ImageIcon(getClass().getResource("/res/img/website.png"))); // NOI18N
+        MenuWebsite.setText("website");
+        MenuWebsite.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                MenuWebsiteActionPerformed(evt);
+            }
+        });
+        jMenu5.add(MenuWebsite);
+
+        MenuSupport.setIcon(new javax.swing.ImageIcon(getClass().getResource("/res/img/help-desk.png"))); // NOI18N
+        MenuSupport.setText("support");
+        MenuSupport.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                MenuSupportActionPerformed(evt);
+            }
+        });
+        jMenu5.add(MenuSupport);
+
+        jMenuBar1.add(jMenu5);
 
         setJMenuBar(jMenuBar1);
 
@@ -752,7 +770,7 @@ public class BackupManagerGUI extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void displayBackupList(List<Backup> backups) {
-        model = new DefaultTableModel(new Object[]{"Filename", "Initial path", "Destination path", "Last backup", "Auto backup", "Next date backup", "Days interval backup"}, 0) {
+        model = new DefaultTableModel(new Object[]{"Backup name", "Initial path", "Destination path", "Last backup", "Auto backup", "Next date backup", "Days interval backup"}, 0) {
 
             @Override
             public Class<?> getColumnClass(int columnIndex) {
@@ -783,7 +801,7 @@ public class BackupManagerGUI extends javax.swing.JFrame {
             model.setValueAt(backup.getLastBackup() != null ? backup.getLastBackup().format(formatter) : "", i, 3);
             model.setValueAt(backup.isAutoBackup(), i, 4);
             model.setValueAt(backup.getNextDateBackup() != null ? backup.getNextDateBackup().format(formatter) : "", i, 5);
-            model.setValueAt(backup.getTimeIntervalBackup().toString(), i, 6);
+            model.setValueAt(backup.getTimeIntervalBackup() != null ? backup.getTimeIntervalBackup().toString() : "", i, 6);
         }
 
         DefaultTableCellRenderer renderer = new DefaultTableCellRenderer() {
@@ -894,7 +912,6 @@ public class BackupManagerGUI extends javax.swing.JFrame {
         
         startPathField.setText("");
         destinationPathField.setText("");
-        messageLabel.setText("");
         lastBackupLabel.setText("");
         backupNoteTextArea.setText("");
     }
@@ -1275,12 +1292,12 @@ public class BackupManagerGUI extends javax.swing.JFrame {
 
     private void MenuDonateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MenuDonateActionPerformed
         logMessage("Event --> donate");
-        openGithubIssuePage(DONATE_PAGE_LINK);
+        openWebSite(DONATE_PAGE_LINK);
     }//GEN-LAST:event_MenuDonateActionPerformed
 
     private void MenuBugReportActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MenuBugReportActionPerformed
         logMessage("Event --> bug report");
-        openGithubIssuePage(ISSUE_PAGE_LINK);
+        openWebSite(ISSUE_PAGE_LINK);
     }//GEN-LAST:event_MenuBugReportActionPerformed
 
     private void MenuShareActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MenuShareActionPerformed
@@ -1295,30 +1312,6 @@ public class BackupManagerGUI extends javax.swing.JFrame {
         Clipboard clipboardObj = Toolkit.getDefaultToolkit().getSystemClipboard();
         clipboardObj.setContents(stringSelectionObj, null);
     }//GEN-LAST:event_MenuShareActionPerformed
-
-    private void AutoBackupPreferenceActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AutoBackupPreferenceActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_AutoBackupPreferenceActionPerformed
-
-    private void AutoBackupPreferenceMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_AutoBackupPreferenceMouseReleased
-        logMessage("Event --> auto backup preference changed");
-
-        // case when the state didn't change
-        boolean enabled = AutoBackupPreference.isSelected();
-        if (enabled == currentBackup.isAutoBackup()) return;
-
-        if (enabled && AutomaticBackup()) {
-            System.out.println("Event --> Auto Backup setted to Enabled");
-        }
-        else {
-            System.out.println("Event --> Auto Backup setted to Disabled");
-            disableAutoBackup(currentBackup);
-        }
-        AutoBackupPreference.setSelected(enabled);
-        currentBackup.setAutoBackup(enabled);
-        updateTableWithNewBackupList(backups);
-        JSON.UpdateBackupListJSON(BACKUP_FILE_STRING, RES_DIRECTORY_STRING, backups);
-    }//GEN-LAST:event_AutoBackupPreferenceMouseReleased
     
     private void btnTimePickerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTimePickerActionPerformed
         TimeInterval timeInterval = openTimePicker(currentBackup.getTimeIntervalBackup());
@@ -1346,6 +1339,79 @@ public class BackupManagerGUI extends javax.swing.JFrame {
         
         JOptionPane.showMessageDialog(null, "Auto Backup has been activated\n\tFrom: " + startPathField.getText() + "\n\tTo: " + destinationPathField.getText() + "\nIs setted every " + timeInterval.toString() + " days", "AutoBackup", 1);
     }//GEN-LAST:event_btnTimePickerActionPerformed
+
+    private void toggleAutoBackupActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_toggleAutoBackupActionPerformed
+        logMessage("Event --> auto backup preference changed");
+        
+        System.out.println("start: " + toggleAutoBackup.isSelected());
+        
+        // case when the state didn't change
+        boolean enabled = toggleAutoBackup.isSelected();
+
+        if (enabled && AutomaticBackup()) {
+            System.out.println("Event --> Auto Backup setted to Enabled");
+            toggleAutoBackup.setSelected(true);
+        }
+        else {
+            System.out.println("Event --> Auto Backup setted to Disabled");
+            disableAutoBackup(currentBackup);
+            toggleAutoBackup.setSelected(false);
+        }
+        
+        toggleAutoBackup.setText(toggleAutoBackup.isSelected() ? backupOnText : backupOffText);
+        currentBackup.setAutoBackup(enabled);
+        updateTableWithNewBackupList(backups);
+        JSON.UpdateBackupListJSON(BACKUP_FILE_STRING, RES_DIRECTORY_STRING, backups);
+        
+        System.out.println("end: " + toggleAutoBackup.isSelected());
+    }//GEN-LAST:event_toggleAutoBackupActionPerformed
+
+    private void MenuWebsiteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MenuWebsiteActionPerformed
+        logMessage("Event --> shard website");
+        openWebSite(SHARD_WEBSITE);
+    }//GEN-LAST:event_MenuWebsiteActionPerformed
+
+    private void MenuSupportActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MenuSupportActionPerformed
+        logMessage("Event --> support");
+        
+        if (Desktop.isDesktopSupported()) {
+            Desktop desktop = Desktop.getDesktop();
+
+            if (desktop.isSupported(Desktop.Action.MAIL)) {
+                String subject = "Support - Auto Backup Program";
+                String mailTo = "mailto:" + EMAIL + "?subject=" + encodeURI(subject);
+
+                try {
+                    URI uri = new URI(mailTo);
+                    desktop.mail(uri);
+                } catch (IOException | URISyntaxException ex) {
+                    logMessage(ex.getMessage());
+                    JOptionPane.showMessageDialog(null, "Unable to send email. Please try again later.", "Error", JOptionPane.ERROR_MESSAGE);
+                    ex.printStackTrace();
+                }
+            } else {
+                logMessage("Error --> Your system does not support sending emails directly from this application.");
+                JOptionPane.showMessageDialog(null, "Your system does not support sending emails directly from this application.", "Error", JOptionPane.ERROR_MESSAGE);
+            }
+        } else {
+            logMessage("Error --> Your system does not support sending emails.");
+            JOptionPane.showMessageDialog(null, "Your system does not support sending emails.", "Error", JOptionPane.ERROR_MESSAGE);
+        }
+    }//GEN-LAST:event_MenuSupportActionPerformed
+
+    // Method to properly encode the URI with special characters (spaces, symbols, etc.)
+    private static String encodeURI(String value) {
+        try {
+            return java.net.URLEncoder.encode(value, "UTF-8").replace("+", "%20");
+        } catch (IOException e) {
+            return value; // If encoding fails, return the original value
+        }
+    }
+    
+    private void MenuInfoPageActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MenuInfoPageActionPerformed
+        logMessage("Event --> shard website");
+        openWebSite(INFO_PAGE_LINK);
+    }//GEN-LAST:event_MenuInfoPageActionPerformed
     
     private TimeInterval openTimePicker(TimeInterval time) {
         TimePicker picker = new TimePicker(this, time, true);
@@ -1396,7 +1462,8 @@ public class BackupManagerGUI extends javax.swing.JFrame {
     }
     
     public void setAutoBackupPreference(boolean option) {         
-        AutoBackupPreference.setSelected(option);
+        toggleAutoBackup.setSelected(option);
+        toggleAutoBackup.setText(toggleAutoBackup.isSelected() ? backupOnText : backupOffText);
         currentBackup.setAutoBackup(option);
         
         if (!option) {
@@ -1407,11 +1474,12 @@ public class BackupManagerGUI extends javax.swing.JFrame {
     public void setAutoBackupPreference(Backup backup, boolean option) {        
         backup.setAutoBackup(option);
         if (backup.getBackupName().equals(currentBackup.getBackupName())) {
-            AutoBackupPreference.setSelected(option);
+            toggleAutoBackup.setSelected(option);
         }
         if (!option) {
             disableAutoBackup(backup);
         }
+        toggleAutoBackup.setText(toggleAutoBackup.isSelected() ? backupOnText : backupOffText);
     }
     
     // it returns true if is correctly setted, false otherwise
@@ -1597,9 +1665,7 @@ public class BackupManagerGUI extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "Error during the backup operation: the initial path is incorrect!", "Error", JOptionPane.ERROR_MESSAGE);
             return;
         } 
-        
-        messageLabel.setForeground(Color.GREEN);
-        
+                
         // next day backup update
         if (currentBackup.isAutoBackup() == true) {
             TimeInterval time = currentBackup.getTimeIntervalBackup();
@@ -1705,7 +1771,7 @@ public class BackupManagerGUI extends javax.swing.JFrame {
 
         //check if inputs are null
         if(path1.length() == 0 || path2.length() == 0) {
-            setMessageError("Input Missing!");
+            JOptionPane.showMessageDialog(null, "Input Missing!", "Error", JOptionPane.ERROR_MESSAGE);
             return false;
         }
 
@@ -1722,23 +1788,13 @@ public class BackupManagerGUI extends javax.swing.JFrame {
         }
 
         if(check1 != true || check2 != true) {
-            setMessageError("Input Error!");
+            JOptionPane.showMessageDialog(null, "Input Error!", "Error", JOptionPane.ERROR_MESSAGE);
             return false;
         }
 
         return true;
     }
 	
-    private void setMessageError(String error_type) {
-        System.err.println("Error --> " + error_type);
-        messageLabel.setForeground(Color.RED);
-        messageLabel.setText(error_type);
-        messageLabel.setVisible(true);
-
-        // start timer of n seconds
-        threadTimer = new TimerAutoBackup(this);
-        threadTimer.startTimer();
-    }
 	
     public void copyDirectoryFileVisitor(String source, String target) throws IOException {
         try {
@@ -1876,7 +1932,7 @@ public class BackupManagerGUI extends javax.swing.JFrame {
         return backupNoteTextArea.getText();
     }
     public boolean GetAutomaticBackupPreference() {
-        return AutoBackupPreference.isSelected();
+        return toggleAutoBackup.isSelected();
     }
     public void SetStartPathField(String text) {
         startPathField.setText(text);
@@ -1891,9 +1947,6 @@ public class BackupManagerGUI extends javax.swing.JFrame {
             lastBackupLabel.setText(dateStr);
         }
         else lastBackupLabel.setText("");
-    }
-    public void SetMessageLabel(boolean value) {
-        messageLabel.setVisible(value);
     }
     
     public static void OpenExceptionMessage(String errorMessage, String stackTrace) {
@@ -1933,12 +1986,12 @@ public class BackupManagerGUI extends javax.swing.JFrame {
                 Toolkit.getDefaultToolkit().getSystemClipboard().setContents(selection, null);
                 JOptionPane.showMessageDialog(null, "Error text has been copied to the clipboard.");
             } else if (choice == 2) {
-                openGithubIssuePage(ISSUE_PAGE_LINK);
+                openWebSite(ISSUE_PAGE_LINK);
             }
         } while (choice == 1 || choice == 2);
     }
     
-    private static void openGithubIssuePage(String reportUrl) {
+    private static void openWebSite(String reportUrl) {
         try {
             if (Desktop.isDesktopSupported()) {
                 Desktop desktop = Desktop.getDesktop();
@@ -1959,7 +2012,6 @@ public class BackupManagerGUI extends javax.swing.JFrame {
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JCheckBoxMenuItem AutoBackupMenuItem;
-    private javax.swing.JCheckBox AutoBackupPreference;
     private javax.swing.JMenu Backup;
     private javax.swing.JMenuItem CopyDestinationPathPopupItem;
     private javax.swing.JMenuItem CopyFilenamePopupItem;
@@ -1971,11 +2023,14 @@ public class BackupManagerGUI extends javax.swing.JFrame {
     private javax.swing.JMenuItem MenuClear;
     private javax.swing.JMenuItem MenuDonate;
     private javax.swing.JMenuItem MenuHistory;
+    private javax.swing.JMenuItem MenuInfoPage;
     private javax.swing.JMenuItem MenuNew;
     private javax.swing.JMenuItem MenuQuit;
     private javax.swing.JMenuItem MenuSave;
     private javax.swing.JMenuItem MenuSaveWithName;
     private javax.swing.JMenuItem MenuShare;
+    private javax.swing.JMenuItem MenuSupport;
+    private javax.swing.JMenuItem MenuWebsite;
     private javax.swing.JMenuItem OpenInitialDestinationItem;
     private javax.swing.JMenuItem OpenInitialFolderItem;
     private javax.swing.JMenuItem RunBackupPopupItem;
@@ -1987,6 +2042,7 @@ public class BackupManagerGUI extends javax.swing.JFrame {
     private javax.swing.JButton btnPathSearch1;
     private javax.swing.JButton btnPathSearch2;
     private javax.swing.JButton btnTimePicker;
+    private java.awt.Canvas canvas1;
     private javax.swing.JLabel currentFileLabel;
     private javax.swing.JTextField destinationPathField;
     private javax.swing.JLabel detailsLabel;
@@ -1998,6 +2054,7 @@ public class BackupManagerGUI extends javax.swing.JFrame {
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenu jMenu3;
     private javax.swing.JMenu jMenu4;
+    private javax.swing.JMenu jMenu5;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
@@ -2007,14 +2064,13 @@ public class BackupManagerGUI extends javax.swing.JFrame {
     private javax.swing.JPopupMenu.Separator jSeparator2;
     private javax.swing.JPopupMenu.Separator jSeparator3;
     private javax.swing.JLabel lastBackupLabel;
-    private javax.swing.JLabel messageLabel;
     private javax.swing.JMenuItem renamePopupItem;
     private javax.swing.JButton researchButton;
     private javax.swing.JTextField researchField;
     private javax.swing.JTextField startPathField;
-    private toggle.SwitchButton switchButton1;
     private javax.swing.JTable table;
     private javax.swing.JPanel tablePanel;
+    private javax.swing.JToggleButton toggleAutoBackup;
     private javax.swing.JLabel txtTitle;
     // End of variables declaration//GEN-END:variables
 }

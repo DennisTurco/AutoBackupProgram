@@ -35,7 +35,6 @@ class TimerAutoBackup {
         };
         
         try {
-            autoBackupFrame.SetMessageLabel(true);
             timer.scheduleAtFixedRate(task, 1000, 1000); // update every second
             timerRunning = true;
         } catch (Exception ex) {
@@ -52,7 +51,6 @@ class TimerAutoBackup {
         }
         
         try {
-            autoBackupFrame.SetMessageLabel(false);
             timeCounter = 0; // reset the counter
             timerRunning = false;
         } catch (Exception ex) {

@@ -1,5 +1,7 @@
 package com.mycompany.autobackupprogram;
 
+import java.awt.*;
+import java.awt.event.ActionEvent;
 import java.io.IOException;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -10,15 +12,22 @@ import java.util.TimerTask;
 public class BackupService {
     private Timer timer;
     private final JSONAutoBackup json = new JSONAutoBackup();
+    private TrayIcon trayIcon;
 
     public void startService() throws IOException {
         timer = new Timer();
-        timer.schedule(new BackupTask(), 0, json.ReadCheckForBackupTimeInterval(BackupManagerGUI.CONFIG_FILE_STRING, BackupManagerGUI.RES_DIRECTORY_STRING) * 60 * 1000);
+        long interval = json.ReadCheckForBackupTimeInterval(BackupManagerGUI.CONFIG_FILE_STRING, BackupManagerGUI.RES_DIRECTORY_STRING) * 60 * 1000;
+        timer.schedule(new BackupTask(), 0, interval);
+        
+        createHiddenIcon();
     }
 
     public void stopService() {
         if (timer != null) {
             timer.cancel();
+        }
+        if (trayIcon != null) {
+            SystemTray.getSystemTray().remove(trayIcon);
         }
     }
 
@@ -36,7 +45,7 @@ public class BackupService {
                     System.out.println("No backup needed at this time.");
                 }
             } catch (IOException ex) {
-                
+                ex.printStackTrace();
             }
         }
 
@@ -53,12 +62,47 @@ public class BackupService {
         private void openMainGUI(List<Backup> backups) {
             javax.swing.SwingUtilities.invokeLater(() -> {
                 BackupManagerGUI gui = new BackupManagerGUI();
-                
                 for (Backup backup : backups) {
                     BackupManagerGUI.currentBackup = backup;
                     gui.SingleBackup(backup);
                 }
             });
         }
+    }
+
+    private void createHiddenIcon() {
+        System.out.println("Creating system tray icon...");
+        Image image = Toolkit.getDefaultToolkit().getImage(getClass().getResource("/res/img/logo.png")); 
+
+        if (!SystemTray.isSupported()) {
+            System.out.println("System tray is not supported!");
+            return;
+        }
+
+        SystemTray tray = SystemTray.getSystemTray();
+        PopupMenu popup = new PopupMenu();
+
+        MenuItem exitItem = new MenuItem("Exit");
+        exitItem.addActionListener((ActionEvent e) -> {
+            stopService();
+            System.exit(0);
+        });
+        popup.add(exitItem);
+
+        trayIcon = new TrayIcon(image, "Backup Service", popup);
+        trayIcon.setImageAutoSize(true);
+
+        try {
+            tray.add(trayIcon);
+        } catch (AWTException e) {
+            System.err.println("TrayIcon could not be added: " + e.getMessage());
+            e.printStackTrace();
+        }
+
+        trayIcon.addActionListener((ActionEvent e) -> {
+            javax.swing.SwingUtilities.invokeLater(() -> {
+                new BackupManagerGUI().setVisible(true);
+            });
+        });
     }
 }

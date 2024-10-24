@@ -107,12 +107,12 @@ public class BackupManagerGUI extends javax.swing.JFrame {
         }
         
         
-        File file = new File(System.getProperty("os.name").toLowerCase().contains("win") ? "C:\\Windows\\System32" : "/root");
-        if (file.canWrite()) {
-            System.out.println("The application is running with administrator privileges.");
-        } else {
-            System.out.println("The application does NOT have administrator privileges.");
-        }
+//        File file = new File(System.getProperty("os.name").toLowerCase().contains("win") ? "C:\\Windows\\System32" : "/root");
+//        if (file.canWrite()) {
+//            System.out.println("The application is running with administrator privileges.");
+//        } else {
+//            System.out.println("The application does NOT have administrator privileges.");
+//        }
         
         customListeners();
     }

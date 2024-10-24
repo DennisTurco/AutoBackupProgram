@@ -11,7 +11,7 @@ public class MainApp {
         } catch (IOException ex) {
             ex.printStackTrace();
         }
-        System.out.println("Backup service started in the background.");
+        Logger.logMessage("Backup service started in the background.");
             
         if (args.length == 0 || !args[0].equalsIgnoreCase("background")) {
             javax.swing.SwingUtilities.invokeLater(() -> {

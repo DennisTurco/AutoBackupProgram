@@ -155,7 +155,6 @@ public class BackupProgressGUI extends javax.swing.JFrame {
         try {
             UIManager.setLookAndFeel(new FlatIntelliJLaf());
         } catch (UnsupportedLookAndFeelException ex) {
-            System.err.println("Exception (main) --> " + ex);
             OpenExceptionMessage(ex.getMessage(), Arrays.toString(ex.getStackTrace()));
         }
 

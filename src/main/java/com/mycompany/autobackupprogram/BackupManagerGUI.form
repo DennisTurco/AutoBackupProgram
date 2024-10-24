@@ -474,9 +474,6 @@
                 <Property name="alignmentX" type="float" value="0.0"/>
                 <Property name="alignmentY" type="float" value="0.0"/>
               </Properties>
-              <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="startPathFieldActionPerformed"/>
-              </Events>
             </Component>
             <Component class="javax.swing.JButton" name="btnPathSearch1">
               <Properties>
@@ -497,10 +494,6 @@
                 <Property name="toolTipText" type="java.lang.String" value="(Required) Destination path"/>
                 <Property name="actionCommand" type="java.lang.String" value="&lt;Not Set&gt;"/>
               </Properties>
-              <Events>
-                <EventHandler event="inputMethodTextChanged" listener="java.awt.event.InputMethodListener" parameters="java.awt.event.InputMethodEvent" handler="destinationPathFieldInputMethodTextChanged"/>
-                <EventHandler event="keyTyped" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="destinationPathFieldKeyTyped"/>
-              </Events>
             </Component>
             <Component class="javax.swing.JButton" name="btnPathSearch2">
               <Properties>
@@ -552,10 +545,6 @@
                     <Property name="rows" type="int" value="5"/>
                     <Property name="toolTipText" type="java.lang.String" value="(Optional) Backup description"/>
                   </Properties>
-                  <Events>
-                    <EventHandler event="inputMethodTextChanged" listener="java.awt.event.InputMethodListener" parameters="java.awt.event.InputMethodEvent" handler="backupNoteTextAreaInputMethodTextChanged"/>
-                    <EventHandler event="keyTyped" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="backupNoteTextAreaKeyTyped"/>
-                  </Events>
                 </Component>
               </SubComponents>
             </Container>

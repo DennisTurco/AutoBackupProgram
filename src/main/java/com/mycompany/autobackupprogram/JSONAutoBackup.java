@@ -23,7 +23,7 @@ class JSONAutoBackup implements IJSONAutoBackup {
         // Check if the file exists and is not empty
         File file = new File(filePath);
         if (!file.exists() || file.length() == 0) {
-            System.err.println("The file does not exist or is empty: " + filePath);
+            Logger.logMessage("The file does not exist or is empty: " + filePath);
             return backupList;
         }
         
@@ -110,7 +110,6 @@ class JSONAutoBackup implements IJSONAutoBackup {
             file.write(updatedBackupArray.toJSONString());
             file.flush();
         } catch (IOException ex) {
-            System.err.println("IOException (UpdateBackupListJSON) --> " + ex);
             OpenExceptionMessage(ex.getMessage(), Arrays.toString(ex.getStackTrace()));
         }
     }
@@ -146,12 +145,10 @@ class JSONAutoBackup implements IJSONAutoBackup {
                 file.write(backupArray.toJSONString());
                 file.flush();
             } catch (IOException ex) {
-                System.err.println("IOException (UpdateSingleBackupInJSON) --> " + ex);
                 OpenExceptionMessage(ex.getMessage(), Arrays.toString(ex.getStackTrace()));
             }
 
         } catch (IOException | ParseException ex) {
-            System.err.println("Exception (UpdateSingleBackupInJSON) --> " + ex);
             OpenExceptionMessage(ex.getMessage(), Arrays.toString(ex.getStackTrace()));
         }
     }
@@ -177,7 +174,7 @@ class JSONAutoBackup implements IJSONAutoBackup {
             timeInterval = 5; // every 5 minutes
         }
         
-        System.out.println("Time interval \"minutesinterval\" setted to " + timeInterval + " minutes");
+        Logger.logMessage("Time interval \"minutesinterval\" setted to " + timeInterval + " minutes");
         return timeInterval;
     }
 }

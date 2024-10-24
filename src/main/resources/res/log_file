@@ -1,3 +1,13 @@
+2024-10-24T22:49:15.711463900 The application is running with administrator privileges.
+2024-10-24T22:49:15.622023400 date backup: 24-10-2024 22.49.15
+2024-10-24T22:49:15.613591 Event --> automatic single backup automatic
+2024-10-24T22:49:15.606647200 The application is running with administrator privileges.
+2024-10-24T22:49:15.389536300 Backup service started in the background.
+2024-10-24T22:49:15.192449400 Start backup process.
+2024-10-24T22:49:15.174593 Checking for automatic backup...
+2024-10-24T22:49:15.157233500 Time interval "minutesinterval" setted to 1 minutes
+2024-10-24T22:31:46.310240400 Event --> automatic single backup automatic
+2024-10-24T22:19:25.233876300 Event --> automatic single backup automatic
 2024-10-24T21:56:38.432050 Event --> single backup
 2024-10-24T21:55:04.999433700 Event --> single backup
 2024-10-24T21:54:55.150078200 Event --> single backup
@@ -533,7 +543,7 @@
 2024-10-22T22:34:07.624838300 Event --> auto backup preference changed
 2024-10-22T22:33:53.834595700 Event --> auto backup disabled
 2024-10-22T22:33:53.828643600 Event --> auto backup preference changed
-2024-10-22T22:33:32.617257600 Event --> auto backup disabled
+2024-10-22T22:33:32.617257600 Event --> auto backup bled
 2024-10-22T22:33:32.609321400 Event --> automatic backup
 2024-10-22T22:33:32.601881600 Event --> auto backup preference changed
 2024-10-22T22:32:32.437089300 Event --> auto backup disabled
@@ -790,7 +800,7 @@
 2024-10-22T21:03:44.818727400 Event --> auto backup preference changed
 2024-10-22T21:03:44.679638300 Event --> auto backup disabled
 2024-10-22T21:03:44.674182300 Event --> auto backup preference changed
-2024-10-22T21:03:44.530755800 Event --> auto backup disabled
+2024-10-22T21:03:44.530755800 E00 Event --> auto backup disabled
 2024-10-22T21:03:44.525299100 Event --> automatic backup
 2024-10-22T21:03:44.520339800 Event --> auto backup preference changed
 2024-10-22T21:03:44.384274400 Event --> auto backup disabled

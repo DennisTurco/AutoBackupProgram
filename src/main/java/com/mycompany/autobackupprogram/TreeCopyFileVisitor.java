@@ -1,8 +1,6 @@
 package com.mycompany.autobackupprogram;
 
 import static com.mycompany.autobackupprogram.BackupManagerGUI.OpenExceptionMessage;
-import java.io.BufferedWriter;
-import java.io.FileWriter;
 import java.io.IOException;
 import java.nio.file.*;
 import java.nio.file.attribute.BasicFileAttributes;

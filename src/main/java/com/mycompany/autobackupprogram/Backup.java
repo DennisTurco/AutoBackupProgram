@@ -61,7 +61,7 @@ public class Backup {
     
     @Override
     public String toString() {
-        return _backupName + " " + _initialPath + " " + _destinationPath + " " + _lastBackup + " " + _autoBackup + " " + _nextDateBackup + " " + _timeIntervalBackup.toString(); 
+        return "["+_backupName + " " + _initialPath + " " + _destinationPath + " " + _lastBackup + " " + _autoBackup + " " + _nextDateBackup + " " + (_timeIntervalBackup!=null ? _timeIntervalBackup.toString(): "")+"]"; 
     }
 
     public String getBackupName() {

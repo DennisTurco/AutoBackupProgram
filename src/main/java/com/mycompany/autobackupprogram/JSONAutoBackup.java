@@ -2,6 +2,8 @@ package com.mycompany.autobackupprogram;
 
 import static com.mycompany.autobackupprogram.BackupManagerGUI.OpenExceptionMessage;
 import java.io.*;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -111,5 +113,71 @@ class JSONAutoBackup implements IJSONAutoBackup {
             System.err.println("IOException (UpdateBackupListJSON) --> " + ex);
             OpenExceptionMessage(ex.getMessage(), Arrays.toString(ex.getStackTrace()));
         }
+    }
+    
+    @Override
+    public void UpdateSingleBackupInJSON(String filename, String directoryPath, Backup updatedBackup) {
+        String filePath = directoryPath + filename;
+
+        try (FileReader reader = new FileReader(filePath)) {
+            JSONParser jsonParser = new JSONParser();
+            JSONArray backupArray = (JSONArray) jsonParser.parse(reader);
+
+            for (Object obj : backupArray) {
+                JSONObject backupObject = (JSONObject) obj;
+
+                String backupName = (String) backupObject.get("backup_name");
+                if (backupName.equals(updatedBackup.getBackupName())) {
+                    backupObject.put("start_path", updatedBackup.getInitialPath());
+                    backupObject.put("destination_path", updatedBackup.getDestinationPath());
+                    backupObject.put("last_backup", updatedBackup.getLastBackup() != null ? updatedBackup.getLastBackup().toString() : null);
+                    backupObject.put("automatic_backup", updatedBackup.isAutoBackup());
+                    backupObject.put("next_date_backup", updatedBackup.getNextDateBackup() != null ? updatedBackup.getNextDateBackup().toString() : null);
+                    backupObject.put("time_interval_backup", updatedBackup.getTimeIntervalBackup() != null ? updatedBackup.getTimeIntervalBackup().toString() : null);
+                    backupObject.put("notes", updatedBackup.getNotes());
+                    backupObject.put("creation_date", updatedBackup.getCreationDate() != null ? updatedBackup.getCreationDate().toString() : null);
+                    backupObject.put("last_update_date", updatedBackup.getLastUpdateDate() != null ? updatedBackup.getLastUpdateDate().toString() : null);
+                    backupObject.put("backup_count", updatedBackup.getBackupCount());
+                    break;
+                }
+            }
+
+            try (FileWriter file = new FileWriter(filePath)) {
+                file.write(backupArray.toJSONString());
+                file.flush();
+            } catch (IOException ex) {
+                System.err.println("IOException (UpdateSingleBackupInJSON) --> " + ex);
+                OpenExceptionMessage(ex.getMessage(), Arrays.toString(ex.getStackTrace()));
+            }
+
+        } catch (IOException | ParseException ex) {
+            System.err.println("Exception (UpdateSingleBackupInJSON) --> " + ex);
+            OpenExceptionMessage(ex.getMessage(), Arrays.toString(ex.getStackTrace()));
+        }
+    }
+    
+    @Override
+    public int ReadCheckForBackupTimeInterval(String filename, String directoryPath) throws IOException{
+        int timeInterval;
+        try {
+            String filePath = directoryPath + filename;
+
+            String content = new String(Files.readAllBytes(Paths.get(filePath)));
+
+            JSONParser parser = new JSONParser();
+            JSONObject jsonObject = (JSONObject) parser.parse(content);
+
+            JSONObject backupService = (JSONObject) jsonObject.get("BackupService");
+
+            Long interval = (Long) backupService.get("minutesinterval");
+
+            timeInterval = interval.intValue(); 
+
+        } catch (IOException | ParseException | NullPointerException e) {
+            timeInterval = 5; // every 5 minutes
+        }
+        
+        System.out.println("Time interval \"minutesinterval\" setted to " + timeInterval + " minutes");
+        return timeInterval;
     }
 }

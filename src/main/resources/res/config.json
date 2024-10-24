@@ -1,0 +1,7 @@
+{  
+   "BackupService": {
+      "minutesinterval": 1,
+      "type": "int",
+      "description": "Interval in minutes to check for auto backup"
+   }
+}

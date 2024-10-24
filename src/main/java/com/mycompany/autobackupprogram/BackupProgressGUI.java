@@ -18,6 +18,8 @@ public class BackupProgressGUI extends javax.swing.JFrame {
         // logo application
         Image icon = new ImageIcon(this.getClass().getResource("/res/img/logo.png")).getImage();
         this.setIconImage(icon);
+        
+        this.setAlwaysOnTop(false);
     }
     
     public BackupProgressGUI(String initialPath, String destinationPath) {
@@ -43,6 +45,7 @@ public class BackupProgressGUI extends javax.swing.JFrame {
             loadingMessageLabel.setText("backup completed!");
             closeButton.setEnabled(true);
             CancelButton.setEnabled(false);
+            this.setAlwaysOnTop(true);
         } 
     }
 

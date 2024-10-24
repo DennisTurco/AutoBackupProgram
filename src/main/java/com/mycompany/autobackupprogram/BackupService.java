@@ -11,9 +11,9 @@ public class BackupService {
     private Timer timer;
     private final JSONAutoBackup json = new JSONAutoBackup();
 
-    public void startService() {
+    public void startService() throws IOException {
         timer = new Timer();
-        timer.schedule(new BackupTask(), 0, 3600000); // timer every hour
+        timer.schedule(new BackupTask(), 0, json.ReadCheckForBackupTimeInterval(BackupManagerGUI.CONFIG_FILE_STRING, BackupManagerGUI.RES_DIRECTORY_STRING) * 60 * 1000);
     }
 
     public void stopService() {
@@ -25,6 +25,7 @@ public class BackupService {
     class BackupTask extends TimerTask {
         @Override
         public void run() {
+            System.out.println("Checking for automatic backup...");
             try {
                 List<Backup> backups = json.ReadBackupListFromJSON(BackupManagerGUI.BACKUP_FILE_STRING, BackupManagerGUI.RES_DIRECTORY_STRING);
                 List<Backup> needsBackup = getBackupsToDo(backups);
@@ -54,8 +55,8 @@ public class BackupService {
                 BackupManagerGUI gui = new BackupManagerGUI();
                 
                 for (Backup backup : backups) {
-                    gui.currentBackup = backup;
-                    gui.SingleBackup(backup.getInitialPath(), backup.getDestinationPath());
+                    BackupManagerGUI.currentBackup = backup;
+                    gui.SingleBackup(backup);
                 }
             });
         }

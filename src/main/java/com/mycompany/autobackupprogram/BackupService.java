@@ -5,7 +5,6 @@ import java.awt.event.ActionEvent;
 import java.io.IOException;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
@@ -13,31 +12,81 @@ import java.util.TimerTask;
 public class BackupService {
     private Timer timer;
     private final JSONAutoBackup json = new JSONAutoBackup();
-    private TrayIcon trayIcon;
+    private static BackupService instance;
+    private static TrayIcon trayIcon = null;
+
+    private BackupService() {}
+
+    public static synchronized BackupService getInstance() {
+        if (instance == null) {
+            instance = new BackupService();
+        }
+        return instance;
+    }
 
     public void startService() throws IOException {
-        timer = new Timer();
-        long interval = json.ReadCheckForBackupTimeInterval(BackupManagerGUI.CONFIG_FILE_STRING, BackupManagerGUI.RES_DIRECTORY_STRING) * 60 * 1000;
-        timer.schedule(new BackupTask(), 0, interval);
-        
-        createHiddenIcon();
+        if (timer == null) {
+            timer = new Timer();
+            long interval = json.ReadCheckForBackupTimeInterval(
+                    ConfigKey.CONFIG_FILE_STRING.getValue(), ConfigKey.RES_DIRECTORY_STRING.getValue()) * 60 * 1000;
+            timer.schedule(new BackupTask(), 0, interval);
+
+            if (trayIcon == null) {
+                createHiddenIcon();
+            }
+        }
     }
 
     public void stopService() {
         if (timer != null) {
             timer.cancel();
+            timer = null;
         }
         if (trayIcon != null) {
             SystemTray.getSystemTray().remove(trayIcon);
+            trayIcon = null;
         }
     }
 
+    private void createHiddenIcon() {
+        if (!SystemTray.isSupported()) {
+            Logger.logMessage("System tray is not supported!");
+            return;
+        }
+
+        Image image = Toolkit.getDefaultToolkit().getImage(getClass().getResource(ConfigKey.LOGO_IMG.getValue()));
+        SystemTray tray = SystemTray.getSystemTray();
+        PopupMenu popup = new PopupMenu();
+
+        MenuItem exitItem = new MenuItem("Exit");
+        exitItem.addActionListener((ActionEvent e) -> {
+            stopService();
+            System.exit(0);
+        });
+        popup.add(exitItem);
+
+        trayIcon = new TrayIcon(image, "Backup Service", popup);
+        trayIcon.setImageAutoSize(true);
+
+        try {
+            tray.add(trayIcon);
+        } catch (AWTException e) {
+            Logger.logMessage("TrayIcon could not be added: " + e.getMessage());
+        }
+
+        trayIcon.addActionListener((ActionEvent e) -> {
+            javax.swing.SwingUtilities.invokeLater(() -> {
+                BackupManagerGUI.getInstance().showWindow();
+            });
+        });
+    }
+    
     class BackupTask extends TimerTask {
         @Override
         public void run() {
             Logger.logMessage("Checking for automatic backup...");
             try {
-                List<Backup> backups = json.ReadBackupListFromJSON(BackupManagerGUI.BACKUP_FILE_STRING, BackupManagerGUI.RES_DIRECTORY_STRING);
+                List<Backup> backups = json.ReadBackupListFromJSON(ConfigKey.BACKUP_FILE_STRING.getValue(), ConfigKey.RES_DIRECTORY_STRING.getValue());
                 List<Backup> needsBackup = getBackupsToDo(backups);
                 if (needsBackup != null && !needsBackup.isEmpty()) {
                     Logger.logMessage("Start backup process.");
@@ -62,48 +111,13 @@ public class BackupService {
 
         private void openMainGUI(List<Backup> backups) {
             javax.swing.SwingUtilities.invokeLater(() -> {
-                BackupManagerGUI gui = new BackupManagerGUI();
+                BackupManagerGUI gui = BackupManagerGUI.getInstance();
                 for (Backup backup : backups) {
                     BackupManagerGUI.currentBackup = backup;
                     gui.SingleBackup(backup);
                 }
+                gui.showWindow();
             });
         }
-    }
-
-    private void createHiddenIcon() {
-        try {
-            Logger.logMessage("Creating system tray icon...");
-            Image image = Toolkit.getDefaultToolkit().getImage(getClass().getResource("/res/img/logo.png")); 
-
-            if (!SystemTray.isSupported()) {
-                Logger.logMessage("System tray is not supported!");
-                return;
-            }
-
-            SystemTray tray = SystemTray.getSystemTray();
-            PopupMenu popup = new PopupMenu();
-
-            MenuItem exitItem = new MenuItem("Exit");
-            exitItem.addActionListener((ActionEvent e) -> {
-                stopService();
-                System.exit(0);
-            });
-            popup.add(exitItem);
-
-            trayIcon = new TrayIcon(image, "Backup Service", popup);
-            trayIcon.setImageAutoSize(true);
-        
-            tray.add(trayIcon);
-        } catch (Exception e) {
-            Logger.logMessage("TrayIcon could not be added: " + e.getMessage());
-            BackupManagerGUI.OpenExceptionMessage(e.getMessage(), Arrays.toString(e.getStackTrace()));
-        }
-
-        trayIcon.addActionListener((ActionEvent e) -> {
-            javax.swing.SwingUtilities.invokeLater(() -> {
-                new BackupManagerGUI().setVisible(true);
-            });
-        });
     }
 }

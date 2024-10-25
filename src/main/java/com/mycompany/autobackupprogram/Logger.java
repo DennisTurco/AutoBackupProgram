@@ -11,18 +11,23 @@ import java.util.List;
 
 public class Logger {
     
+    private static final JSONAutoBackup JSON = new JSONAutoBackup();
+    
     public static void logMessage(String message) {
-        File logFile = new File(BackupManagerGUI.RES_DIRECTORY_STRING + BackupManagerGUI.LOG_FILE_STRING);
-
+        File logFile = new File(ConfigKey.RES_DIRECTORY_STRING.getValue() + ConfigKey.LOG_FILE_STRING.getValue());
+        
         try {
+            int maxLines = JSON.GetMaxLinesFromCongifFile(ConfigKey.CONFIG_FILE_STRING.getValue(), ConfigKey.RES_DIRECTORY_STRING.getValue());
+            int linesToKeep = JSON.GetLinesToKeepAfterFileClearFromCongifFile(ConfigKey.CONFIG_FILE_STRING.getValue(), ConfigKey.RES_DIRECTORY_STRING.getValue());
+            
             List<String> lines = new ArrayList<>();
             if (logFile.exists()) {
                 lines = Files.readAllLines(logFile.toPath());
             }
             
             // keep only 20 rows if file has more than 1000 rows
-            if (lines.size() > 1500) {
-                lines = lines.subList(lines.size() - 150, lines.size());
+            if (lines.size() > maxLines) {
+                lines = lines.subList(lines.size() - linesToKeep, lines.size());
             }
 
             // add message in the top of the file
@@ -41,5 +46,4 @@ public class Logger {
 
         System.out.println(message);
     }
-    
 }

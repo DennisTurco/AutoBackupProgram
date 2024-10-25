@@ -158,7 +158,6 @@ class JSONAutoBackup implements IJSONAutoBackup {
         int timeInterval;
         try {
             String filePath = directoryPath + filename;
-
             String content = new String(Files.readAllBytes(Paths.get(filePath)));
 
             JSONParser parser = new JSONParser();
@@ -166,7 +165,7 @@ class JSONAutoBackup implements IJSONAutoBackup {
 
             JSONObject backupService = (JSONObject) jsonObject.get("BackupService");
 
-            Long interval = (Long) backupService.get("minutesinterval");
+            Long interval = (Long) backupService.get("value");
 
             timeInterval = interval.intValue(); 
 
@@ -174,7 +173,51 @@ class JSONAutoBackup implements IJSONAutoBackup {
             timeInterval = 5; // every 5 minutes
         }
         
-        Logger.logMessage("Time interval \"minutesinterval\" setted to " + timeInterval + " minutes");
+        Logger.logMessage("Time interval \"value\" setted to " + timeInterval + " minutes");
         return timeInterval;
+    }
+    
+    @Override
+    public int GetMaxLinesFromCongifFile(String filename, String directoryPath) throws IOException {
+        int maxLines;
+        try {
+            String filePath = directoryPath + filename;
+            String content = new String(Files.readAllBytes(Paths.get(filePath)));
+
+            JSONParser parser = new JSONParser();
+            JSONObject jsonObject = (JSONObject) parser.parse(content);
+            JSONObject logService = (JSONObject) jsonObject.get("LogService");
+            JSONObject maxLinesConfig = (JSONObject) logService.get("MaxLines");
+
+            Long maxLinesValue = (Long) maxLinesConfig.get("value");
+            maxLines = maxLinesValue.intValue(); 
+
+        } catch (IOException | ParseException | NullPointerException e) {
+            maxLines = 1500; // default value
+        }
+
+        return maxLines;
+    }
+
+    @Override
+    public int GetLinesToKeepAfterFileClearFromCongifFile(String filename, String directoryPath) throws IOException {
+        int linesToKeep;
+        try {
+            String filePath = directoryPath + filename;
+            String content = new String(Files.readAllBytes(Paths.get(filePath)));
+
+            JSONParser parser = new JSONParser();
+            JSONObject jsonObject = (JSONObject) parser.parse(content);
+            JSONObject logService = (JSONObject) jsonObject.get("LogService");
+            JSONObject linesToKeepConfig = (JSONObject) logService.get("LinesToKeepAfterFileClear");
+
+            Long linesToKeepValue = (Long) linesToKeepConfig.get("value");
+            linesToKeep = linesToKeepValue.intValue(); 
+
+        } catch (IOException | ParseException | NullPointerException e) {
+            linesToKeep = 150; // default value
+        }
+
+        return linesToKeep;
     }
 }

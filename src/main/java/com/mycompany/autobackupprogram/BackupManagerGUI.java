@@ -9,9 +9,7 @@ import java.awt.Image;
 import java.awt.Toolkit;
 import java.awt.datatransfer.Clipboard;
 import java.awt.datatransfer.StringSelection;
-import java.io.BufferedWriter;
 import java.io.File;
-import java.io.FileWriter;
 import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
@@ -50,17 +48,11 @@ import javax.swing.event.DocumentListener;
  */
 public class BackupManagerGUI extends javax.swing.JFrame {
     
-    public static final String LOG_FILE_STRING = "log_file";
-    public static final String BACKUP_FILE_STRING = "backup_list.json";
-    public static final String CONFIG_FILE_STRING = "config.json";
-    public static final String RES_DIRECTORY_STRING = "src/main/resources/res/";
+    public static final DateTimeFormatter dateForfolderNameFormatter = DateTimeFormatter.ofPattern("dd-MM-yyyy HH.mm.ss");
+    public static final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm:ss");
+    private static LocalDateTime dateNow;
     
-    public static final String DONATE_PAGE_LINK = "https://buymeacoffee.com/denno";
-    public static final String ISSUE_PAGE_LINK = "https://github.com/DennisTurco/AutoBackupProgram/issues";
-    public static final String INFO_PAGE_LINK = "https://github.com/DennisTurco/AutoBackupProgram";
-    public static final String EMAIL = "assistenza@shardpc.it";
-    public static final String SHARD_WEBSITE = "https://www.shardpc.it/";
-
+    private static BackupManagerGUI instance;
     public static Backup currentBackup;
     
     private static List<Backup> backups;
@@ -72,14 +64,10 @@ public class BackupManagerGUI extends javax.swing.JFrame {
     private boolean saveChanged;
     private Integer selectedRow;
     
-    public static final DateTimeFormatter dateForfolderNameFormatter = DateTimeFormatter.ofPattern("dd-MM-yyyy HH.mm.ss");
-    public static final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm:ss");
-    private static LocalDateTime dateNow;
-    
     private String backupOnText = "Auto Backup (ON)";
     private String backupOffText = "Auto Backup (OFF)";
 
-    public BackupManagerGUI() {
+    private BackupManagerGUI() {
         try {
             UIManager.setLookAndFeel(new FlatIntelliJLaf());
         } catch (UnsupportedLookAndFeelException ex) {}
@@ -87,7 +75,7 @@ public class BackupManagerGUI extends javax.swing.JFrame {
         initComponents();
         
         // logo application
-        Image icon = new ImageIcon(this.getClass().getResource("/res/img/logo.png")).getImage();
+        Image icon = new ImageIcon(this.getClass().getResource(ConfigKey.LOGO_IMG.getValue())).getImage();
         this.setIconImage(icon);
         
         JSON = new JSONAutoBackup();
@@ -97,14 +85,13 @@ public class BackupManagerGUI extends javax.swing.JFrame {
         toggleAutoBackup.setText(toggleAutoBackup.isSelected() ? backupOnText : backupOffText);
                 
         try {
-            backups = JSON.ReadBackupListFromJSON(BACKUP_FILE_STRING, RES_DIRECTORY_STRING);
+            backups = JSON.ReadBackupListFromJSON(ConfigKey.BACKUP_FILE_STRING.getValue(), ConfigKey.RES_DIRECTORY_STRING.getValue());
             displayBackupList(backups);
         } catch (IOException ex) {
             backups = null;
             Logger.logMessage(ex.getMessage());
             OpenExceptionMessage(ex.getMessage(), Arrays.toString(ex.getStackTrace()));
         }
-        
         
         File file = new File(System.getProperty("os.name").toLowerCase().contains("win") ? "C:\\Windows\\System32" : "/root");
         if (file.canWrite()) {
@@ -114,6 +101,18 @@ public class BackupManagerGUI extends javax.swing.JFrame {
         }
         
         customListeners();
+    }
+    
+    public static synchronized BackupManagerGUI getInstance() {
+        if (instance == null) {
+            instance = new BackupManagerGUI();
+        }
+        return instance;
+    }
+    
+    public void showWindow() {
+        setVisible(true);
+        toFront();
     }
 
     /**
@@ -291,7 +290,6 @@ public class BackupManagerGUI extends javax.swing.JFrame {
 
         TablePopup.add(jMenu4);
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("AutoBackup");
         setResizable(false);
 
@@ -398,7 +396,7 @@ public class BackupManagerGUI extends javax.swing.JFrame {
                                     .addComponent(SingleBackup, javax.swing.GroupLayout.DEFAULT_SIZE, 178, Short.MAX_VALUE))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(btnTimePicker, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGap(0, 237, Short.MAX_VALUE))
+                        .addGap(0, 230, Short.MAX_VALUE))
                     .addComponent(lastBackupLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
@@ -520,7 +518,7 @@ public class BackupManagerGUI extends javax.swing.JFrame {
                         .addComponent(researchField, javax.swing.GroupLayout.PREFERRED_SIZE, 321, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(researchButton, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 408, Short.MAX_VALUE))
+                        .addGap(0, 401, Short.MAX_VALUE))
                     .addGroup(tablePanelLayout.createSequentialGroup()
                         .addComponent(jScrollPane1)
                         .addContainerGap())))
@@ -726,7 +724,7 @@ public class BackupManagerGUI extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(TabbedPane)
+                    .addComponent(TabbedPane, javax.swing.GroupLayout.DEFAULT_SIZE, 849, Short.MAX_VALUE)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
                         .addComponent(jLabel3)))
@@ -870,9 +868,8 @@ public class BackupManagerGUI extends javax.swing.JFrame {
     private void MenuHistoryActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MenuHistoryActionPerformed
         Logger.logMessage("Event --> history");
         try {
-            new ProcessBuilder("notepad.exe", RES_DIRECTORY_STRING + "log_file").start();
+            new ProcessBuilder("notepad.exe", ConfigKey.RES_DIRECTORY_STRING.getValue() + ConfigKey.LOG_FILE_STRING.getValue()).start();
         } catch (IOException e) {
-            // Gestione dell'eccezione in modo più robusto
             JOptionPane.showMessageDialog(null, "Error opening history file.", "Error", JOptionPane.ERROR_MESSAGE);
         }
     }//GEN-LAST:event_MenuHistoryActionPerformed
@@ -907,7 +904,7 @@ public class BackupManagerGUI extends javax.swing.JFrame {
                 break;
             }
         }
-        JSON.UpdateBackupListJSON(BACKUP_FILE_STRING, RES_DIRECTORY_STRING, backups);
+        JSON.UpdateBackupListJSON(ConfigKey.BACKUP_FILE_STRING.getValue(), ConfigKey.RES_DIRECTORY_STRING.getValue(), backups);
         updateTableWithNewBackupList(backups);
     }
     
@@ -940,7 +937,7 @@ public class BackupManagerGUI extends javax.swing.JFrame {
                     break;
                 }
             }
-            JSON.UpdateBackupListJSON(BACKUP_FILE_STRING, RES_DIRECTORY_STRING, backups);
+            JSON.UpdateBackupListJSON(ConfigKey.BACKUP_FILE_STRING.getValue(), ConfigKey.RES_DIRECTORY_STRING.getValue(), backups);
             updateTableWithNewBackupList(backups);
             savedChanges(true);
         } catch (IllegalArgumentException ex) {
@@ -1167,7 +1164,7 @@ public class BackupManagerGUI extends javax.swing.JFrame {
             );
             
             backups.add(newBackup);
-            JSON.UpdateBackupListJSON(BACKUP_FILE_STRING, RES_DIRECTORY_STRING, backups);
+            JSON.UpdateBackupListJSON(ConfigKey.BACKUP_FILE_STRING.getValue(), ConfigKey.RES_DIRECTORY_STRING.getValue(), backups);
             updateTableWithNewBackupList(backups);
             
         }
@@ -1247,12 +1244,12 @@ public class BackupManagerGUI extends javax.swing.JFrame {
 
     private void MenuDonateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MenuDonateActionPerformed
         Logger.logMessage("Event --> donate");
-        openWebSite(DONATE_PAGE_LINK);
+        openWebSite(ConfigKey.DONATE_PAGE_LINK.getValue());
     }//GEN-LAST:event_MenuDonateActionPerformed
 
     private void MenuBugReportActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MenuBugReportActionPerformed
         Logger.logMessage("Event --> bug report");
-        openWebSite(ISSUE_PAGE_LINK);
+        openWebSite(ConfigKey.ISSUE_PAGE_LINK.getValue());
     }//GEN-LAST:event_MenuBugReportActionPerformed
 
     private void MenuShareActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MenuShareActionPerformed
@@ -1289,7 +1286,7 @@ public class BackupManagerGUI extends javax.swing.JFrame {
                 break;
             }
         }
-        JSON.UpdateBackupListJSON(BACKUP_FILE_STRING, RES_DIRECTORY_STRING, backups);
+        JSON.UpdateBackupListJSON(ConfigKey.BACKUP_FILE_STRING.getValue(), ConfigKey.RES_DIRECTORY_STRING.getValue(), backups);
         updateTableWithNewBackupList(backups);
         
         JOptionPane.showMessageDialog(null, "Auto Backup has been activated\n\tFrom: " + startPathField.getText() + "\n\tTo: " + destinationPathField.getText() + "\nIs setted every " + timeInterval.toString() + " days", "AutoBackup", 1);
@@ -1325,12 +1322,12 @@ public class BackupManagerGUI extends javax.swing.JFrame {
         toggleAutoBackup.setText(toggleAutoBackup.isSelected() ? backupOnText : backupOffText);
         currentBackup.setAutoBackup(enabled);
         updateTableWithNewBackupList(backups);
-        JSON.UpdateBackupListJSON(BACKUP_FILE_STRING, RES_DIRECTORY_STRING, backups);        
+        JSON.UpdateBackupListJSON(ConfigKey.BACKUP_FILE_STRING.getValue(), ConfigKey.RES_DIRECTORY_STRING.getValue(), backups);        
     }//GEN-LAST:event_toggleAutoBackupActionPerformed
 
     private void MenuWebsiteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MenuWebsiteActionPerformed
         Logger.logMessage("Event --> shard website");
-        openWebSite(SHARD_WEBSITE);
+        openWebSite(ConfigKey.SHARD_WEBSITE.getValue());
     }//GEN-LAST:event_MenuWebsiteActionPerformed
 
     private void MenuSupportActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MenuSupportActionPerformed
@@ -1341,7 +1338,7 @@ public class BackupManagerGUI extends javax.swing.JFrame {
 
             if (desktop.isSupported(Desktop.Action.MAIL)) {
                 String subject = "Support - Auto Backup Program";
-                String mailTo = "mailto:" + EMAIL + "?subject=" + encodeURI(subject);
+                String mailTo = "mailto:" + ConfigKey.EMAIL.getValue() + "?subject=" + encodeURI(subject);
 
                 try {
                     URI uri = new URI(mailTo);
@@ -1372,7 +1369,7 @@ public class BackupManagerGUI extends javax.swing.JFrame {
     
     private void MenuInfoPageActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MenuInfoPageActionPerformed
         Logger.logMessage("Event --> shard website");
-        openWebSite(INFO_PAGE_LINK);
+        openWebSite(ConfigKey.INFO_PAGE_LINK.getValue());
     }//GEN-LAST:event_MenuInfoPageActionPerformed
     
     private TimeInterval openTimePicker(TimeInterval time) {
@@ -1389,7 +1386,7 @@ public class BackupManagerGUI extends javax.swing.JFrame {
         
         backup.setBackupName(backup_name);
         backup.setLastUpdateDate(LocalDateTime.now());
-        JSON.UpdateBackupListJSON(BACKUP_FILE_STRING, RES_DIRECTORY_STRING, backups);
+        JSON.UpdateBackupListJSON(ConfigKey.BACKUP_FILE_STRING.getValue(), ConfigKey.RES_DIRECTORY_STRING.getValue(), backups);
         updateTableWithNewBackupList(backups);
     }
     
@@ -1481,7 +1478,7 @@ public class BackupManagerGUI extends javax.swing.JFrame {
                 break;
             }
         }
-        JSON.UpdateBackupListJSON(BACKUP_FILE_STRING, RES_DIRECTORY_STRING, backups);
+        JSON.UpdateBackupListJSON(ConfigKey.BACKUP_FILE_STRING.getValue(), ConfigKey.RES_DIRECTORY_STRING.getValue(), backups);
         updateTableWithNewBackupList(backups);
         return true;
     }
@@ -1521,7 +1518,7 @@ public class BackupManagerGUI extends javax.swing.JFrame {
             }
         }
         currentBackup.UpdateBackup(backup);
-        JSON.UpdateBackupListJSON(BACKUP_FILE_STRING, RES_DIRECTORY_STRING, backups);
+        JSON.UpdateBackupListJSON(ConfigKey.BACKUP_FILE_STRING.getValue(), ConfigKey.RES_DIRECTORY_STRING.getValue(), backups);
         updateTableWithNewBackupList(backups);
         return true;
     }
@@ -1552,7 +1549,7 @@ public class BackupManagerGUI extends javax.swing.JFrame {
             backups.add(backup);
             currentBackup = backup;
             
-            JSON.UpdateBackupListJSON(BACKUP_FILE_STRING, RES_DIRECTORY_STRING, backups);
+            JSON.UpdateBackupListJSON(ConfigKey.BACKUP_FILE_STRING.getValue(), ConfigKey.RES_DIRECTORY_STRING.getValue(), backups);
             updateTableWithNewBackupList(backups);
             JOptionPane.showMessageDialog(this, "Backup '" + currentBackup.getBackupName() + "' saved successfully!", "Backup saved", JOptionPane.INFORMATION_MESSAGE);
             savedChanges(true);
@@ -1653,7 +1650,7 @@ public class BackupManagerGUI extends javax.swing.JFrame {
                     }
                 }
 
-                JSON.UpdateSingleBackupInJSON(BACKUP_FILE_STRING, RES_DIRECTORY_STRING, currentBackup);
+                JSON.UpdateSingleBackupInJSON(ConfigKey.BACKUP_FILE_STRING.getValue(), ConfigKey.RES_DIRECTORY_STRING.getValue(), currentBackup);
                 updateTableWithNewBackupList(backups);
             }
         } catch (IllegalArgumentException e) {
@@ -1719,7 +1716,7 @@ public class BackupManagerGUI extends javax.swing.JFrame {
             }
         }
 
-        JSON.UpdateSingleBackupInJSON(BACKUP_FILE_STRING, RES_DIRECTORY_STRING, backup);
+        JSON.UpdateSingleBackupInJSON(ConfigKey.BACKUP_FILE_STRING.getValue(), ConfigKey.RES_DIRECTORY_STRING.getValue(), backup);
         updateTableWithNewBackupList(backups);
     }
     
@@ -1761,7 +1758,6 @@ public class BackupManagerGUI extends javax.swing.JFrame {
         
         if (value == 100) {
             currentBackup.setLastBackup(dateNow);
-            threadTimer = new TimerAutoBackup(this);
             threadTimer.startTimer();
         }
     }
@@ -2006,7 +2002,7 @@ public class BackupManagerGUI extends javax.swing.JFrame {
                 Toolkit.getDefaultToolkit().getSystemClipboard().setContents(selection, null);
                 JOptionPane.showMessageDialog(null, "Error text has been copied to the clipboard.");
             } else if (choice == 2) {
-                openWebSite(ISSUE_PAGE_LINK);
+                openWebSite(ConfigKey.ISSUE_PAGE_LINK.getValue());
             }
         } while (choice == 1 || choice == 2);
     }

@@ -28,7 +28,7 @@ public class TimePicker extends javax.swing.JDialog {
         }
         
         // logo application
-        Image icon = new ImageIcon(this.getClass().getResource("/res/img/logo.png")).getImage();
+        Image icon = new ImageIcon(this.getClass().getResource(ConfigKey.LOGO_IMG.getValue())).getImage();
         this.setIconImage(icon); 
     }
     

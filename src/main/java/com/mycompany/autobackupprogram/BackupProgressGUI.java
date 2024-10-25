@@ -16,7 +16,7 @@ public class BackupProgressGUI extends javax.swing.JFrame {
         initComponents();
         
         // logo application
-        Image icon = new ImageIcon(this.getClass().getResource("/res/img/logo.png")).getImage();
+        Image icon = new ImageIcon(this.getClass().getResource(ConfigKey.LOGO_IMG.getValue())).getImage();
         this.setIconImage(icon);
         
         this.setAlwaysOnTop(false);
@@ -28,7 +28,7 @@ public class BackupProgressGUI extends javax.swing.JFrame {
         setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
         
         // logo application
-        Image icon = new ImageIcon(this.getClass().getResource("/res/img/logo.png")).getImage();
+        Image icon = new ImageIcon(this.getClass().getResource(ConfigKey.LOGO_IMG.getValue())).getImage();
         this.setIconImage(icon);
         
         initialPathLabel.setText(initialPath);

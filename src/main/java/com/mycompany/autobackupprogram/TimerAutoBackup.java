@@ -10,10 +10,8 @@ class TimerAutoBackup {
     private boolean timerRunning;
     private Timer timer;
     private float timeCounter;
-    private BackupManagerGUI autoBackupFrame = null;
     
-    public TimerAutoBackup(BackupManagerGUI autoBackupFrame) {
-        this.autoBackupFrame = autoBackupFrame;
+    public TimerAutoBackup() {
         this.timerRunning = false;
         this.timeCounter = 0;
     }

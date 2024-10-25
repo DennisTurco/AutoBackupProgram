@@ -307,7 +307,6 @@
     </Menu>
   </NonVisualComponents>
   <Properties>
-    <Property name="defaultCloseOperation" type="int" value="3"/>
     <Property name="title" type="java.lang.String" value="AutoBackup"/>
     <Property name="resizable" type="boolean" value="false"/>
   </Properties>
@@ -334,7 +333,7 @@
           <Group type="102" attributes="0">
               <EmptySpace max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
-                  <Component id="TabbedPane" max="32767" attributes="0"/>
+                  <Component id="TabbedPane" pref="849" max="32767" attributes="0"/>
                   <Group type="102" alignment="1" attributes="0">
                       <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
                       <Component id="jLabel3" min="-2" max="-2" attributes="0"/>
@@ -403,7 +402,7 @@
                                       <Component id="btnTimePicker" min="-2" pref="34" max="-2" attributes="0"/>
                                   </Group>
                               </Group>
-                              <EmptySpace min="0" pref="237" max="32767" attributes="0"/>
+                              <EmptySpace min="0" pref="230" max="32767" attributes="0"/>
                           </Group>
                           <Component id="lastBackupLabel" max="32767" attributes="0"/>
                       </Group>
@@ -638,7 +637,7 @@
                                   <Component id="researchField" min="-2" pref="321" max="-2" attributes="0"/>
                                   <EmptySpace max="-2" attributes="0"/>
                                   <Component id="researchButton" min="-2" pref="41" max="-2" attributes="0"/>
-                                  <EmptySpace min="0" pref="408" max="32767" attributes="0"/>
+                                  <EmptySpace min="0" pref="401" max="32767" attributes="0"/>
                               </Group>
                               <Group type="102" alignment="0" attributes="0">
                                   <Component id="jScrollPane1" max="32767" attributes="0"/>

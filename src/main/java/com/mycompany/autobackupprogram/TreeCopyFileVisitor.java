@@ -58,7 +58,7 @@ public class TreeCopyFileVisitor extends SimpleFileVisitor<Path> implements Runn
         try {
             Files.walkFileTree(source, this);
         } catch (IOException ex) {
-            Logger.logMessage("Exception --> " + ex);
+            Logger.logMessage("An error occurred", Logger.LogLevel.ERROR, ex);
             OpenExceptionMessage(ex.getMessage(), Arrays.toString(ex.getStackTrace()));
         }
     }

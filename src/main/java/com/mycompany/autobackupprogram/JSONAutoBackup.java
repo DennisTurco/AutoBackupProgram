@@ -2,8 +2,6 @@ package com.mycompany.autobackupprogram;
 
 import static com.mycompany.autobackupprogram.BackupManagerGUI.OpenExceptionMessage;
 import java.io.*;
-import java.nio.file.Files;
-import java.nio.file.Paths;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -23,7 +21,7 @@ class JSONAutoBackup implements IJSONAutoBackup {
         // Check if the file exists and is not empty
         File file = new File(filePath);
         if (!file.exists() || file.length() == 0) {
-            Logger.logMessage("The file does not exist or is empty: " + filePath);
+            Logger.logMessage("The file does not exist or is empty: " + filePath, Logger.LogLevel.WARN);
             return backupList;
         }
         
@@ -76,10 +74,10 @@ class JSONAutoBackup implements IJSONAutoBackup {
                 ));
             }
 
-        } catch (IOException | ParseException e) {
-            Logger.logMessage(e.getMessage());
-            OpenExceptionMessage(e.getMessage(), Arrays.toString(e.getStackTrace()));
-            e.printStackTrace();
+        } catch (IOException | ParseException ex) {
+            Logger.logMessage("An error occurred", Logger.LogLevel.ERROR, ex);
+            OpenExceptionMessage(ex.getMessage(), Arrays.toString(ex.getStackTrace()));
+            ex.printStackTrace();
         }
         return backupList;
     }
@@ -110,7 +108,7 @@ class JSONAutoBackup implements IJSONAutoBackup {
             file.write(updatedBackupArray.toJSONString());
             file.flush();
         } catch (IOException ex) {
-            Logger.logMessage(ex.getMessage());
+            Logger.logMessage("An error occurred", Logger.LogLevel.ERROR, ex);
             OpenExceptionMessage(ex.getMessage(), Arrays.toString(ex.getStackTrace()));
         }
     }
@@ -150,78 +148,8 @@ class JSONAutoBackup implements IJSONAutoBackup {
             }
 
         } catch (IOException | ParseException ex) {
-            Logger.logMessage(ex.getMessage());
+            Logger.logMessage("An error occurred", Logger.LogLevel.ERROR, ex);
             OpenExceptionMessage(ex.getMessage(), Arrays.toString(ex.getStackTrace()));
         }
-    }
-    
-    @Override
-    public int ReadCheckForBackupTimeInterval(String filename, String directoryPath) throws IOException{
-        int timeInterval;
-        try {
-            String filePath = directoryPath + filename;
-            String content = new String(Files.readAllBytes(Paths.get(filePath)));
-
-            JSONParser parser = new JSONParser();
-            JSONObject jsonObject = (JSONObject) parser.parse(content);
-
-            JSONObject backupService = (JSONObject) jsonObject.get("BackupService");
-
-            Long interval = (Long) backupService.get("value");
-
-            timeInterval = interval.intValue(); 
-
-        } catch (IOException | ParseException | NullPointerException e) {
-            timeInterval = 5; // every 5 minutes
-            e.printStackTrace();
-        }
-        
-        Logger.logMessage("Time interval \"value\" setted to " + timeInterval + " minutes");
-        return timeInterval;
-    }
-    
-    @Override
-    public int GetMaxLinesFromCongifFile(String filename, String directoryPath) throws IOException {
-        int maxLines;
-        try {
-            String filePath = directoryPath + filename;
-            String content = new String(Files.readAllBytes(Paths.get(filePath)));
-
-            JSONParser parser = new JSONParser();
-            JSONObject jsonObject = (JSONObject) parser.parse(content);
-            JSONObject logService = (JSONObject) jsonObject.get("LogService");
-            JSONObject maxLinesConfig = (JSONObject) logService.get("MaxLines");
-
-            Long maxLinesValue = (Long) maxLinesConfig.get("value");
-            maxLines = maxLinesValue.intValue(); 
-
-        } catch (IOException | ParseException | NullPointerException e) {
-            maxLines = 1500; // default value
-        }
-
-        return maxLines;
-    }
-
-    @Override
-    public int GetLinesToKeepAfterFileClearFromCongifFile(String filename, String directoryPath) throws IOException {
-        int linesToKeep;
-        try {
-            String filePath = directoryPath + filename;
-            String content = new String(Files.readAllBytes(Paths.get(filePath)));
-
-            JSONParser parser = new JSONParser();
-            JSONObject jsonObject = (JSONObject) parser.parse(content);
-            JSONObject logService = (JSONObject) jsonObject.get("LogService");
-            JSONObject linesToKeepConfig = (JSONObject) logService.get("LinesToKeepAfterFileClear");
-
-            Long linesToKeepValue = (Long) linesToKeepConfig.get("value");
-            linesToKeep = linesToKeepValue.intValue(); 
-
-        } catch (IOException | ParseException | NullPointerException e) {
-            e.printStackTrace();
-            linesToKeep = 150; // default value
-        }
-
-        return linesToKeep;
     }
 }

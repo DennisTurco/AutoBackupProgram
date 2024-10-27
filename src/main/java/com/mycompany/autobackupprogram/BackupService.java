@@ -13,17 +13,18 @@ import javax.swing.JFrame;
 public class BackupService {
     private Timer timer;
     private final JSONAutoBackup json = new JSONAutoBackup();
+    private final JSONConfigReader jsonConfig = new JSONConfigReader(ConfigKey.CONFIG_FILE_STRING.getValue(), ConfigKey.RES_DIRECTORY_STRING.getValue());
     private TrayIcon trayIcon = null;
     private BackupManagerGUI guiInstance = null;
 
     public void startService() throws IOException {
         timer = new Timer();
-        long interval = json.ReadCheckForBackupTimeInterval(ConfigKey.CONFIG_FILE_STRING.getValue(), ConfigKey.RES_DIRECTORY_STRING.getValue()) * 60 * 1000;
+        long interval = jsonConfig.readCheckForBackupTimeInterval() * 60 * 1000;
         timer.schedule(new BackupTask(), 0, interval);
         
-        if (trayIcon == null) {
-            createHiddenIcon();
-        }
+//        if (trayIcon == null) {
+//            createHiddenIcon();
+//        }
     }
 
     public void stopService() {
@@ -38,11 +39,11 @@ public class BackupService {
 
     private void createHiddenIcon() {
         if (!SystemTray.isSupported()) {
-            Logger.logMessage("System tray is not supported!");
+            Logger.logMessage("System tray is not supported!", Logger.LogLevel.WARN);
             return;
         }
 
-        Image image = Toolkit.getDefaultToolkit().getImage(getClass().getResource("/res/img/logo.png"));
+        Image image = Toolkit.getDefaultToolkit().getImage(getClass().getResource(ConfigKey.LOGO_IMG.getValue()));
         SystemTray tray = SystemTray.getSystemTray();
         PopupMenu popup = new PopupMenu();
 
@@ -59,7 +60,7 @@ public class BackupService {
         try {
             tray.add(trayIcon);
         } catch (AWTException e) {
-            Logger.logMessage("TrayIcon could not be added: " + e.getMessage());
+            Logger.logMessage("TrayIcon could not be added", Logger.LogLevel.ERROR, e);
         }
 
         trayIcon.addActionListener((ActionEvent e) -> {
@@ -85,17 +86,18 @@ public class BackupService {
     class BackupTask extends TimerTask {
         @Override
         public void run() {
-            Logger.logMessage("Checking for automatic backup...");
+            Logger.logMessage("Checking for automatic backup...", Logger.LogLevel.INFO);
             try {
                 List<Backup> backups = json.ReadBackupListFromJSON(ConfigKey.BACKUP_FILE_STRING.getValue(), ConfigKey.RES_DIRECTORY_STRING.getValue());
                 List<Backup> needsBackup = getBackupsToDo(backups);
                 if (needsBackup != null && !needsBackup.isEmpty()) {
-                    Logger.logMessage("Start backup process.");
+                    Logger.logMessage("Start backup process.", Logger.LogLevel.INFO);
                     openMainGUI(needsBackup);
                 } else {
-                    Logger.logMessage("No backup needed at this time.");
+                    Logger.logMessage("No backup needed at this time.", Logger.LogLevel.INFO);
                 }
             } catch (IOException ex) {
+                Logger.logMessage("An error occurred", Logger.LogLevel.ERROR, ex);
                 ex.printStackTrace();
             }
         }

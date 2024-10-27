@@ -4,6 +4,7 @@ com\mycompany\autobackupprogram\BackupManagerGUI$42.class
 com\mycompany\autobackupprogram\BackupManagerGUI$3.class
 com\mycompany\autobackupprogram\BackupManagerGUI$6.class
 com\mycompany\autobackupprogram\TimePicker$8.class
+com\mycompany\autobackupprogram\Logger$LogLevel.class
 com\mycompany\autobackupprogram\BackupManagerGUI$35.class
 com\mycompany\autobackupprogram\BackupManagerGUI$27.class
 com\mycompany\autobackupprogram\BackupManagerGUI$12.class
@@ -36,6 +37,7 @@ com\mycompany\autobackupprogram\BackupManagerGUI$16.class
 com\mycompany\autobackupprogram\BackupManagerGUI$26.class
 com\mycompany\autobackupprogram\BackupManagerGUI$36.class
 com\mycompany\autobackupprogram\TimePicker$1.class
+com\mycompany\autobackupprogram\JSONConfigReader.class
 com\mycompany\autobackupprogram\FileCopyListener.class
 com\mycompany\autobackupprogram\BackupManagerGUI$19.class
 com\mycompany\autobackupprogram\BackupManagerGUI$29.class

@@ -31,9 +31,9 @@ public enum ConfigKey {
                     configValues.put(key, (String) jsonObject.get(key.name()));
                 }
             }
-        } catch (IOException | ParseException e) {
-            Logger.logMessage(e.getMessage());
-            e.printStackTrace();
+        } catch (IOException | ParseException ex) {
+            Logger.logMessage("An error occurred", Logger.LogLevel.ERROR, ex);
+            ex.printStackTrace();
         }
     }
 

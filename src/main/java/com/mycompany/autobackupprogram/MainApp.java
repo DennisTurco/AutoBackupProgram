@@ -8,17 +8,17 @@ public class MainApp {
     public static void main(String[] args) {
         ConfigKey.loadFromJson(CONFIG);
         
-        Logger.logMessage("Application started");
+        Logger.logMessage("Application started", Logger.LogLevel.INFO);
 
         BackupService service = new BackupService();
         try {
             service.startService();
         } catch (IOException ex) {
-            Logger.logMessage(ex.getMessage());
+            Logger.logMessage("An error occurred", Logger.LogLevel.ERROR, ex);
             ex.printStackTrace();
         }
         
-        Logger.logMessage("Backup service started in the background.");
+        Logger.logMessage("Backup service started in the background", Logger.LogLevel.INFO);
 
         if (args.length == 0 || !args[0].equalsIgnoreCase("background")) {
             javax.swing.SwingUtilities.invokeLater(() -> {

@@ -32,6 +32,7 @@ public enum ConfigKey {
                 }
             }
         } catch (IOException | ParseException e) {
+            Logger.logMessage(e.getMessage());
             e.printStackTrace();
         }
     }

@@ -77,7 +77,7 @@ class JSONAutoBackup implements IJSONAutoBackup {
             }
 
         } catch (IOException | ParseException e) {
-            System.err.println("IOException | ParseException (ReadBackupListFromJSON) --> " + e);
+            Logger.logMessage(e.getMessage());
             OpenExceptionMessage(e.getMessage(), Arrays.toString(e.getStackTrace()));
             e.printStackTrace();
         }
@@ -110,6 +110,7 @@ class JSONAutoBackup implements IJSONAutoBackup {
             file.write(updatedBackupArray.toJSONString());
             file.flush();
         } catch (IOException ex) {
+            Logger.logMessage(ex.getMessage());
             OpenExceptionMessage(ex.getMessage(), Arrays.toString(ex.getStackTrace()));
         }
     }
@@ -149,6 +150,7 @@ class JSONAutoBackup implements IJSONAutoBackup {
             }
 
         } catch (IOException | ParseException ex) {
+            Logger.logMessage(ex.getMessage());
             OpenExceptionMessage(ex.getMessage(), Arrays.toString(ex.getStackTrace()));
         }
     }
@@ -171,6 +173,7 @@ class JSONAutoBackup implements IJSONAutoBackup {
 
         } catch (IOException | ParseException | NullPointerException e) {
             timeInterval = 5; // every 5 minutes
+            e.printStackTrace();
         }
         
         Logger.logMessage("Time interval \"value\" setted to " + timeInterval + " minutes");
@@ -215,6 +218,7 @@ class JSONAutoBackup implements IJSONAutoBackup {
             linesToKeep = linesToKeepValue.intValue(); 
 
         } catch (IOException | ParseException | NullPointerException e) {
+            e.printStackTrace();
             linesToKeep = 150; // default value
         }
 

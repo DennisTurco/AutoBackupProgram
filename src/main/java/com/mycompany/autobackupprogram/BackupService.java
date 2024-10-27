@@ -8,39 +8,27 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
+import javax.swing.JFrame;
 
 public class BackupService {
     private Timer timer;
     private final JSONAutoBackup json = new JSONAutoBackup();
-    private static BackupService instance;
-    private static TrayIcon trayIcon = null;
-
-    private BackupService() {}
-
-    public static synchronized BackupService getInstance() {
-        if (instance == null) {
-            instance = new BackupService();
-        }
-        return instance;
-    }
+    private TrayIcon trayIcon = null;
+    private BackupManagerGUI guiInstance = null;
 
     public void startService() throws IOException {
-        if (timer == null) {
-            timer = new Timer();
-            long interval = json.ReadCheckForBackupTimeInterval(
-                    ConfigKey.CONFIG_FILE_STRING.getValue(), ConfigKey.RES_DIRECTORY_STRING.getValue()) * 60 * 1000;
-            timer.schedule(new BackupTask(), 0, interval);
-
-            if (trayIcon == null) {
-                createHiddenIcon();
-            }
+        timer = new Timer();
+        long interval = json.ReadCheckForBackupTimeInterval(ConfigKey.CONFIG_FILE_STRING.getValue(), ConfigKey.RES_DIRECTORY_STRING.getValue()) * 60 * 1000;
+        timer.schedule(new BackupTask(), 0, interval);
+        
+        if (trayIcon == null) {
+            createHiddenIcon();
         }
     }
 
     public void stopService() {
         if (timer != null) {
             timer.cancel();
-            timer = null;
         }
         if (trayIcon != null) {
             SystemTray.getSystemTray().remove(trayIcon);
@@ -54,7 +42,7 @@ public class BackupService {
             return;
         }
 
-        Image image = Toolkit.getDefaultToolkit().getImage(getClass().getResource(ConfigKey.LOGO_IMG.getValue()));
+        Image image = Toolkit.getDefaultToolkit().getImage(getClass().getResource("/res/img/logo.png"));
         SystemTray tray = SystemTray.getSystemTray();
         PopupMenu popup = new PopupMenu();
 
@@ -75,12 +63,25 @@ public class BackupService {
         }
 
         trayIcon.addActionListener((ActionEvent e) -> {
-            javax.swing.SwingUtilities.invokeLater(() -> {
-                BackupManagerGUI.getInstance().showWindow();
-            });
+            javax.swing.SwingUtilities.invokeLater(this::showMainGUI);
         });
     }
-    
+
+    private void showMainGUI() {
+        if (guiInstance == null) {
+            guiInstance = new BackupManagerGUI();
+            guiInstance.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
+            guiInstance.setVisible(true);
+        } else {
+            guiInstance.setVisible(true);
+            guiInstance.toFront();
+            guiInstance.requestFocus();
+            if (guiInstance.getState() == Frame.ICONIFIED) {
+                guiInstance.setState(Frame.NORMAL);
+            }
+        }
+    }
+
     class BackupTask extends TimerTask {
         @Override
         public void run() {
@@ -111,12 +112,11 @@ public class BackupService {
 
         private void openMainGUI(List<Backup> backups) {
             javax.swing.SwingUtilities.invokeLater(() -> {
-                BackupManagerGUI gui = BackupManagerGUI.getInstance();
+                showMainGUI();
                 for (Backup backup : backups) {
                     BackupManagerGUI.currentBackup = backup;
-                    gui.SingleBackup(backup);
+                    guiInstance.SingleBackup(backup);
                 }
-                gui.showWindow();
             });
         }
     }

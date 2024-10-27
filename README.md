@@ -1,20 +1,18 @@
+![logo](src/main/resources/res/img/logo.ico)
 
-![logo](https://user-images.githubusercontent.com/57963761/198322350-d339a617-0c69-427f-8fce-cf15683dc5b8.png)
+# Backup Manager
 
-# Auto Backup Program
+**Backup Manager** is a user-friendly program with an intuitive graphical interface, designed to simplify and automate the backup of folders and subfolders. Users can configure a custom time interval between automatic backups, setting the desired number of days between each operation. Additionally, manual backups can be performed at any time, providing maximum flexibility.
 
-This is a GUI program that will allow you to perform an automatic backup of folders and subfolders.
-you can set an interval of days between each backup, alternatively you can perform manual backups.
+Each backup is carefully saved, and the program maintains a detailed log of all completed operations. Users can also view, manage, and edit the details of each backup, ensuring complete control and customization over saved data. This tool is an ideal solution for efficiently and securely protecting files, minimizing the risk of data loss.
 
 ## Installation
 To run the program, you have to download only the installer "**<ins>AutoBackup v2.0 setup file.exe</ins>**"<br>
 *Note: to run the executable you need jdk*: https://www.oracle.com/java/technologies/downloads 
 
-If you want to see the code, please contact me: dennisturco@gmail.com
 
 ## Screenshots
 
-![image](https://user-images.githubusercontent.com/57963761/200114896-d6e0ce97-5be5-42b1-851d-368eb9ec1f9b.png)
 
 
 

@@ -370,31 +370,36 @@ public class BackupManagerGUI extends javax.swing.JFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(260, 260, 260)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(lastBackupLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(lastBackupLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 353, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addGroup(jPanel1Layout.createSequentialGroup()
+                                        .addGap(90, 90, 90)
+                                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                            .addComponent(toggleAutoBackup, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                            .addComponent(SingleBackup, javax.swing.GroupLayout.DEFAULT_SIZE, 178, Short.MAX_VALUE))
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(btnTimePicker, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addGap(0, 230, Short.MAX_VALUE)))
+                        .addContainerGap())
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addComponent(destinationPathField, javax.swing.GroupLayout.PREFERRED_SIZE, 312, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(btnPathSearch2, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 353, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGap(90, 90, 90)
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                    .addComponent(toggleAutoBackup, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(SingleBackup, javax.swing.GroupLayout.DEFAULT_SIZE, 178, Short.MAX_VALUE))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(btnTimePicker, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(currentFileLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 266, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                                 .addComponent(txtTitle, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
                                     .addComponent(startPathField, javax.swing.GroupLayout.PREFERRED_SIZE, 312, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                    .addComponent(btnPathSearch1, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                        .addGap(0, 230, Short.MAX_VALUE)))
-                .addContainerGap())
+                                    .addComponent(btnPathSearch1, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addComponent(currentFileLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 266, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -865,6 +870,7 @@ public class BackupManagerGUI extends javax.swing.JFrame {
         try {
             new ProcessBuilder("notepad.exe", ConfigKey.RES_DIRECTORY_STRING.getValue() + ConfigKey.LOG_FILE_STRING.getValue()).start();
         } catch (IOException e) {
+            Logger.logMessage("Error opening history file.", Logger.LogLevel.WARN);
             JOptionPane.showMessageDialog(null, "Error opening history file.", "Error", JOptionPane.ERROR_MESSAGE);
         }
     }//GEN-LAST:event_MenuHistoryActionPerformed
@@ -1161,7 +1167,6 @@ public class BackupManagerGUI extends javax.swing.JFrame {
             backups.add(newBackup);
             JSON.UpdateBackupListJSON(ConfigKey.BACKUP_FILE_STRING.getValue(), ConfigKey.RES_DIRECTORY_STRING.getValue(), backups);
             updateTableWithNewBackupList(backups);
-            
         }
     }//GEN-LAST:event_DuplicatePopupItemActionPerformed
 
@@ -1554,7 +1559,7 @@ public class BackupManagerGUI extends javax.swing.JFrame {
             OpenExceptionMessage(ex.getMessage(), Arrays.toString(ex.getStackTrace()));
         } catch (HeadlessException ex) {
             Logger.logMessage("Error saving backup", Logger.LogLevel.WARN);
-            JOptionPane.showMessageDialog(null, "Error saving backup.", "Error", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(null, "Error saving backup", "Error", JOptionPane.ERROR_MESSAGE);
         }
     }
     
@@ -1621,6 +1626,7 @@ public class BackupManagerGUI extends javax.swing.JFrame {
             zipDirectoryWithProgress(path1, path2+".zip");
         } catch (IOException e) {
             System.err.println("Exception (SingleBackup) --> " + e);
+            Logger.logMessage("Error during the backup operation: the initial path is incorrect!", Logger.LogLevel.WARN);
             JOptionPane.showMessageDialog(null, "Error during the backup operation: the initial path is incorrect!", "Error", JOptionPane.ERROR_MESSAGE);
             return;
         } 
@@ -1695,6 +1701,7 @@ public class BackupManagerGUI extends javax.swing.JFrame {
             zipDirectoryWithProgress(path1, path2+".zip");
         } catch (IOException e) {
             System.err.println("Exception (SingleBackup) --> " + e);
+            Logger.logMessage("Error during the backup operation: the initial path is incorrect!", Logger.LogLevel.WARN);
             JOptionPane.showMessageDialog(null, "Error during the backup operation: the initial path is incorrect!", "Error", JOptionPane.ERROR_MESSAGE);
             return;
         } 
@@ -1759,6 +1766,7 @@ public class BackupManagerGUI extends javax.swing.JFrame {
 
         //check if inputs are null
         if(path1.length() == 0 || path2.length() == 0) {
+            Logger.logMessage("Input Missing!", Logger.LogLevel.WARN);
             JOptionPane.showMessageDialog(null, "Input Missing!", "Error", JOptionPane.ERROR_MESSAGE);
             return false;
         }
@@ -1776,6 +1784,7 @@ public class BackupManagerGUI extends javax.swing.JFrame {
         }
 
         if(check1 != true || check2 != true) {
+            Logger.logMessage("Input Error!", Logger.LogLevel.WARN);
             JOptionPane.showMessageDialog(null, "Input Error!", "Error", JOptionPane.ERROR_MESSAGE);
             return false;
         }
@@ -1969,6 +1978,7 @@ public class BackupManagerGUI extends javax.swing.JFrame {
             if (choice == 1) {
                 StringSelection selection = new StringSelection(stackTrace);
                 Toolkit.getDefaultToolkit().getSystemClipboard().setContents(selection, null);
+                Logger.logMessage("Error text has been copied to the clipboard", Logger.LogLevel.INFO);
                 JOptionPane.showMessageDialog(null, "Error text has been copied to the clipboard.");
             } else if (choice == 2) {
                 openWebSite(ConfigKey.ISSUE_PAGE_LINK.getValue());
@@ -1985,6 +1995,7 @@ public class BackupManagerGUI extends javax.swing.JFrame {
                 }
             }
         } catch (IOException | URISyntaxException e) {
+            Logger.logMessage("Failed to open the web page. Please try again", Logger.LogLevel.WARN);
             JOptionPane.showMessageDialog(null, "Failed to open the web page. Please try again.", "Error", JOptionPane.ERROR_MESSAGE);
         }
     }

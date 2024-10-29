@@ -6,30 +6,35 @@ import java.io.IOException;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Timer;
-import java.util.TimerTask;
+import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.TimeUnit;
 import javax.swing.JFrame;
 
 public class BackupService {
-    private Timer timer;
+    private ScheduledExecutorService scheduler;
     private final JSONAutoBackup json = new JSONAutoBackup();
     private final JSONConfigReader jsonConfig = new JSONConfigReader(ConfigKey.CONFIG_FILE_STRING.getValue(), ConfigKey.RES_DIRECTORY_STRING.getValue());
     private TrayIcon trayIcon = null;
     private BackupManagerGUI guiInstance = null;
 
     public void startService() throws IOException {
-        timer = new Timer();
-        long interval = jsonConfig.readCheckForBackupTimeInterval() * 60 * 1000;
-        timer.schedule(new BackupTask(), 0, interval);
-        
+        scheduler = Executors.newSingleThreadScheduledExecutor();
+        long interval = jsonConfig.readCheckForBackupTimeInterval();
+        scheduler.scheduleAtFixedRate(new BackupTask(), 0, interval, TimeUnit.MINUTES);
+
 //        if (trayIcon == null) {
 //            createHiddenIcon();
 //        }
+
+        Runtime.getRuntime().addShutdownHook(new Thread(this::stopService));
     }
 
     public void stopService() {
-        if (timer != null) {
-            timer.cancel();
+        Logger.logMessage("Stopping background service", Logger.LogLevel.DEBUG);
+        if (scheduler != null && !scheduler.isShutdown()) {
+            scheduler.shutdownNow();
+            Logger.logMessage("Background service stopped", Logger.LogLevel.INFO);
         }
         if (trayIcon != null) {
             SystemTray.getSystemTray().remove(trayIcon);
@@ -83,7 +88,7 @@ public class BackupService {
         }
     }
 
-    class BackupTask extends TimerTask {
+    class BackupTask implements Runnable {
         @Override
         public void run() {
             Logger.logMessage("Checking for automatic backup...", Logger.LogLevel.INFO);

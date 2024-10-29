@@ -6,9 +6,8 @@
 
 Each backup is carefully saved, and the program maintains a detailed log of all completed operations. Users can also view, manage, and edit the details of each backup, ensuring complete control and customization over saved data. This tool is an ideal solution for efficiently and securely protecting files, minimizing the risk of data loss.
 
-## Installation
-To run the program, you have to download only the installer "**<ins>AutoBackup v2.0 setup file.exe</ins>**"<br>
-*Note: to run the executable you need jdk*: https://www.oracle.com/java/technologies/downloads 
+## Important Notes:
+* this program is executed at the pc startup, if you disable  
 
 
 ## Screenshots

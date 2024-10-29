@@ -14,7 +14,7 @@ public class Logger {
     private static boolean consoleLoggingEnabled = true; // Toggle for console logging
 
     // Cached configuration
-    private static JSONConfigReader configReader;
+    private static final JSONConfigReader configReader;
 
     public enum LogLevel {
         INFO, DEBUG, WARN, ERROR

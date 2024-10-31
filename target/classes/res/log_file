@@ -1,3 +1,15 @@
+2024-10-31T13:53:55.763646100 [INFO] The application is running with administrator privileges.
+2024-10-31T13:53:55.755213500 [WARN] The file does not exist or is empty: src/main/resources/res/backup_list.json
+2024-10-31T13:53:55.250753700 [DEBUG] Background mode: false
+2024-10-31T13:53:55.237883300 [INFO] Application started
+2024-10-30T20:30:09.358364300 [INFO] The application is running with administrator privileges.
+2024-10-30T20:30:09.349956 [WARN] The file does not exist or is empty: src/main/resources/res/backup_list.json
+2024-10-30T20:30:08.813767900 [DEBUG] Background mode: false
+2024-10-30T20:30:08.796842300 [INFO] Application started
+2024-10-29T22:40:14.510345 [INFO] The application is running with administrator privileges.
+2024-10-29T22:40:14.503402 [WARN] The file does not exist or is empty: src/main/resources/res/backup_list.json
+2024-10-29T22:40:14.005898300 [DEBUG] Background mode: false
+2024-10-29T22:40:13.988538900 [INFO] Application started
 2024-10-29T22:24:49.692655300 [INFO] The application is running with administrator privileges.
 2024-10-29T22:24:49.685710400 [WARN] The file does not exist or is empty: src/main/resources/res/backup_list.json
 2024-10-29T22:24:49.167265200 [DEBUG] Background mode: false

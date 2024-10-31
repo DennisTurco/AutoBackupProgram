@@ -2,6 +2,8 @@ package com.mycompany.autobackupprogram;
 
 import java.awt.*;
 import java.awt.event.ActionEvent;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.io.IOException;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -23,9 +25,9 @@ public class BackupService {
         long interval = jsonConfig.readCheckForBackupTimeInterval();
         scheduler.scheduleAtFixedRate(new BackupTask(), 0, interval, TimeUnit.MINUTES);
 
-//        if (trayIcon == null) {
-//            createHiddenIcon();
-//        }
+        if (trayIcon == null) {
+            createHiddenIcon();
+        }
 
         Runtime.getRuntime().addShutdownHook(new Thread(this::stopService));
     }
@@ -54,7 +56,7 @@ public class BackupService {
 
         MenuItem exitItem = new MenuItem("Exit");
         exitItem.addActionListener((ActionEvent e) -> {
-            stopService();
+            stopService(); // close the backup service
             System.exit(0);
         });
         popup.add(exitItem);
@@ -64,16 +66,29 @@ public class BackupService {
 
         try {
             tray.add(trayIcon);
+            Logger.logMessage("TrayIcon added", Logger.LogLevel.INFO);
         } catch (AWTException e) {
             Logger.logMessage("TrayIcon could not be added", Logger.LogLevel.ERROR, e);
         }
 
+        // Listener for click to tray icon
         trayIcon.addActionListener((ActionEvent e) -> {
-            javax.swing.SwingUtilities.invokeLater(this::showMainGUI);
+            javax.swing.SwingUtilities.invokeLater(this::showMainGUI); // show the GUI
+        });
+
+        trayIcon.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                if (e.getButton() == MouseEvent.BUTTON1) {
+                    showMainGUI(); // left button mouse
+                }
+            }
         });
     }
 
     private void showMainGUI() {
+        Logger.logMessage("Showing the GUI", Logger.LogLevel.INFO);
+        
         if (guiInstance == null) {
             guiInstance = new BackupManagerGUI();
             guiInstance.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);

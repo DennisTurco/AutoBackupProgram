@@ -146,7 +146,7 @@
                 <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
                   <Image iconType="3" name="/res/img/add-file.png"/>
                 </Property>
-                <Property name="text" type="java.lang.String" value="new"/>
+                <Property name="text" type="java.lang.String" value="New"/>
               </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="MenuNewActionPerformed"/>
@@ -160,7 +160,7 @@
                 <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
                   <Image iconType="3" name="/res/img/diskette.png"/>
                 </Property>
-                <Property name="text" type="java.lang.String" value="save"/>
+                <Property name="text" type="java.lang.String" value="Save"/>
               </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="MenuSaveActionPerformed"/>
@@ -168,7 +168,7 @@
             </MenuItem>
             <MenuItem class="javax.swing.JMenuItem" name="MenuSaveWithName">
               <Properties>
-                <Property name="text" type="java.lang.String" value="save with name"/>
+                <Property name="text" type="java.lang.String" value="Save with name"/>
               </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="MenuSaveWithNameActionPerformed"/>
@@ -182,7 +182,7 @@
                 <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
                   <Image iconType="3" name="/res/img/clean.png"/>
                 </Property>
-                <Property name="text" type="java.lang.String" value="clear"/>
+                <Property name="text" type="java.lang.String" value="Clear"/>
               </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="MenuClearActionPerformed"/>
@@ -193,7 +193,7 @@
                 <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
                   <Image iconType="3" name="/res/img/clock.png"/>
                 </Property>
-                <Property name="text" type="java.lang.String" value="history"/>
+                <Property name="text" type="java.lang.String" value="History"/>
               </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="MenuHistoryActionPerformed"/>
@@ -211,7 +211,7 @@
                 <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
                   <Image iconType="3" name="/res/img/bug.png"/>
                 </Property>
-                <Property name="text" type="java.lang.String" value="report a bug"/>
+                <Property name="text" type="java.lang.String" value="Report a bug"/>
               </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="MenuBugReportActionPerformed"/>
@@ -225,7 +225,7 @@
                 <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
                   <Image iconType="3" name="/res/img/remove.png"/>
                 </Property>
-                <Property name="text" type="java.lang.String" value="quit"/>
+                <Property name="text" type="java.lang.String" value="Quit"/>
               </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="MenuQuitActionPerformed"/>
@@ -243,7 +243,7 @@
                 <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
                   <Image iconType="3" name="/res/img/share.png"/>
                 </Property>
-                <Property name="text" type="java.lang.String" value="share"/>
+                <Property name="text" type="java.lang.String" value="Share"/>
               </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="MenuShareActionPerformed"/>
@@ -254,7 +254,7 @@
                 <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
                   <Image iconType="3" name="/res/img/donation.png"/>
                 </Property>
-                <Property name="text" type="java.lang.String" value="donate"/>
+                <Property name="text" type="java.lang.String" value="Donate"/>
                 <Property name="enabled" type="boolean" value="false"/>
               </Properties>
               <Events>
@@ -266,7 +266,7 @@
                 <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
                   <Image iconType="3" name="/res/img/info.png"/>
                 </Property>
-                <Property name="text" type="java.lang.String" value="info"/>
+                <Property name="text" type="java.lang.String" value="Info"/>
               </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="MenuInfoPageActionPerformed"/>
@@ -284,7 +284,7 @@
                 <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
                   <Image iconType="3" name="/res/img/website.png"/>
                 </Property>
-                <Property name="text" type="java.lang.String" value="website"/>
+                <Property name="text" type="java.lang.String" value="Website"/>
               </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="MenuWebsiteActionPerformed"/>
@@ -295,7 +295,7 @@
                 <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
                   <Image iconType="3" name="/res/img/help-desk.png"/>
                 </Property>
-                <Property name="text" type="java.lang.String" value="support"/>
+                <Property name="text" type="java.lang.String" value="Support"/>
               </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="MenuSupportActionPerformed"/>

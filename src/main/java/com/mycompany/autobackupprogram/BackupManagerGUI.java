@@ -64,7 +64,7 @@ public class BackupManagerGUI extends javax.swing.JFrame {
     
     private String backupOnText = "Auto Backup (ON)";
     private String backupOffText = "Auto Backup (OFF)";
-
+    
     public BackupManagerGUI() {
         try {
             UIManager.setLookAndFeel(new FlatIntelliJLaf());
@@ -99,8 +99,23 @@ public class BackupManagerGUI extends javax.swing.JFrame {
         }
         
         customListeners();
+        
+        // load Menu items
+        JSONConfigReader config = new JSONConfigReader(ConfigKey.CONFIG_FILE_STRING.getValue(), ConfigKey.RES_DIRECTORY_STRING.getValue());
+        MenuBugReport.setVisible(config.isMenuItemEnabled(MenuItems.BugReport.name()));
+        MenuClear.setVisible(config.isMenuItemEnabled(MenuItems.Clear.name()));
+        MenuDonate.setVisible(config.isMenuItemEnabled(MenuItems.Donate.name()));
+        MenuHistory.setVisible(config.isMenuItemEnabled(MenuItems.History.name()));
+        MenuInfoPage.setVisible(config.isMenuItemEnabled(MenuItems.InfoPage.name()));
+        MenuNew.setVisible(config.isMenuItemEnabled(MenuItems.New.name()));
+        MenuQuit.setVisible(config.isMenuItemEnabled(MenuItems.Quit.name()));
+        MenuSave.setVisible(config.isMenuItemEnabled(MenuItems.Save.name()));
+        MenuSaveWithName.setVisible(config.isMenuItemEnabled(MenuItems.SaveWithName.name()));
+        MenuShare.setVisible(config.isMenuItemEnabled(MenuItems.Share.name()));
+        MenuSupport.setVisible(config.isMenuItemEnabled(MenuItems.Support.name()));
+        MenuWebsite.setVisible(config.isMenuItemEnabled(MenuItems.Website.name()));
     }
-
+    
     public void showWindow() {
         setVisible(true);
         toFront();

@@ -10,6 +10,21 @@
   "SHARD_WEBSITE": "https://www.shardpc.it/",
   "LOGO_IMG": "/res/img/logo.png",
 
+  "MenuItems": {
+    "BugReport": true,
+    "Clear": true,
+    "Donate": false,
+    "History": true,
+    "InfoPage": true,
+    "New": true,
+    "Quit": true,
+    "Save": true,
+    "SavceWithName": true,
+    "Share": true,
+    "Support": true,
+    "Website": true
+  },
+
   "BackupService": {
     "value": 1,
     "type": "int",
@@ -32,4 +47,6 @@
       "description": "Lines to keep after file clear"
     }
   }
+
+
 }

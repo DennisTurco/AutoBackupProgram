@@ -31,6 +31,20 @@ public class JSONConfigReader {
         }
         return false; // Default to false if LogService or level is missing
     }
+    
+    public boolean isMenuItemEnabled(String menuItem) {
+        if (config == null) {
+            Logger.logMessage("Configuration not loaded. Cannot check menu items.", Logger.LogLevel.ERROR);
+            return false;
+        }
+
+        JSONObject menuService = (JSONObject) config.get("MenuItems");
+        if (menuService != null) {
+            Boolean isEnabled = (Boolean) menuService.get(menuItem);
+            return isEnabled != null && isEnabled;
+        }
+        return true; // Default to true
+    }
 
     public int getMaxLines() {
         return getConfigValue("MaxLines", 1500); // Default to 1500

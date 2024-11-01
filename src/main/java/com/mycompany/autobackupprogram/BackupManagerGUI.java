@@ -1,5 +1,6 @@
 package com.mycompany.autobackupprogram;
 
+import com.formdev.flatlaf.FlatClientProperties;
 import com.formdev.flatlaf.FlatIntelliJLaf;
 import java.awt.Color;
 import java.awt.Component;
@@ -40,6 +41,7 @@ import java.nio.file.attribute.BasicFileAttributes;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipOutputStream;
+import javax.swing.Icon;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 
@@ -114,6 +116,14 @@ public class BackupManagerGUI extends javax.swing.JFrame {
         MenuShare.setVisible(config.isMenuItemEnabled(MenuItems.Share.name()));
         MenuSupport.setVisible(config.isMenuItemEnabled(MenuItems.Support.name()));
         MenuWebsite.setVisible(config.isMenuItemEnabled(MenuItems.Website.name()));
+        
+        // place holder
+        researchField.putClientProperty(FlatClientProperties.PLACEHOLDER_TEXT, "search...");
+        startPathField.putClientProperty(FlatClientProperties.PLACEHOLDER_TEXT, "Initial path");
+        destinationPathField.putClientProperty(FlatClientProperties.PLACEHOLDER_TEXT, "Destination path");
+        
+        // icons
+        researchField.putClientProperty(FlatClientProperties.TEXT_FIELD_LEADING_ICON, new javax.swing.ImageIcon(getClass().getResource("/res/img/search.png")));
     }
     
     public void showWindow() {
@@ -170,7 +180,6 @@ public class BackupManagerGUI extends javax.swing.JFrame {
         table = new javax.swing.JTable();
         jLabel1 = new javax.swing.JLabel();
         researchField = new javax.swing.JTextField();
-        researchButton = new javax.swing.JButton();
         detailsPanel = new javax.swing.JPanel();
         detailsLabel = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
@@ -503,17 +512,6 @@ public class BackupManagerGUI extends javax.swing.JFrame {
             }
         });
 
-        researchButton.setForeground(new java.awt.Color(0, 0, 0));
-        researchButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/res/img/search.png"))); // NOI18N
-        researchButton.setToolTipText("Research");
-        researchButton.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        researchButton.setPreferredSize(new java.awt.Dimension(25, 25));
-        researchButton.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                researchButtonActionPerformed(evt);
-            }
-        });
-
         javax.swing.GroupLayout tablePanelLayout = new javax.swing.GroupLayout(tablePanel);
         tablePanel.setLayout(tablePanelLayout);
         tablePanelLayout.setHorizontalGroup(
@@ -527,11 +525,9 @@ public class BackupManagerGUI extends javax.swing.JFrame {
                         .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 9, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(researchField, javax.swing.GroupLayout.PREFERRED_SIZE, 321, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(researchButton, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 401, Short.MAX_VALUE))
+                        .addGap(0, 0, Short.MAX_VALUE))
                     .addGroup(tablePanelLayout.createSequentialGroup()
-                        .addComponent(jScrollPane1)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 831, Short.MAX_VALUE)
                         .addContainerGap())))
         );
         tablePanelLayout.setVerticalGroup(
@@ -542,8 +538,7 @@ public class BackupManagerGUI extends javax.swing.JFrame {
                     .addComponent(addBackupEntryButton, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(tablePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(jLabel1)
-                        .addComponent(researchField, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(researchButton, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(researchField, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 485, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
@@ -1100,10 +1095,6 @@ public class BackupManagerGUI extends javax.swing.JFrame {
         TabbedPane.setSelectedIndex(0);
         NewBackup();
     }//GEN-LAST:event_addBackupEntryButtonActionPerformed
-
-    private void researchButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_researchButtonActionPerformed
-        researchInTable();
-    }//GEN-LAST:event_researchButtonActionPerformed
 
     private void researchFieldKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_researchFieldKeyTyped
         researchInTable();
@@ -2070,7 +2061,6 @@ public class BackupManagerGUI extends javax.swing.JFrame {
     private javax.swing.JPopupMenu.Separator jSeparator3;
     private javax.swing.JLabel lastBackupLabel;
     private javax.swing.JMenuItem renamePopupItem;
-    private javax.swing.JButton researchButton;
     private javax.swing.JTextField researchField;
     private javax.swing.JTextField startPathField;
     private javax.swing.JTable table;

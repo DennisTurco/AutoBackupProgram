@@ -13,7 +13,7 @@ public class MainApp {
         
         boolean isBackgroundMode = args.length > 0 && args[0].equalsIgnoreCase("--background");
         
-        // check argument correction
+        // check argument correction 
         if (!isBackgroundMode && args.length > 0) {
             Logger.logMessage("Argument \""+ args[0] +"\" not valid!", Logger.LogLevel.WARN);
             return;

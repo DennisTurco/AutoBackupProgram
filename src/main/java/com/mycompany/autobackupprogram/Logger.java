@@ -14,16 +14,16 @@ public class Logger {
     private static boolean consoleLoggingEnabled = true; // Toggle for console logging
 
     // Cached configuration
-    private static final JSONConfigReader configReader;
+    public static JSONConfigReader configReader;
 
     public enum LogLevel {
         INFO, DEBUG, WARN, ERROR
     }
 
-    static {
-        // Load the configuration once at class loading
-        configReader = new JSONConfigReader(ConfigKey.CONFIG_FILE_STRING.getValue(), ConfigKey.RES_DIRECTORY_STRING.getValue());
-    }
+//    static {
+//        // Load the configuration once at class loading
+//        configReader = new JSONConfigReader(ConfigKey.CONFIG_FILE_STRING.getValue(), ConfigKey.RES_DIRECTORY_STRING.getValue());
+//    }
 
     public static void logMessage(String message) {
         logMessage(message, LogLevel.INFO);

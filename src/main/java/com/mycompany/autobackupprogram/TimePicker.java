@@ -89,6 +89,9 @@ public class TimePicker extends javax.swing.JDialog {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Time interval for auto backup");
+        setMaximumSize(new java.awt.Dimension(320, 285));
+        setMinimumSize(new java.awt.Dimension(320, 285));
+        setPreferredSize(new java.awt.Dimension(320, 285));
         setResizable(false);
 
         jTextArea1.setEditable(false);

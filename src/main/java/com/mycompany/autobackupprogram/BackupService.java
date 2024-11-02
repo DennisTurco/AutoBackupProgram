@@ -21,13 +21,13 @@ public class BackupService {
     private BackupManagerGUI guiInstance = null;
 
     public void startService() throws IOException {
-        scheduler = Executors.newSingleThreadScheduledExecutor();
-        long interval = jsonConfig.readCheckForBackupTimeInterval();
-        scheduler.scheduleAtFixedRate(new BackupTask(), 0, interval, TimeUnit.MINUTES);
-
         if (trayIcon == null) {
             createHiddenIcon();
         }
+        
+        scheduler = Executors.newSingleThreadScheduledExecutor();
+        long interval = jsonConfig.readCheckForBackupTimeInterval();
+        scheduler.scheduleAtFixedRate(new BackupTask(), 0, interval, TimeUnit.MINUTES);
 
         Runtime.getRuntime().addShutdownHook(new Thread(this::stopService));
     }
@@ -112,7 +112,7 @@ public class BackupService {
                 List<Backup> needsBackup = getBackupsToDo(backups);
                 if (needsBackup != null && !needsBackup.isEmpty()) {
                     Logger.logMessage("Start backup process.", Logger.LogLevel.INFO);
-                    openMainGUI(needsBackup);
+                    executeBackups(needsBackup);
                 } else {
                     Logger.logMessage("No backup needed at this time.", Logger.LogLevel.INFO);
                 }
@@ -132,12 +132,10 @@ public class BackupService {
             return backupsToDo;
         }
 
-        private void openMainGUI(List<Backup> backups) {
+        private void executeBackups(List<Backup> backups) {
             javax.swing.SwingUtilities.invokeLater(() -> {
-                showMainGUI();
                 for (Backup backup : backups) {
-                    BackupManagerGUI.currentBackup = backup;
-                    guiInstance.SingleBackup(backup);
+                    BackupOperations.SingleBackup(backup, trayIcon);
                 }
             });
         }

@@ -310,6 +310,7 @@ public class BackupManagerGUI extends javax.swing.JFrame {
 
         TablePopup.add(jMenu4);
 
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Backup Manager");
 
         jPanel1.setMaximumSize(new java.awt.Dimension(464, 472));
@@ -433,8 +434,8 @@ public class BackupManagerGUI extends javax.swing.JFrame {
         jPanel5.setLayout(jPanel5Layout);
         jPanel5Layout.setHorizontalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel5Layout.createSequentialGroup()
-                .addContainerGap(287, Short.MAX_VALUE)
+            .addGroup(jPanel5Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(SingleBackup, javax.swing.GroupLayout.PREFERRED_SIZE, 188, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(jPanel5Layout.createSequentialGroup()
@@ -442,6 +443,10 @@ public class BackupManagerGUI extends javax.swing.JFrame {
                         .addGap(4, 4, 4)
                         .addComponent(btnTimePicker, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(268, 268, 268))
+            .addGroup(jPanel5Layout.createSequentialGroup()
+                .addGap(162, 162, 162)
+                .addComponent(currentFileLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 457, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(164, Short.MAX_VALUE))
             .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(jPanel5Layout.createSequentialGroup()
                     .addGap(3, 3, 3)
@@ -451,30 +456,22 @@ public class BackupManagerGUI extends javax.swing.JFrame {
                             .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                 .addGroup(jPanel5Layout.createSequentialGroup()
-                                    .addGap(3, 3, 3)
-                                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 463, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGroup(jPanel5Layout.createSequentialGroup()
-                                    .addGap(5, 5, 5)
-                                    .addComponent(destinationPathField, javax.swing.GroupLayout.PREFERRED_SIZE, 422, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addGap(5, 5, 5)
-                                    .addComponent(btnPathSearch2, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGroup(jPanel5Layout.createSequentialGroup()
-                                    .addGap(3, 3, 3)
-                                    .addComponent(lastBackupLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 462, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGroup(jPanel5Layout.createSequentialGroup()
-                                    .addGap(3, 3, 3)
-                                    .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 462, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGroup(jPanel5Layout.createSequentialGroup()
-                                    .addGap(5, 5, 5)
-                                    .addComponent(startPathField, javax.swing.GroupLayout.PREFERRED_SIZE, 422, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addGap(5, 5, 5)
-                                    .addComponent(btnPathSearch1, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGroup(jPanel5Layout.createSequentialGroup()
                                     .addGap(64, 64, 64)
                                     .addComponent(txtTitle))
-                                .addGroup(jPanel5Layout.createSequentialGroup()
-                                    .addGap(3, 3, 3)
-                                    .addComponent(currentFileLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 462, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel5Layout.createSequentialGroup()
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                    .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                        .addGroup(jPanel5Layout.createSequentialGroup()
+                                            .addComponent(startPathField, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                            .addGap(5, 5, 5)
+                                            .addComponent(btnPathSearch1, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                        .addGroup(jPanel5Layout.createSequentialGroup()
+                                            .addComponent(destinationPathField, javax.swing.GroupLayout.PREFERRED_SIZE, 423, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addGap(5, 5, 5)
+                                            .addComponent(btnPathSearch2, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                        .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 461, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 462, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(lastBackupLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 461, javax.swing.GroupLayout.PREFERRED_SIZE))))))
                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                     .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
@@ -482,7 +479,9 @@ public class BackupManagerGUI extends javax.swing.JFrame {
         jPanel5Layout.setVerticalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel5Layout.createSequentialGroup()
-                .addContainerGap(486, Short.MAX_VALUE)
+                .addGap(101, 101, 101)
+                .addComponent(currentFileLabel)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 369, Short.MAX_VALUE)
                 .addComponent(SingleBackup, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(10, 10, 10)
                 .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -501,9 +500,7 @@ public class BackupManagerGUI extends javax.swing.JFrame {
                                 .addGroup(jPanel5Layout.createSequentialGroup()
                                     .addGap(25, 25, 25)
                                     .addComponent(txtTitle, javax.swing.GroupLayout.PREFERRED_SIZE, 58, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addGap(10, 10, 10)
-                                    .addComponent(currentFileLabel)
-                                    .addGap(10, 10, 10)
+                                    .addGap(36, 36, 36)
                                     .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                         .addComponent(startPathField, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
                                         .addComponent(btnPathSearch1, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -1343,7 +1340,7 @@ public class BackupManagerGUI extends javax.swing.JFrame {
         Logger.logMessage("Event --> auto backup preference", Logger.LogLevel.INFO);
         
         // checks
-        if (!CheckInputCorrect(startPathField.getText(), destinationPathField.getText())) {
+        if (!BackupOperations.CheckInputCorrect(startPathField.getText(), destinationPathField.getText())) {
             toggleAutoBackup.setSelected(false);
             return;
         }
@@ -1527,7 +1524,7 @@ public class BackupManagerGUI extends javax.swing.JFrame {
     public boolean AutomaticBackup() {
         Logger.logMessage("Event --> automatic backup", Logger.LogLevel.INFO);
         
-        if(!CheckInputCorrect(startPathField.getText(), destinationPathField.getText())) return false;
+        if(!BackupOperations.CheckInputCorrect(startPathField.getText(), destinationPathField.getText())) return false;
 
         // if the file has not been saved you need to save it before setting the auto backup
         if(currentBackup.isAutoBackup() == false || currentBackup.getNextDateBackup() == null || currentBackup.getTimeIntervalBackup() == null) {
@@ -1568,7 +1565,7 @@ public class BackupManagerGUI extends javax.swing.JFrame {
     public boolean AutomaticBackup(Backup backup) {
         Logger.logMessage("Event --> automatic backup", Logger.LogLevel.INFO);
         
-        if(!CheckInputCorrect(backup.getInitialPath(), backup.getDestinationPath())) return false;
+        if(!BackupOperations.CheckInputCorrect(backup.getInitialPath(), backup.getDestinationPath())) return false;
     
         if(backup.isAutoBackup() == false || backup.getNextDateBackup() == null || backup.getTimeIntervalBackup() == null) {
             // if the file has not been saved you need to save it before setting the auto backup
@@ -1675,7 +1672,7 @@ public class BackupManagerGUI extends javax.swing.JFrame {
         String temp = "\\";
 
         //------------------------------INPUT CONTROL ERRORS------------------------------
-        if(!CheckInputCorrect(path1, path2)) return;
+        if(!BackupOperations.CheckInputCorrect(path1, path2)) return;
 
         //------------------------------TO GET THE CURRENT DATE------------------------------
         dateNow = LocalDateTime.now();
@@ -1747,65 +1744,6 @@ public class BackupManagerGUI extends javax.swing.JFrame {
         }
     }
     
-    public void SingleBackup(Backup backup) {
-        Logger.logMessage("Event --> automatic single backup automatic", Logger.LogLevel.INFO);
-		
-        String temp = "\\";
-        String path1 = backup.getInitialPath();
-        String path2 = backup.getDestinationPath();
-
-        //------------------------------INPUT CONTROL ERRORS------------------------------
-        if(!CheckInputCorrect(path1, path2)) return;
-
-        //------------------------------TO GET THE CURRENT DATE------------------------------
-        dateNow = LocalDateTime.now();
-
-        //------------------------------SET ALL THE VARIABLES------------------------------
-        String name1; // folder name/initial file
-        String date = dateNow.format(dateForfolderNameFormatter);
-
-        //------------------------------SET ALL THE STRINGS------------------------------
-        name1 = path1.substring(path1.length()-1, path1.length()-1);
-
-        for(int i=path1.length()-1; i>=0; i--) {
-            if(path1.charAt(i) != temp.charAt(0)) name1 = path1.charAt(i) + name1;
-            else break;
-        }
-
-        path2 = path2 + "\\" + name1 + " (Backup " + date + ")";
-
-        //------------------------------COPY THE FILE OR DIRECTORY------------------------------
-        Logger.logMessage("date backup: " + date, Logger.LogLevel.INFO);
-        
-        try {
-            progressBar = new BackupProgressGUI(path1, path2);
-            progressBar.setVisible(true);
-            zipDirectoryWithProgress(path1, path2+".zip");
-        } catch (IOException e) {
-            System.err.println("Exception (SingleBackup) --> " + e);
-            Logger.logMessage("Error during the backup operation: the initial path is incorrect!", Logger.LogLevel.WARN);
-            JOptionPane.showMessageDialog(null, "Error during the backup operation: the initial path is incorrect!", "Error", JOptionPane.ERROR_MESSAGE);
-            return;
-        } 
-
-        TimeInterval time = backup.getTimeIntervalBackup();
-        LocalDateTime nextDateBackup = dateNow.plusDays(time.getDays())
-                .plusHours(time.getHours())
-                .plusMinutes(time.getMinutes());
-        backup.setNextDateBackup(nextDateBackup);
-        backup.setBackupCount(backup.getBackupCount()+1);
-        
-        for (Backup b : backups) {
-            if (b.getBackupName().equals(backup.getBackupName())) {
-                b.UpdateBackup(backup);
-                break;
-            }
-        }
-
-        JSON.UpdateSingleBackupInJSON(ConfigKey.BACKUP_FILE_STRING.getValue(), ConfigKey.RES_DIRECTORY_STRING.getValue(), backup);
-        updateTableWithNewBackupList(backups);
-    }
-    
     private void setCurrentBackupName(String name) {
         currentFileLabel.setText("Current File: " + name);
     }
@@ -1841,37 +1779,6 @@ public class BackupManagerGUI extends javax.swing.JFrame {
             OpenExceptionMessage(ex.getMessage(), Arrays.toString(ex.getStackTrace()));
         }
         setAutoBackupPreference(currentBackup.isAutoBackup());
-    }
-	
-    public boolean CheckInputCorrect(String path1, String path2) {
-        String temp = "\\";
-
-        //check if inputs are null
-        if(path1.length() == 0 || path2.length() == 0) {
-            Logger.logMessage("Input Missing!", Logger.LogLevel.WARN);
-            JOptionPane.showMessageDialog(null, "Input Missing!", "Error", JOptionPane.ERROR_MESSAGE);
-            return false;
-        }
-
-        //check if there is a \ char
-        boolean check1 = false;
-        boolean check2 = false;
-
-        for(int i=0; i<path1.length(); i++) {
-            if(path1.charAt(i) == temp.charAt(0)) check1 = true;
-        }
-
-        for(int i=0; i<path2.length(); i++) {
-            if(path2.charAt(i) == temp.charAt(0)) check2 = true;
-        }
-
-        if(check1 != true || check2 != true) {
-            Logger.logMessage("Input Error!", Logger.LogLevel.WARN);
-            JOptionPane.showMessageDialog(null, "Input Error!", "Error", JOptionPane.ERROR_MESSAGE);
-            return false;
-        }
-
-        return true;
     }
 	
     public void zipDirectoryWithProgress(String sourceDirectoryPath, String targetZipPath) throws IOException {

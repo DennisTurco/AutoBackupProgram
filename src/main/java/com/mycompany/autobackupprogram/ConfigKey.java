@@ -32,7 +32,6 @@ public enum ConfigKey {
                 }
             }
         } catch (IOException | ParseException ex) {
-            Logger.logMessage("An error occurred", Logger.LogLevel.ERROR, ex);
             ex.printStackTrace();
         }
     }

@@ -1,17 +1,11 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package com.mycompany.autobackupprogram;
 
 import static com.mycompany.autobackupprogram.BackupManagerGUI.OpenExceptionMessage;
 import static com.mycompany.autobackupprogram.BackupManagerGUI.dateForfolderNameFormatter;
 import java.awt.TrayIcon;
-import java.io.BufferedReader;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import java.io.InputStreamReader;
 import java.nio.file.FileVisitResult;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -27,7 +21,7 @@ import javax.swing.JOptionPane;
 
 public class BackupOperations{
     
-    private static JSONAutoBackup JSON = new JSONAutoBackup();
+    private static final JSONAutoBackup JSON = new JSONAutoBackup();
     private static Thread zipThread;
     
     public static void SingleBackup(Backup backup, TrayIcon trayIcon) {
@@ -38,7 +32,7 @@ public class BackupOperations{
         String path2 = backup.getDestinationPath();
 
         //------------------------------INPUT CONTROL ERRORS------------------------------
-        if(!CheckInputCorrect(path1, path2)) return;
+        if(!CheckInputCorrect(backup.getBackupName(), path1, path2, trayIcon)) return;
 
         //------------------------------TO GET THE CURRENT DATE------------------------------
         LocalDateTime dateNow = LocalDateTime.now();
@@ -93,35 +87,31 @@ public class BackupOperations{
 
         JSON.UpdateSingleBackupInJSON(ConfigKey.BACKUP_FILE_STRING.getValue(), ConfigKey.RES_DIRECTORY_STRING.getValue(), backup);
         if (trayIcon != null) {
-            trayIcon.displayMessage("Backup Manager", "The backup was successfully completed:\nFrom: " + path1 + "\nTo: " + path2, TrayIcon.MessageType.INFO);
+            trayIcon.displayMessage("Backup Manager", "Backup: "+ backup.getBackupName() +"\nThe backup was successfully completed:\nFrom: " + path1 + "\nTo: " + path2, TrayIcon.MessageType.INFO);
         }
     }
     
-    public static boolean CheckInputCorrect(String path1, String path2) {
-        String temp = "\\";
-
+    public static boolean CheckInputCorrect(String backupName, String path1, String path2, TrayIcon trayIcon) {
         //check if inputs are null
         if(path1.length() == 0 || path2.length() == 0) {
             Logger.logMessage("Input Missing!", Logger.LogLevel.WARN);
-            JOptionPane.showMessageDialog(null, "Input Missing!", "Error", JOptionPane.ERROR_MESSAGE);
+            
+            if (trayIcon != null){ 
+                trayIcon.displayMessage("Backup Manager", "Backup: "+ backupName +"\nError during automatic backup.\nInput Missing!", TrayIcon.MessageType.ERROR);
+            } else {
+                JOptionPane.showMessageDialog(null, "Input Missing!", "Error", JOptionPane.ERROR_MESSAGE);
+            }
             return false;
         }
+        
+        if (!Files.exists(Path.of(path1)) || !Files.exists(Path.of(path2))) {
+            Logger.logMessage("Input Error! One or both paths do not exist.", Logger.LogLevel.WARN);
 
-        //check if there is a \ char
-        boolean check1 = false;
-        boolean check2 = false;
-
-        for(int i=0; i<path1.length(); i++) {
-            if(path1.charAt(i) == temp.charAt(0)) check1 = true;
-        }
-
-        for(int i=0; i<path2.length(); i++) {
-            if(path2.charAt(i) == temp.charAt(0)) check2 = true;
-        }
-
-        if(check1 != true || check2 != true) {
-            Logger.logMessage("Input Error!", Logger.LogLevel.WARN);
-            JOptionPane.showMessageDialog(null, "Input Error!", "Error", JOptionPane.ERROR_MESSAGE);
+            if (trayIcon != null) { 
+                trayIcon.displayMessage("Backup Manager", "Backup: "+ backupName +"\nError during automatic backup.\nOne or both paths do not exist!", TrayIcon.MessageType.ERROR);
+            } else {
+                JOptionPane.showMessageDialog(null, "One or both paths do not exist!", "Error", JOptionPane.ERROR_MESSAGE);
+            }
             return false;
         }
 
@@ -185,48 +175,5 @@ public class BackupOperations{
         });
 
         zipThread.start(); // Start the zipping thread
-    }
-    
-    // toast message only for windows 10 and 11
-    public static void WindowsToastMessage(String title, String message) {
-    String iconPath = Paths.get("src/main/resources/res/img/logo.png").toAbsolutePath().toString();
-
-    String command = "powershell -Command \"" +
-        "[Windows.UI.Notifications.ToastNotificationManager, Windows.UI.Notifications, ContentType = WindowsRuntime] > $null;" +
-        "$template = [Windows.UI.Notifications.ToastTemplateType]::ToastImageAndText02;" +
-        "$toastXml = [Windows.UI.Notifications.ToastNotificationManager]::GetTemplateContent($template);" +
-        "$imagePath = 'file:///" + iconPath.replace("\\", "/") + "';" +
-        "$imageNode = $toastXml.GetElementsByTagName('image')[0];" +
-        "$imageNode.SetAttribute('src', $imagePath);" +
-        "$imageNode.SetAttribute('alt', 'Notification Icon');" +
-        "$textNodes = $toastXml.GetElementsByTagName('text');" +
-        // Verifica il numero di nodi di testo
-        "if ($textNodes.Count -ge 2) { " +
-        "$textNodes[0].InnerText = '" + escapeSpecialCharacters(title) + "'; " +
-        "$textNodes[1].InnerText = '" + escapeSpecialCharacters(message) + "'; " +
-        "} else { " +
-        "Write-Host 'Il template non ha abbastanza nodi di testo.'; " +
-        "}" +
-        "$toast = [Windows.UI.Notifications.ToastNotification]::new($toastXml);" +
-        "$notifier = [Windows.UI.Notifications.ToastNotificationManager]::CreateToastNotifier('Backup Manager');" +
-        "$notifier.Show($toast);" +
-        "\"";
-
-    try {
-        Process process = Runtime.getRuntime().exec(command);
-        process.waitFor();
-        BufferedReader reader = new BufferedReader(new InputStreamReader(process.getErrorStream()));
-        String line;
-        while ((line = reader.readLine()) != null) {
-            System.err.println(line);
-        }
-    } catch (IOException | InterruptedException e) {
-        e.printStackTrace();
-    }
-}
-
-
-    private static String escapeSpecialCharacters(String input) {
-        return input.replace("'", "''"); 
     }
 }

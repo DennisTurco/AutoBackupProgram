@@ -20,11 +20,6 @@ public class Logger {
         INFO, DEBUG, WARN, ERROR
     }
 
-//    static {
-//        // Load the configuration once at class loading
-//        configReader = new JSONConfigReader(ConfigKey.CONFIG_FILE_STRING.getValue(), ConfigKey.RES_DIRECTORY_STRING.getValue());
-//    }
-
     public static void logMessage(String message) {
         logMessage(message, LogLevel.INFO);
     }

@@ -1,3 +1,123 @@
+2024-11-02T21:25:31.390764 [INFO] The application is running with administrator privileges.
+2024-11-02T21:25:31.129085200 [INFO] Showing the GUI
+2024-11-02T21:25:16.522967100 [WARN] Input Error! One or both paths do not exist.
+2024-11-02T21:25:16.515031 [INFO] Event --> automatic single backup automatic
+2024-11-02T21:25:16.507095300 [INFO] Start backup process.
+2024-11-02T21:25:16.495687200 [INFO] Checking for automatic backup...
+2024-11-02T21:25:16.487751 [INFO] Time interval set to 1 minutes
+2024-11-02T21:25:16.479319 [INFO] TrayIcon added
+2024-11-02T21:25:16.247549200 [INFO] Backup service starting in the background
+2024-11-02T21:25:16.240608400 [DEBUG] Background mode: true
+2024-11-02T21:25:16.227213600 [INFO] Application started
+2024-11-02T21:24:57.467039400 [INFO] Event --> saving backup
+2024-11-02T21:24:53.691583500 [INFO] Event --> opening backup
+2024-11-02T21:24:53.684638800 [INFO] Edit row : 0
+2024-11-02T21:24:48.702722500 [INFO] The application is running with administrator privileges.
+2024-11-02T21:24:48.227160600 [DEBUG] Background mode: false
+2024-11-02T21:24:48.212908400 [INFO] Application started
+2024-11-02T21:24:39.009057300 [DEBUG] Stopping background service
+2024-11-02T21:24:38.993048900 [INFO] Background service stopped
+2024-11-02T21:24:38.986600600 [DEBUG] Stopping background service
+2024-11-02T21:24:00.478946800 [INFO] date backup: 02-11-2024 21.24.00
+2024-11-02T21:24:00.470028800 [INFO] Event --> automatic single backup automatic
+2024-11-02T21:24:00.464577400 [INFO] Start backup process.
+2024-11-02T21:24:00.457619400 [INFO] Checking for automatic backup...
+2024-11-02T21:23:00.462795 [INFO] No backup needed at this time.
+2024-11-02T21:23:00.456346200 [INFO] Checking for automatic backup...
+2024-11-02T21:22:00.476775900 [INFO] date backup: 02-11-2024 21.22.00
+2024-11-02T21:22:00.470853100 [INFO] Event --> automatic single backup automatic
+2024-11-02T21:22:00.464375900 [INFO] Start backup process.
+2024-11-02T21:22:00.457927500 [INFO] Checking for automatic backup...
+2024-11-02T21:21:00.464538100 [INFO] No backup needed at this time.
+2024-11-02T21:21:00.457098400 [INFO] Checking for automatic backup...
+2024-11-02T21:20:00.488841 [INFO] date backup: 02-11-2024 21.20.00
+2024-11-02T21:20:00.480434900 [INFO] Event --> automatic single backup automatic
+2024-11-02T21:20:00.472480400 [INFO] Start backup process.
+2024-11-02T21:20:00.462089 [INFO] Checking for automatic backup...
+2024-11-02T21:19:22.592298900 [INFO] Event --> saving backup
+2024-11-02T21:19:19.777908300 [INFO] Event --> opening backup
+2024-11-02T21:19:19.771459900 [INFO] Edit row : 0
+2024-11-02T21:19:05.752943300 [INFO] The application is running with administrator privileges.
+2024-11-02T21:19:05.441759500 [INFO] Showing the GUI
+2024-11-02T21:19:00.490624900 [WARN] Input Error! One or both paths do not exist.
+2024-11-02T21:19:00.484175400 [INFO] Event --> automatic single backup automatic
+2024-11-02T21:19:00.477906 [INFO] Start backup process.
+2024-11-02T21:19:00.470900 [INFO] Checking for automatic backup...
+2024-11-02T21:18:00.485940500 [WARN] Input Error! One or both paths do not exist.
+2024-11-02T21:18:00.479492200 [INFO] Event --> automatic single backup automatic
+2024-11-02T21:18:00.473044200 [INFO] Start backup process.
+2024-11-02T21:18:00.465108200 [INFO] Checking for automatic backup...
+2024-11-02T21:17:00.489993200 [WARN] Input Error! One or both paths do not exist.
+2024-11-02T21:17:00.483517400 [INFO] Event --> automatic single backup automatic
+2024-11-02T21:17:00.475085100 [INFO] Start backup process.
+2024-11-02T21:17:00.464173300 [INFO] Checking for automatic backup...
+2024-11-02T21:17:00.454748900 [INFO] Time interval set to 1 minutes
+2024-11-02T21:17:00.445325400 [INFO] TrayIcon added
+2024-11-02T21:17:00.209306200 [INFO] Backup service starting in the background
+2024-11-02T21:17:00.202354500 [DEBUG] Background mode: true
+2024-11-02T21:17:00.189433500 [INFO] Application started
+2024-11-02T21:16:32.199703900 [INFO] Background service stopped
+2024-11-02T21:16:32.193722600 [DEBUG] Stopping background service
+2024-11-02T21:15:52.553202800 [ERROR] An error occurred
+2024-11-02T21:15:52.546258100 [INFO] date backup: 02-11-2024 21.15.52
+2024-11-02T21:15:52.540305800 [INFO] Event --> automatic single backup automatic
+2024-11-02T21:15:52.533886500 [INFO] Start backup process.
+2024-11-02T21:15:52.527409300 [INFO] Checking for automatic backup...
+2024-11-02T21:14:52.539221 [INFO] No backup needed at this time.
+2024-11-02T21:14:52.531780900 [INFO] Checking for automatic backup...
+2024-11-02T21:13:52.549402300 [ERROR] An error occurred
+2024-11-02T21:13:52.542068800 [INFO] date backup: 02-11-2024 21.13.52
+2024-11-02T21:13:52.536125 [INFO] Event --> automatic single backup automatic
+2024-11-02T21:13:52.530164700 [INFO] Start backup process.
+2024-11-02T21:13:52.522723600 [INFO] Checking for automatic backup...
+2024-11-02T21:12:52.528358 [INFO] No backup needed at this time.
+2024-11-02T21:12:52.521441700 [INFO] Checking for automatic backup...
+2024-11-02T21:11:52.558380100 [ERROR] An error occurred
+2024-11-02T21:11:52.549470900 [INFO] date backup: 02-11-2024 21.11.52
+2024-11-02T21:11:52.543488800 [INFO] Event --> automatic single backup automatic
+2024-11-02T21:11:52.537057100 [INFO] Start backup process.
+2024-11-02T21:11:52.530592800 [INFO] Checking for automatic backup...
+2024-11-02T21:10:52.536367 [INFO] No backup needed at this time.
+2024-11-02T21:10:52.529920800 [INFO] Checking for automatic backup...
+2024-11-02T21:10:08.534705400 [INFO] Event --> saving backup
+2024-11-02T21:10:03.282459400 [INFO] Event --> opening backup
+2024-11-02T21:10:03.276479300 [INFO] Edit row : 0
+2024-11-02T21:09:58.113999200 [INFO] The application is running with administrator privileges.
+2024-11-02T21:09:57.619551700 [DEBUG] Background mode: false
+2024-11-02T21:09:57.605636400 [INFO] Application started
+2024-11-02T21:09:52.562889300 [INFO] date backup: 02-11-2024 21.09.52
+2024-11-02T21:09:52.545529400 [INFO] Event --> automatic single backup automatic
+2024-11-02T21:09:52.538089900 [INFO] Start backup process.
+2024-11-02T21:09:52.525689300 [INFO] Checking for automatic backup...
+2024-11-02T21:09:52.517753400 [INFO] Time interval set to 1 minutes
+2024-11-02T21:09:52.509817200 [INFO] TrayIcon added
+2024-11-02T21:09:52.273507500 [INFO] Backup service starting in the background
+2024-11-02T21:09:52.267555600 [DEBUG] Background mode: true
+2024-11-02T21:09:52.255183 [INFO] Application started
+2024-11-02T21:09:01.126047800 [INFO] The application is running with administrator privileges.
+2024-11-02T21:09:00.619141500 [DEBUG] Background mode: false
+2024-11-02T21:09:00.604729200 [INFO] Application started
+2024-11-02T21:04:13.240918 [INFO] date backup: 02-11-2024 21.04.13
+2024-11-02T21:04:13.222906100 [INFO] Event --> automatic single backup automatic
+2024-11-02T21:04:13.215961300 [INFO] Start backup process.
+2024-11-02T21:04:13.206041200 [INFO] Checking for automatic backup...
+2024-11-02T21:04:13.197637300 [INFO] Time interval set to 1 minutes
+2024-11-02T21:04:13.188186100 [INFO] TrayIcon added
+2024-11-02T21:04:12.956209900 [INFO] Backup service starting in the background
+2024-11-02T21:04:12.950228800 [DEBUG] Background mode: true
+2024-11-02T21:04:12.937356200 [INFO] Application started
+2024-11-02T21:04:04.778864700 [WARN] Argument "--culo" not valid!
+2024-11-02T21:03:54.985795500 [WARN] Argument "--backgrud" not valid!
+2024-11-02T21:00:42.429146200 [INFO] The application is running with administrator privileges.
+2024-11-02T21:00:41.727533400 [DEBUG] Background mode: false
+2024-11-02T21:00:41.719074600 [INFO] Application started
+2024-11-02T21:00:41.708658 [WARN] Argument "--sd" not valid!
+2024-11-02T20:36:01.076452100 [INFO] The application is running with administrator privileges.
+2024-11-02T20:36:00.585967800 [DEBUG] Background mode: false
+2024-11-02T20:36:00.571545700 [INFO] Application started
+2024-11-02T20:35:07.356738700 [INFO] The application is running with administrator privileges.
+2024-11-02T20:35:06.841716 [DEBUG] Background mode: false
+2024-11-02T20:35:06.801751500 [INFO] Application started
 2024-11-02T18:07:07.277414500 [INFO] date backup: 02-11-2024 18.07.07
 2024-11-02T18:07:07.271438400 [INFO] Event --> automatic single backup automatic
 2024-11-02T18:07:07.265017600 [INFO] Start backup process.
@@ -105,3 +225,48 @@
 2024-11-02T17:40:50.257330400 [INFO] The application is running with administrator privileges.
 2024-11-02T17:40:48.763955400 [DEBUG] Background mode: false
 2024-11-02T17:40:48.752548600 [INFO] Application started
+Exception: java.nio.file.NoSuchFileException - C:\Users\Utente\Desktop\fg
+	at java.base/sun.nio.fs.WindowsException.translateToIOException(WindowsException.java:85)
+	at java.base/sun.nio.fs.WindowsException.rethrowAsIOException(WindowsException.java:103)
+	at java.base/sun.nio.fs.WindowsException.rethrowAsIOException(WindowsException.java:108)
+	at java.base/sun.nio.fs.WindowsFileAttributeViews$Basic.readAttributes(WindowsFileAttributeViews.java:53)
+	at java.base/sun.nio.fs.WindowsFileAttributeViews$Basic.readAttributes(WindowsFileAttributeViews.java:38)
+	at java.base/sun.nio.fs.WindowsFileSystemProvider.readAttributes(WindowsFileSystemProvider.java:197)
+	at java.base/java.nio.file.Files.readAttributes(Files.java:1858)
+	at java.base/java.nio.file.FileTreeWalker.getAttributes(FileTreeWalker.java:220)
+	at java.base/java.nio.file.FileTreeWalker.visit(FileTreeWalker.java:277)
+	at java.base/java.nio.file.FileTreeWalker.walk(FileTreeWalker.java:323)
+	at java.base/java.nio.file.Files.walkFileTree(Files.java:2784)
+	at java.base/java.nio.file.Files.walkFileTree(Files.java:2862)
+	at com.mycompany.autobackupprogram.BackupOperations.lambda$zipDirectory$0(BackupOperations.java:146)
+	at java.base/java.lang.Thread.run(Thread.java:1570)
+Exception: java.nio.file.NoSuchFileException - C:\Users\Utente\Desktop\fg
+	at java.base/sun.nio.fs.WindowsException.translateToIOException(WindowsException.java:85)
+	at java.base/sun.nio.fs.WindowsException.rethrowAsIOException(WindowsException.java:103)
+	at java.base/sun.nio.fs.WindowsException.rethrowAsIOException(WindowsException.java:108)
+	at java.base/sun.nio.fs.WindowsFileAttributeViews$Basic.readAttributes(WindowsFileAttributeViews.java:53)
+	at java.base/sun.nio.fs.WindowsFileAttributeViews$Basic.readAttributes(WindowsFileAttributeViews.java:38)
+	at java.base/sun.nio.fs.WindowsFileSystemProvider.readAttributes(WindowsFileSystemProvider.java:197)
+	at java.base/java.nio.file.Files.readAttributes(Files.java:1858)
+	at java.base/java.nio.file.FileTreeWalker.getAttributes(FileTreeWalker.java:220)
+	at java.base/java.nio.file.FileTreeWalker.visit(FileTreeWalker.java:277)
+	at java.base/java.nio.file.FileTreeWalker.walk(FileTreeWalker.java:323)
+	at java.base/java.nio.file.Files.walkFileTree(Files.java:2784)
+	at java.base/java.nio.file.Files.walkFileTree(Files.java:2862)
+	at com.mycompany.autobackupprogram.BackupOperations.lambda$zipDirectory$0(BackupOperations.java:146)
+	at java.base/java.lang.Thread.run(Thread.java:1570)
+Exception: java.nio.file.NoSuchFileException - C:\Users\Utente\Desktop\fg
+	at java.base/sun.nio.fs.WindowsException.translateToIOException(WindowsException.java:85)
+	at java.base/sun.nio.fs.WindowsException.rethrowAsIOException(WindowsException.java:103)
+	at java.base/sun.nio.fs.WindowsException.rethrowAsIOException(WindowsException.java:108)
+	at java.base/sun.nio.fs.WindowsFileAttributeViews$Basic.readAttributes(WindowsFileAttributeViews.java:53)
+	at java.base/sun.nio.fs.WindowsFileAttributeViews$Basic.readAttributes(WindowsFileAttributeViews.java:38)
+	at java.base/sun.nio.fs.WindowsFileSystemProvider.readAttributes(WindowsFileSystemProvider.java:197)
+	at java.base/java.nio.file.Files.readAttributes(Files.java:1858)
+	at java.base/java.nio.file.FileTreeWalker.getAttributes(FileTreeWalker.java:220)
+	at java.base/java.nio.file.FileTreeWalker.visit(FileTreeWalker.java:277)
+	at java.base/java.nio.file.FileTreeWalker.walk(FileTreeWalker.java:323)
+	at java.base/java.nio.file.Files.walkFileTree(Files.java:2784)
+	at java.base/java.nio.file.Files.walkFileTree(Files.java:2862)
+	at com.mycompany.autobackupprogram.BackupOperations.lambda$zipDirectory$0(BackupOperations.java:146)
+	at java.base/java.lang.Thread.run(Thread.java:1570)

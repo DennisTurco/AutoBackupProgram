@@ -1340,7 +1340,7 @@ public class BackupManagerGUI extends javax.swing.JFrame {
         Logger.logMessage("Event --> auto backup preference", Logger.LogLevel.INFO);
         
         // checks
-        if (!BackupOperations.CheckInputCorrect(startPathField.getText(), destinationPathField.getText())) {
+        if (!BackupOperations.CheckInputCorrect(currentBackup.getBackupName(),startPathField.getText(), destinationPathField.getText(), null)) {
             toggleAutoBackup.setSelected(false);
             return;
         }
@@ -1524,7 +1524,7 @@ public class BackupManagerGUI extends javax.swing.JFrame {
     public boolean AutomaticBackup() {
         Logger.logMessage("Event --> automatic backup", Logger.LogLevel.INFO);
         
-        if(!BackupOperations.CheckInputCorrect(startPathField.getText(), destinationPathField.getText())) return false;
+        if(!BackupOperations.CheckInputCorrect(currentBackup.getBackupName(),startPathField.getText(), destinationPathField.getText(), null)) return false;
 
         // if the file has not been saved you need to save it before setting the auto backup
         if(currentBackup.isAutoBackup() == false || currentBackup.getNextDateBackup() == null || currentBackup.getTimeIntervalBackup() == null) {
@@ -1565,7 +1565,7 @@ public class BackupManagerGUI extends javax.swing.JFrame {
     public boolean AutomaticBackup(Backup backup) {
         Logger.logMessage("Event --> automatic backup", Logger.LogLevel.INFO);
         
-        if(!BackupOperations.CheckInputCorrect(backup.getInitialPath(), backup.getDestinationPath())) return false;
+        if(!BackupOperations.CheckInputCorrect(backup.getBackupName(), backup.getInitialPath(), backup.getDestinationPath(), null)) return false;
     
         if(backup.isAutoBackup() == false || backup.getNextDateBackup() == null || backup.getTimeIntervalBackup() == null) {
             // if the file has not been saved you need to save it before setting the auto backup
@@ -1672,7 +1672,7 @@ public class BackupManagerGUI extends javax.swing.JFrame {
         String temp = "\\";
 
         //------------------------------INPUT CONTROL ERRORS------------------------------
-        if(!BackupOperations.CheckInputCorrect(path1, path2)) return;
+        if(!BackupOperations.CheckInputCorrect(currentBackup.getBackupName(), path1, path2, null)) return;
 
         //------------------------------TO GET THE CURRENT DATE------------------------------
         dateNow = LocalDateTime.now();

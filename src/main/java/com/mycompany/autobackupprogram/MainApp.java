@@ -13,6 +13,11 @@ public class MainApp {
         
         boolean isBackgroundMode = args.length > 0 && args[0].equalsIgnoreCase("--background");
         
+        if (!isBackgroundMode && args.length > 0) {
+            Logger.logMessage("Argument \""+ args[0] +"\" not valid!", Logger.LogLevel.WARN);
+            return;
+        }
+        
         Logger.logMessage("Application started", Logger.LogLevel.INFO);
         Logger.logMessage("Background mode: " + isBackgroundMode, Logger.LogLevel.DEBUG);
         

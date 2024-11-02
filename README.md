@@ -6,8 +6,18 @@
 
 Each backup is carefully saved, and the program maintains a detailed log of all completed operations. Users can also view, manage, and edit the details of each backup, ensuring complete control and customization over saved data. This tool is an ideal solution for efficiently and securely protecting files, minimizing the risk of data loss.
 
+## Startup Logic
+```mermaid
+graph TD
+  n1(((PC Startup))) --> n2(Start Background Service)
+  n2 --> n3(Start TrayIcon)
+  n2 --> n4(Periodic Auto Backup Check)
+  n3 -->|click| n5(Start GUI)
+  n3 -->|exit| n6(Shutdown Backup Service)
+```
+
 ## Important Notes:
-* this program is executed at the pc startup, if you disable  
+* this program is executed at the pc startup, if you disable it, it won't do any automatic backup
 
 
 ## Screenshots

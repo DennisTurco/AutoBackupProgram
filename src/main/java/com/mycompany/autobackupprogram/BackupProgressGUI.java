@@ -68,7 +68,6 @@ public class BackupProgressGUI extends javax.swing.JFrame {
         setTitle("Backup in progress");
         setMaximumSize(new java.awt.Dimension(430, 175));
         setMinimumSize(new java.awt.Dimension(430, 175));
-        setPreferredSize(new java.awt.Dimension(430, 175));
         setResizable(false);
 
         closeButton.setText("Close");

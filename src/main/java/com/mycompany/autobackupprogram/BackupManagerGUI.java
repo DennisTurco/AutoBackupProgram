@@ -41,7 +41,6 @@ import java.nio.file.attribute.BasicFileAttributes;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipOutputStream;
-import javax.swing.Icon;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 
@@ -140,6 +139,7 @@ public class BackupManagerGUI extends javax.swing.JFrame {
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
+        java.awt.GridBagConstraints gridBagConstraints;
 
         TablePopup = new javax.swing.JPopupMenu();
         EditPoputItem = new javax.swing.JMenuItem();
@@ -307,7 +307,10 @@ public class BackupManagerGUI extends javax.swing.JFrame {
         TablePopup.add(jMenu4);
 
         setTitle("Backup Manager");
-        setResizable(false);
+
+        java.awt.GridBagLayout jPanel1Layout = new java.awt.GridBagLayout();
+        jPanel1Layout.columnWidths = new int[] {70, 70, 70};
+        jPanel1.setLayout(jPanel1Layout);
 
         txtTitle.setFont(new java.awt.Font("Segoe UI", 0, 36)); // NOI18N
         txtTitle.setLabelFor(txtTitle);
@@ -315,13 +318,32 @@ public class BackupManagerGUI extends javax.swing.JFrame {
         txtTitle.setToolTipText("");
         txtTitle.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         txtTitle.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 1;
+        gridBagConstraints.gridy = 0;
+        gridBagConstraints.ipady = 10;
+        gridBagConstraints.insets = new java.awt.Insets(25, 0, 5, 0);
+        jPanel1.add(txtTitle, gridBagConstraints);
 
         currentFileLabel.setText("Current file: ");
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 1;
+        gridBagConstraints.gridy = 1;
+        gridBagConstraints.ipadx = 397;
+        gridBagConstraints.insets = new java.awt.Insets(5, 0, 5, 0);
+        jPanel1.add(currentFileLabel, gridBagConstraints);
 
         startPathField.setToolTipText("(Required) Initial path");
         startPathField.setActionCommand("null");
         startPathField.setAlignmentX(0.0F);
         startPathField.setAlignmentY(0.0F);
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 1;
+        gridBagConstraints.gridy = 2;
+        gridBagConstraints.ipadx = 354;
+        gridBagConstraints.ipady = 5;
+        gridBagConstraints.insets = new java.awt.Insets(5, 0, 5, 36);
+        jPanel1.add(startPathField, gridBagConstraints);
 
         btnPathSearch1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/res/img/folder.png"))); // NOI18N
         btnPathSearch1.setToolTipText("Open file explorer");
@@ -332,9 +354,23 @@ public class BackupManagerGUI extends javax.swing.JFrame {
                 btnPathSearch1ActionPerformed(evt);
             }
         });
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 1;
+        gridBagConstraints.gridy = 2;
+        gridBagConstraints.ipadx = -8;
+        gridBagConstraints.ipady = -12;
+        gridBagConstraints.insets = new java.awt.Insets(5, 430, 5, 0);
+        jPanel1.add(btnPathSearch1, gridBagConstraints);
 
         destinationPathField.setToolTipText("(Required) Destination path");
         destinationPathField.setActionCommand("<Not Set>");
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 1;
+        gridBagConstraints.gridy = 3;
+        gridBagConstraints.ipadx = 354;
+        gridBagConstraints.ipady = 5;
+        gridBagConstraints.insets = new java.awt.Insets(5, 0, 5, 36);
+        jPanel1.add(destinationPathField, gridBagConstraints);
 
         btnPathSearch2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/res/img/folder.png"))); // NOI18N
         btnPathSearch2.setToolTipText("Open file explorer");
@@ -345,8 +381,21 @@ public class BackupManagerGUI extends javax.swing.JFrame {
                 btnPathSearch2ActionPerformed(evt);
             }
         });
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 1;
+        gridBagConstraints.gridy = 3;
+        gridBagConstraints.ipadx = -8;
+        gridBagConstraints.ipady = -12;
+        gridBagConstraints.insets = new java.awt.Insets(5, 430, 5, 0);
+        jPanel1.add(btnPathSearch2, gridBagConstraints);
 
         lastBackupLabel.setText("last backup: ");
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 1;
+        gridBagConstraints.gridy = 4;
+        gridBagConstraints.ipadx = 396;
+        gridBagConstraints.insets = new java.awt.Insets(5, 0, 5, 0);
+        jPanel1.add(lastBackupLabel, gridBagConstraints);
 
         SingleBackup.setBackground(new java.awt.Color(51, 153, 255));
         SingleBackup.setForeground(new java.awt.Color(255, 255, 255));
@@ -358,13 +407,37 @@ public class BackupManagerGUI extends javax.swing.JFrame {
                 SingleBackupActionPerformed(evt);
             }
         });
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 1;
+        gridBagConstraints.gridy = 7;
+        gridBagConstraints.ipadx = 80;
+        gridBagConstraints.ipady = 9;
+        gridBagConstraints.insets = new java.awt.Insets(5, 0, 5, 0);
+        jPanel1.add(SingleBackup, gridBagConstraints);
 
         backupNoteTextArea.setColumns(20);
         backupNoteTextArea.setRows(5);
         backupNoteTextArea.setToolTipText("(Optional) Backup description");
         jScrollPane2.setViewportView(backupNoteTextArea);
 
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 1;
+        gridBagConstraints.gridy = 6;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.VERTICAL;
+        gridBagConstraints.ipadx = 225;
+        gridBagConstraints.ipady = 100;
+        gridBagConstraints.weightx = 1.0;
+        gridBagConstraints.weighty = 1.0;
+        gridBagConstraints.insets = new java.awt.Insets(5, 0, 5, 0);
+        jPanel1.add(jScrollPane2, gridBagConstraints);
+
         jLabel2.setText("notes:");
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 1;
+        gridBagConstraints.gridy = 5;
+        gridBagConstraints.ipadx = 430;
+        gridBagConstraints.insets = new java.awt.Insets(5, 0, 5, 0);
+        jPanel1.add(jLabel2, gridBagConstraints);
 
         btnTimePicker.setIcon(new javax.swing.ImageIcon(getClass().getResource("/res/img/chronometer.png"))); // NOI18N
         btnTimePicker.setToolTipText("time picker");
@@ -376,6 +449,13 @@ public class BackupManagerGUI extends javax.swing.JFrame {
                 btnTimePickerActionPerformed(evt);
             }
         });
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 1;
+        gridBagConstraints.gridy = 8;
+        gridBagConstraints.ipadx = -8;
+        gridBagConstraints.ipady = -12;
+        gridBagConstraints.insets = new java.awt.Insets(0, 230, 0, 0);
+        jPanel1.add(btnTimePicker, gridBagConstraints);
 
         toggleAutoBackup.setText("Auto Backup");
         toggleAutoBackup.setToolTipText("Enable/Disable automatic backup");
@@ -386,69 +466,13 @@ public class BackupManagerGUI extends javax.swing.JFrame {
                 toggleAutoBackupActionPerformed(evt);
             }
         });
-
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(260, 260, 260)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(lastBackupLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 353, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGap(90, 90, 90)
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                    .addComponent(toggleAutoBackup, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(SingleBackup, javax.swing.GroupLayout.DEFAULT_SIZE, 178, Short.MAX_VALUE))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(btnTimePicker, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(destinationPathField, javax.swing.GroupLayout.PREFERRED_SIZE, 312, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(btnPathSearch2, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                .addComponent(txtTitle, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
-                                    .addComponent(startPathField, javax.swing.GroupLayout.PREFERRED_SIZE, 312, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                    .addComponent(btnPathSearch1, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                            .addComponent(currentFileLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 266, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(0, 230, Short.MAX_VALUE)))
-                .addContainerGap())
-        );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(28, 28, 28)
-                .addComponent(txtTitle, javax.swing.GroupLayout.PREFERRED_SIZE, 58, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(currentFileLabel)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(startPathField, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnPathSearch1, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(destinationPathField, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnPathSearch2, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(lastBackupLabel)
-                .addGap(18, 18, 18)
-                .addComponent(jLabel2)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 19, Short.MAX_VALUE)
-                .addComponent(SingleBackup, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(toggleAutoBackup, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnTimePicker, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(94, 94, 94))
-        );
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 1;
+        gridBagConstraints.gridy = 8;
+        gridBagConstraints.ipadx = 80;
+        gridBagConstraints.ipady = 9;
+        gridBagConstraints.insets = new java.awt.Insets(5, 0, 5, 0);
+        jPanel1.add(toggleAutoBackup, gridBagConstraints);
 
         TabbedPane.addTab("BackupEntry", jPanel1);
 
@@ -527,7 +551,7 @@ public class BackupManagerGUI extends javax.swing.JFrame {
                         .addComponent(researchField, javax.swing.GroupLayout.PREFERRED_SIZE, 321, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(0, 0, Short.MAX_VALUE))
                     .addGroup(tablePanelLayout.createSequentialGroup()
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 831, Short.MAX_VALUE)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 893, Short.MAX_VALUE)
                         .addContainerGap())))
         );
         tablePanelLayout.setVerticalGroup(
@@ -540,8 +564,8 @@ public class BackupManagerGUI extends javax.swing.JFrame {
                         .addComponent(jLabel1)
                         .addComponent(researchField, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 485, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 485, Short.MAX_VALUE)
+                .addContainerGap())
         );
 
         researchField.getAccessibleContext().setAccessibleName("");
@@ -559,9 +583,9 @@ public class BackupManagerGUI extends javax.swing.JFrame {
         );
         detailsPanelLayout.setVerticalGroup(
             detailsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, detailsPanelLayout.createSequentialGroup()
-                .addComponent(detailsLabel, javax.swing.GroupLayout.DEFAULT_SIZE, 78, Short.MAX_VALUE)
-                .addContainerGap())
+            .addGroup(detailsPanelLayout.createSequentialGroup()
+                .addComponent(detailsLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 78, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
@@ -728,13 +752,10 @@ public class BackupManagerGUI extends javax.swing.JFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(TabbedPane)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
-                        .addComponent(jLabel3)))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jLabel3)
                 .addContainerGap())
+            .addComponent(TabbedPane, javax.swing.GroupLayout.Alignment.TRAILING)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1030,14 +1051,6 @@ public class BackupManagerGUI extends javax.swing.JFrame {
         SingleBackup(startPathField.getText(), destinationPathField.getText());
     }//GEN-LAST:event_SingleBackupActionPerformed
 
-    private void btnPathSearch2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPathSearch2ActionPerformed
-        pathSearchWithFileChooser(destinationPathField);
-    }//GEN-LAST:event_btnPathSearch2ActionPerformed
-
-    private void btnPathSearch1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPathSearch1ActionPerformed
-        pathSearchWithFileChooser(startPathField);
-    }//GEN-LAST:event_btnPathSearch1ActionPerformed
-
     private void pathSearchWithFileChooser(JTextField textField) {
         JFileChooser jfc = new JFileChooser(FileSystemView.getFileSystemView().getHomeDirectory());
         jfc.setDialogTitle("Choose a directory to save your file: ");
@@ -1266,33 +1279,6 @@ public class BackupManagerGUI extends javax.swing.JFrame {
         clipboardObj.setContents(stringSelectionObj, null);
     }//GEN-LAST:event_MenuShareActionPerformed
     
-    private void btnTimePickerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTimePickerActionPerformed
-        TimeInterval timeInterval = openTimePicker(currentBackup.getTimeIntervalBackup());
-        
-        if (timeInterval == null) return;
-        
-        btnTimePicker.setToolTipText(timeInterval.toString());
-        LocalDateTime nextDateBackup = LocalDateTime.now().plusDays(timeInterval.getDays())
-                    .plusHours(timeInterval.getHours())
-                    .plusMinutes(timeInterval.getMinutes());
-
-        currentBackup.setTimeIntervalBackup(timeInterval);
-        currentBackup.setNextDateBackup(nextDateBackup);
-        
-        currentBackup.setInitialPath(GetStartPathField());
-        currentBackup.setDestinationPath(GetDestinationPathField());
-        for (Backup b : backups) {
-            if (b.getBackupName().equals(currentBackup.getBackupName())) {
-                b.UpdateBackup(currentBackup);
-                break;
-            }
-        }
-        JSON.UpdateBackupListJSON(ConfigKey.BACKUP_FILE_STRING.getValue(), ConfigKey.RES_DIRECTORY_STRING.getValue(), backups);
-        updateTableWithNewBackupList(backups);
-        
-        JOptionPane.showMessageDialog(null, "Auto Backup has been activated\n\tFrom: " + startPathField.getText() + "\n\tTo: " + destinationPathField.getText() + "\nIs setted every " + timeInterval.toString() + " days", "AutoBackup", 1);
-    }//GEN-LAST:event_btnTimePickerActionPerformed
-
     private void toggleAutoBackupActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_toggleAutoBackupActionPerformed
         Logger.logMessage("Event --> auto backup preference", Logger.LogLevel.INFO);
         
@@ -1371,6 +1357,41 @@ public class BackupManagerGUI extends javax.swing.JFrame {
         Logger.logMessage("Event --> shard website", Logger.LogLevel.INFO);
         openWebSite(ConfigKey.INFO_PAGE_LINK.getValue());
     }//GEN-LAST:event_MenuInfoPageActionPerformed
+
+    private void btnPathSearch2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPathSearch2ActionPerformed
+        pathSearchWithFileChooser(destinationPathField);
+    }//GEN-LAST:event_btnPathSearch2ActionPerformed
+
+    private void btnPathSearch1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPathSearch1ActionPerformed
+        pathSearchWithFileChooser(startPathField);
+    }//GEN-LAST:event_btnPathSearch1ActionPerformed
+
+    private void btnTimePickerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTimePickerActionPerformed
+        TimeInterval timeInterval = openTimePicker(currentBackup.getTimeIntervalBackup());
+
+        if (timeInterval == null) return;
+
+        btnTimePicker.setToolTipText(timeInterval.toString());
+        LocalDateTime nextDateBackup = LocalDateTime.now().plusDays(timeInterval.getDays())
+        .plusHours(timeInterval.getHours())
+        .plusMinutes(timeInterval.getMinutes());
+
+        currentBackup.setTimeIntervalBackup(timeInterval);
+        currentBackup.setNextDateBackup(nextDateBackup);
+
+        currentBackup.setInitialPath(GetStartPathField());
+        currentBackup.setDestinationPath(GetDestinationPathField());
+        for (Backup b : backups) {
+            if (b.getBackupName().equals(currentBackup.getBackupName())) {
+                b.UpdateBackup(currentBackup);
+                break;
+            }
+        }
+        JSON.UpdateBackupListJSON(ConfigKey.BACKUP_FILE_STRING.getValue(), ConfigKey.RES_DIRECTORY_STRING.getValue(), backups);
+        updateTableWithNewBackupList(backups);
+
+        JOptionPane.showMessageDialog(null, "Auto Backup has been activated\n\tFrom: " + startPathField.getText() + "\n\tTo: " + destinationPathField.getText() + "\nIs setted every " + timeInterval.toString() + " days", "AutoBackup", 1);
+    }//GEN-LAST:event_btnTimePickerActionPerformed
     
     private TimeInterval openTimePicker(TimeInterval time) {
         TimePicker picker = new TimePicker(this, time, true);

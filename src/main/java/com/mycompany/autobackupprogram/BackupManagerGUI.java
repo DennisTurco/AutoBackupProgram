@@ -1294,7 +1294,7 @@ public class BackupManagerGUI extends javax.swing.JFrame {
         backup.setTimeIntervalBackup(null);
         backup.setNextDateBackup(null);
         backup.setLastUpdateDate(LocalDateTime.now());
-        updateTableWithNewBackupList(backups);
+        updateBackupList();
         
         // if the backup is the current backup i have to update the main panel
         if (backup.getBackupName().equals(currentBackup.getBackupName())) {

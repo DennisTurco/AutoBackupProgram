@@ -70,6 +70,7 @@ public class BackupOperations{
                 .plusMinutes(time.getMinutes());
         backup.setNextDateBackup(nextDateBackup);
         backup.setBackupCount(backup.getBackupCount()+1);
+        backup.setLastBackup(LocalDateTime.now());
         
         List<Backup> backups;
         try {

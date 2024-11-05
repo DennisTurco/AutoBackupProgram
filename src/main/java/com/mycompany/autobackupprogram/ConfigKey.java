@@ -18,7 +18,8 @@ public enum ConfigKey {
     INFO_PAGE_LINK,
     EMAIL,
     SHARD_WEBSITE,
-    LOGO_IMG;
+    LOGO_IMG,
+    SHARE_LINK;
 
     private static final Map<ConfigKey, String> configValues = new EnumMap<>(ConfigKey.class);
 

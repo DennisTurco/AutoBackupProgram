@@ -1,3 +1,119 @@
+2024-11-06T00:15:45.783170900 [INFO] The application is running with administrator privileges.
+2024-11-06T00:15:45.292100700 [DEBUG] Background mode: false
+2024-11-06T00:15:45.277221300 [INFO] Application started
+2024-11-06T00:15:41.061059100 [INFO] Event --> auto backup disabled
+2024-11-06T00:15:24.348783 [INFO] Event --> shard website
+2024-11-06T00:15:18.419572400 [INFO] Event --> share
+2024-11-06T00:15:13.040363100 [INFO] Event --> bug report
+2024-11-06T00:15:09.267241 [INFO] The application is running with administrator privileges.
+2024-11-06T00:15:08.777597 [DEBUG] Background mode: false
+2024-11-06T00:15:08.760236900 [INFO] Application started
+2024-11-06T00:09:26.730406100 [INFO] The application is running with administrator privileges.
+2024-11-06T00:09:26.225619100 [DEBUG] Background mode: false
+2024-11-06T00:09:26.209251300 [INFO] Application started
+2024-11-06T00:09:05.342976100 [INFO] date backup: 06-11-2024 00.09.05
+2024-11-06T00:09:05.335535900 [INFO] Event --> automatic single backup automatic
+2024-11-06T00:09:05.308752 [WARN] Input Error! One or both paths do not exist.
+2024-11-06T00:09:05.301808500 [INFO] Event --> automatic single backup automatic
+2024-11-06T00:09:05.248737300 [INFO] date backup: 06-11-2024 00.09.05
+2024-11-06T00:09:05.240800600 [INFO] Event --> automatic single backup automatic
+2024-11-06T00:09:05.222943700 [INFO] date backup: 06-11-2024 00.09.05
+2024-11-06T00:09:05.215608400 [INFO] Event --> automatic single backup automatic
+2024-11-06T00:09:05.209161500 [INFO] Start backup process.
+2024-11-06T00:09:05.200729 [INFO] Checking for automatic backup...
+2024-11-06T00:08:05.215909900 [WARN] Input Error! One or both paths do not exist.
+2024-11-06T00:08:05.209981800 [INFO] Event --> automatic single backup automatic
+2024-11-06T00:08:05.203536 [INFO] Start backup process.
+2024-11-06T00:08:05.196097300 [INFO] Checking for automatic backup...
+2024-11-06T00:07:05.313200 [INFO] date backup: 06-11-2024 00.07.05
+2024-11-06T00:07:05.306255800 [INFO] Event --> automatic single backup automatic
+2024-11-06T00:07:05.277487800 [WARN] Input Error! One or both paths do not exist.
+2024-11-06T00:07:05.270047700 [INFO] Event --> automatic single backup automatic
+2024-11-06T00:07:05.236816500 [INFO] date backup: 06-11-2024 00.07.05
+2024-11-06T00:07:05.229871900 [INFO] Event --> automatic single backup automatic
+2024-11-06T00:07:05.215488500 [INFO] date backup: 06-11-2024 00.07.05
+2024-11-06T00:07:05.208573800 [INFO] Event --> automatic single backup automatic
+2024-11-06T00:07:05.202619500 [INFO] Start backup process.
+2024-11-06T00:07:05.195151800 [INFO] Checking for automatic backup...
+2024-11-06T00:06:05.215282700 [WARN] Input Error! One or both paths do not exist.
+2024-11-06T00:06:05.207865300 [INFO] Event --> automatic single backup automatic
+2024-11-06T00:06:05.202124600 [INFO] Start backup process.
+2024-11-06T00:06:05.193695300 [INFO] Checking for automatic backup...
+2024-11-06T00:05:21.843226100 [INFO] The application is running with administrator privileges.
+2024-11-06T00:05:21.340877100 [DEBUG] Background mode: false
+2024-11-06T00:05:21.325005 [INFO] Application started
+2024-11-06T00:05:05.341300200 [INFO] date backup: 06-11-2024 00.05.05
+2024-11-06T00:05:05.334852800 [INFO] Event --> automatic single backup automatic
+2024-11-06T00:05:05.301124700 [WARN] Input Error! One or both paths do not exist.
+2024-11-06T00:05:05.293188300 [INFO] Event --> automatic single backup automatic
+2024-11-06T00:05:05.262932500 [INFO] date backup: 06-11-2024 00.05.05
+2024-11-06T00:05:05.254996600 [INFO] Event --> automatic single backup automatic
+2024-11-06T00:05:05.241108600 [INFO] date backup: 06-11-2024 00.05.05
+2024-11-06T00:05:05.220276300 [INFO] Event --> automatic single backup automatic
+2024-11-06T00:05:05.210852700 [INFO] Start backup process.
+2024-11-06T00:05:05.198452100 [INFO] Checking for automatic backup...
+2024-11-06T00:05:05.190516300 [INFO] Time interval set to 1 minutes
+2024-11-06T00:05:05.180596800 [INFO] TrayIcon added
+2024-11-06T00:05:04.946774600 [INFO] Backup service starting in the background
+2024-11-06T00:05:04.939832400 [DEBUG] Background mode: true
+2024-11-06T00:05:04.924951100 [INFO] Application started
+2024-11-06T00:04:11.748986100 [INFO] Event --> removing backup
+2024-11-06T00:04:11.100446800 [INFO] Event --> deleting backup
+2024-11-06T00:04:09.084956900 [INFO] Event --> removing backup
+2024-11-06T00:04:08.351317200 [INFO] Event --> deleting backup
+2024-11-06T00:03:48.459729100 [INFO] The application is running with administrator privileges.
+2024-11-06T00:03:47.976510400 [DEBUG] Background mode: false
+2024-11-06T00:03:47.960638700 [INFO] Application started
+2024-11-06T00:03:15.768195500 [INFO] Event --> duplicating backup
+2024-11-06T00:03:11.297352700 [INFO] The application is running with administrator privileges.
+2024-11-06T00:03:10.820144300 [DEBUG] Background mode: false
+2024-11-06T00:03:10.803926300 [INFO] Application started
+2024-11-06T00:01:42.650531100 [INFO] Event --> duplicating backup
+2024-11-06T00:01:26.983750800 [INFO] The application is running with administrator privileges.
+2024-11-06T00:01:26.490904600 [DEBUG] Background mode: false
+2024-11-06T00:01:26.474536500 [INFO] Application started
+2024-11-06T00:01:14.322924700 [INFO] Event --> opening backup
+2024-11-06T00:01:14.316476100 [INFO] Edit row : 0
+2024-11-06T00:01:12.385634100 [INFO] Event --> opening backup
+2024-11-06T00:01:12.377201700 [INFO] Edit row : 2
+2024-11-06T00:01:06.780177100 [INFO] The application is running with administrator privileges.
+2024-11-06T00:01:06.292307300 [DEBUG] Background mode: false
+2024-11-06T00:01:06.276407300 [INFO] Application started
+2024-11-06T00:00:02.322307400 [INFO] date backup: 06-11-2024 00.00.02
+2024-11-06T00:00:02.313380200 [INFO] Event --> single backup
+2024-11-06T00:00:01.355642100 [INFO] Event --> opening backup
+2024-11-06T00:00:01.348698200 [INFO] Edit row : 0
+2024-11-05T23:59:58.903061800 [INFO] The application is running with administrator privileges.
+2024-11-05T23:59:58.414388500 [DEBUG] Background mode: false
+2024-11-05T23:59:58.399002500 [INFO] Application started
+2024-11-05T23:50:46.354877 [INFO] date backup: 05-11-2024 23.50.46
+2024-11-05T23:50:46.346914900 [INFO] Event --> single backup
+2024-11-05T23:50:45.412897900 [INFO] Event --> opening backup
+2024-11-05T23:50:45.405925500 [INFO] Edit row : 0
+2024-11-05T23:50:43.195740100 [INFO] The application is running with administrator privileges.
+2024-11-05T23:50:42.709037500 [DEBUG] Background mode: false
+2024-11-05T23:50:42.694157400 [INFO] Application started
+2024-11-05T23:47:42.377480 [INFO] date backup: 05-11-2024 23.47.42
+2024-11-05T23:47:42.368055800 [INFO] Event --> single backup
+2024-11-05T23:47:35.617233500 [INFO] Event --> opening backup
+2024-11-05T23:47:35.611281500 [INFO] Edit row : 0
+2024-11-05T23:47:31.203924 [INFO] The application is running with administrator privileges.
+2024-11-05T23:47:30.713938500 [DEBUG] Background mode: false
+2024-11-05T23:47:30.698066500 [INFO] Application started
+2024-11-05T23:41:31.982747900 [INFO] date backup: 05-11-2024 23.41.31
+2024-11-05T23:41:31.975311600 [INFO] Event --> single backup
+2024-11-05T23:41:30.725048900 [INFO] Event --> opening backup
+2024-11-05T23:41:30.717608700 [INFO] Edit row : 2
+2024-11-05T23:41:22.167222 [INFO] The application is running with administrator privileges.
+2024-11-05T23:41:21.669809300 [DEBUG] Background mode: false
+2024-11-05T23:41:21.653965300 [INFO] Application started
+2024-11-05T23:41:14.281028100 [INFO] date backup: 05-11-2024 23.41.14
+2024-11-05T23:41:14.273092300 [INFO] Event --> single backup
+2024-11-05T23:41:12.686345200 [INFO] Event --> opening backup
+2024-11-05T23:41:12.679401300 [INFO] Edit row : 2
+2024-11-05T23:41:09.507474500 [INFO] The application is running with administrator privileges.
+2024-11-05T23:41:08.993607800 [DEBUG] Background mode: false
+2024-11-05T23:41:08.976744 [INFO] Application started
 2024-11-05T23:14:28.178759100 [INFO] The application is running with administrator privileges.
 2024-11-05T23:14:27.695066100 [DEBUG] Background mode: false
 2024-11-05T23:14:27.679195300 [INFO] Application started

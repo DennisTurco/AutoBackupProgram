@@ -1234,14 +1234,14 @@ public class BackupManagerGUI extends javax.swing.JFrame {
                     backup.getBackupName() + "_copy",
                     backup.getInitialPath(),
                     backup.getDestinationPath(),
-                    backup.getLastBackup(),
+                    null,
                     backup.isAutoBackup(),
                     backup.getNextDateBackup(),
                     backup.getTimeIntervalBackup(),
                     backup.getNotes(),
                     dateNow,
                     dateNow,
-                    backup.getBackupCount()
+                    0
             );
             
             backups.add(newBackup); 
@@ -1338,8 +1338,7 @@ public class BackupManagerGUI extends javax.swing.JFrame {
         JOptionPane.showMessageDialog(null, "Share link copied to clipboard!");
 
         // copy link to the clipboard
-        String testString = "https://github.com/DennisTurco/AutoBackup-Installer";
-        StringSelection stringSelectionObj = new StringSelection(testString);
+        StringSelection stringSelectionObj = new StringSelection(ConfigKey.SHARE_LINK.getValue());
         Clipboard clipboardObj = Toolkit.getDefaultToolkit().getSystemClipboard();
         clipboardObj.setContents(stringSelectionObj, null);
     }//GEN-LAST:event_MenuShareActionPerformed
@@ -1696,11 +1695,6 @@ public class BackupManagerGUI extends javax.swing.JFrame {
         //------------------------------COPY THE FILE OR DIRECTORY------------------------------
         Logger.logMessage("date backup: " + date, Logger.LogLevel.INFO);
     	
-        // if current_file_opened is null it means I'm not in a backup but it's a backup with no associated json file so I don't save the string last_backup
-        if (currentBackup != null && currentBackup.getBackupName() != null) { 
-            setStringToText();
-        }
-        
         try {
             progressBar = new BackupProgressGUI(path1, path2);
             progressBar.setVisible(true);
@@ -1711,6 +1705,11 @@ public class BackupManagerGUI extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "Error during the backup operation: the initial path is incorrect!", "Error", JOptionPane.ERROR_MESSAGE);
             return;
         } 
+        
+        // if current_file_opened is null it means I'm not in a backup but it's a backup with no associated json file so I don't save the string last_backup
+        if (currentBackup != null && currentBackup.getBackupName() != null) { 
+            setStringToText();
+        }
                 
         // next day backup update
         if (currentBackup.isAutoBackup() == true) {
@@ -1727,6 +1726,7 @@ public class BackupManagerGUI extends javax.swing.JFrame {
             if (currentBackup.getBackupName() != null && !currentBackup.getBackupName().isEmpty()) { 
                 currentBackup.setInitialPath(GetStartPathField());
                 currentBackup.setDestinationPath(GetDestinationPathField());
+                currentBackup.setLastBackup(LocalDateTime.now());
                 for (Backup b : backups) {
                     if (b.getBackupName().equals(currentBackup.getBackupName())) {
                         b.UpdateBackup(currentBackup);
@@ -1736,6 +1736,8 @@ public class BackupManagerGUI extends javax.swing.JFrame {
 
                 updateBackup();
             }
+            
+            System.out.println(currentBackup.toString());
         } catch (IllegalArgumentException ex) {
             Logger.logMessage("An error occurred", Logger.LogLevel.ERROR, ex);
             OpenExceptionMessage(ex.getMessage(), Arrays.toString(ex.getStackTrace()));
@@ -1756,10 +1758,6 @@ public class BackupManagerGUI extends javax.swing.JFrame {
     public void UpdateProgressBar(int value) {
         System.out.println("Progress: " + value);
         progressBar.UpdateProgressBar(value);
-        
-        if (value == 100) {
-            currentBackup.setLastBackup(LocalDateTime.now());
-        }
     }
 	
     public void setStringToText() {

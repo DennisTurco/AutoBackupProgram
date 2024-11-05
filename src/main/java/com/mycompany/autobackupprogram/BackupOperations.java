@@ -3,6 +3,7 @@ package com.mycompany.autobackupprogram;
 import static com.mycompany.autobackupprogram.BackupManagerGUI.OpenExceptionMessage;
 import static com.mycompany.autobackupprogram.BackupManagerGUI.dateForfolderNameFormatter;
 import java.awt.TrayIcon;
+import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
@@ -120,54 +121,58 @@ public class BackupOperations{
     
     public static void zipDirectory(String sourceDirectoryPath, String targetZipPath) throws IOException { // Track copied files
         zipThread = new Thread(() -> {
+            File file = new File(sourceDirectoryPath);
             Path sourceDir = Paths.get(sourceDirectoryPath);
             String rootFolderName = sourceDir.getFileName().toString(); // Get the root folder name
 
             try (ZipOutputStream zipOut = new ZipOutputStream(new FileOutputStream(targetZipPath))) {
-                Files.walkFileTree(sourceDir, new SimpleFileVisitor<Path>() {
-                    @Override
-                    public FileVisitResult visitFile(Path file, BasicFileAttributes attrs) throws IOException {
-                        if (Thread.currentThread().isInterrupted()) {
-                            Logger.logMessage("Zipping process manually interrupted", Logger.LogLevel.INFO);
-                            return FileVisitResult.TERMINATE; // Stop if interrupted
-                        }
-
-                        // Calculate the relative path inside the zip
-                        Path targetFilePath = sourceDir.relativize(file);
-                        String zipEntryName = rootFolderName + "/" + targetFilePath.toString();
-
-                        // Create a new zip entry for the file
-                        zipOut.putNextEntry(new ZipEntry(zipEntryName));
-
-                        // Copy the file content to the zip output stream
-                        try (InputStream in = Files.newInputStream(file)) {
-                            byte[] buffer = new byte[1024];
-                            int len;
-                            while ((len = in.read(buffer)) > 0) {
-                                zipOut.write(buffer, 0, len);
+                if (file.isFile()) {
+                    addFileToZip(zipOut, file.toPath(), "");
+                } else {
+                    Files.walkFileTree(sourceDir, new SimpleFileVisitor<Path>() {
+                        @Override
+                        public FileVisitResult visitFile(Path file, BasicFileAttributes attrs) throws IOException {
+                            if (Thread.currentThread().isInterrupted()) {
+                                Logger.logMessage("Zipping process manually interrupted", Logger.LogLevel.INFO);
+                                return FileVisitResult.TERMINATE; // Stop if interrupted
                             }
+
+                            // Calculate the relative path inside the zip
+                            Path targetFilePath = sourceDir.relativize(file);
+                            String zipEntryName = rootFolderName + "/" + targetFilePath.toString();
+
+                            // Create a new zip entry for the file
+                            zipOut.putNextEntry(new ZipEntry(zipEntryName));
+
+                            // Copy the file content to the zip output stream
+                            try (InputStream in = Files.newInputStream(file)) {
+                                byte[] buffer = new byte[1024];
+                                int len;
+                                while ((len = in.read(buffer)) > 0) {
+                                    zipOut.write(buffer, 0, len);
+                                }
+                            }
+
+                            zipOut.closeEntry(); // Close the zip entry after the file is written
+
+                            return FileVisitResult.CONTINUE;
                         }
 
-                        zipOut.closeEntry(); // Close the zip entry after the file is written
+                        @Override
+                        public FileVisitResult preVisitDirectory(Path dir, BasicFileAttributes attrs) throws IOException {
+                            if (Thread.currentThread().isInterrupted()) {
+                                Logger.logMessage("Zipping process manually interrupted", Logger.LogLevel.INFO);
+                                return FileVisitResult.TERMINATE; // Stop if interrupted
+                            }
 
-                        return FileVisitResult.CONTINUE;
-                    }
-
-                    @Override
-                    public FileVisitResult preVisitDirectory(Path dir, BasicFileAttributes attrs) throws IOException {
-                        if (Thread.currentThread().isInterrupted()) {
-                            Logger.logMessage("Zipping process manually interrupted", Logger.LogLevel.INFO);
-                            return FileVisitResult.TERMINATE; // Stop if interrupted
+                            // Create directory entry in the zip if needed
+                            Path targetDir = sourceDir.relativize(dir);
+                            zipOut.putNextEntry(new ZipEntry(rootFolderName + "/" + targetDir.toString() + "/"));
+                            zipOut.closeEntry();
+                            return FileVisitResult.CONTINUE;
                         }
-
-                        // Create directory entry in the zip if needed
-                        Path targetDir = sourceDir.relativize(dir);
-                        zipOut.putNextEntry(new ZipEntry(rootFolderName + "/" + targetDir.toString() + "/"));
-                        zipOut.closeEntry();
-                        return FileVisitResult.CONTINUE;
-                    }
-                });
-
+                    });
+                }
             } catch (IOException ex) {
                 Logger.logMessage("An error occurred", Logger.LogLevel.ERROR, ex);
                 ex.printStackTrace();  // Handle the exception as necessary
@@ -175,5 +180,23 @@ public class BackupOperations{
         });
 
         zipThread.start(); // Start the zipping thread
+    }
+    
+    private static void addFileToZip(ZipOutputStream zipOut, Path file, String zipEntryName) throws IOException {
+        if (zipEntryName.isEmpty()) {
+            zipEntryName = file.getFileName().toString();
+        }
+
+        zipOut.putNextEntry(new ZipEntry(zipEntryName));
+
+        try (InputStream in = Files.newInputStream(file)) {
+            byte[] buffer = new byte[1024];
+            int len;
+            while ((len = in.read(buffer)) > 0) {
+                zipOut.write(buffer, 0, len);
+            }
+        }
+
+        zipOut.closeEntry();
     }
 }

@@ -1,3 +1,155 @@
+2024-11-05T23:14:28.178759100 [INFO] The application is running with administrator privileges.
+2024-11-05T23:14:27.695066100 [DEBUG] Background mode: false
+2024-11-05T23:14:27.679195300 [INFO] Application started
+2024-11-05T23:14:23.835329600 [INFO] Event --> auto backup disabled
+2024-11-05T23:14:12.052739900 [INFO] The application is running with administrator privileges.
+2024-11-05T23:14:11.566584400 [DEBUG] Background mode: false
+2024-11-05T23:14:11.550712400 [INFO] Application started
+2024-11-05T23:14:06.283374300 [INFO] Event --> auto backup disabled
+2024-11-05T23:14:06.276897900 [INFO] Event --> Auto Backup setted to Disabled
+2024-11-05T23:14:04.836011100 [INFO] Event --> auto backup preference
+2024-11-05T23:14:00.323691400 [INFO] Event --> Auto Backup setted to Enabled
+2024-11-05T23:14:00.317243600 [INFO] Event --> automatic backup
+2024-11-05T23:13:59.296934400 [INFO] Event --> auto backup preference
+2024-11-05T23:13:58.496362800 [INFO] Event --> saving backup
+2024-11-05T23:13:52.836421100 [WARN] Input Error! One or both paths do not exist.
+2024-11-05T23:13:52.829511800 [INFO] Event --> auto backup preference
+2024-11-05T23:13:51.117203300 [INFO] Event --> opening backup
+2024-11-05T23:13:51.109798100 [INFO] Edit row : 1
+2024-11-05T23:13:35.346380100 [INFO] The application is running with administrator privileges.
+2024-11-05T23:13:34.858226100 [DEBUG] Background mode: false
+2024-11-05T23:13:34.843842900 [INFO] Application started
+2024-11-05T23:13:30.322056100 [INFO] Event --> auto backup disabled
+2024-11-05T23:13:28.186125400 [INFO] Event --> auto backup disabled
+2024-11-05T23:13:10.999273600 [INFO] The application is running with administrator privileges.
+2024-11-05T23:13:10.494836100 [DEBUG] Background mode: false
+2024-11-05T23:13:10.479956100 [INFO] Application started
+2024-11-05T23:12:30.860613300 [INFO] date backup: 05-11-2024 23.12.30
+2024-11-05T23:12:30.853172900 [INFO] Event --> automatic single backup automatic
+2024-11-05T23:12:30.823910900 [WARN] Input Error! One or both paths do not exist.
+2024-11-05T23:12:30.816965 [INFO] Event --> automatic single backup automatic
+2024-11-05T23:12:30.786212800 [INFO] date backup: 05-11-2024 23.12.30
+2024-11-05T23:12:30.779269 [INFO] Event --> automatic single backup automatic
+2024-11-05T23:12:30.755957200 [WARN] Input Error! One or both paths do not exist.
+2024-11-05T23:12:30.749013200 [INFO] Event --> automatic single backup automatic
+2024-11-05T23:12:30.728677 [INFO] date backup: 05-11-2024 23.12.30
+2024-11-05T23:12:30.695858500 [INFO] Event --> automatic single backup automatic
+2024-11-05T23:12:30.685938500 [INFO] Start backup process.
+2024-11-05T23:12:30.675495200 [INFO] Checking for automatic backup...
+2024-11-05T23:12:30.666456 [INFO] Time interval set to 1 minutes
+2024-11-05T23:12:30.656011900 [INFO] TrayIcon added
+2024-11-05T23:12:30.395327400 [INFO] Backup service starting in the background
+2024-11-05T23:12:30.388874400 [DEBUG] Background mode: true
+2024-11-05T23:12:30.374986300 [INFO] Application started
+2024-11-05T23:01:11.408638900 [INFO] Event --> auto backup disabled
+2024-11-05T23:01:07.910508 [INFO] Event --> auto backup disabled
+2024-11-05T23:00:27.069487200 [INFO] Event --> Next date backup setted to 2024-11-05T23:01:27.068989300
+2024-11-05T23:00:23.934289600 [INFO] Event --> automatic backup
+2024-11-05T23:00:16.708651100 [INFO] Backup 'prova' saved successfully!
+2024-11-05T23:00:14.614264400 [INFO] Event --> save with name
+2024-11-05T23:00:14.608285300 [INFO] Event --> saving backup
+2024-11-05T23:00:09.265561400 [INFO] Event --> save with name
+2024-11-05T23:00:09.257743200 [INFO] Event --> saving backup
+2024-11-05T23:00:02.565769300 [INFO] Event --> save with name
+2024-11-05T23:00:02.558797400 [INFO] Event --> saving backup
+2024-11-05T22:58:42.771663900 [INFO] You selected the directory: C:\Users\Utente\Desktop
+2024-11-05T22:58:14.634424200 [INFO] You selected the file: C:\Users\Utente\Desktop\Stalcraft1.mp4
+2024-11-05T22:58:02.172975100 [INFO] The application is running with administrator privileges.
+2024-11-05T22:58:01.416466300 [DEBUG] Background mode: false
+2024-11-05T22:58:01.401505500 [INFO] Application started
+2024-11-05T19:09:11.275387800 [INFO] The application is running with administrator privileges.
+2024-11-05T19:09:10.780662100 [DEBUG] Background mode: false
+2024-11-05T19:09:10.764293900 [INFO] Application started
+2024-11-05T19:05:10.711528400 [INFO] date backup: 05-11-2024 19.05.10
+2024-11-05T19:05:10.701579700 [INFO] Event --> single backup
+2024-11-05T19:05:09.187876900 [INFO] You selected the directory: C:\Users\Utente\Desktop
+2024-11-05T19:05:07.001765600 [INFO] You selected the file: C:\Users\Utente\Desktop\Stalcraft1.mp4
+2024-11-05T19:05:02.179581 [INFO] The application is running with administrator privileges.
+2024-11-05T19:05:01.683940800 [DEBUG] Background mode: false
+2024-11-05T19:05:01.667076400 [INFO] Application started
+2024-11-05T19:00:49.154460 [INFO] date backup: 05-11-2024 19.00.49
+2024-11-05T19:00:49.144507400 [INFO] Event --> single backup
+2024-11-05T19:00:46.007854700 [INFO] You selected the directory: C:\Users\Utente\Desktop
+2024-11-05T19:00:41.713023300 [INFO] You selected the file: C:\Users\Utente\Desktop\Stalcraft1.mp4
+2024-11-05T19:00:37.277690200 [INFO] The application is running with administrator privileges.
+2024-11-05T19:00:36.758948800 [DEBUG] Background mode: false
+2024-11-05T19:00:36.743573100 [INFO] Application started
+2024-11-05T18:55:12.152931 [INFO] date backup: 05-11-2024 18.55.12
+2024-11-05T18:55:12.143478600 [INFO] Event --> single backup
+2024-11-05T18:55:09.069622100 [INFO] You selected the directory: C:\Users\Utente\Desktop\gg
+2024-11-05T18:54:56.369609500 [INFO] You selected the file: C:\Users\Utente\Desktop\token.json
+2024-11-05T18:54:50.105948900 [INFO] The application is running with administrator privileges.
+2024-11-05T18:54:49.600246400 [DEBUG] Background mode: false
+2024-11-05T18:54:49.584870400 [INFO] Application started
+2024-11-05T18:52:58.632144 [INFO] The application is running with administrator privileges.
+2024-11-05T18:52:57.961110900 [DEBUG] Background mode: false
+2024-11-05T18:52:57.945735 [INFO] Application started
+2024-11-04T23:48:57.563630900 [INFO] The application is running with administrator privileges.
+2024-11-04T23:48:57.068244600 [DEBUG] Background mode: false
+2024-11-04T23:48:57.052868100 [INFO] Application started
+2024-11-04T23:47:16.346178900 [INFO] The application is running with administrator privileges.
+2024-11-04T23:47:15.848069900 [DEBUG] Background mode: false
+2024-11-04T23:47:15.832693900 [INFO] Application started
+2024-11-04T23:41:21.950697600 [INFO] The application is running with administrator privileges.
+2024-11-04T23:41:21.448943700 [DEBUG] Background mode: false
+2024-11-04T23:41:21.434063500 [INFO] Application started
+2024-11-04T23:32:21.250719700 [INFO] The application is running with administrator privileges.
+2024-11-04T23:32:20.754341400 [DEBUG] Background mode: false
+2024-11-04T23:32:20.739461400 [INFO] Application started
+2024-11-04T23:23:12.899188900 [INFO] The application is running with administrator privileges.
+2024-11-04T23:23:12.396437400 [DEBUG] Background mode: false
+2024-11-04T23:23:12.380565500 [INFO] Application started
+2024-11-04T23:07:28.974244700 [INFO] Event --> opening backup
+2024-11-04T23:07:28.967293400 [INFO] Edit row : 0
+2024-11-04T23:07:25.521213100 [INFO] The application is running with administrator privileges.
+2024-11-04T23:07:25.009489 [DEBUG] Background mode: false
+2024-11-04T23:07:24.993121300 [INFO] Application started
+2024-11-04T23:06:20.429811700 [INFO] Event --> opening backup
+2024-11-04T23:06:20.423334200 [INFO] Edit row : 0
+2024-11-04T23:06:18.578995200 [INFO] Event --> saving backup
+2024-11-04T23:06:17.407310700 [INFO] Event --> opening backup
+2024-11-04T23:06:17.401330 [INFO] Edit row : 3
+2024-11-04T23:06:13.339309500 [INFO] Event --> opening backup
+2024-11-04T23:06:13.333357400 [INFO] Edit row : 3
+2024-11-04T23:06:11.078171500 [INFO] You selected the directory: C:\Users\Utente\Desktop\AutoBackupProgram
+2024-11-04T23:06:07.384350 [INFO] Event --> opening backup
+2024-11-04T23:06:07.378398300 [INFO] Edit row : 0
+2024-11-04T23:06:03.472143200 [INFO] Event --> opening backup
+2024-11-04T23:06:03.465735600 [INFO] Edit row : 2
+2024-11-04T23:05:58.118683900 [INFO] You selected the directory: C:\Users\Utente\Desktop\AutoBackupProgram
+2024-11-04T23:05:51.878202700 [INFO] You selected the directory: C:\Users\Utente\Desktop\gg
+2024-11-04T23:05:40.593808 [INFO] Event --> opening backup
+2024-11-04T23:05:40.587360200 [INFO] Edit row : 0
+2024-11-04T23:05:38.533739400 [INFO] Event --> opening backup
+2024-11-04T23:05:38.528286800 [INFO] Edit row : 1
+2024-11-04T23:05:36.732278800 [INFO] Event --> opening backup
+2024-11-04T23:05:36.725334800 [INFO] Edit row : 2
+2024-11-04T23:05:34.396822900 [INFO] Event --> opening backup
+2024-11-04T23:05:34.390840600 [INFO] Edit row : 3
+2024-11-04T23:05:31.473699700 [INFO] Event --> saving backup
+2024-11-04T23:05:28.216447700 [INFO] Event --> opening backup
+2024-11-04T23:05:28.210989 [INFO] Edit row : 1
+2024-11-04T23:05:21.447305200 [INFO] Event --> opening backup
+2024-11-04T23:05:21.440831300 [INFO] Edit row : 3
+2024-11-04T23:05:18.048574900 [INFO] Event --> saving backup
+2024-11-04T23:05:15.420824800 [INFO] Event --> opening backup
+2024-11-04T23:05:15.413880900 [INFO] Edit row : 2
+2024-11-04T23:05:13.552437100 [INFO] Event --> saving backup
+2024-11-04T23:05:10.505067300 [INFO] Event --> opening backup
+2024-11-04T23:05:10.499583800 [INFO] Edit row : 0
+2024-11-04T23:05:07.080517600 [INFO] Event --> opening backup
+2024-11-04T23:05:07.075033100 [INFO] Edit row : 3
+2024-11-04T23:05:04.970131700 [INFO] Event --> opening backup
+2024-11-04T23:05:04.964165900 [INFO] Edit row : 1
+2024-11-04T23:04:58.580306 [INFO] Event --> backup renaming
+2024-11-04T23:04:50.752919800 [INFO] Event --> backup renaming
+2024-11-04T23:04:41.027507400 [INFO] Event --> backup renaming
+2024-11-04T23:04:35.072983700 [INFO] Event --> duplicating backup
+2024-11-04T23:04:33.154292800 [INFO] Event --> duplicating backup
+2024-11-04T23:04:31.345060300 [INFO] Event --> duplicating backup
+2024-11-04T23:04:16.771541500 [INFO] The application is running with administrator privileges.
+2024-11-04T23:04:16.062007600 [DEBUG] Background mode: false
+2024-11-04T23:04:16.045639700 [INFO] Application started
 2024-11-02T21:25:31.390764 [INFO] The application is running with administrator privileges.
 2024-11-02T21:25:31.129085200 [INFO] Showing the GUI
 2024-11-02T21:25:16.522967100 [WARN] Input Error! One or both paths do not exist.

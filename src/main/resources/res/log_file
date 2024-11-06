@@ -1,3 +1,504 @@
+2024-11-06T15:31:37.256730900 [INFO] The application is running with administrator privileges.
+2024-11-06T15:31:36.781522200 [DEBUG] Background mode: false
+2024-11-06T15:31:36.763666500 [INFO] Application started
+2024-11-06T15:31:04.946853600 [INFO] The application is running with administrator privileges.
+2024-11-06T15:31:04.476996600 [DEBUG] Background mode: false
+2024-11-06T15:31:04.459608900 [INFO] Application started
+2024-11-06T15:30:35.254673200 [INFO] The application is running with administrator privileges.
+2024-11-06T15:30:34.756203200 [DEBUG] Background mode: false
+2024-11-06T15:30:34.738346300 [INFO] Application started
+2024-11-06T15:28:20.626626200 [INFO] Background service stopped
+2024-11-06T15:28:20.619681800 [DEBUG] Stopping background service
+2024-11-06T15:28:06.859145300 [INFO] Progress: 100
+2024-11-06T15:28:00.543164 [INFO] Progress: 75
+2024-11-06T15:28:00.535698600 [INFO] Progress: 75
+2024-11-06T15:27:58.519159500 [INFO] Progress: 50
+2024-11-06T15:27:58.512199100 [INFO] Progress: 50
+2024-11-06T15:27:58.342752400 [INFO] Progress: 25
+2024-11-06T15:27:58.334816500 [INFO] Progress: 25
+2024-11-06T15:27:58.182198700 [INFO] Progress: 0
+2024-11-06T15:27:58.162330700 [INFO] date backup: 06-11-2024 15.27.58
+2024-11-06T15:27:58.156378800 [INFO] Event --> automatic single backup started
+2024-11-06T15:27:58.150427400 [INFO] Start backup process.
+2024-11-06T15:27:58.141950800 [INFO] Checking for automatic backup...
+2024-11-06T15:26:58.150122400 [INFO] No backup needed at this time.
+2024-11-06T15:26:58.143150900 [INFO] Checking for automatic backup...
+2024-11-06T15:26:06.848469500 [INFO] Progress: 100
+2024-11-06T15:26:00.538726600 [INFO] Progress: 75
+2024-11-06T15:26:00.531301900 [INFO] Progress: 75
+2024-11-06T15:25:58.515472100 [INFO] Progress: 50
+2024-11-06T15:25:58.505818800 [INFO] Progress: 50
+2024-11-06T15:25:58.339150500 [INFO] Progress: 25
+2024-11-06T15:25:58.331213200 [INFO] Progress: 25
+2024-11-06T15:25:58.183488200 [INFO] Progress: 0
+2024-11-06T15:25:58.164670100 [INFO] date backup: 06-11-2024 15.25.58
+2024-11-06T15:25:58.157694400 [INFO] Event --> automatic single backup started
+2024-11-06T15:25:58.152196900 [INFO] Start backup process.
+2024-11-06T15:25:58.144220800 [INFO] Checking for automatic backup...
+2024-11-06T15:24:58.147074900 [INFO] No backup needed at this time.
+2024-11-06T15:24:58.137623100 [INFO] Checking for automatic backup...
+2024-11-06T15:24:06.785230400 [INFO] Progress: 100
+2024-11-06T15:24:00.571892500 [INFO] Progress: 75
+2024-11-06T15:24:00.563956500 [INFO] Progress: 75
+2024-11-06T15:23:58.556714100 [INFO] Progress: 50
+2024-11-06T15:23:58.549152100 [INFO] Progress: 50
+2024-11-06T15:23:58.372486700 [INFO] Progress: 25
+2024-11-06T15:23:58.365022300 [INFO] Progress: 25
+2024-11-06T15:23:58.203664 [INFO] Progress: 0
+2024-11-06T15:23:58.178415600 [INFO] date backup: 06-11-2024 15.23.58
+2024-11-06T15:23:58.160070600 [INFO] Event --> automatic single backup started
+2024-11-06T15:23:58.150404500 [INFO] Start backup process.
+2024-11-06T15:23:58.136828300 [INFO] Checking for automatic backup...
+2024-11-06T15:23:58.128370700 [INFO] Time interval set to 1 minutes
+2024-11-06T15:23:58.119938600 [INFO] TrayIcon added
+2024-11-06T15:23:57.885936600 [INFO] Backup service starting in the background
+2024-11-06T15:23:57.878000500 [DEBUG] Background mode: true
+2024-11-06T15:23:57.861136300 [INFO] Application started
+2024-11-06T15:23:06.316767100 [DEBUG] updating backup list
+2024-11-06T15:23:06.261409900 [INFO] Progress: 100
+2024-11-06T15:23:06.147864600 [INFO] date backup: 06-11-2024 15.23.06
+2024-11-06T15:23:06.138413600 [INFO] Event --> automatic single backup started
+2024-11-06T15:23:02.594976200 [INFO] The application is running with administrator privileges.
+2024-11-06T15:23:02.091752900 [DEBUG] Background mode: false
+2024-11-06T15:23:02.074426800 [INFO] Application started
+2024-11-06T15:22:16.043186300 [DEBUG] updating backup list
+2024-11-06T15:22:15.988742 [INFO] Progress: 100
+2024-11-06T15:22:15.875188900 [INFO] date backup: 06-11-2024 15.22.15
+2024-11-06T15:22:15.866725400 [INFO] Event --> automatic single backup started
+2024-11-06T15:22:12.118469400 [INFO] The application is running with administrator privileges.
+2024-11-06T15:22:11.610464400 [DEBUG] Background mode: false
+2024-11-06T15:22:11.590089 [INFO] Application started
+2024-11-06T15:19:27.441809600 [INFO] The application is running with administrator privileges.
+2024-11-06T15:19:26.941663200 [DEBUG] Background mode: false
+2024-11-06T15:19:26.923833900 [INFO] Application started
+2024-11-06T15:18:16.098916200 [DEBUG] updating backup list
+2024-11-06T15:18:16.079814900 [INFO] Progress: 100
+2024-11-06T15:18:15.934144800 [INFO] date backup: 06-11-2024 15.18.15
+2024-11-06T15:18:15.925742200 [INFO] Event --> single backup
+2024-11-06T15:18:15.223354800 [DEBUG] updating backup list
+2024-11-06T15:18:15.214959400 [INFO] Event --> auto backup disabled
+2024-11-06T15:18:15.207522800 [INFO] Event --> opening backup
+2024-11-06T15:18:15.201047700 [INFO] Edit row : 2
+2024-11-06T15:18:13.051612900 [INFO] The application is running with administrator privileges.
+2024-11-06T15:18:12.552647200 [DEBUG] Background mode: false
+2024-11-06T15:18:12.534813800 [INFO] Application started
+2024-11-06T15:15:29.446325300 [DEBUG] updating backup list
+2024-11-06T15:15:29.396084700 [INFO] Progress: 100
+2024-11-06T15:15:29.281481500 [INFO] date backup: 06-11-2024 15.15.29
+2024-11-06T15:15:29.272554300 [INFO] Event --> automatic single backup started
+2024-11-06T15:15:25.187856900 [INFO] The application is running with administrator privileges.
+2024-11-06T15:15:24.684241900 [DEBUG] Background mode: false
+2024-11-06T15:15:24.667377300 [INFO] Application started
+2024-11-06T15:12:04.705393100 [DEBUG] updating backup list
+2024-11-06T15:12:03.708636400 [INFO] Progress: 100
+2024-11-06T15:12:01.615997700 [INFO] date backup: 06-11-2024 15.12.01
+2024-11-06T15:12:01.609549600 [INFO] Event --> single backup
+2024-11-06T15:12:00.718038500 [INFO] You selected the file: C:\Users\Utente\Desktop\Biglietti.pdf
+2024-11-06T15:11:32.023129300 [DEBUG] updating backup list
+2024-11-06T15:11:31.997746400 [INFO] Progress: 100
+2024-11-06T15:11:31.880775500 [INFO] date backup: 06-11-2024 15.11.31
+2024-11-06T15:11:31.874791600 [INFO] Event --> single backup
+2024-11-06T15:11:30.879323 [INFO] You selected the directory: C:\Users\Utente\Desktop
+2024-11-06T15:11:28.703777200 [INFO] You selected the directory: C:\Users\Utente\Desktop\gg
+2024-11-06T15:11:23.573760400 [DEBUG] updating backup list
+2024-11-06T15:11:23.567342900 [INFO] Event --> auto backup disabled
+2024-11-06T15:11:23.561893600 [INFO] Event --> clear
+2024-11-06T15:11:23.555905200 [INFO] Event --> new backup
+2024-11-06T15:09:39.978489600 [DEBUG] updating backup list
+2024-11-06T15:09:39.955176800 [INFO] Progress: 100
+2024-11-06T15:09:39.829878400 [INFO] date backup: 06-11-2024 15.09.39
+2024-11-06T15:09:39.822032900 [INFO] Event --> single backup
+2024-11-06T15:09:38.220093300 [DEBUG] updating backup list
+2024-11-06T15:09:38.214112900 [INFO] Event --> auto backup disabled
+2024-11-06T15:09:38.207614100 [INFO] Event --> opening backup
+2024-11-06T15:09:38.201138200 [INFO] Edit row : 2
+2024-11-06T15:07:21.267868200 [DEBUG] updating backup list
+2024-11-06T15:07:21.212646500 [INFO] Progress: 100
+2024-11-06T15:07:21.099155500 [INFO] date backup: 06-11-2024 15.07.21
+2024-11-06T15:07:21.090723500 [INFO] Event --> automatic single backup started
+2024-11-06T15:07:17.071903600 [INFO] The application is running with administrator privileges.
+2024-11-06T15:07:16.561507800 [DEBUG] Background mode: false
+2024-11-06T15:07:16.544119 [INFO] Application started
+2024-11-06T15:06:48.094051900 [INFO] The application is running with administrator privileges.
+2024-11-06T15:06:47.592415300 [DEBUG] Background mode: false
+2024-11-06T15:06:47.575055200 [INFO] Application started
+2024-11-06T15:04:54.883192200 [DEBUG] updating backup list
+2024-11-06T15:04:54.766557400 [INFO] date backup: 06-11-2024 15.04.54
+2024-11-06T15:04:54.758596900 [INFO] Event --> automatic single backup started
+2024-11-06T15:04:51.430517300 [INFO] The application is running with administrator privileges.
+2024-11-06T15:04:50.937347900 [DEBUG] Background mode: false
+2024-11-06T15:04:50.918003300 [INFO] Application started
+2024-11-06T15:03:25.056309400 [DEBUG] updating backup list
+2024-11-06T15:03:16.447630800 [INFO] date backup: 06-11-2024 15.03.16
+2024-11-06T15:03:16.441175500 [INFO] Event --> automatic single backup started
+2024-11-06T15:03:06.614322700 [DEBUG] updating backup list
+2024-11-06T15:03:06.496275100 [INFO] date backup: 06-11-2024 15.03.06
+2024-11-06T15:03:06.487346500 [INFO] Event --> automatic single backup started
+2024-11-06T15:03:02.607079 [INFO] The application is running with administrator privileges.
+2024-11-06T15:03:02.110039600 [DEBUG] Background mode: false
+2024-11-06T15:03:02.092648500 [INFO] Application started
+2024-11-06T15:02:05.357763400 [DEBUG] updating backup list
+2024-11-06T15:02:05.242403700 [INFO] date backup: 06-11-2024 15.02.05
+2024-11-06T15:02:05.234433100 [INFO] Event --> automatic single backup started
+2024-11-06T15:01:58.996123500 [INFO] The application is running with administrator privileges.
+2024-11-06T15:01:58.491764300 [DEBUG] Background mode: false
+2024-11-06T15:01:58.474896800 [INFO] Application started
+2024-11-06T15:01:03.492376400 [DEBUG] updating backup list
+2024-11-06T15:00:54.999922900 [INFO] date backup: 06-11-2024 15.00.54
+2024-11-06T15:00:54.992811500 [INFO] Event --> automatic single backup started
+2024-11-06T15:00:49.499317400 [DEBUG] updating backup list
+2024-11-06T15:00:49.397223600 [INFO] date backup: 06-11-2024 15.00.49
+2024-11-06T15:00:49.391301700 [INFO] Event --> automatic single backup started
+2024-11-06T15:00:42.286344800 [DEBUG] updating backup list
+2024-11-06T15:00:42.183663300 [INFO] date backup: 06-11-2024 15.00.42
+2024-11-06T15:00:42.177711400 [INFO] Event --> automatic single backup started
+2024-11-06T15:00:30.202446800 [DEBUG] updating backup list
+2024-11-06T15:00:30.042386100 [INFO] date backup: 06-11-2024 15.00.30
+2024-11-06T15:00:30.035938300 [INFO] Event --> single backup
+2024-11-06T15:00:25.563275100 [DEBUG] updating backup list
+2024-11-06T15:00:25.556816400 [INFO] Event --> auto backup disabled
+2024-11-06T15:00:25.550397800 [INFO] Event --> opening backup
+2024-11-06T15:00:25.543949700 [INFO] Edit row : 2
+2024-11-06T14:59:58.461456700 [DEBUG] updating backup list
+2024-11-06T14:59:58.350839700 [INFO] date backup: 06-11-2024 14.59.58
+2024-11-06T14:59:58.344893500 [INFO] Event --> automatic single backup started
+2024-11-06T14:59:48.858396700 [DEBUG] updating backup list
+2024-11-06T14:59:48.743827500 [INFO] date backup: 06-11-2024 14.59.48
+2024-11-06T14:59:48.735799100 [INFO] Event --> automatic single backup started
+2024-11-06T14:59:41.009982700 [INFO] The application is running with administrator privileges.
+2024-11-06T14:59:40.515933500 [DEBUG] Background mode: false
+2024-11-06T14:59:40.499565500 [INFO] Application started
+2024-11-06T14:52:23.897483 [DEBUG] updating backup list
+2024-11-06T14:52:23.758364800 [INFO] date backup: 06-11-2024 14.52.23
+2024-11-06T14:52:23.751893200 [INFO] Event --> single backup
+2024-11-06T14:52:22.879621900 [DEBUG] updating backup list
+2024-11-06T14:52:22.872706500 [INFO] Event --> auto backup disabled
+2024-11-06T14:52:22.866229400 [INFO] Event --> opening backup
+2024-11-06T14:52:22.858789200 [INFO] Edit row : 2
+2024-11-06T14:52:07.440588100 [DEBUG] updating backup list
+2024-11-06T14:52:07.243726200 [INFO] date backup: 06-11-2024 14.52.07
+2024-11-06T14:52:07.234302200 [INFO] Event --> single backup
+2024-11-06T14:52:01.820853300 [INFO] The application is running with administrator privileges.
+2024-11-06T14:52:01.317257500 [DEBUG] Background mode: false
+2024-11-06T14:52:01.297913200 [INFO] Application started
+2024-11-06T14:49:33.522193 [INFO] The application is running with administrator privileges.
+2024-11-06T14:49:33.021337900 [DEBUG] Background mode: false
+2024-11-06T14:49:33.003847900 [INFO] Application started
+2024-11-06T14:49:21.720939700 [INFO] The application is running with administrator privileges.
+2024-11-06T14:49:21.228051800 [DEBUG] Background mode: false
+2024-11-06T14:49:21.211426100 [INFO] Application started
+2024-11-06T14:47:56.498516500 [DEBUG] updating backup list
+2024-11-06T14:47:56.299164100 [INFO] date backup: 06-11-2024 14.47.56
+2024-11-06T14:47:56.290704200 [INFO] Event --> single backup
+2024-11-06T14:47:52.138226900 [INFO] The application is running with administrator privileges.
+2024-11-06T14:47:51.615623500 [DEBUG] Background mode: false
+2024-11-06T14:47:51.598262700 [INFO] Application started
+2024-11-06T14:47:02.121589200 [DEBUG] updating backup list
+2024-11-06T14:47:01.905474600 [INFO] date backup: 06-11-2024 14.47.01
+2024-11-06T14:47:01.896546500 [INFO] Event --> single backup
+2024-11-06T14:46:51.639269900 [INFO] The application is running with administrator privileges.
+2024-11-06T14:46:51.120924 [DEBUG] Background mode: false
+2024-11-06T14:46:51.104059500 [INFO] Application started
+2024-11-06T14:45:42.639108 [INFO] The application is running with administrator privileges.
+2024-11-06T14:45:42.138903900 [DEBUG] Background mode: false
+2024-11-06T14:45:42.121548800 [INFO] Application started
+2024-11-06T14:41:11.801661 [INFO] date backup: 06-11-2024 14.41.11
+2024-11-06T14:41:11.795213900 [INFO] Event --> single backup
+2024-11-06T14:40:53.697811600 [INFO] date backup: 06-11-2024 14.40.53
+2024-11-06T14:40:53.689848500 [INFO] Event --> single backup
+2024-11-06T14:40:52.656172400 [INFO] Event --> auto backup disabled
+2024-11-06T14:40:52.649228300 [INFO] Event --> opening backup
+2024-11-06T14:40:52.643276200 [INFO] Edit row : 4
+2024-11-06T14:40:51.128926200 [INFO] Event --> opening backup
+2024-11-06T14:40:51.122478100 [INFO] Edit row : 0
+2024-11-06T14:40:49.162162300 [INFO] The application is running with administrator privileges.
+2024-11-06T14:40:48.656040 [DEBUG] Background mode: false
+2024-11-06T14:40:48.639180400 [INFO] Application started
+2024-11-06T14:39:28.562735 [INFO] date backup: 06-11-2024 14.39.28
+2024-11-06T14:39:28.556080400 [INFO] Event --> single backup
+2024-11-06T14:39:24.878552 [INFO] Event --> auto backup disabled
+2024-11-06T14:39:24.872599600 [INFO] Event --> opening backup
+2024-11-06T14:39:24.866647600 [INFO] Edit row : 4
+2024-11-06T14:39:02.091520900 [INFO] date backup: 06-11-2024 14.39.02
+2024-11-06T14:39:02.085059200 [INFO] Event --> single backup
+2024-11-06T14:38:09.470085300 [INFO] date backup: 06-11-2024 14.38.09
+2024-11-06T14:38:09.461859200 [INFO] Event --> single backup
+2024-11-06T14:38:08.508722400 [INFO] Event --> opening backup
+2024-11-06T14:38:08.501282300 [INFO] Edit row : 0
+2024-11-06T14:38:05.641096300 [INFO] The application is running with administrator privileges.
+2024-11-06T14:38:05.127290700 [DEBUG] Background mode: false
+2024-11-06T14:38:05.108442400 [INFO] Application started
+2024-11-06T14:28:45.891155700 [INFO] date backup: 06-11-2024 14.28.45
+2024-11-06T14:28:45.882695500 [INFO] Event --> single backup
+2024-11-06T14:28:40.466376700 [INFO] The application is running with administrator privileges.
+2024-11-06T14:28:39.965559200 [DEBUG] Background mode: false
+2024-11-06T14:28:39.948199400 [INFO] Application started
+2024-11-06T14:06:58.028454300 [DEBUG] Starting backup for: [Name: test, InitialPath: C:\Users\Utente\Desktop\AutoBackupProgram, DestinationPath: C:\Users\Utente\Desktop, LastBackup: 2024-11-06T14:02:30.968619800, IsAutoBackup: true, NextDate: 2024-11-06T14:03:30.968619800,  Interval: 0.0:1]
+2024-11-06T14:06:58.022529900 [INFO] Event --> automatic single backup started
+2024-11-06T14:06:58.015062400 [INFO] Zipping process completed successfully!
+2024-11-06T14:06:54.862091 [INFO] Background service stopped
+2024-11-06T14:06:54.854650500 [DEBUG] Stopping background service
+2024-11-06T14:06:49.419567100 [INFO] Start backup process.
+2024-11-06T14:06:49.412623100 [INFO] Checking for automatic backup...
+2024-11-06T14:06:49.407203500 [DEBUG] Starting backup for: [Name: test, InitialPath: C:\Users\Utente\Desktop\AutoBackupProgram, DestinationPath: C:\Users\Utente\Desktop, LastBackup: 2024-11-06T14:02:30.968619800, IsAutoBackup: true, NextDate: 2024-11-06T14:03:30.968619800,  Interval: 0.0:1]
+2024-11-06T14:06:49.400718900 [INFO] Start backup process.
+2024-11-06T14:06:49.394299 [INFO] Event --> automatic single backup started
+2024-11-06T14:06:49.388319 [INFO] Checking for automatic backup...
+2024-11-06T14:06:49.381871200 [INFO] Start backup process.
+2024-11-06T14:04:22.202897600 [INFO] Checking for automatic backup...
+2024-11-06T14:03:44.013987100 [INFO] The application is running with administrator privileges.
+2024-11-06T14:03:43.506028 [DEBUG] Background mode: false
+2024-11-06T14:03:43.489152200 [INFO] Application started
+2024-11-06T14:03:22.215491800 [INFO] No backup needed at this time.
+2024-11-06T14:03:22.208540600 [INFO] Checking for automatic backup...
+2024-11-06T14:02:30.968095 [INFO] Zipping process completed successfully!
+2024-11-06T14:02:22.255251300 [DEBUG] Starting backup for: [Name: test, InitialPath: C:\Users\Utente\Desktop\AutoBackupProgram, DestinationPath: C:\Users\Utente\Desktop, LastBackup: 2024-11-06T13:58:11.956209400, IsAutoBackup: true, NextDate: 2024-11-06T13:59:11.956209400,  Interval: 0.0:1]
+2024-11-06T14:02:22.228858300 [INFO] Event --> automatic single backup started
+2024-11-06T14:02:22.220922500 [INFO] Start backup process.
+2024-11-06T14:02:22.207034100 [INFO] Checking for automatic backup...
+2024-11-06T14:02:22.198601500 [INFO] Time interval set to 1 minutes
+2024-11-06T14:02:22.190169500 [INFO] TrayIcon added
+2024-11-06T14:02:21.958651200 [INFO] Backup service starting in the background
+2024-11-06T14:02:21.951707200 [DEBUG] Background mode: true
+2024-11-06T14:02:21.936514300 [INFO] Application started
+2024-11-06T13:58:56.799251100 [INFO] Background service stopped
+2024-11-06T13:58:56.792306900 [DEBUG] Stopping background service
+2024-11-06T13:58:11.955217900 [INFO] Zipping process completed successfully!
+2024-11-06T13:58:02.825669200 [DEBUG] Starting backup for: [Name: test, InitialPath: C:\Users\Utente\Desktop\AutoBackupProgram, DestinationPath: C:\Users\Utente\Desktop, LastBackup: 2024-11-06T13:56:08.180165400, IsAutoBackup: true, NextDate: 2024-11-06T13:57:08.180165400,  Interval: 0.0:1]
+2024-11-06T13:58:02.795032800 [INFO] Event --> automatic single backup started
+2024-11-06T13:58:02.770398600 [INFO] Start backup process.
+2024-11-06T13:58:02.762927800 [INFO] Checking for automatic backup...
+2024-11-06T13:57:02.769103200 [INFO] No backup needed at this time.
+2024-11-06T13:57:02.756207500 [INFO] Checking for automatic backup...
+2024-11-06T13:57:02.746289200 [INFO] Time interval set to 1 minutes
+2024-11-06T13:57:02.736367100 [INFO] TrayIcon added
+2024-11-06T13:57:02.503130800 [INFO] Backup service starting in the background
+2024-11-06T13:57:02.496150500 [DEBUG] Background mode: true
+2024-11-06T13:57:02.480774200 [INFO] Application started
+2024-11-06T13:55:59.456526100 [INFO] date backup: 06-11-2024 13.55.59
+2024-11-06T13:55:59.450068800 [INFO] Event --> single backup
+2024-11-06T13:55:35.046233200 [INFO] date backup: 06-11-2024 13.55.35
+2024-11-06T13:55:35.037801800 [INFO] Event --> single backup
+2024-11-06T13:55:33.859251800 [INFO] Event --> opening backup
+2024-11-06T13:55:33.853298 [INFO] Edit row : 0
+2024-11-06T13:55:27.577696100 [INFO] The application is running with administrator privileges.
+2024-11-06T13:55:27.099229600 [DEBUG] Background mode: false
+2024-11-06T13:55:27.082365800 [INFO] Application started
+2024-11-06T13:46:18.388647100 [INFO] The application is running with administrator privileges.
+2024-11-06T13:46:17.884665400 [DEBUG] Background mode: false
+2024-11-06T13:46:17.867798500 [INFO] Application started
+2024-11-06T13:45:29.461823 [INFO] Zipping process completed successfully!
+2024-11-06T13:45:23.600562500 [INFO] Background service stopped
+2024-11-06T13:45:23.594610600 [DEBUG] Stopping background service
+2024-11-06T13:45:20.849369500 [DEBUG] Starting backup for: [Name: test, InitialPath: C:\Users\Utente\Desktop\AutoBackupProgram, DestinationPath: C:\Users\Utente\Desktop, LastBackup: 2024-11-06T13:42:25.609785500, IsAutoBackup: true, NextDate: 2024-11-06T13:43:25.609785500,  Interval: 0.0:1]
+2024-11-06T13:45:20.842425400 [INFO] Event --> automatic single backup started
+2024-11-06T13:45:20.834984900 [INFO] Start backup process.
+2024-11-06T13:44:49.576326900 [INFO] Checking for automatic backup...
+2024-11-06T13:43:58.209421600 [INFO] Zipping process completed successfully!
+2024-11-06T13:43:49.622255800 [DEBUG] Starting backup for: [Name: test, InitialPath: C:\Users\Utente\Desktop\AutoBackupProgram, DestinationPath: C:\Users\Utente\Desktop, LastBackup: 2024-11-06T13:42:25.609785500, IsAutoBackup: true, NextDate: 2024-11-06T13:43:25.609785500,  Interval: 0.0:1]
+2024-11-06T13:43:49.596114600 [INFO] Event --> automatic single backup started
+2024-11-06T13:43:49.587162600 [INFO] Start backup process.
+2024-11-06T13:43:49.579253600 [INFO] Checking for automatic backup...
+2024-11-06T13:42:49.583457800 [INFO] No backup needed at this time.
+2024-11-06T13:42:49.571554100 [INFO] Checking for automatic backup...
+2024-11-06T13:42:49.562129800 [INFO] Time interval set to 1 minutes
+2024-11-06T13:42:49.552210900 [INFO] TrayIcon added
+2024-11-06T13:42:49.324546400 [INFO] Backup service starting in the background
+2024-11-06T13:42:49.316113700 [DEBUG] Background mode: true
+2024-11-06T13:42:49.301233900 [INFO] Application started
+2024-11-06T13:42:25.641033200 [DEBUG] Starting backup for: [Name: test, InitialPath: C:\Users\Utente\Desktop\AutoBackupProgram, DestinationPath: C:\Users\Utente\Desktop, LastBackup: 2024-11-06T13:19:27.736083600, IsAutoBackup: true, NextDate: 2024-11-06T13:20:27.736083600,  Interval: 0.0:1]
+2024-11-06T13:42:25.634585500 [INFO] date backup: 06-11-2024 13.42.25
+2024-11-06T13:42:25.625657300 [INFO] Event --> automatic single backup automatic
+2024-11-06T13:42:25.609289200 [DEBUG] Completed backup for: [Name: test, InitialPath: C:\Users\Utente\Desktop\AutoBackupProgram, DestinationPath: C:\Users\Utente\Desktop, LastBackup: 2024-11-06T13:19:27.736083600, IsAutoBackup: true, NextDate: 2024-11-06T13:20:27.736083600,  Interval: 0.0:1]
+2024-11-06T13:42:25.603337300 [INFO] Zipping process completed successfully!
+2024-11-06T13:42:25.550265200 [DEBUG] Starting backup for: [Name: test, InitialPath: C:\Users\Utente\Desktop\AutoBackupProgram, DestinationPath: C:\Users\Utente\Desktop, LastBackup: 2024-11-06T13:19:27.736083600, IsAutoBackup: true, NextDate: 2024-11-06T13:20:27.736083600,  Interval: 0.0:1]
+2024-11-06T13:42:25.543817300 [INFO] date backup: 06-11-2024 13.42.25
+2024-11-06T13:42:25.537865300 [INFO] Event --> automatic single backup automatic
+2024-11-06T13:42:25.521497300 [DEBUG] Completed backup for: [Name: test, InitialPath: C:\Users\Utente\Desktop\AutoBackupProgram, DestinationPath: C:\Users\Utente\Desktop, LastBackup: 2024-11-06T13:19:27.736083600, IsAutoBackup: true, NextDate: 2024-11-06T13:20:27.736083600,  Interval: 0.0:1]
+2024-11-06T13:42:25.515049300 [INFO] Zipping process completed successfully!
+2024-11-06T13:42:25.493225200 [DEBUG] Starting backup for: [Name: test, InitialPath: C:\Users\Utente\Desktop\AutoBackupProgram, DestinationPath: C:\Users\Utente\Desktop, LastBackup: 2024-11-06T13:19:27.736083600, IsAutoBackup: true, NextDate: 2024-11-06T13:20:27.736083600,  Interval: 0.0:1]
+2024-11-06T13:42:25.487273300 [INFO] date backup: 06-11-2024 13.42.25
+2024-11-06T13:42:25.480825200 [INFO] Event --> automatic single backup automatic
+2024-11-06T13:42:25.464953300 [DEBUG] Completed backup for: [Name: test, InitialPath: C:\Users\Utente\Desktop\AutoBackupProgram, DestinationPath: C:\Users\Utente\Desktop, LastBackup: 2024-11-06T13:19:27.736083600, IsAutoBackup: true, NextDate: 2024-11-06T13:20:27.736083600,  Interval: 0.0:1]
+2024-11-06T13:42:25.459001200 [INFO] Zipping process completed successfully!
+2024-11-06T13:42:25.439161200 [DEBUG] Starting backup for: [Name: test, InitialPath: C:\Users\Utente\Desktop\AutoBackupProgram, DestinationPath: C:\Users\Utente\Desktop, LastBackup: 2024-11-06T13:19:27.736083600, IsAutoBackup: true, NextDate: 2024-11-06T13:20:27.736083600,  Interval: 0.0:1]
+2024-11-06T13:42:25.432713200 [INFO] date backup: 06-11-2024 13.42.25
+2024-11-06T13:42:25.426761200 [INFO] Event --> automatic single backup automatic
+2024-11-06T13:42:25.410393100 [DEBUG] Completed backup for: [Name: test, InitialPath: C:\Users\Utente\Desktop\AutoBackupProgram, DestinationPath: C:\Users\Utente\Desktop, LastBackup: 2024-11-06T13:19:27.736083600, IsAutoBackup: true, NextDate: 2024-11-06T13:20:27.736083600,  Interval: 0.0:1]
+2024-11-06T13:42:25.403449200 [INFO] Zipping process completed successfully!
+2024-11-06T13:42:25.369225100 [DEBUG] Starting backup for: [Name: test, InitialPath: C:\Users\Utente\Desktop\AutoBackupProgram, DestinationPath: C:\Users\Utente\Desktop, LastBackup: 2024-11-06T13:19:27.736083600, IsAutoBackup: true, NextDate: 2024-11-06T13:20:27.736083600,  Interval: 0.0:1]
+2024-11-06T13:42:25.363273100 [INFO] date backup: 06-11-2024 13.42.25
+2024-11-06T13:42:25.357321200 [INFO] Event --> automatic single backup automatic
+2024-11-06T13:42:25.332025500 [DEBUG] Completed backup for: [Name: test, InitialPath: C:\Users\Utente\Desktop\AutoBackupProgram, DestinationPath: C:\Users\Utente\Desktop, LastBackup: 2024-11-06T13:19:27.736083600, IsAutoBackup: true, NextDate: 2024-11-06T13:20:27.736083600,  Interval: 0.0:1]
+2024-11-06T13:42:25.326569300 [INFO] Zipping process completed successfully!
+2024-11-06T13:42:22.998840300 [DEBUG] Starting backup for: [Name: test, InitialPath: C:\Users\Utente\Desktop\AutoBackupProgram, DestinationPath: C:\Users\Utente\Desktop, LastBackup: 2024-11-06T13:19:27.736083600, IsAutoBackup: true, NextDate: 2024-11-06T13:20:27.736083600,  Interval: 0.0:1]
+2024-11-06T13:42:22.951224400 [INFO] date backup: 06-11-2024 13.42.22
+2024-11-06T13:42:22.815816200 [INFO] Event --> automatic single backup automatic
+2024-11-06T13:42:22.699256300 [DEBUG] Completed backup for: [Name: test, InitialPath: C:\Users\Utente\Desktop\AutoBackupProgram, DestinationPath: C:\Users\Utente\Desktop, LastBackup: 2024-11-06T13:19:27.736083600, IsAutoBackup: true, NextDate: 2024-11-06T13:20:27.736083600,  Interval: 0.0:1]
+2024-11-06T13:42:22.677432300 [INFO] Zipping process completed successfully!
+2024-11-06T13:42:22.449272200 [DEBUG] Starting backup for: [Name: test, InitialPath: C:\Users\Utente\Desktop\AutoBackupProgram, DestinationPath: C:\Users\Utente\Desktop, LastBackup: 2024-11-06T13:19:27.736083600, IsAutoBackup: true, NextDate: 2024-11-06T13:20:27.736083600,  Interval: 0.0:1]
+2024-11-06T13:42:22.443320300 [INFO] date backup: 06-11-2024 13.42.22
+2024-11-06T13:42:22.338168300 [INFO] Event --> automatic single backup automatic
+2024-11-06T13:42:22.310392100 [DEBUG] Completed backup for: [Name: test, InitialPath: C:\Users\Utente\Desktop\AutoBackupProgram, DestinationPath: C:\Users\Utente\Desktop, LastBackup: 2024-11-06T13:19:27.736083600, IsAutoBackup: true, NextDate: 2024-11-06T13:20:27.736083600,  Interval: 0.0:1]
+2024-11-06T13:42:22.214664 [INFO] Zipping process completed successfully!
+2024-11-06T13:42:22.094136 [DEBUG] Starting backup for: [Name: test, InitialPath: C:\Users\Utente\Desktop\AutoBackupProgram, DestinationPath: C:\Users\Utente\Desktop, LastBackup: 2024-11-06T13:19:27.736083600, IsAutoBackup: true, NextDate: 2024-11-06T13:20:27.736083600,  Interval: 0.0:1]
+2024-11-06T13:42:22.088184400 [INFO] date backup: 06-11-2024 13.42.22
+2024-11-06T13:42:22.056936 [INFO] Event --> automatic single backup automatic
+2024-11-06T13:42:21.980055900 [DEBUG] Completed backup for: [Name: test, InitialPath: C:\Users\Utente\Desktop\AutoBackupProgram, DestinationPath: C:\Users\Utente\Desktop, LastBackup: 2024-11-06T13:19:27.736083600, IsAutoBackup: true, NextDate: 2024-11-06T13:20:27.736083600,  Interval: 0.0:1]
+2024-11-06T13:42:21.962200 [INFO] Zipping process completed successfully!
+2024-11-06T13:42:21.912600 [DEBUG] Starting backup for: [Name: test, InitialPath: C:\Users\Utente\Desktop\AutoBackupProgram, DestinationPath: C:\Users\Utente\Desktop, LastBackup: 2024-11-06T13:19:27.736083600, IsAutoBackup: true, NextDate: 2024-11-06T13:20:27.736083600,  Interval: 0.0:1]
+2024-11-06T13:42:21.904168 [INFO] date backup: 06-11-2024 13.42.21
+2024-11-06T13:42:21.890776 [INFO] Event --> automatic single backup automatic
+2024-11-06T13:42:21.873912200 [DEBUG] Completed backup for: [Name: test, InitialPath: C:\Users\Utente\Desktop\AutoBackupProgram, DestinationPath: C:\Users\Utente\Desktop, LastBackup: 2024-11-06T13:19:27.736083600, IsAutoBackup: true, NextDate: 2024-11-06T13:20:27.736083600,  Interval: 0.0:1]
+2024-11-06T13:42:21.837208 [INFO] Zipping process completed successfully!
+2024-11-06T13:42:21.820840100 [DEBUG] Starting backup for: [Name: test, InitialPath: C:\Users\Utente\Desktop\AutoBackupProgram, DestinationPath: C:\Users\Utente\Desktop, LastBackup: 2024-11-06T13:19:27.736083600, IsAutoBackup: true, NextDate: 2024-11-06T13:20:27.736083600,  Interval: 0.0:1]
+2024-11-06T13:42:21.814392300 [INFO] date backup: 06-11-2024 13.42.21
+2024-11-06T13:42:21.804968100 [INFO] Event --> automatic single backup automatic
+2024-11-06T13:42:21.776695900 [DEBUG] Completed backup for: [Name: test, InitialPath: C:\Users\Utente\Desktop\AutoBackupProgram, DestinationPath: C:\Users\Utente\Desktop, LastBackup: 2024-11-06T13:19:27.736083600, IsAutoBackup: true, NextDate: 2024-11-06T13:20:27.736083600,  Interval: 0.0:1]
+2024-11-06T13:42:21.768760200 [INFO] Zipping process completed successfully!
+2024-11-06T13:42:21.759832200 [DEBUG] Starting backup for: [Name: test, InitialPath: C:\Users\Utente\Desktop\AutoBackupProgram, DestinationPath: C:\Users\Utente\Desktop, LastBackup: 2024-11-06T13:19:27.736083600, IsAutoBackup: true, NextDate: 2024-11-06T13:20:27.736083600,  Interval: 0.0:1]
+2024-11-06T13:42:21.753384400 [INFO] date backup: 06-11-2024 13.42.21
+2024-11-06T13:42:21.746936100 [INFO] Event --> automatic single backup automatic
+2024-11-06T13:42:21.722135900 [DEBUG] Completed backup for: [Name: test, InitialPath: C:\Users\Utente\Desktop\AutoBackupProgram, DestinationPath: C:\Users\Utente\Desktop, LastBackup: 2024-11-06T13:19:27.736083600, IsAutoBackup: true, NextDate: 2024-11-06T13:20:27.736083600,  Interval: 0.0:1]
+2024-11-06T13:42:21.713704200 [INFO] Zipping process completed successfully!
+2024-11-06T13:42:21.705271900 [DEBUG] Starting backup for: [Name: test, InitialPath: C:\Users\Utente\Desktop\AutoBackupProgram, DestinationPath: C:\Users\Utente\Desktop, LastBackup: 2024-11-06T13:19:27.736083600, IsAutoBackup: true, NextDate: 2024-11-06T13:20:27.736083600,  Interval: 0.0:1]
+2024-11-06T13:42:21.699320100 [INFO] date backup: 06-11-2024 13.42.21
+2024-11-06T13:42:21.691383900 [INFO] Event --> automatic single backup automatic
+2024-11-06T13:42:21.665096200 [DEBUG] Completed backup for: [Name: test, InitialPath: C:\Users\Utente\Desktop\AutoBackupProgram, DestinationPath: C:\Users\Utente\Desktop, LastBackup: 2024-11-06T13:19:27.736083600, IsAutoBackup: true, NextDate: 2024-11-06T13:20:27.736083600,  Interval: 0.0:1]
+2024-11-06T13:42:21.659144 [INFO] Zipping process completed successfully!
+2024-11-06T13:42:21.652200500 [DEBUG] Starting backup for: [Name: test, InitialPath: C:\Users\Utente\Desktop\AutoBackupProgram, DestinationPath: C:\Users\Utente\Desktop, LastBackup: 2024-11-06T13:19:27.736083600, IsAutoBackup: true, NextDate: 2024-11-06T13:20:27.736083600,  Interval: 0.0:1]
+2024-11-06T13:42:21.645752200 [INFO] date backup: 06-11-2024 13.42.21
+2024-11-06T13:42:21.639303900 [INFO] Event --> automatic single backup automatic
+2024-11-06T13:42:21.612520100 [DEBUG] Completed backup for: [Name: test, InitialPath: C:\Users\Utente\Desktop\AutoBackupProgram, DestinationPath: C:\Users\Utente\Desktop, LastBackup: 2024-11-06T13:19:27.736083600, IsAutoBackup: true, NextDate: 2024-11-06T13:20:27.736083600,  Interval: 0.0:1]
+2024-11-06T13:42:21.606072 [INFO] Zipping process completed successfully!
+2024-11-06T13:42:21.599624200 [DEBUG] Starting backup for: [Name: test, InitialPath: C:\Users\Utente\Desktop\AutoBackupProgram, DestinationPath: C:\Users\Utente\Desktop, LastBackup: 2024-11-06T13:19:27.736083600, IsAutoBackup: true, NextDate: 2024-11-06T13:20:27.736083600,  Interval: 0.0:1]
+2024-11-06T13:42:21.593671900 [INFO] date backup: 06-11-2024 13.42.21
+2024-11-06T13:42:21.587224200 [INFO] Event --> automatic single backup automatic
+2024-11-06T13:42:21.559447800 [DEBUG] Completed backup for: [Name: test, InitialPath: C:\Users\Utente\Desktop\AutoBackupProgram, DestinationPath: C:\Users\Utente\Desktop, LastBackup: 2024-11-06T13:19:27.736083600, IsAutoBackup: true, NextDate: 2024-11-06T13:20:27.736083600,  Interval: 0.0:1]
+2024-11-06T13:42:21.553496 [INFO] Zipping process completed successfully!
+2024-11-06T13:42:21.545560100 [DEBUG] Starting backup for: [Name: test, InitialPath: C:\Users\Utente\Desktop\AutoBackupProgram, DestinationPath: C:\Users\Utente\Desktop, LastBackup: 2024-11-06T13:19:27.736083600, IsAutoBackup: true, NextDate: 2024-11-06T13:20:27.736083600,  Interval: 0.0:1]
+2024-11-06T13:42:21.538616300 [INFO] date backup: 06-11-2024 13.42.21
+2024-11-06T13:42:21.531176400 [INFO] Event --> automatic single backup automatic
+2024-11-06T13:42:21.500919800 [DEBUG] Completed backup for: [Name: test, InitialPath: C:\Users\Utente\Desktop\AutoBackupProgram, DestinationPath: C:\Users\Utente\Desktop, LastBackup: 2024-11-06T13:19:27.736083600, IsAutoBackup: true, NextDate: 2024-11-06T13:20:27.736083600,  Interval: 0.0:1]
+2024-11-06T13:42:21.493975900 [INFO] Zipping process completed successfully!
+2024-11-06T13:42:21.486535800 [DEBUG] Starting backup for: [Name: test, InitialPath: C:\Users\Utente\Desktop\AutoBackupProgram, DestinationPath: C:\Users\Utente\Desktop, LastBackup: 2024-11-06T13:19:27.736083600, IsAutoBackup: true, NextDate: 2024-11-06T13:20:27.736083600,  Interval: 0.0:1]
+2024-11-06T13:42:21.480088 [INFO] date backup: 06-11-2024 13.42.21
+2024-11-06T13:42:21.473639800 [INFO] Event --> automatic single backup automatic
+2024-11-06T13:42:21.460744200 [DEBUG] Completed backup for: [Name: test, InitialPath: C:\Users\Utente\Desktop\AutoBackupProgram, DestinationPath: C:\Users\Utente\Desktop, LastBackup: 2024-11-06T13:19:27.736083600, IsAutoBackup: true, NextDate: 2024-11-06T13:20:27.736083600,  Interval: 0.0:1]
+2024-11-06T13:42:21.454819800 [INFO] Zipping process completed successfully!
+2024-11-06T13:42:21.448840300 [DEBUG] Starting backup for: [Name: test, InitialPath: C:\Users\Utente\Desktop\AutoBackupProgram, DestinationPath: C:\Users\Utente\Desktop, LastBackup: 2024-11-06T13:19:27.736083600, IsAutoBackup: true, NextDate: 2024-11-06T13:20:27.736083600,  Interval: 0.0:1]
+2024-11-06T13:42:21.441895800 [INFO] date backup: 06-11-2024 13.42.21
+2024-11-06T13:42:21.435944600 [INFO] Event --> automatic single backup automatic
+2024-11-06T13:42:21.427016600 [INFO] Showing the GUI
+2024-11-06T13:42:21.416128200 [INFO] Showing the GUI
+2024-11-06T13:42:21.408087 [INFO] Showing the GUI
+2024-11-06T13:42:21.401142800 [INFO] Showing the GUI
+2024-11-06T13:42:09.717169600 [INFO] The application is running with administrator privileges.
+2024-11-06T13:42:09.672530 [INFO] Start backup process.
+2024-11-06T13:42:09.662112700 [INFO] Checking for automatic backup...
+2024-11-06T13:42:09.654177200 [INFO] Start backup process.
+2024-11-06T13:42:09.646736800 [INFO] Checking for automatic backup...
+2024-11-06T13:42:09.638305100 [INFO] Start backup process.
+2024-11-06T13:42:09.630368900 [INFO] Checking for automatic backup...
+2024-11-06T13:42:09.622432700 [INFO] Start backup process.
+2024-11-06T13:42:09.613505200 [INFO] Checking for automatic backup...
+2024-11-06T13:42:09.606560800 [INFO] Start backup process.
+2024-11-06T13:42:09.599120900 [INFO] Checking for automatic backup...
+2024-11-06T13:42:09.592673600 [INFO] Start backup process.
+2024-11-06T13:42:09.586224900 [INFO] Checking for automatic backup...
+2024-11-06T13:42:09.578784700 [INFO] Start backup process.
+2024-11-06T13:42:09.571840900 [INFO] Checking for automatic backup...
+2024-11-06T13:42:09.565392300 [INFO] Start backup process.
+2024-11-06T13:42:09.558449100 [INFO] Checking for automatic backup...
+2024-11-06T13:42:09.551008800 [INFO] Start backup process.
+2024-11-06T13:42:09.544065 [INFO] Checking for automatic backup...
+2024-11-06T13:42:09.537616500 [INFO] Start backup process.
+2024-11-06T13:42:09.530176800 [INFO] Checking for automatic backup...
+2024-11-06T13:42:09.523232800 [INFO] Start backup process.
+2024-11-06T13:42:09.515793 [INFO] Checking for automatic backup...
+2024-11-06T13:42:09.509840600 [INFO] Start backup process.
+2024-11-06T13:42:09.495952400 [INFO] Checking for automatic backup...
+2024-11-06T13:42:09.488017 [INFO] Start backup process.
+2024-11-06T13:42:09.481072600 [INFO] Checking for automatic backup...
+2024-11-06T13:42:09.474624800 [INFO] Start backup process.
+2024-11-06T13:42:09.466688400 [INFO] Checking for automatic backup...
+2024-11-06T13:42:09.459745 [INFO] Start backup process.
+2024-11-06T13:42:09.452800500 [INFO] Checking for automatic backup...
+2024-11-06T13:42:09.442384400 [INFO] Start backup process.
+2024-11-06T13:42:09.421552600 [INFO] Checking for automatic backup...
+2024-11-06T13:42:09.413120500 [INFO] Start backup process.
+2024-11-06T13:42:09.399728700 [INFO] Checking for automatic backup...
+2024-11-06T13:42:09.387825100 [INFO] Start backup process.
+2024-11-06T13:42:09.377409400 [INFO] Checking for automatic backup...
+2024-11-06T13:42:09.369968200 [INFO] Start backup process.
+2024-11-06T13:42:09.358064600 [INFO] Checking for automatic backup...
+2024-11-06T13:42:09.349136800 [INFO] Start backup process.
+2024-11-06T13:42:09.338224600 [INFO] Checking for automatic backup...
+2024-11-06T13:42:09.330319200 [INFO] Start backup process.
+2024-11-06T13:42:09.322848600 [INFO] Checking for automatic backup...
+2024-11-06T13:42:09.315436700 [INFO] Start backup process.
+2024-11-06T13:42:09.305984600 [INFO] Showing the GUI
+2024-11-06T13:35:54.021282600 [INFO] The application is running with administrator privileges.
+2024-11-06T13:35:53.508945300 [DEBUG] Background mode: false
+2024-11-06T13:35:53.492602200 [INFO] Application started
+2024-11-06T13:21:17.157684500 [INFO] Event --> auto backup disabled
+2024-11-06T13:20:42.734771300 [INFO] The application is running with administrator privileges.
+2024-11-06T13:20:42.233046500 [DEBUG] Background mode: false
+2024-11-06T13:20:42.217167 [INFO] Application started
+2024-11-06T13:20:27.664607 [INFO] Checking for automatic backup...
+2024-11-06T13:19:27.774771600 [DEBUG] Completed backup for: [Name: prova, InitialPath: C:\Users\Utente\Desktop\Stalcraft1.mp4, DestinationPath: C:\Users\Utente\Desktop, LastBackup: 2024-11-06T13:16:09.326964700, IsAutoBackup: true, NextDate: 2024-11-06T13:17:09.326964700,  Interval: 0.0:1]
+2024-11-06T13:19:27.768323700 [INFO] Zipping process completed successfully!
+2024-11-06T13:19:27.761875700 [DEBUG] Starting backup for: [Name: prova, InitialPath: C:\Users\Utente\Desktop\Stalcraft1.mp4, DestinationPath: C:\Users\Utente\Desktop, LastBackup: 2024-11-06T13:16:09.326964700, IsAutoBackup: true, NextDate: 2024-11-06T13:17:09.326964700,  Interval: 0.0:1]
+2024-11-06T13:19:27.755923800 [INFO] date backup: 06-11-2024 13.19.27
+2024-11-06T13:19:27.749972100 [INFO] Event --> automatic single backup automatic
+2024-11-06T13:19:27.735587600 [DEBUG] Completed backup for: [Name: test, InitialPath: C:\Users\Utente\Desktop\AutoBackupProgram, DestinationPath: C:\Users\Utente\Desktop, LastBackup: 2024-11-06T13:16:09.294228, IsAutoBackup: true, NextDate: 2024-11-06T13:17:09.294228,  Interval: 0.0:1]
+2024-11-06T13:19:27.729635800 [INFO] Zipping process completed successfully!
+2024-11-06T13:19:27.721268 [DEBUG] Starting backup for: [Name: test, InitialPath: C:\Users\Utente\Desktop\AutoBackupProgram, DestinationPath: C:\Users\Utente\Desktop, LastBackup: 2024-11-06T13:16:09.294228, IsAutoBackup: true, NextDate: 2024-11-06T13:17:09.294228,  Interval: 0.0:1]
+2024-11-06T13:19:27.707380100 [INFO] date backup: 06-11-2024 13.19.27
+2024-11-06T13:19:27.688532800 [INFO] Event --> automatic single backup automatic
+2024-11-06T13:19:27.679563600 [INFO] Start backup process.
+2024-11-06T13:19:27.667859100 [INFO] Checking for automatic backup...
+2024-11-06T13:19:27.659426900 [INFO] Time interval set to 1 minutes
+2024-11-06T13:19:27.650994900 [INFO] TrayIcon added
+2024-11-06T13:19:27.416654 [INFO] Backup service starting in the background
+2024-11-06T13:19:27.409214500 [DEBUG] Background mode: true
+2024-11-06T13:19:27.395326100 [INFO] Application started
+2024-11-06T13:16:09.326468800 [INFO] Zipping process completed successfully!
+2024-11-06T13:16:09.318532500 [INFO] date backup: 06-11-2024 13.16.09
+2024-11-06T13:16:09.312084600 [INFO] Event --> automatic single backup automatic
+2024-11-06T13:16:09.293732400 [INFO] Zipping process completed successfully!
+2024-11-06T13:16:09.284804400 [INFO] date backup: 06-11-2024 13.16.09
+2024-11-06T13:16:09.266451800 [INFO] Event --> automatic single backup automatic
+2024-11-06T13:16:09.258018500 [INFO] Start backup process.
+2024-11-06T13:16:09.245708200 [INFO] Checking for automatic backup...
+2024-11-06T13:16:09.236751200 [INFO] Time interval set to 1 minutes
+2024-11-06T13:16:09.226832100 [INFO] TrayIcon added
+2024-11-06T13:16:08.998464900 [INFO] Backup service starting in the background
+2024-11-06T13:16:08.991520600 [DEBUG] Background mode: true
+2024-11-06T13:16:08.977357300 [INFO] Application started
+2024-11-06T13:14:56.443667300 [INFO] The application is running with administrator privileges.
+2024-11-06T13:14:55.925829100 [DEBUG] Background mode: false
+2024-11-06T13:14:55.909928200 [INFO] Application started
+2024-11-06T12:56:31.300785600 [INFO] date backup: 06-11-2024 12.56.31
+2024-11-06T12:56:31.292825200 [INFO] Event --> single backup
+2024-11-06T12:56:28.769329700 [INFO] Event --> opening backup
+2024-11-06T12:56:28.763378600 [INFO] Edit row : 0
+2024-11-06T12:56:17.955244200 [INFO] Event --> opening backup
+2024-11-06T12:56:17.947804 [INFO] Edit row : 0
+2024-11-06T12:56:04.348505700 [INFO] The application is running with administrator privileges.
+2024-11-06T12:56:03.807988800 [DEBUG] Background mode: false
+2024-11-06T12:56:03.792121100 [INFO] Application started
+2024-11-06T12:53:08.571554700 [INFO] Zipping process manually interrupted
+2024-11-06T12:53:00.087478700 [INFO] date backup: 06-11-2024 12.53.00
+2024-11-06T12:53:00.062651300 [INFO] Event --> single backup
+2024-11-06T12:52:57.518695800 [INFO] Event --> opening backup
+2024-11-06T12:52:57.512218 [INFO] Edit row : 0
+2024-11-06T12:52:51.071180400 [INFO] The application is running with administrator privileges.
+2024-11-06T12:52:50.446219200 [DEBUG] Background mode: false
+2024-11-06T12:52:50.430843200 [INFO] Application started
+2024-11-06T00:26:02.174199100 [INFO] The application is running with administrator privileges.
+2024-11-06T00:26:01.684920800 [DEBUG] Background mode: false
+2024-11-06T00:26:01.669049300 [INFO] Application started
 2024-11-06T00:20:35.543015900 [INFO] The application is running with administrator privileges.
 2024-11-06T00:20:35.053212400 [DEBUG] Background mode: false
 2024-11-06T00:20:35.037361400 [INFO] Application started

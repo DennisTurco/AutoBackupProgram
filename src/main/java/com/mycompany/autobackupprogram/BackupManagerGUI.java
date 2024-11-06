@@ -14,8 +14,6 @@ import java.io.File;
 import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
-import java.nio.file.Files;
-import java.nio.file.Paths;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
@@ -35,12 +33,6 @@ import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableCellRenderer;
 import javax.swing.table.TableColumnModel;
-import java.io.*;
-import java.nio.file.*;
-import java.nio.file.attribute.BasicFileAttributes;
-import java.util.concurrent.atomic.AtomicInteger;
-import java.util.zip.ZipEntry;
-import java.util.zip.ZipOutputStream;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 
@@ -56,9 +48,8 @@ public class BackupManagerGUI extends javax.swing.JFrame {
     
     private static List<Backup> backups;
     private static JSONAutoBackup JSON;
-    private static DefaultTableModel model;
+    public static DefaultTableModel model;
     private BackupProgressGUI progressBar;
-    private static Thread zipThread;
     private boolean saveChanged;
     private Integer selectedRow;
     
@@ -915,24 +906,6 @@ public class BackupManagerGUI extends javax.swing.JFrame {
         columnModel.getColumn(4).setCellEditor(table.getDefaultEditor(Boolean.class));
     }
     
-    private void updateTableWithNewBackupList(List<Backup> updatedBackups) { 
-        SwingUtilities.invokeLater(() -> {
-            model.setRowCount(0);
-
-            for (Backup backup : updatedBackups) {
-                model.addRow(new Object[]{
-                    backup.getBackupName(),
-                    backup.getInitialPath(),
-                    backup.getDestinationPath(),
-                    backup.getLastBackup() != null ? backup.getLastBackup().format(formatter) : "",
-                    backup.isAutoBackup(),
-                    backup.getNextDateBackup() != null ? backup.getNextDateBackup().format(formatter) : "",
-                    backup.getTimeIntervalBackup() != null ? backup.getTimeIntervalBackup().toString() : ""
-                });
-            }
-        });
-    }
-    
     private void MenuQuitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MenuQuitActionPerformed
         Logger.logMessage("Event --> exit", Logger.LogLevel.INFO);
         System.exit(EXIT_ON_CLOSE);
@@ -979,17 +952,7 @@ public class BackupManagerGUI extends javax.swing.JFrame {
             }
         }
         
-        updateBackupList();
-    }
-    
-    private void updateBackupList() {
-        JSON.UpdateBackupListJSON(ConfigKey.BACKUP_FILE_STRING.getValue(), ConfigKey.RES_DIRECTORY_STRING.getValue(), backups);
-        updateTableWithNewBackupList(backups);
-    }
-    
-    private void updateBackup() {
-        JSON.UpdateSingleBackupInJSON(ConfigKey.BACKUP_FILE_STRING.getValue(), ConfigKey.RES_DIRECTORY_STRING.getValue(), currentBackup);
-        updateTableWithNewBackupList(backups);
+        BackupOperations.updateBackupList(backups);
     }
     
     private void MenuSaveWithNameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MenuSaveWithNameActionPerformed
@@ -1021,7 +984,7 @@ public class BackupManagerGUI extends javax.swing.JFrame {
                     break;
                 }
             }
-            updateBackupList();
+            BackupOperations.updateBackupList(backups);
             savedChanges(true);
         } catch (IllegalArgumentException ex) {
             Logger.logMessage("An error occurred", Logger.LogLevel.ERROR, ex);
@@ -1148,7 +1111,7 @@ public class BackupManagerGUI extends javax.swing.JFrame {
             }
         }
         
-        updateTableWithNewBackupList(tempBackups);
+        BackupOperations.updateTableWithNewBackupList(tempBackups);
     }
     
     private void EditPoputItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_EditPoputItemActionPerformed
@@ -1245,14 +1208,23 @@ public class BackupManagerGUI extends javax.swing.JFrame {
             );
             
             backups.add(newBackup); 
-            updateBackupList();
+            BackupOperations.updateBackupList(backups);
         }
     }//GEN-LAST:event_DuplicatePopupItemActionPerformed
 
     private void RunBackupPopupItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_RunBackupPopupItemActionPerformed
         if (selectedRow != -1) {
-            SingleBackup(backups.get(selectedRow).getInitialPath(), backups.get(selectedRow).getDestinationPath());
-        }
+            
+            Backup backup = backups.get(selectedRow);
+            
+            progressBar = new BackupProgressGUI(backup.getInitialPath(), backup.getDestinationPath());
+            progressBar.setVisible(true);
+            BackupOperations.SingleBackup(backup, null, progressBar);
+            
+            // if the backup is currentBackup
+            if (currentBackup.getBackupName().equals(backup.getBackupName())) 
+                currentBackup.UpdateBackup(backup);
+            }
     }//GEN-LAST:event_RunBackupPopupItemActionPerformed
 
     private void CopyFilenamePopupItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CopyFilenamePopupItemActionPerformed
@@ -1294,7 +1266,7 @@ public class BackupManagerGUI extends javax.swing.JFrame {
         backup.setTimeIntervalBackup(null);
         backup.setNextDateBackup(null);
         backup.setLastUpdateDate(LocalDateTime.now());
-        updateBackupList();
+        BackupOperations.updateBackupList(backups);
         
         // if the backup is the current backup i have to update the main panel
         if (backup.getBackupName().equals(currentBackup.getBackupName())) {
@@ -1372,7 +1344,7 @@ public class BackupManagerGUI extends javax.swing.JFrame {
         
         toggleAutoBackup.setText(toggleAutoBackup.isSelected() ? backupOnText : backupOffText);
         currentBackup.setAutoBackup(enabled);
-        updateBackupList();
+        BackupOperations.updateBackupList(backups);
     }//GEN-LAST:event_toggleAutoBackupActionPerformed
 
     private void MenuWebsiteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MenuWebsiteActionPerformed
@@ -1450,7 +1422,7 @@ public class BackupManagerGUI extends javax.swing.JFrame {
                 break;
             }
         }
-        updateBackupList();
+        BackupOperations.updateBackupList(backups);
 
         JOptionPane.showMessageDialog(null, "Auto Backup has been activated\n\tFrom: " + startPathField.getText() + "\n\tTo: " + destinationPathField.getText() + "\nIs setted every " + timeInterval.toString() + " days", "AutoBackup", 1);
     }//GEN-LAST:event_btnTimePickerActionPerformed
@@ -1469,7 +1441,7 @@ public class BackupManagerGUI extends javax.swing.JFrame {
         
         backup.setBackupName(backup_name);
         backup.setLastUpdateDate(LocalDateTime.now());
-        updateBackupList();
+        BackupOperations.updateBackupList(backups);
     }
     
     private void OpenFolder(String path) {
@@ -1561,7 +1533,7 @@ public class BackupManagerGUI extends javax.swing.JFrame {
                 break;
             }
         }
-        updateBackupList();
+        BackupOperations.updateBackupList(backups);
         return true;
     }
     
@@ -1599,8 +1571,12 @@ public class BackupManagerGUI extends javax.swing.JFrame {
                 break;
             }
         }
-        currentBackup.UpdateBackup(backup);
-        updateBackupList();
+        
+        // if the backup is currentBackup
+        if (currentBackup.getBackupName().equals(backup.getBackupName())) 
+            currentBackup.UpdateBackup(backup);
+        
+        BackupOperations.updateBackupList(backups);
         return true;
     }
     
@@ -1630,7 +1606,7 @@ public class BackupManagerGUI extends javax.swing.JFrame {
             backups.add(backup);
             currentBackup = backup;
             
-            updateBackupList();
+            BackupOperations.updateBackupList(backups);
             Logger.logMessage("Backup '" + currentBackup.getBackupName() + "' saved successfully!", Logger.LogLevel.INFO);
             JOptionPane.showMessageDialog(this, "Backup '" + currentBackup.getBackupName() + "' saved successfully!", "Backup saved", JOptionPane.INFORMATION_MESSAGE);
             savedChanges(true);
@@ -1698,53 +1674,20 @@ public class BackupManagerGUI extends javax.swing.JFrame {
         try {
             progressBar = new BackupProgressGUI(path1, path2);
             progressBar.setVisible(true);
-            zipDirectoryWithProgress(path1, path2+".zip");
-        } catch (IOException e) {
-            System.err.println("Exception (SingleBackup) --> " + e);
-            Logger.logMessage("Error during the backup operation: the initial path is incorrect!", Logger.LogLevel.WARN);
-            JOptionPane.showMessageDialog(null, "Error during the backup operation: the initial path is incorrect!", "Error", JOptionPane.ERROR_MESSAGE);
-            return;
-        } 
-        
-        // if current_file_opened is null it means I'm not in a backup but it's a backup with no associated json file so I don't save the string last_backup
-        if (currentBackup != null && currentBackup.getBackupName() != null) { 
-            setStringToText();
-        }
-                
-        // next day backup update
-        if (currentBackup.isAutoBackup() == true) {
-            TimeInterval time = currentBackup.getTimeIntervalBackup();
-            LocalDateTime nextDateBackup = dateNow.plusDays(time.getDays())
-                    .plusHours(time.getHours())
-                    .plusMinutes(time.getMinutes());
-            currentBackup.setNextDateBackup(nextDateBackup);
-        } 
-        currentBackup.setBackupCount(currentBackup.getBackupCount()+1);
-        
-        // if current_file_opened is null it means they are not in a backup but it is a backup with no associated json file
-        try {
+            BackupOperations.zipDirectory(path1, path2+".zip", currentBackup, null, progressBar);
+            
+            //if current_file_opened is null it means they are not in a backup but it is a backup with no associated json file
             if (currentBackup.getBackupName() != null && !currentBackup.getBackupName().isEmpty()) { 
                 currentBackup.setInitialPath(GetStartPathField());
                 currentBackup.setDestinationPath(GetDestinationPathField());
                 currentBackup.setLastBackup(LocalDateTime.now());
-                for (Backup b : backups) {
-                    if (b.getBackupName().equals(currentBackup.getBackupName())) {
-                        b.UpdateBackup(currentBackup);
-                        break;
-                    }
-                }
 
-                updateBackup();
             }
             
-            System.out.println(currentBackup.toString());
-        } catch (IllegalArgumentException ex) {
-            Logger.logMessage("An error occurred", Logger.LogLevel.ERROR, ex);
-            OpenExceptionMessage(ex.getMessage(), Arrays.toString(ex.getStackTrace()));
-        } catch (Exception e) {
-            Logger.logMessage("Error saving file", Logger.LogLevel.WARN);
-            JOptionPane.showMessageDialog(null, "Error saving file", "Error", JOptionPane.ERROR_MESSAGE);
-        }
+        } catch (IOException e) {
+            Logger.logMessage("Error during the backup operation: the initial path is incorrect!", Logger.LogLevel.WARN);
+            JOptionPane.showMessageDialog(null, "Error during the backup operation: the initial path is incorrect!", "Error", JOptionPane.ERROR_MESSAGE);
+        } 
     }
     
     private void setCurrentBackupName(String name) {
@@ -1753,11 +1696,6 @@ public class BackupManagerGUI extends javax.swing.JFrame {
     
     private void setCurrentBackupNotes(String notes) {
         backupNoteTextArea.setText(notes);
-    }
-    
-    public void UpdateProgressBar(int value) {
-        System.out.println("Progress: " + value);
-        progressBar.UpdateProgressBar(value);
     }
 	
     public void setStringToText() {
@@ -1778,119 +1716,6 @@ public class BackupManagerGUI extends javax.swing.JFrame {
             OpenExceptionMessage(ex.getMessage(), Arrays.toString(ex.getStackTrace()));
         }
         setAutoBackupPreference(currentBackup.isAutoBackup());
-    }
-	
-    public void zipDirectoryWithProgress(String sourceDirectoryPath, String targetZipPath) throws IOException {
-        // Get total file count
-        File file = new File(sourceDirectoryPath);
-        int totalFilesCount = file.isDirectory() ? countFilesInDirectory(file) : 1;
-        
-        AtomicInteger copiedFilesCount = new AtomicInteger(0);  // Track copied files
-
-        zipThread = new Thread(() -> {
-            Path sourceDir = Paths.get(sourceDirectoryPath);
-            String rootFolderName = sourceDir.getFileName().toString(); // Get the root folder name
-
-            try (ZipOutputStream zipOut = new ZipOutputStream(new FileOutputStream(targetZipPath))) {
-                
-                if (file.isFile()) {
-                    addFileToZip(zipOut, file.toPath(), "", copiedFilesCount, totalFilesCount);
-                } else {
-                    Files.walkFileTree(sourceDir, new SimpleFileVisitor<Path>() {
-                        @Override
-                        public FileVisitResult visitFile(Path file, BasicFileAttributes attrs) throws IOException {
-                            if (Thread.currentThread().isInterrupted()) {
-                                Logger.logMessage("Zipping process manually interrupted", Logger.LogLevel.INFO);
-                                return FileVisitResult.TERMINATE; // Stop if interrupted
-                            }
-
-                            // Calculate the relative path inside the zip
-                            Path targetFilePath = sourceDir.relativize(file);
-                            String zipEntryName = rootFolderName + "/" + targetFilePath.toString();
-
-                            // Create a new zip entry for the file
-                            zipOut.putNextEntry(new ZipEntry(zipEntryName));
-
-                            // Copy the file content to the zip output stream
-                            try (InputStream in = Files.newInputStream(file)) {
-                                byte[] buffer = new byte[1024];
-                                int len;
-                                while ((len = in.read(buffer)) > 0) {
-                                    zipOut.write(buffer, 0, len);
-                                }
-                            }
-
-                            zipOut.closeEntry(); // Close the zip entry after the file is written
-
-                            // Update progress
-                            int filesCopiedSoFar = copiedFilesCount.incrementAndGet();
-                            int actualProgress = (int) (((double) filesCopiedSoFar / totalFilesCount) * 100);
-                            UpdateProgressBar(actualProgress);  // Update progress bar
-
-                            return FileVisitResult.CONTINUE;
-                        }
-
-                        @Override
-                        public FileVisitResult preVisitDirectory(Path dir, BasicFileAttributes attrs) throws IOException {
-                            if (Thread.currentThread().isInterrupted()) {
-                                Logger.logMessage("Zipping process manually interrupted", Logger.LogLevel.INFO);
-                                return FileVisitResult.TERMINATE; // Stop if interrupted
-                            }
-
-                            // Create directory entry in the zip if needed
-                            Path targetDir = sourceDir.relativize(dir);
-                            zipOut.putNextEntry(new ZipEntry(rootFolderName + "/" + targetDir.toString() + "/"));
-                            zipOut.closeEntry();
-                            return FileVisitResult.CONTINUE;
-                        }
-                    });
-                }
-            } catch (IOException ex) {
-                Logger.logMessage("An error occurred", Logger.LogLevel.ERROR, ex);
-                ex.printStackTrace();  // Handle the exception as necessary
-            }
-        });
-
-        zipThread.start(); // Start the zipping thread
-    }
-    
-    private void addFileToZip(ZipOutputStream zipOut, Path file, String zipEntryName, AtomicInteger copiedFilesCount, int totalFilesCount) throws IOException {
-        if (zipEntryName.isEmpty()) {
-            zipEntryName = file.getFileName().toString();
-        }
-
-        zipOut.putNextEntry(new ZipEntry(zipEntryName));
-
-        try (InputStream in = Files.newInputStream(file)) {
-            byte[] buffer = new byte[1024];
-            int len;
-            while ((len = in.read(buffer)) > 0) {
-                zipOut.write(buffer, 0, len);
-            }
-        }
-        zipOut.closeEntry();
-
-        int filesCopiedSoFar = copiedFilesCount.incrementAndGet();
-        int actualProgress = (int) (((double) filesCopiedSoFar / totalFilesCount) * 100);
-        UpdateProgressBar(actualProgress);
-    }
-    
-    public static void StopCopyFiles() {
-        zipThread.interrupt();
-    }
-    
-    public static int countFilesInDirectory(File directory) {
-    	int count = 0;
-    	
-    	for (File file : directory.listFiles()) {
-            if (file.isFile()) {
-                count++;
-            }
-            if (file.isDirectory()) {
-                count += countFilesInDirectory(file);
-            }
-    	}
-    	return count;
     }
     
     private void customListeners() {

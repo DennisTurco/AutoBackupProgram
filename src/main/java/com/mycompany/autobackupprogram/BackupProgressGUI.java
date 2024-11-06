@@ -148,7 +148,7 @@ public class BackupProgressGUI extends javax.swing.JFrame {
     private void CancelButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CancelButtonActionPerformed
         int response = JOptionPane.showConfirmDialog(null, "Are you sure you want to stop this backup?", "Confimation required", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
         if (response == JOptionPane.YES_OPTION) {
-            BackupManagerGUI.StopCopyFiles();
+            BackupOperations.StopCopyFiles();
             this.dispose();
         }
     }//GEN-LAST:event_CancelButtonActionPerformed

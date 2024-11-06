@@ -2,6 +2,7 @@ package com.mycompany.autobackupprogram;
 
 import static com.mycompany.autobackupprogram.BackupManagerGUI.OpenExceptionMessage;
 import static com.mycompany.autobackupprogram.BackupManagerGUI.dateForfolderNameFormatter;
+import static com.mycompany.autobackupprogram.BackupManagerGUI.formatter;
 import java.awt.TrayIcon;
 import java.io.File;
 import java.io.FileOutputStream;
@@ -16,80 +17,84 @@ import java.nio.file.attribute.BasicFileAttributes;
 import java.time.LocalDateTime;
 import java.util.Arrays;
 import java.util.List;
+import java.util.concurrent.atomic.AtomicInteger;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipOutputStream;
 import javax.swing.JOptionPane;
+import javax.swing.SwingUtilities;
 
 public class BackupOperations{
     
     private static final JSONAutoBackup JSON = new JSONAutoBackup();
     private static Thread zipThread;
     
-    public static void SingleBackup(Backup backup, TrayIcon trayIcon) {
-        Logger.logMessage("Event --> automatic single backup automatic", Logger.LogLevel.INFO);
-		
+    public static void SingleBackup(Backup backup, TrayIcon trayIcon, BackupProgressGUI progressBar) {
+        Logger.logMessage("Event --> automatic single backup started", Logger.LogLevel.INFO);
+
         String temp = "\\";
         String path1 = backup.getInitialPath();
         String path2 = backup.getDestinationPath();
 
-        //------------------------------INPUT CONTROL ERRORS------------------------------
         if(!CheckInputCorrect(backup.getBackupName(), path1, path2, trayIcon)) return;
 
-        //------------------------------TO GET THE CURRENT DATE------------------------------
         LocalDateTime dateNow = LocalDateTime.now();
-
-        //------------------------------SET ALL THE VARIABLES------------------------------
-        String name1; // folder name/initial file
         String date = dateNow.format(dateForfolderNameFormatter);
+        String name1 = path1.substring(path1.length() - 1);
 
-        //------------------------------SET ALL THE STRINGS------------------------------
-        name1 = path1.substring(path1.length()-1, path1.length()-1);
-
-        for(int i=path1.length()-1; i>=0; i--) {
+        for(int i = path1.length() - 1; i >= 0; i--) {
             if(path1.charAt(i) != temp.charAt(0)) name1 = path1.charAt(i) + name1;
             else break;
         }
 
         path2 = path2 + "\\" + name1 + " (Backup " + date + ")";
-
-        //------------------------------COPY THE FILE OR DIRECTORY------------------------------
-        Logger.logMessage("date backup: " + date, Logger.LogLevel.INFO);
         
         try {
-            zipDirectory(path1, path2+".zip");
+            zipDirectory(path1, path2+".zip", backup, trayIcon, progressBar);
         } catch (IOException e) {
             System.err.println("Exception (SingleBackup) --> " + e);
             Logger.logMessage("Error during the backup operation: the initial path is incorrect!", Logger.LogLevel.WARN);
             JOptionPane.showMessageDialog(null, "Error during the backup operation: the initial path is incorrect!", "Error", JOptionPane.ERROR_MESSAGE);
-            return;
         } 
-
-        TimeInterval time = backup.getTimeIntervalBackup();
-        LocalDateTime nextDateBackup = dateNow.plusDays(time.getDays())
-                .plusHours(time.getHours())
-                .plusMinutes(time.getMinutes());
-        backup.setNextDateBackup(nextDateBackup);
-        backup.setBackupCount(backup.getBackupCount()+1);
-        backup.setLastBackup(LocalDateTime.now());
+    }
+    
+    private static void updateAfterBackup(String path1, String path2, Backup backup, TrayIcon trayIcon) {
+        LocalDateTime dateNow = LocalDateTime.now();
+           
+        Logger.logMessage("Backup completed!", Logger.LogLevel.INFO);
         
-        List<Backup> backups;
+        // next day backup update
+        if (backup.isAutoBackup() == true) {
+            TimeInterval time = backup.getTimeIntervalBackup();
+            LocalDateTime nextDateBackup = dateNow.plusDays(time.getDays())
+                    .plusHours(time.getHours())
+                    .plusMinutes(time.getMinutes());
+            backup.setNextDateBackup(nextDateBackup);
+            Logger.logMessage("Next date backup setted to: " + nextDateBackup, Logger.LogLevel.INFO);
+        }
+        backup.setLastBackup(dateNow);
+        backup.setBackupCount(backup.getBackupCount()+1);
+                    
         try {
-            backups = JSON.ReadBackupListFromJSON(ConfigKey.BACKUP_FILE_STRING.getValue(), ConfigKey.RES_DIRECTORY_STRING.getValue());
-        } catch (IOException ex) {
-            backups = null;
-            Logger.logMessage(ex.getMessage());
-            OpenExceptionMessage(ex.getMessage(), Arrays.toString(ex.getStackTrace()));
-        }
-        for (Backup b : backups) {
-            if (b.getBackupName().equals(backup.getBackupName())) {
-                b.UpdateBackup(backup);
-                break;
+            List<Backup> backups = JSON.ReadBackupListFromJSON(ConfigKey.BACKUP_FILE_STRING.getValue(), ConfigKey.RES_DIRECTORY_STRING.getValue());
+                        
+            for (Backup b : backups) {
+                if (b.getBackupName().equals(backup.getBackupName())) {
+                    b.UpdateBackup(backup);
+                    break;
+                }
             }
-        }
-
-        JSON.UpdateSingleBackupInJSON(ConfigKey.BACKUP_FILE_STRING.getValue(), ConfigKey.RES_DIRECTORY_STRING.getValue(), backup);
-        if (trayIcon != null) {
-            trayIcon.displayMessage("Backup Manager", "Backup: "+ backup.getBackupName() +"\nThe backup was successfully completed:\nFrom: " + path1 + "\nTo: " + path2, TrayIcon.MessageType.INFO);
+            
+            updateBackup(backups, backup);
+            
+            if (trayIcon != null) {
+                trayIcon.displayMessage("Backup Manager", "Backup: "+ backup.getBackupName() +"\nThe backup was successfully completed:\nFrom: " + path1 + "\nTo: " + path2, TrayIcon.MessageType.INFO);
+            }
+        } catch (IllegalArgumentException ex) {
+            Logger.logMessage("An error occurred", Logger.LogLevel.ERROR, ex);
+            OpenExceptionMessage(ex.getMessage(), Arrays.toString(ex.getStackTrace()));
+        } catch (Exception e) {
+            Logger.logMessage("Error saving file", Logger.LogLevel.WARN);
+            JOptionPane.showMessageDialog(null, "Error saving file", "Error", JOptionPane.ERROR_MESSAGE);
         }
     }
     
@@ -120,70 +125,79 @@ public class BackupOperations{
         return true;
     }
     
-    public static void zipDirectory(String sourceDirectoryPath, String targetZipPath) throws IOException { // Track copied files
+    public static void zipDirectory(String sourceDirectoryPath, String targetZipPath, Backup backup, TrayIcon trayIcon, BackupProgressGUI progressBar) throws IOException { // Track copied files
+        File file = new File(sourceDirectoryPath);
+        int totalFilesCount = file.isDirectory() ? countFilesInDirectory(file) : 1;
+        
+        AtomicInteger copiedFilesCount = new AtomicInteger(0);  // Track copied files
+        
         zipThread = new Thread(() -> {
-            File file = new File(sourceDirectoryPath);
             Path sourceDir = Paths.get(sourceDirectoryPath);
             String rootFolderName = sourceDir.getFileName().toString(); // Get the root folder name
 
-            try (ZipOutputStream zipOut = new ZipOutputStream(new FileOutputStream(targetZipPath))) {
-                if (file.isFile()) {
-                    addFileToZip(zipOut, file.toPath(), "");
-                } else {
-                    Files.walkFileTree(sourceDir, new SimpleFileVisitor<Path>() {
-                        @Override
-                        public FileVisitResult visitFile(Path file, BasicFileAttributes attrs) throws IOException {
-                            if (Thread.currentThread().isInterrupted()) {
-                                Logger.logMessage("Zipping process manually interrupted", Logger.LogLevel.INFO);
-                                return FileVisitResult.TERMINATE; // Stop if interrupted
-                            }
-
-                            // Calculate the relative path inside the zip
-                            Path targetFilePath = sourceDir.relativize(file);
-                            String zipEntryName = rootFolderName + "/" + targetFilePath.toString();
-
-                            // Create a new zip entry for the file
-                            zipOut.putNextEntry(new ZipEntry(zipEntryName));
-
-                            // Copy the file content to the zip output stream
-                            try (InputStream in = Files.newInputStream(file)) {
-                                byte[] buffer = new byte[1024];
-                                int len;
-                                while ((len = in.read(buffer)) > 0) {
-                                    zipOut.write(buffer, 0, len);
+                try (ZipOutputStream zipOut = new ZipOutputStream(new FileOutputStream(targetZipPath))) {
+                    if (file.isFile()) {
+                        addFileToZip(sourceDirectoryPath, zipOut, file.toPath(), "", copiedFilesCount, totalFilesCount, backup, trayIcon, progressBar);
+                    } else {
+                        Files.walkFileTree(sourceDir, new SimpleFileVisitor<Path>() {
+                            @Override
+                            public FileVisitResult visitFile(Path file, BasicFileAttributes attrs) throws IOException {
+                                if (Thread.currentThread().isInterrupted()) {
+                                    Logger.logMessage("Zipping process manually interrupted", Logger.LogLevel.INFO);
+                                    return FileVisitResult.TERMINATE; // Stop if interrupted
                                 }
+
+                                // Calculate the relative path inside the zip
+                                Path targetFilePath = sourceDir.relativize(file);
+                                String zipEntryName = rootFolderName + "/" + targetFilePath.toString();
+
+                                // Create a new zip entry for the file
+                                zipOut.putNextEntry(new ZipEntry(zipEntryName));
+
+                                // Copy the file content to the zip output stream
+                                try (InputStream in = Files.newInputStream(file)) {
+                                    byte[] buffer = new byte[1024];
+                                    int len;
+                                    while ((len = in.read(buffer)) > 0) {
+                                        zipOut.write(buffer, 0, len);
+                                    }
+                                }
+
+                                zipOut.closeEntry(); // Close the zip entry after the file is written
+                                
+                                // Update progress
+                                int filesCopiedSoFar = copiedFilesCount.incrementAndGet();
+                                int actualProgress = (int) (((double) filesCopiedSoFar / totalFilesCount) * 100);
+                                UpdateProgressPercentage(actualProgress, sourceDirectoryPath, targetZipPath, backup, trayIcon, progressBar);  // Update progress percentage
+
+                                return FileVisitResult.CONTINUE;
                             }
 
-                            zipOut.closeEntry(); // Close the zip entry after the file is written
+                            @Override
+                            public FileVisitResult preVisitDirectory(Path dir, BasicFileAttributes attrs) throws IOException {
+                                if (Thread.currentThread().isInterrupted()) {
+                                    Logger.logMessage("Zipping process manually interrupted", Logger.LogLevel.INFO);
+                                    return FileVisitResult.TERMINATE; // Stop if interrupted
+                                }
 
-                            return FileVisitResult.CONTINUE;
-                        }
-
-                        @Override
-                        public FileVisitResult preVisitDirectory(Path dir, BasicFileAttributes attrs) throws IOException {
-                            if (Thread.currentThread().isInterrupted()) {
-                                Logger.logMessage("Zipping process manually interrupted", Logger.LogLevel.INFO);
-                                return FileVisitResult.TERMINATE; // Stop if interrupted
+                                // Create directory entry in the zip if needed
+                                Path targetDir = sourceDir.relativize(dir);
+                                zipOut.putNextEntry(new ZipEntry(rootFolderName + "/" + targetDir.toString() + "/"));
+                                zipOut.closeEntry();
+                                return FileVisitResult.CONTINUE;
                             }
-
-                            // Create directory entry in the zip if needed
-                            Path targetDir = sourceDir.relativize(dir);
-                            zipOut.putNextEntry(new ZipEntry(rootFolderName + "/" + targetDir.toString() + "/"));
-                            zipOut.closeEntry();
-                            return FileVisitResult.CONTINUE;
-                        }
-                    });
+                        });
+                    }
+                } catch (IOException ex) {
+                    Logger.logMessage("An error occurred", Logger.LogLevel.ERROR, ex);
+                    ex.printStackTrace();  // Handle the exception as necessary
                 }
-            } catch (IOException ex) {
-                Logger.logMessage("An error occurred", Logger.LogLevel.ERROR, ex);
-                ex.printStackTrace();  // Handle the exception as necessary
-            }
-        });
+            });
 
-        zipThread.start(); // Start the zipping thread
-    }
-    
-    private static void addFileToZip(ZipOutputStream zipOut, Path file, String zipEntryName) throws IOException {
+            zipThread.start(); // Start the zipping thread
+        }
+
+    private static void addFileToZip(String sourceDirectoryPath, ZipOutputStream zipOut, Path file, String zipEntryName, AtomicInteger copiedFilesCount, int totalFilesCount, Backup backup, TrayIcon trayIcon, BackupProgressGUI progressBar) throws IOException {
         if (zipEntryName.isEmpty()) {
             zipEntryName = file.getFileName().toString();
         }
@@ -199,5 +213,79 @@ public class BackupOperations{
         }
 
         zipOut.closeEntry();
+        
+        int filesCopiedSoFar = copiedFilesCount.incrementAndGet();
+        int actualProgress = (int) (((double) filesCopiedSoFar / totalFilesCount) * 100);
+        UpdateProgressPercentage(actualProgress, sourceDirectoryPath, zipOut.toString(), backup, trayIcon, progressBar);
+    }
+    
+    public static void updateBackupList(List<Backup> backups) {
+        if (backups == null) throw new IllegalArgumentException("Backup list is null!");
+            
+        JSON.UpdateBackupListJSON(ConfigKey.BACKUP_FILE_STRING.getValue(), ConfigKey.RES_DIRECTORY_STRING.getValue(), backups);
+        
+        if (BackupManagerGUI.model != null)
+            updateTableWithNewBackupList(backups);
+    }
+    
+    public static void updateBackup(List<Backup> backups, Backup updatedBackup) {
+        if (updatedBackup == null) throw new IllegalArgumentException("Backup is null!");
+        
+        JSON.UpdateSingleBackupInJSON(ConfigKey.BACKUP_FILE_STRING.getValue(), ConfigKey.RES_DIRECTORY_STRING.getValue(), updatedBackup);
+        
+        if (BackupManagerGUI.model != null)
+            updateTableWithNewBackupList(backups);
+    }
+    
+    public static void UpdateProgressPercentage(int value, String path1, String path2, Backup backup, TrayIcon trayIcon, BackupProgressGUI progressBar) {
+        
+        if (value == 0 || value == 25 || value == 50 || value == 75 || value == 100)
+            Logger.logMessage("Progress: " + value, Logger.LogLevel.INFO);
+        
+        if (progressBar != null)
+            progressBar.UpdateProgressBar(value);
+        
+        if (value == 100) {
+            updateAfterBackup(path1, path2, backup, trayIcon);
+        }
+    }
+    
+    public static void updateTableWithNewBackupList(List<Backup> updatedBackups) { 
+        Logger.logMessage("updating backup list", Logger.LogLevel.DEBUG);
+        
+        SwingUtilities.invokeLater(() -> {
+            BackupManagerGUI.model.setRowCount(0);
+
+            for (Backup backup : updatedBackups) {
+                System.out.println(backup.toString());
+                BackupManagerGUI.model.addRow(new Object[]{
+                    backup.getBackupName(),
+                    backup.getInitialPath(),
+                    backup.getDestinationPath(),
+                    backup.getLastBackup() != null ? backup.getLastBackup().format(formatter) : "",
+                    backup.isAutoBackup(),
+                    backup.getNextDateBackup() != null ? backup.getNextDateBackup().format(formatter) : "",
+                    backup.getTimeIntervalBackup() != null ? backup.getTimeIntervalBackup().toString() : ""
+                });
+            }
+        });
+    }
+    
+    private static int countFilesInDirectory(File directory) {
+    	int count = 0;
+    	
+    	for (File file : directory.listFiles()) {
+            if (file.isFile()) {
+                count++;
+            }
+            if (file.isDirectory()) {
+                count += countFilesInDirectory(file);
+            }
+    	}
+    	return count;
+    }
+    
+    public static void StopCopyFiles() {
+        zipThread.interrupt();
     }
 }

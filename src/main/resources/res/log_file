@@ -1,3 +1,28 @@
+2024-11-06T18:38:47.094931900 [INFO] Event --> share
+2024-11-06T18:38:40.705057300 [INFO] Event --> shard website
+2024-11-06T18:38:03.044570100 [INFO] The application is running with administrator privileges.
+2024-11-06T18:38:01.771050600 [DEBUG] Background mode: false
+2024-11-06T18:38:01.742282800 [INFO] Application started
+2024-11-06T18:18:33.219556700 [INFO] The application is running with administrator privileges.
+2024-11-06T18:18:32.725260800 [DEBUG] Background mode: false
+2024-11-06T18:18:32.707429800 [INFO] Application started
+2024-11-06T18:17:45.890632100 [INFO] The application is running with administrator privileges.
+2024-11-06T18:17:45.393987300 [DEBUG] Background mode: false
+2024-11-06T18:17:45.377123100 [INFO] Application started
+2024-11-06T18:15:45.049149500 [INFO] Event --> backup renaming
+2024-11-06T18:15:28.918572900 [INFO] Event --> backup renaming
+2024-11-06T18:15:12.784110100 [INFO] The application is running with administrator privileges.
+2024-11-06T18:15:12.288021400 [DEBUG] Background mode: false
+2024-11-06T18:15:12.270165400 [INFO] Application started
+2024-11-06T18:13:04.762108500 [WARN] The folder does not exist or is invalid
+2024-11-06T18:13:04.756156300 [INFO] Event --> opening folder
+2024-11-06T18:12:57.105817100 [INFO] Event --> opening folder
+2024-11-06T18:12:51.280874 [INFO] Event --> opening folder
+2024-11-06T18:12:01.705521200 [INFO] You selected the directory: C:\Users\Utente\Desktop\gg
+2024-11-06T18:11:57.123456400 [INFO] You selected the file: C:\Users\Utente\Desktop\Aseprite.url
+2024-11-06T18:10:45.576643500 [INFO] The application is running with administrator privileges.
+2024-11-06T18:10:45.034874200 [DEBUG] Background mode: false
+2024-11-06T18:10:45.017415300 [INFO] Application started
 2024-11-06T15:31:37.256730900 [INFO] The application is running with administrator privileges.
 2024-11-06T15:31:36.781522200 [DEBUG] Background mode: false
 2024-11-06T15:31:36.763666500 [INFO] Application started

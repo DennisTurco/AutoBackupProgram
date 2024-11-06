@@ -17,6 +17,14 @@
             <version>1.1.1</version>
         </dependency>
         
+        <!-- Dependency for JUnit 4 -->
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <version>[4.13.1,)</version>
+            <scope>test</scope>
+        </dependency>
+        
         <!-- Dependency for flatlaf -->
         <dependency>
             <groupId>com.formdev</groupId>
@@ -51,6 +59,18 @@
                     <phase>package</phase> 
                     <goals>
                         <goal>single</goal>
+                    </goals>
+                </execution>
+            </executions>
+        </plugin>
+        <plugin>
+            <groupId>com.github.spotbugs</groupId>
+            <artifactId>spotbugs-maven-plugin</artifactId>
+            <version>4.7.3.0</version>
+            <executions>
+                <execution>
+                    <goals>
+                        <goal>spotbugs</goal>
                     </goals>
                 </execution>
             </executions>

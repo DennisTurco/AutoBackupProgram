@@ -145,7 +145,7 @@ public class BackupManagerGUI extends javax.swing.JFrame {
         AutoBackupMenuItem = new javax.swing.JCheckBoxMenuItem();
         jSeparator2 = new javax.swing.JPopupMenu.Separator();
         jMenu4 = new javax.swing.JMenu();
-        CopyFilenamePopupItem = new javax.swing.JMenuItem();
+        CopyBackupNamePopupItem = new javax.swing.JMenuItem();
         CopyInitialPathPopupItem = new javax.swing.JMenuItem();
         CopyDestinationPathPopupItem = new javax.swing.JMenuItem();
         TabbedPane = new javax.swing.JTabbedPane();
@@ -272,13 +272,13 @@ public class BackupManagerGUI extends javax.swing.JFrame {
 
         jMenu4.setText("Copy text");
 
-        CopyFilenamePopupItem.setText("Copy filename");
-        CopyFilenamePopupItem.addActionListener(new java.awt.event.ActionListener() {
+        CopyBackupNamePopupItem.setText("Copy backup name");
+        CopyBackupNamePopupItem.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                CopyFilenamePopupItemActionPerformed(evt);
+                CopyBackupNamePopupItemActionPerformed(evt);
             }
         });
-        jMenu4.add(CopyFilenamePopupItem);
+        jMenu4.add(CopyBackupNamePopupItem);
 
         CopyInitialPathPopupItem.setText("Copy initial path");
         CopyInitialPathPopupItem.setToolTipText("");
@@ -813,7 +813,7 @@ public class BackupManagerGUI extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void displayBackupList(List<Backup> backups) {
-        model = new DefaultTableModel(new Object[]{"Backup Name", "Start Path", "Destination Path", "Last Backup", "Automatic Backup", "Next Backup Date", "Time Interval"}, 0) {
+        model = new DefaultTableModel(new Object[]{"Backup Name", "Initial Path", "Destination Path", "Last Backup", "Automatic Backup", "Next Backup Date", "Time Interval"}, 0) {
 
             @Override
             public Class<?> getColumnClass(int columnIndex) {
@@ -1227,12 +1227,12 @@ public class BackupManagerGUI extends javax.swing.JFrame {
             }
     }//GEN-LAST:event_RunBackupPopupItemActionPerformed
 
-    private void CopyFilenamePopupItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CopyFilenamePopupItemActionPerformed
+    private void CopyBackupNamePopupItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CopyBackupNamePopupItemActionPerformed
         if (selectedRow != -1) {
             StringSelection selection = new StringSelection(backups.get(selectedRow).getBackupName());
             Toolkit.getDefaultToolkit().getSystemClipboard().setContents(selection, null);
         }
-    }//GEN-LAST:event_CopyFilenamePopupItemActionPerformed
+    }//GEN-LAST:event_CopyBackupNamePopupItemActionPerformed
 
     private void CopyInitialPathPopupItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CopyInitialPathPopupItemActionPerformed
         if (selectedRow != -1) {
@@ -1849,8 +1849,8 @@ public class BackupManagerGUI extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JCheckBoxMenuItem AutoBackupMenuItem;
     private javax.swing.JMenu Backup;
+    private javax.swing.JMenuItem CopyBackupNamePopupItem;
     private javax.swing.JMenuItem CopyDestinationPathPopupItem;
-    private javax.swing.JMenuItem CopyFilenamePopupItem;
     private javax.swing.JMenuItem CopyInitialPathPopupItem;
     private javax.swing.JMenuItem DeletePopupItem;
     private javax.swing.JMenuItem DuplicatePopupItem;

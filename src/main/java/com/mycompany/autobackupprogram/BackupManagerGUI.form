@@ -98,12 +98,12 @@
             <Property name="text" type="java.lang.String" value="Copy text"/>
           </Properties>
           <SubComponents>
-            <MenuItem class="javax.swing.JMenuItem" name="CopyFilenamePopupItem">
+            <MenuItem class="javax.swing.JMenuItem" name="CopyBackupNamePopupItem">
               <Properties>
-                <Property name="text" type="java.lang.String" value="Copy filename"/>
+                <Property name="text" type="java.lang.String" value="Copy backup name"/>
               </Properties>
               <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="CopyFilenamePopupItemActionPerformed"/>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="CopyBackupNamePopupItemActionPerformed"/>
               </Events>
             </MenuItem>
             <MenuItem class="javax.swing.JMenuItem" name="CopyInitialPathPopupItem">

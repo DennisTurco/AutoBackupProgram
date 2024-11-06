@@ -71,6 +71,17 @@ public class TimePicker extends javax.swing.JDialog {
         Integer minutes = (Integer) minutesSpinner.getValue();
         return (days != null && days >= 0 && hours != null && hours >= 0 && hours <= 23 && minutes != null && minutes >= 0 && minutes <= 59 && (days != 0 || hours != 0 || minutes != 0));
     }
+    
+    private void mouseWeel(java.awt.event.MouseWheelEvent evt) {
+        javax.swing.JSpinner spinner = (javax.swing.JSpinner) evt.getSource();
+        int rotation = evt.getWheelRotation();
+
+        if (rotation < 0) {
+            spinner.setValue((Integer) spinner.getValue() + 1);
+        } else {
+            spinner.setValue((Integer) spinner.getValue() - 1);
+        }
+    }
 
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -229,17 +240,6 @@ public class TimePicker extends javax.swing.JDialog {
     private void minutesSpinnerMouseWheelMoved(java.awt.event.MouseWheelEvent evt) {//GEN-FIRST:event_minutesSpinnerMouseWheelMoved
         mouseWeel(evt);
     }//GEN-LAST:event_minutesSpinnerMouseWheelMoved
-
-    private void mouseWeel(java.awt.event.MouseWheelEvent evt) {
-        javax.swing.JSpinner spinner = (javax.swing.JSpinner) evt.getSource();
-        int rotation = evt.getWheelRotation();
-
-        if (rotation < 0) {
-            spinner.setValue((Integer) spinner.getValue() + 1);
-        } else {
-            spinner.setValue((Integer) spinner.getValue() - 1);
-        }
-    }
     
     private void btnOkActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnOkActionPerformed
         if (checkInputCorrectness()) {

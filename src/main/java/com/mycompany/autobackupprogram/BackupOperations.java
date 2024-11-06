@@ -29,6 +29,8 @@ public class BackupOperations{
     private static Thread zipThread;
     
     public static void SingleBackup(Backup backup, TrayIcon trayIcon, BackupProgressGUI progressBar) {
+        if (backup == null) throw new IllegalArgumentException("Backup cannot be null!");
+        
         Logger.logMessage("Event --> automatic single backup started", Logger.LogLevel.INFO);
 
         String temp = "\\";
@@ -58,6 +60,10 @@ public class BackupOperations{
     }
     
     private static void updateAfterBackup(String path1, String path2, Backup backup, TrayIcon trayIcon) {
+        if (backup == null) throw new IllegalArgumentException("Backup cannot be null!");
+        if (path1 == null) throw new IllegalArgumentException("Initial path cannot be null!");
+        if (path2 == null) throw new IllegalArgumentException("Destination path cannot be null!");
+        
         LocalDateTime dateNow = LocalDateTime.now();
            
         Logger.logMessage("Backup completed!", Logger.LogLevel.INFO);

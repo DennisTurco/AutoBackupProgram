@@ -10,45 +10,46 @@ name: Java CI with Maven
 
 on:
   push:
-    branches: [ "master" ]
+    branches: [ "master" ]  # Trigger the action on push to the master branch
   pull_request:
-    branches: [ "master" ]
+    branches: [ "master" ]  # Trigger the action on pull requests targeting the master branch
 
 jobs:
   build:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-latest  # Use the latest version of Ubuntu for the build environment
 
     steps:
-    # Check out the code from the repository
-    - uses: actions/checkout@v4
+    # Step 1: Check out the code from the repository
+    - name: Check out code
+      uses: actions/checkout@v4
 
-    # Set up JDK 19
+    # Step 2: Set up JDK 19
     - name: Set up JDK 19
       uses: actions/setup-java@v4
       with:
         java-version: '19'
-        distribution: 'temurin'
-        cache: maven
+        distribution: 'temurin'  # Use the Temurin distribution for OpenJDK
+        cache: maven  # Cache Maven dependencies to speed up subsequent builds
 
-    # Clean and build with Maven
+    # Step 3: Clean and build with Maven
     - name: Build with Maven
-      run: mvn -B clean package --file pom.xml
+      run: mvn -B clean package --file pom.xml  # Build the project with Maven, suppress the interactive mode
 
-    # Run tests to ensure code quality
+    # Step 4: Run Tests
     - name: Run Tests
-      run: mvn test --file pom.xml
+      run: mvn test --file pom.xml  # Run the tests to ensure the code works as expected
 
-    # Upload the built JAR file as an artifact
+    # Step 5: Upload the built JAR file as an artifact
     - name: Upload JAR Artifact
       uses: actions/upload-artifact@v3
       with:
-        name: backupmanager-jar
-        path: target/BackupManager-1.0-SNAPSHOT-jar-with-dependencies.jar
+        name: backupmanager-jar  # Name of the artifact
+        path: target/BackupManager-1.0-SNAPSHOT-jar-with-dependencies.jar  # Path to the JAR file
 
-    # Run static code analysis with SpotBugs (optional, requires SpotBugs plugin in POM)
+    # Step 6: Static Code Analysis with SpotBugs (optional)
     - name: Static Code Analysis with SpotBugs
-      run: mvn com.github.spotbugs:spotbugs-maven-plugin:spotbugs
+      run: mvn com.github.spotbugs:spotbugs-maven-plugin:spotbugs  # Run SpotBugs for static code analysis
 
-    # Update dependency graph to improve Dependabot alerts
+    # Step 7: Update dependency graph to improve Dependabot alerts
     - name: Update dependency graph
-      uses: advanced-security/maven-dependency-submission-action@571e99aab1055c2e71a1e2309b9691de18d6b7d6
+      uses: advanced-security/maven-dependency-submission-action@571e99aab1055c2e71a1e2309b9691de18d6b7d6  # Submit dependency graph for security monitoring

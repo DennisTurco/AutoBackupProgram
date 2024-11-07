@@ -1,3 +1,298 @@
+2024-11-07T10:11:17.630602400 [INFO] The application is running with administrator privileges.
+2024-11-07T10:11:17.184508 [DEBUG] Background mode: false
+2024-11-07T10:11:17.169628200 [INFO] Application started
+2024-11-07T10:09:43.282717200 [INFO] Event --> opening backup
+2024-11-07T10:09:43.276765800 [INFO] Edit row : 0
+2024-11-07T10:09:35.788159 [INFO] Event --> opening backup
+2024-11-07T10:09:35.782728600 [INFO] Edit row : 0
+2024-11-07T10:09:33.450941600 [INFO] You selected the directory: C:\Users\Utente\Desktop
+2024-11-07T10:09:27.447471100 [INFO] Event --> opening backup
+2024-11-07T10:09:27.441519200 [INFO] Edit row : 0
+2024-11-07T10:09:25.755277100 [INFO] You selected the directory: C:\Users\Utente\Desktop\gg
+2024-11-07T10:09:21.263783800 [INFO] The application is running with administrator privileges.
+2024-11-07T10:09:20.768984600 [DEBUG] Background mode: false
+2024-11-07T10:09:20.752616400 [INFO] Application started
+2024-11-07T10:09:03.719347300 [DEBUG] updating backup list
+2024-11-07T10:09:03.712898800 [INFO] Event --> auto backup disabled
+2024-11-07T10:09:03.706947500 [INFO] Event --> opening backup
+2024-11-07T10:09:03.700994900 [INFO] Edit row : 1
+2024-11-07T10:08:47.998637 [DEBUG] updating backup list
+2024-11-07T10:08:46.850121 [INFO] Event --> save with name
+2024-11-07T10:08:46.844665100 [INFO] Event --> saving backup
+2024-11-07T10:08:45.310056 [INFO] Event --> opening backup
+2024-11-07T10:08:45.304600100 [INFO] Edit row : 0
+2024-11-07T10:08:23.372998600 [INFO] You selected the directory: C:\Users\Utente\Desktop
+2024-11-07T10:08:21.500710500 [INFO] You selected the directory: C:\Users\Utente\Desktop\gg
+2024-11-07T10:08:16.496390100 [INFO] The application is running with administrator privileges.
+2024-11-07T10:08:15.994366 [DEBUG] Background mode: false
+2024-11-07T10:08:15.978519900 [INFO] Application started
+2024-11-07T10:07:17.975570300 [INFO] The application is running with administrator privileges.
+2024-11-07T10:07:17.474777200 [DEBUG] Background mode: false
+2024-11-07T10:07:17.459398100 [INFO] Application started
+2024-11-07T10:06:05.907216600 [INFO] The application is running with administrator privileges.
+2024-11-07T10:06:05.400946 [DEBUG] Background mode: false
+2024-11-07T10:06:05.386534900 [INFO] Application started
+2024-11-07T10:05:32.789294200 [INFO] The application is running with administrator privileges.
+2024-11-07T10:05:32.106090300 [DEBUG] Background mode: false
+2024-11-07T10:05:32.091210700 [INFO] Application started
+2024-11-07T09:53:11.242954600 [INFO] The application is running with administrator privileges.
+2024-11-07T09:53:10.753443100 [DEBUG] Background mode: false
+2024-11-07T09:53:10.739058800 [INFO] Application started
+2024-11-07T09:51:35.319149900 [INFO] You selected the directory: C:\Users\Utente\Desktop\AutoBackupProgram
+2024-11-07T09:51:29.812584200 [INFO] The application is running with administrator privileges.
+2024-11-07T09:51:29.324344100 [DEBUG] Background mode: false
+2024-11-07T09:51:29.309935800 [INFO] Application started
+2024-11-07T09:50:58.700736700 [DEBUG] updating backup list
+2024-11-07T09:50:58.695252600 [INFO] Event --> auto backup disabled
+2024-11-07T09:50:58.689796500 [INFO] Event --> Auto Backup setted to Disabled
+2024-11-07T09:50:56.025108400 [INFO] Event --> automatic backup
+2024-11-07T09:50:56.017664400 [INFO] Event --> Changing auto backup preference
+2024-11-07T09:50:17.356253100 [DEBUG] updating backup list
+2024-11-07T09:50:17.348789500 [INFO] Event --> auto backup disabled
+2024-11-07T09:50:17.343333900 [INFO] Event --> Auto Backup setted to Disabled
+2024-11-07T09:50:13.539358200 [INFO] Event --> automatic backup
+2024-11-07T09:50:13.533899900 [INFO] Event --> Changing auto backup preference
+2024-11-07T09:50:08.194417200 [DEBUG] updating backup list
+2024-11-07T09:50:08.188462300 [INFO] Event --> auto backup disabled
+2024-11-07T09:50:08.181986700 [INFO] Event --> Auto Backup setted to Disabled
+2024-11-07T09:49:58.747746400 [INFO] Event --> automatic backup
+2024-11-07T09:49:58.742262700 [INFO] Event --> Changing auto backup preference
+2024-11-07T09:49:52.763131500 [DEBUG] updating backup list
+2024-11-07T09:49:52.757207100 [INFO] Event --> auto backup disabled
+2024-11-07T09:49:52.744651900 [INFO] Event --> Auto Backup setted to Disabled
+2024-11-07T09:49:49.579257200 [INFO] Backup 'ff' saved successfully!
+2024-11-07T09:49:49.572313300 [DEBUG] updating backup list
+2024-11-07T09:49:47.636061700 [INFO] Event --> save with name
+2024-11-07T09:49:47.630575500 [INFO] Event --> automatic backup
+2024-11-07T09:49:47.625119200 [INFO] Event --> Changing auto backup preference
+2024-11-07T09:49:45.928322400 [DEBUG] updating backup list
+2024-11-07T09:49:45.922839100 [INFO] Event --> auto backup disabled
+2024-11-07T09:49:45.917382900 [INFO] Event --> Auto Backup setted to Disabled
+2024-11-07T09:49:44.972855100 [INFO] Event --> save with name
+2024-11-07T09:49:44.944240400 [INFO] Event --> automatic backup
+2024-11-07T09:49:44.937384 [INFO] Event --> Changing auto backup preference
+2024-11-07T09:49:44.267925700 [DEBUG] updating backup list
+2024-11-07T09:49:44.262006200 [INFO] Event --> auto backup disabled
+2024-11-07T09:49:44.255525900 [INFO] Event --> Auto Backup setted to Disabled
+2024-11-07T09:49:42.193927800 [INFO] Event --> save with name
+2024-11-07T09:49:42.187975800 [INFO] Event --> automatic backup
+2024-11-07T09:49:42.181998 [INFO] Event --> Changing auto backup preference
+2024-11-07T09:49:39.403804800 [DEBUG] updating backup list
+2024-11-07T09:49:39.396860700 [INFO] Event --> auto backup disabled
+2024-11-07T09:49:39.391404900 [INFO] Event --> Auto Backup setted to Disabled
+2024-11-07T09:49:37.405054 [INFO] Event --> save with name
+2024-11-07T09:49:37.399598200 [INFO] Event --> automatic backup
+2024-11-07T09:49:37.388257800 [INFO] Event --> Changing auto backup preference
+2024-11-07T09:49:34.434611600 [INFO] You selected the directory: C:\Users\Utente\Desktop
+2024-11-07T09:49:32.193995500 [INFO] You selected the directory: C:\Users\Utente\Desktop\gg
+2024-11-07T09:49:27.205988400 [INFO] The application is running with administrator privileges.
+2024-11-07T09:49:26.594945 [DEBUG] Background mode: false
+2024-11-07T09:49:26.580557800 [INFO] Application started
+2024-11-06T23:57:21.789715 [DEBUG] updating backup list
+2024-11-06T23:57:21.783239400 [INFO] Event --> removing backup
+2024-11-06T23:57:20.582217400 [INFO] Event --> deleting backup
+2024-11-06T23:57:14.001432300 [WARN] Unable to save the file. Both the initial and destination paths must be specified and cannot be empty
+2024-11-06T23:57:13.995947 [INFO] Event --> saving backup
+2024-11-06T23:57:12.314588600 [DEBUG] updating backup list
+2024-11-06T23:57:12.307153700 [INFO] Event --> auto backup disabled
+2024-11-06T23:57:12.301658900 [INFO] Event --> opening backup
+2024-11-06T23:57:12.296107400 [INFO] Edit row : 6
+2024-11-06T23:57:02.861926200 [WARN] Unable to save the file. Both the initial and destination paths must be specified and cannot be empty
+2024-11-06T23:57:02.856001200 [INFO] Event --> saving backup
+2024-11-06T23:57:01.496653 [WARN] Unable to save the file. Both the initial and destination paths must be specified and cannot be empty
+2024-11-06T23:57:01.490697800 [INFO] Event --> saving backup
+2024-11-06T23:56:59.675023400 [INFO] The application is running with administrator privileges.
+2024-11-06T23:56:59.147815800 [DEBUG] Background mode: false
+2024-11-06T23:56:59.131943800 [INFO] Application started
+2024-11-06T23:56:39.534241400 [DEBUG] updating backup list
+2024-11-06T23:56:36.935811 [WARN] Unable to save the file. Both the initial and destination paths must be specified and cannot be empty
+2024-11-06T23:56:36.930355 [INFO] Event --> save with name
+2024-11-06T23:56:32.315327500 [WARN] Unable to save the file. Both the initial and destination paths must be specified and cannot be empty
+2024-11-06T23:56:32.309346 [INFO] Event --> saving backup
+2024-11-06T23:56:28.975521700 [INFO] The application is running with administrator privileges.
+2024-11-06T23:56:28.450556100 [DEBUG] Background mode: false
+2024-11-06T23:56:28.436171900 [INFO] Application started
+2024-11-06T23:53:16.746894900 [INFO] The application is running with administrator privileges.
+2024-11-06T23:53:16.199623900 [DEBUG] Background mode: false
+2024-11-06T23:53:16.183751800 [INFO] Application started
+2024-11-06T23:49:24.018413900 [DEBUG] updating backup list
+2024-11-06T23:49:22.498951900 [INFO] Backup 'j' saved successfully!
+2024-11-06T23:49:22.491028200 [DEBUG] updating backup list
+2024-11-06T23:49:21.050309800 [INFO] Event --> save with name
+2024-11-06T23:49:21.044165400 [INFO] Event --> saving backup
+2024-11-06T23:49:16.623044600 [INFO] The application is running with administrator privileges.
+2024-11-06T23:49:16.132279200 [DEBUG] Background mode: false
+2024-11-06T23:49:16.117399800 [INFO] Application started
+2024-11-06T23:48:21.003579400 [DEBUG] updating backup list
+2024-11-06T23:48:20.998093600 [INFO] Event --> auto backup disabled
+2024-11-06T23:48:20.992505200 [INFO] Event --> Auto Backup setted to Disabled
+2024-11-06T23:48:18.873319400 [INFO] Event --> automatic backup
+2024-11-06T23:48:18.867861300 [INFO] Event --> Changing auto backup preference
+2024-11-06T23:48:17.036172700 [DEBUG] updating backup list
+2024-11-06T23:48:17.030689600 [INFO] Event --> auto backup disabled
+2024-11-06T23:48:17.025233700 [INFO] Event --> Auto Backup setted to Disabled
+2024-11-06T23:48:13.763483700 [INFO] Backup 'f' saved successfully!
+2024-11-06T23:48:13.756540 [DEBUG] updating backup list
+2024-11-06T23:48:10.993877300 [INFO] Event --> save with name
+2024-11-06T23:48:10.988397 [INFO] Event --> automatic backup
+2024-11-06T23:48:10.982472600 [INFO] Event --> Changing auto backup preference
+2024-11-06T23:48:10.110260900 [DEBUG] updating backup list
+2024-11-06T23:48:10.104308500 [INFO] Event --> auto backup disabled
+2024-11-06T23:48:10.098356200 [INFO] Event --> Auto Backup setted to Disabled
+2024-11-06T23:48:07.409091700 [INFO] Event --> save with name
+2024-11-06T23:48:07.403663300 [INFO] Event --> automatic backup
+2024-11-06T23:48:07.398179800 [INFO] Event --> Changing auto backup preference
+2024-11-06T23:48:06.434552500 [DEBUG] updating backup list
+2024-11-06T23:48:06.427112500 [INFO] Event --> auto backup disabled
+2024-11-06T23:48:06.421656600 [INFO] Event --> Auto Backup setted to Disabled
+2024-11-06T23:48:05.219764500 [INFO] Event --> save with name
+2024-11-06T23:48:05.214309 [INFO] Event --> automatic backup
+2024-11-06T23:48:05.207363 [INFO] Event --> Changing auto backup preference
+2024-11-06T23:48:03.916793100 [DEBUG] updating backup list
+2024-11-06T23:48:03.908875500 [INFO] Event --> auto backup disabled
+2024-11-06T23:48:03.903395 [INFO] Event --> Auto Backup setted to Disabled
+2024-11-06T23:48:02.789611 [INFO] Event --> save with name
+2024-11-06T23:48:02.783684100 [INFO] Event --> automatic backup
+2024-11-06T23:48:02.773243200 [INFO] Event --> Changing auto backup preference
+2024-11-06T23:48:01.112904100 [INFO] You selected the directory: C:\Users\Utente\Desktop
+2024-11-06T23:47:58.857686 [INFO] You selected the directory: C:\Users\Utente\Desktop\gg
+2024-11-06T23:47:52.921047500 [DEBUG] updating backup list
+2024-11-06T23:47:52.912615500 [INFO] Event --> auto backup disabled
+2024-11-06T23:47:46.623803 [INFO] Event --> clear
+2024-11-06T23:47:46.618346600 [INFO] Event --> new backup
+2024-11-06T23:47:38.948887400 [INFO] The application is running with administrator privileges.
+2024-11-06T23:47:38.420315100 [DEBUG] Background mode: false
+2024-11-06T23:47:38.405931300 [INFO] Application started
+2024-11-06T23:46:34.568282300 [DEBUG] updating backup list
+2024-11-06T23:46:34.562302800 [DEBUG] updating backup list
+2024-11-06T23:46:34.556351800 [INFO] Event --> auto backup disabled
+2024-11-06T23:46:34.549902200 [INFO] Event --> Auto Backup setted to Disabled
+2024-11-06T23:46:33.249243400 [INFO] Event --> save with name
+2024-11-06T23:46:33.243817500 [INFO] Event --> automatic backup
+2024-11-06T23:46:33.232875500 [INFO] Event --> Changing auto backup preference
+2024-11-06T23:46:31.889736 [INFO] You selected the directory: C:\Users\Utente\Desktop
+2024-11-06T23:46:30.212295400 [INFO] You selected the directory: C:\Users\Utente\Desktop\gg
+2024-11-06T23:46:26.167799800 [DEBUG] updating backup list
+2024-11-06T23:46:26.159397400 [INFO] Event --> auto backup disabled
+2024-11-06T23:46:26.152955800 [INFO] Event --> clear
+2024-11-06T23:46:26.146968300 [INFO] Event --> new backup
+2024-11-06T23:46:22.334611200 [INFO] The application is running with administrator privileges.
+2024-11-06T23:46:21.790994900 [DEBUG] Background mode: false
+2024-11-06T23:46:21.776610300 [INFO] Application started
+2024-11-06T23:44:55.335228100 [DEBUG] updating backup list
+2024-11-06T23:44:55.329276200 [DEBUG] updating backup list
+2024-11-06T23:44:55.323324200 [INFO] Event --> auto backup disabled
+2024-11-06T23:44:55.317868200 [INFO] Event --> Auto Backup setted to Disabled
+2024-11-06T23:44:53.326467500 [INFO] Event --> save with name
+2024-11-06T23:44:53.320515400 [INFO] Event --> automatic backup
+2024-11-06T23:44:52.353882400 [INFO] Event --> Changing auto backup preference
+2024-11-06T23:44:48.491565700 [INFO] Event --> Changing auto backup preference
+2024-11-06T23:44:39.825199300 [DEBUG] updating backup list
+2024-11-06T23:44:39.818751100 [DEBUG] updating backup list
+2024-11-06T23:44:39.812303800 [INFO] Event --> auto backup disabled
+2024-11-06T23:44:39.806847500 [INFO] Event --> Auto Backup setted to Disabled
+2024-11-06T23:44:37.108022900 [INFO] Event --> save with name
+2024-11-06T23:44:37.102539100 [INFO] Event --> automatic backup
+2024-11-06T23:44:37.091130500 [INFO] Event --> Changing auto backup preference
+2024-11-06T23:44:35.973086200 [INFO] You selected the directory: C:\Users\Utente\Desktop
+2024-11-06T23:44:34.031250300 [INFO] You selected the directory: C:\Users\Utente\Desktop\gg
+2024-11-06T23:44:27.782865 [DEBUG] updating backup list
+2024-11-06T23:44:27.773468600 [INFO] Event --> auto backup disabled
+2024-11-06T23:44:27.768481100 [INFO] Event --> clear
+2024-11-06T23:44:27.763024900 [INFO] Event --> new backup
+2024-11-06T23:44:25.131220200 [INFO] The application is running with administrator privileges.
+2024-11-06T23:44:24.628913700 [DEBUG] Background mode: false
+2024-11-06T23:44:24.606097700 [INFO] Application started
+2024-11-06T23:43:07.102391200 [INFO] Event --> Changing auto backup preference
+2024-11-06T23:42:57.364691100 [INFO] Event --> Changing auto backup preference
+2024-11-06T23:42:56.447392200 [DEBUG] updating backup list
+2024-11-06T23:42:56.441424200 [DEBUG] updating backup list
+2024-11-06T23:42:56.433984200 [INFO] Event --> auto backup disabled
+2024-11-06T23:42:56.428528400 [INFO] Event --> Auto Backup setted to Disabled
+2024-11-06T23:42:55.435666400 [INFO] Event --> save with name
+2024-11-06T23:42:55.429740800 [INFO] Event --> automatic backup
+2024-11-06T23:42:55.423762200 [INFO] Event --> Changing auto backup preference
+2024-11-06T23:42:53.084720400 [INFO] You selected the directory: C:\Users\Utente\Desktop
+2024-11-06T23:42:50.543843300 [INFO] You selected the directory: C:\Users\Utente\Desktop\gg
+2024-11-06T23:42:44.161633 [DEBUG] updating backup list
+2024-11-06T23:42:44.154204 [INFO] Event --> auto backup disabled
+2024-11-06T23:42:44.148751800 [INFO] Event --> clear
+2024-11-06T23:42:44.143268200 [INFO] Event --> new backup
+2024-11-06T23:42:39.615272600 [INFO] The application is running with administrator privileges.
+2024-11-06T23:42:39.109909300 [DEBUG] Background mode: false
+2024-11-06T23:42:39.096541800 [INFO] Application started
+2024-11-06T23:40:57.488076700 [DEBUG] updating backup list
+2024-11-06T23:40:57.480605300 [DEBUG] updating backup list
+2024-11-06T23:40:57.474184900 [INFO] Event --> auto backup disabled
+2024-11-06T23:40:57.467709400 [INFO] Event --> Auto Backup setted to Disabled
+2024-11-06T23:40:55.942656900 [INFO] Event --> auto backup preference
+2024-11-06T23:40:54.928146300 [INFO] Event --> opening backup
+2024-11-06T23:40:54.923187200 [INFO] Edit row : 4
+2024-11-06T23:40:53.962133300 [DEBUG] updating backup list
+2024-11-06T23:40:53.204599300 [INFO] Event --> Next date backup setted to 2024-11-07T23:40:53.204103
+2024-11-06T23:40:51.531526400 [INFO] Event --> automatic backup
+2024-11-06T23:40:46.168174900 [INFO] The application is running with administrator privileges.
+2024-11-06T23:40:45.660337500 [DEBUG] Background mode: false
+2024-11-06T23:40:45.645953500 [INFO] Application started
+2024-11-06T23:34:42.375631600 [INFO] Event --> auto backup preference
+2024-11-06T23:34:41.506186400 [DEBUG] updating backup list
+2024-11-06T23:34:41.499738100 [DEBUG] updating backup list
+2024-11-06T23:34:41.493813300 [INFO] Event --> auto backup disabled
+2024-11-06T23:34:41.487834300 [INFO] Event --> Auto Backup setted to Disabled
+2024-11-06T23:34:40.219488600 [INFO] Event --> save with name
+2024-11-06T23:34:40.214032200 [INFO] Event --> automatic backup
+2024-11-06T23:34:40.208080 [INFO] Event --> auto backup preference
+2024-11-06T23:34:33.781003400 [INFO] You selected the directory: C:\Users\Utente\Desktop
+2024-11-06T23:34:31.812976400 [INFO] You selected the directory: C:\Users\Utente\Desktop\gg
+2024-11-06T23:34:07.776801700 [DEBUG] updating backup list
+2024-11-06T23:34:07.765382800 [INFO] Event --> auto backup disabled
+2024-11-06T23:34:07.760414500 [INFO] Event --> clear
+2024-11-06T23:34:07.754462300 [INFO] Event --> new backup
+2024-11-06T23:34:03.018921200 [INFO] The application is running with administrator privileges.
+2024-11-06T23:34:02.474313500 [DEBUG] Background mode: false
+2024-11-06T23:34:02.460949700 [INFO] Application started
+2024-11-06T23:31:13.604320600 [INFO] Event --> auto backup preference
+2024-11-06T23:31:11.868562100 [DEBUG] updating backup list
+2024-11-06T23:31:11.861618100 [DEBUG] updating backup list
+2024-11-06T23:31:11.855693500 [INFO] Event --> auto backup disabled
+2024-11-06T23:31:11.850705300 [INFO] Event --> Auto Backup setted to Disabled
+2024-11-06T23:31:10.325911 [INFO] Event --> save with name
+2024-11-06T23:31:10.319462600 [INFO] Event --> automatic backup
+2024-11-06T23:31:10.312519300 [INFO] Event --> auto backup preference
+2024-11-06T23:31:07.608012500 [INFO] You selected the directory: C:\Users\Utente\Desktop
+2024-11-06T23:31:05.722007600 [INFO] You selected the directory: C:\Users\Utente\Desktop\gg
+2024-11-06T23:30:58.940158100 [DEBUG] updating backup list
+2024-11-06T23:30:58.932691200 [INFO] Event --> auto backup disabled
+2024-11-06T23:30:58.926775100 [INFO] Event --> clear
+2024-11-06T23:30:58.921779200 [INFO] Event --> new backup
+2024-11-06T23:30:55.293958800 [DEBUG] updating backup list
+2024-11-06T23:30:55.288503400 [INFO] Event --> auto backup disabled
+2024-11-06T23:30:55.283048100 [INFO] Event --> opening backup
+2024-11-06T23:30:55.277565600 [INFO] Edit row : 4
+2024-11-06T23:30:10.329336200 [WARN] Input Missing!
+2024-11-06T23:30:10.324374800 [INFO] Event --> auto backup preference
+2024-11-06T23:30:09.220313600 [DEBUG] updating backup list
+2024-11-06T23:30:09.214885200 [INFO] Event --> auto backup disabled
+2024-11-06T23:30:09.209897300 [INFO] Event --> clear
+2024-11-06T23:30:09.203945900 [INFO] Event --> new backup
+2024-11-06T23:29:54.619667900 [DEBUG] updating backup list
+2024-11-06T23:29:53.065307400 [INFO] Event --> save with name
+2024-11-06T23:29:53.060318400 [INFO] Event --> saving backup
+2024-11-06T23:29:50.836702200 [INFO] Event --> opening backup
+2024-11-06T23:29:50.830254100 [INFO] Edit row : 0
+2024-11-06T23:29:49.221587700 [INFO] You selected the directory: C:\Users\Utente\Desktop\gg
+2024-11-06T23:29:42.926139200 [WARN] Input Missing!
+2024-11-06T23:29:42.915494 [INFO] Event --> auto backup preference
+2024-11-06T23:29:40.439493700 [DEBUG] updating backup list
+2024-11-06T23:29:40.432573 [INFO] Event --> auto backup disabled
+2024-11-06T23:29:40.428032300 [INFO] Event --> clear
+2024-11-06T23:29:40.423569100 [INFO] Event --> new backup
+2024-11-06T23:29:35.790951600 [INFO] The application is running with administrator privileges.
+2024-11-06T23:29:35.263023600 [DEBUG] Background mode: false
+2024-11-06T23:29:35.249951100 [INFO] Application started
+2024-11-06T22:56:13.386583200 [INFO] The application is running with administrator privileges.
+2024-11-06T22:56:12.894886800 [DEBUG] Background mode: false
+2024-11-06T22:56:12.882955600 [INFO] Application started
 2024-11-06T22:12:07.702346500 [INFO] The application is running with administrator privileges.
 2024-11-06T22:12:06.921945400 [DEBUG] Background mode: false
 2024-11-06T22:12:06.908553400 [INFO] Application started

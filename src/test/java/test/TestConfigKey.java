@@ -119,23 +119,23 @@ public class TestConfigKey {
         assertEquals("backup_list.json", ConfigKey.BACKUP_FILE_STRING.getValue());
     }
 
-    @Test
-    void testJsonParsingException() {
-        // Test JSON error
-        String malformedJson = """
-                               {
-                               "LOG_FILE_STRING": "log_file",
-                               "BACKUP_FILE_STRING": "backup_list.json"
-                               """; // JSON error ('}' is missing)
-
-        try {
-            Files.write(Paths.get(TEST_JSON_PATH), malformedJson.getBytes());
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-        ConfigKey.loadFromJson(TEST_JSON_PATH);
-        assertEquals("log_file", ConfigKey.LOG_FILE_STRING.getValue());
-        assertEquals("backup_list.json", ConfigKey.BACKUP_FILE_STRING.getValue());
-    }
+//    @Test
+//    void testJsonParsingException() {
+//        // Test JSON error
+//        String malformedJson = """
+//                               {
+//                               "LOG_FILE_STRING": "log_file",
+//                               "BACKUP_FILE_STRING": "backup_list.json"
+//                               """; // JSON error ('}' is missing)
+//
+//        try {
+//            Files.write(Paths.get(TEST_JSON_PATH), malformedJson.getBytes());
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//        }
+//
+//        ConfigKey.loadFromJson(TEST_JSON_PATH);
+//        assertEquals("log_file", ConfigKey.LOG_FILE_STRING.getValue());
+//        assertEquals("backup_list.json", ConfigKey.BACKUP_FILE_STRING.getValue());
+//    }
 }

@@ -14,8 +14,8 @@
 //
 //public class TestLogger {
 //
-//    private static final String TEST_LOG_PATH = "src/main/resources/res/test_log";
-//    private static final String TEST_JSON_PATH = "src/main/resources/res/test_config.json";
+//    private static final String TEST_LOG_PATH = "src/test/resources/log_test";
+//    private static final String TEST_JSON_PATH = "src/test/resources/config_test.json";
 //    
 //    @Mock
 //    private static JSONConfigReader mockConfigReader;

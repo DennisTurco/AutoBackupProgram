@@ -263,7 +263,6 @@ public class BackupOperations{
             BackupManagerGUI.model.setRowCount(0);
 
             for (Backup backup : updatedBackups) {
-                System.out.println(backup.toString());
                 BackupManagerGUI.model.addRow(new Object[]{
                     backup.getBackupName(),
                     backup.getInitialPath(),

@@ -11,7 +11,7 @@ import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 
-class JSONAutoBackup implements IJSONAutoBackup {
+public class JSONAutoBackup implements IJSONAutoBackup {
     @Override
     public List<Backup> ReadBackupListFromJSON(String filename, String directoryPath) throws IOException {
 

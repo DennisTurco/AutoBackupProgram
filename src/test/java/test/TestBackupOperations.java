@@ -3,13 +3,11 @@ package test;
 import com.mycompany.autobackupprogram.BackupOperations;
 import com.mycompany.autobackupprogram.JSONConfigReader;
 import com.mycompany.autobackupprogram.Logger;
-import com.mycompany.autobackupprogram.MainApp;
 import org.junit.jupiter.api.*;
 import org.mockito.Mock;
 
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
-import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 

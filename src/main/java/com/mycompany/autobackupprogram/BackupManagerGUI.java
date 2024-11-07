@@ -380,7 +380,11 @@ public class BackupManagerGUI extends javax.swing.JFrame {
         try {
             progressBar = new BackupProgressGUI(path1, path2);
             progressBar.setVisible(true);
-            BackupOperations.zipDirectory(path1, path2+".zip", currentBackup, null, progressBar);
+
+            SingleBackup.setEnabled(false);
+            toggleAutoBackup.setEnabled(false);
+
+            BackupOperations.zipDirectory(path1, path2+".zip", currentBackup, null, progressBar, SingleBackup, toggleAutoBackup);
             
             //if current_file_opened is null it means they are not in a backup but it is a backup with no associated json file
             if (currentBackup.getBackupName() != null && !currentBackup.getBackupName().isEmpty()) { 
@@ -1626,7 +1630,7 @@ public class BackupManagerGUI extends javax.swing.JFrame {
             
             progressBar = new BackupProgressGUI(backup.getInitialPath(), backup.getDestinationPath());
             progressBar.setVisible(true);
-            BackupOperations.SingleBackup(backup, null, progressBar);
+            BackupOperations.SingleBackup(backup, null, progressBar, SingleBackup, toggleAutoBackup);
             
             // if the backup is currentBackup
             if (currentBackup.getBackupName().equals(backup.getBackupName())) 

@@ -1,3 +1,152 @@
+2024-11-07T21:09:02.189634900 [INFO] Event --> opening backup
+2024-11-07T21:09:02.183201100 [INFO] Edit row : 0
+2024-11-07T21:08:59.234526700 [INFO] Zipping process manually interrupted
+2024-11-07T21:08:54.418815800 [INFO] Progress: 75
+2024-11-07T21:08:54.390047600 [INFO] Progress: 75
+2024-11-07T21:08:53.244786600 [DEBUG] updating backup list
+2024-11-07T21:08:53.237842300 [INFO] Event --> auto backup disabled
+2024-11-07T21:08:53.231394100 [INFO] Event --> clear
+2024-11-07T21:08:53.225442200 [INFO] Event --> new backup
+2024-11-07T21:08:52.376292400 [INFO] Progress: 50
+2024-11-07T21:08:52.369175500 [INFO] Progress: 50
+2024-11-07T21:08:52.205000100 [INFO] Progress: 25
+2024-11-07T21:08:52.197063700 [INFO] Progress: 25
+2024-11-07T21:08:52.057192100 [INFO] Progress: 0
+2024-11-07T21:08:52.020994800 [INFO] date backup: 07-11-2024 21.08.52
+2024-11-07T21:08:52.014525200 [INFO] Event --> single backup
+2024-11-07T21:08:50.774031700 [INFO] Event --> opening backup
+2024-11-07T21:08:50.767557400 [INFO] Edit row : 0
+2024-11-07T21:08:44.337221 [DEBUG] updating backup list
+2024-11-07T21:08:44.322837400 [INFO] Next date backup setted to: 2024-11-07T21:09:44.302618500
+2024-11-07T21:08:44.309066100 [INFO] Backup completed!
+2024-11-07T21:08:44.279194500 [INFO] Progress: 100
+2024-11-07T21:08:42.849229800 [DEBUG] updating backup list
+2024-11-07T21:08:42.841789800 [INFO] Event --> auto backup disabled
+2024-11-07T21:08:42.834349900 [INFO] Event --> opening backup
+2024-11-07T21:08:42.826443 [INFO] Edit row : 3
+2024-11-07T21:08:37.883234700 [INFO] Progress: 75
+2024-11-07T21:08:37.852996400 [INFO] Progress: 75
+2024-11-07T21:08:35.812242 [INFO] Progress: 50
+2024-11-07T21:08:35.804835100 [INFO] Progress: 50
+2024-11-07T21:08:35.636162500 [INFO] Progress: 25
+2024-11-07T21:08:35.627730200 [INFO] Progress: 25
+2024-11-07T21:08:35.485378900 [INFO] Progress: 0
+2024-11-07T21:08:35.449695500 [INFO] date backup: 07-11-2024 21.08.35
+2024-11-07T21:08:35.442723400 [INFO] Event --> single backup
+2024-11-07T21:08:32.040774 [INFO] Event --> opening backup
+2024-11-07T21:08:32.034297900 [INFO] Edit row : 0
+2024-11-07T21:08:23.020202100 [DEBUG] updating backup list
+2024-11-07T21:08:22.994682900 [INFO] Backup completed!
+2024-11-07T21:08:22.951168500 [INFO] Progress: 100
+2024-11-07T21:08:22.838999 [INFO] date backup: 07-11-2024 21.08.22
+2024-11-07T21:08:22.832526200 [INFO] Event --> single backup
+2024-11-07T21:08:22.325893800 [DEBUG] updating backup list
+2024-11-07T21:08:22.273064700 [INFO] Backup completed!
+2024-11-07T21:08:22.242836400 [INFO] Progress: 100
+2024-11-07T21:08:22.128923900 [INFO] date backup: 07-11-2024 21.08.22
+2024-11-07T21:08:22.122476900 [INFO] Event --> single backup
+2024-11-07T21:08:21.873402200 [DEBUG] updating backup list
+2024-11-07T21:08:21.857477600 [INFO] Backup completed!
+2024-11-07T21:08:21.815348800 [INFO] Progress: 100
+2024-11-07T21:08:21.680437800 [INFO] date backup: 07-11-2024 21.08.21
+2024-11-07T21:08:21.673989100 [INFO] Event --> single backup
+2024-11-07T21:08:18.384308300 [DEBUG] updating backup list
+2024-11-07T21:08:18.377364300 [INFO] Event --> auto backup disabled
+2024-11-07T21:08:18.371412200 [INFO] Event --> Auto Backup setted to Disabled
+2024-11-07T21:08:16.776688700 [INFO] Event --> automatic backup
+2024-11-07T21:08:16.769743900 [INFO] Event --> Changing auto backup preference
+2024-11-07T21:08:12.093267800 [DEBUG] updating backup list
+2024-11-07T21:08:12.085331100 [INFO] Event --> auto backup disabled
+2024-11-07T21:08:12.079379 [INFO] Event --> Auto Backup setted to Disabled
+2024-11-07T21:07:42.122103300 [INFO] Backup 'gg' saved successfully!
+2024-11-07T21:07:42.114663900 [DEBUG] updating backup list
+2024-11-07T21:07:34.884150900 [INFO] Event --> save with name
+2024-11-07T21:07:34.877702800 [INFO] Event --> automatic backup
+2024-11-07T21:07:34.870262300 [INFO] Event --> Changing auto backup preference
+2024-11-07T21:07:33.688700100 [DEBUG] updating backup list
+2024-11-07T21:07:33.680763100 [INFO] Event --> auto backup disabled
+2024-11-07T21:07:33.674315500 [INFO] Event --> Auto Backup setted to Disabled
+2024-11-07T21:07:23.022225600 [INFO] Event --> save with name
+2024-11-07T21:07:23.015281200 [INFO] Event --> automatic backup
+2024-11-07T21:07:23.008337500 [INFO] Event --> Changing auto backup preference
+2024-11-07T21:07:17.267406 [INFO] You selected the directory: C:\Users\Utente\Desktop
+2024-11-07T21:07:14.973325300 [INFO] You selected the directory: C:\Users\Utente\Desktop\gg
+2024-11-07T21:07:09.798054900 [DEBUG] updating backup list
+2024-11-07T21:07:09.790119 [INFO] Event --> auto backup disabled
+2024-11-07T21:07:09.781687800 [INFO] Event --> clear
+2024-11-07T21:07:09.774741700 [INFO] Event --> new backup
+2024-11-07T21:06:50.943879300 [INFO] Event --> Changing auto backup preference
+2024-11-07T21:06:46.058549300 [DEBUG] updating backup list
+2024-11-07T21:06:46.048629300 [INFO] Next date backup setted to: 2024-11-07T21:07:46.026309800
+2024-11-07T21:06:46.032287500 [INFO] Backup completed!
+2024-11-07T21:06:46.017799800 [INFO] Progress: 100
+2024-11-07T21:06:39.604535800 [INFO] Progress: 75
+2024-11-07T21:06:39.574279800 [INFO] Progress: 75
+2024-11-07T21:06:37.521836800 [INFO] Progress: 50
+2024-11-07T21:06:37.513901700 [INFO] Progress: 50
+2024-11-07T21:06:37.339309900 [INFO] Progress: 25
+2024-11-07T21:06:37.330381500 [INFO] Progress: 25
+2024-11-07T21:06:37.173646 [INFO] Progress: 0
+2024-11-07T21:06:37.116287300 [INFO] date backup: 07-11-2024 21.06.37
+2024-11-07T21:06:37.107369500 [INFO] Event --> single backup
+2024-11-07T21:06:35.912692200 [INFO] Event --> opening backup
+2024-11-07T21:06:35.906245500 [INFO] Edit row : 0
+2024-11-07T21:06:32.794221100 [INFO] The application is running with administrator privileges.
+2024-11-07T21:06:32.289294800 [DEBUG] Background mode: false
+2024-11-07T21:06:32.272430800 [INFO] Application started
+2024-11-07T21:04:33.174436700 [DEBUG] updating backup list
+2024-11-07T21:04:33.165013300 [INFO] Next date backup setted to: 2024-11-07T21:05:33.152612900
+2024-11-07T21:04:33.158565 [INFO] Backup completed!
+2024-11-07T21:04:33.124620800 [INFO] Progress: 100
+2024-11-07T21:04:26.758203900 [INFO] Progress: 75
+2024-11-07T21:04:26.728964300 [INFO] Progress: 75
+2024-11-07T21:04:24.668053600 [INFO] Progress: 50
+2024-11-07T21:04:24.660590 [INFO] Progress: 50
+2024-11-07T21:04:24.482525900 [INFO] Progress: 25
+2024-11-07T21:04:24.473598500 [INFO] Progress: 25
+2024-11-07T21:04:24.320830800 [INFO] Progress: 0
+2024-11-07T21:04:24.263815200 [INFO] date backup: 07-11-2024 21.04.24
+2024-11-07T21:04:24.254366100 [INFO] Event --> single backup
+2024-11-07T21:04:23.186473400 [INFO] Event --> opening backup
+2024-11-07T21:04:23.180494200 [INFO] Edit row : 0
+2024-11-07T21:04:18.863802300 [INFO] The application is running with administrator privileges.
+2024-11-07T21:04:18.344459300 [DEBUG] Background mode: false
+2024-11-07T21:04:18.329603 [INFO] Application started
+2024-11-07T21:02:16.254827700 [DEBUG] updating backup list
+2024-11-07T21:02:16.245403500 [INFO] Next date backup setted to: 2024-11-07T21:03:16.233995600
+2024-11-07T21:02:16.238979900 [INFO] Backup completed!
+2024-11-07T21:02:16.233003800 [INFO] Progress: 100
+2024-11-07T21:02:14.963286700 [INFO] Zipping process manually interrupted
+2024-11-07T21:02:08.887626 [INFO] Progress: 75
+2024-11-07T21:02:08.859354 [INFO] Progress: 75
+2024-11-07T21:02:08.148116400 [INFO] Progress: 75
+2024-11-07T21:02:08.118332100 [INFO] Progress: 75
+2024-11-07T21:02:06.851551700 [INFO] Progress: 50
+2024-11-07T21:02:06.844635400 [INFO] Progress: 50
+2024-11-07T21:02:06.673983500 [INFO] Progress: 25
+2024-11-07T21:02:06.666047900 [INFO] Progress: 25
+2024-11-07T21:02:06.519728500 [INFO] Progress: 0
+2024-11-07T21:02:06.485529700 [INFO] date backup: 07-11-2024 21.02.06
+2024-11-07T21:02:06.478560 [INFO] Event --> single backup
+2024-11-07T21:02:06.061263 [INFO] Progress: 50
+2024-11-07T21:02:06.053822700 [INFO] Progress: 50
+2024-11-07T21:02:05.850319800 [INFO] Progress: 25
+2024-11-07T21:02:05.841887800 [INFO] Progress: 25
+2024-11-07T21:02:05.668110700 [INFO] Progress: 0
+2024-11-07T21:02:05.583894200 [INFO] date backup: 07-11-2024 21.02.05
+2024-11-07T21:02:05.574442500 [INFO] Event --> single backup
+2024-11-07T21:02:04.580287600 [INFO] Event --> opening backup
+2024-11-07T21:02:04.574335200 [INFO] Edit row : 0
+2024-11-07T21:02:00.991266400 [INFO] The application is running with administrator privileges.
+2024-11-07T21:02:00.477411400 [DEBUG] Background mode: false
+2024-11-07T21:02:00.460548300 [INFO] Application started
+2024-11-07T20:45:17.006390800 [WARN] The initial path and destination path cannot be the same. Please choose different paths
+2024-11-07T20:45:16.998925500 [INFO] Event --> single backup
+2024-11-07T20:45:16.046557600 [INFO] You selected the directory: C:\Users\Utente\Desktop\musica papà
+2024-11-07T20:45:11.670461100 [INFO] You selected the directory: C:\Users\Utente\Desktop\musica papà
+2024-11-07T20:44:59.021745500 [INFO] The application is running with administrator privileges.
+2024-11-07T20:44:58.498471400 [DEBUG] Background mode: false
+2024-11-07T20:44:58.484055400 [INFO] Application started
 2024-11-07T20:17:33.936995200 [INFO] Event --> opening folder
 2024-11-07T20:16:29.005866 [INFO] The application is running with administrator privileges.
 2024-11-07T20:16:28.489557500 [DEBUG] Background mode: false

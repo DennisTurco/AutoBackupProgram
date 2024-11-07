@@ -9,7 +9,7 @@ import java.util.concurrent.locks.ReentrantLock;
 
 public class Logger {
     
-    private static final String LOG_PATH = ConfigKey.RES_DIRECTORY_STRING.getValue() + ConfigKey.LOG_FILE_STRING.getValue();
+    private static String LOG_PATH = ConfigKey.RES_DIRECTORY_STRING.getValue() + ConfigKey.LOG_FILE_STRING.getValue();
     private static final ReentrantLock lock = new ReentrantLock();
     private static boolean consoleLoggingEnabled = true; // Toggle for console logging
 
@@ -88,5 +88,9 @@ public class Logger {
 
     public static void setConsoleLoggingEnabled(boolean enabled) {
         consoleLoggingEnabled = enabled;
+    }
+
+    public static void setLogFilePath(String filepath) {
+        LOG_PATH = filepath;
     }
 }

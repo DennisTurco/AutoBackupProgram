@@ -2,6 +2,8 @@ package test;
 
 import com.mycompany.autobackupprogram.ConfigKey;
 
+import org.junit.jupiter.api.AfterAll;
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
@@ -115,27 +117,42 @@ public class TestConfigKey {
 
         ConfigKey.loadFromJson(TEST_JSON_PATH);
 
-        assertEquals("log_file", ConfigKey.LOG_FILE_STRING.getValue());
-        assertEquals("backup_list.json", ConfigKey.BACKUP_FILE_STRING.getValue());
+        assertEquals(LOG_FILE_STRING, ConfigKey.LOG_FILE_STRING.getValue());
+        assertEquals(BACKUP_FILE_STRING, ConfigKey.BACKUP_FILE_STRING.getValue());
     }
 
-//    @Test
-//    void testJsonParsingException() {
-//        // Test JSON error
-//        String malformedJson = """
-//                               {
-//                               "LOG_FILE_STRING": "log_file",
-//                               "BACKUP_FILE_STRING": "backup_list.json"
-//                               """; // JSON error ('}' is missing)
-//
-//        try {
-//            Files.write(Paths.get(TEST_JSON_PATH), malformedJson.getBytes());
-//        } catch (IOException e) {
-//            e.printStackTrace();
-//        }
-//
-//        ConfigKey.loadFromJson(TEST_JSON_PATH);
-//        assertEquals("log_file", ConfigKey.LOG_FILE_STRING.getValue());
-//        assertEquals("backup_list.json", ConfigKey.BACKUP_FILE_STRING.getValue());
-//    }
+    @Test
+    void testJsonParsingException() {
+        // Test JSON error
+        String malformedJson = String.format("""
+                               {
+                               "LOG_FILE_STRING": "log_file",
+                               "BACKUP_FILE_STRING": "backup_list.json"
+                               """,
+                               LOG_FILE_STRING,
+                               BACKUP_FILE_STRING
+                                ); // JSON error ('}' is missing)
+
+        try {
+            Files.write(Paths.get(TEST_JSON_PATH), malformedJson.getBytes());
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        ConfigKey.loadFromJson(TEST_JSON_PATH);
+        assertEquals(LOG_FILE_STRING, ConfigKey.LOG_FILE_STRING.getValue());
+        assertEquals(BACKUP_FILE_STRING, ConfigKey.BACKUP_FILE_STRING.getValue());
+    }
+
+    @AfterEach
+    void tearDown() throws IOException {
+        // Clean up log file after each test
+        Files.deleteIfExists(Paths.get(TEST_JSON_PATH));
+    }
+
+    @AfterAll
+    static void tearDownAfterClass() throws IOException {
+        // Clean up the config file after all tests
+        Files.deleteIfExists(Paths.get(TEST_JSON_PATH));
+    }
 }

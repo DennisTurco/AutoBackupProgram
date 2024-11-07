@@ -16,7 +16,7 @@ public class MainApp {
         // check argument correction
         if (!isBackgroundMode && args.length > 0) {
             Logger.logMessage("Argument \""+ args[0] +"\" not valid!", Logger.LogLevel.WARN);
-            return;
+            throw new IllegalArgumentException("Argument passed is not valid!");
         }
         
         Logger.logMessage("Application started", Logger.LogLevel.INFO);

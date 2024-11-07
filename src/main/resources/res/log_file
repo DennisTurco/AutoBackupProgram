@@ -1,3 +1,8 @@
+2024-11-07T16:53:33.466382700 [WARN] Argument "--wrong_argument" not valid!
+2024-11-07T16:51:53.567860400 [WARN] Argument "--wrong_argument" not valid!
+2024-11-07T15:28:36.820492400 [INFO] The application is running with administrator privileges.
+2024-11-07T15:28:36.248127600 [DEBUG] Background mode: false
+2024-11-07T15:28:36.235128500 [INFO] Application started
 2024-11-07T10:11:17.630602400 [INFO] The application is running with administrator privileges.
 2024-11-07T10:11:17.184508 [DEBUG] Background mode: false
 2024-11-07T10:11:17.169628200 [INFO] Application started

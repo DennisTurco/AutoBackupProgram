@@ -655,8 +655,8 @@ public class BackupManagerGUI extends javax.swing.JFrame {
     
     public void Clear() {
         Logger.logMessage("Event --> clear", Logger.LogLevel.INFO);
-        
-        if (!saveChanged) {
+
+        if ((!saveChanged && !currentBackup.getBackupName().isEmpty()) || (!startPathField.getText().isEmpty() || !destinationPathField.getText().isEmpty() || !backupNoteTextArea.getText().isEmpty())) {
             int response = JOptionPane.showConfirmDialog(null, "Are you sure you want to clean the fields?", "Confimation required", JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE);
             if (response != JOptionPane.YES_OPTION) {
                 return;
@@ -721,7 +721,7 @@ public class BackupManagerGUI extends javax.swing.JFrame {
     private void OpenBackup(String backupName) {
         Logger.logMessage("Event --> opening backup", Logger.LogLevel.INFO);
         
-        if (!saveChanged) {
+        if ((!saveChanged && !currentBackup.getBackupName().isEmpty()) || (!startPathField.getText().isEmpty() || !destinationPathField.getText().isEmpty() || !backupNoteTextArea.getText().isEmpty())) {
             int response = JOptionPane.showConfirmDialog(null, "There are unsaved changes, do you want to save them before moving to another file?", "Confimation required", JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE);
             if (response == JOptionPane.YES_OPTION) {
                 saveFile();
@@ -811,7 +811,7 @@ public class BackupManagerGUI extends javax.swing.JFrame {
     private void NewBackup() {
         Logger.logMessage("Event --> new backup", Logger.LogLevel.INFO);
         
-        if (!saveChanged && !currentBackup.getBackupName().isEmpty()) {
+        if ((!saveChanged && !currentBackup.getBackupName().isEmpty()) || (startPathField.getText().length() != 0 || destinationPathField.getText().length() != 0 || backupNoteTextArea.getText().length() != 0)) {
             int response = JOptionPane.showConfirmDialog(null, "There are unsaved changes, do you want to save them before moving to another backup?", "Confimation required", JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE);
             if (response == JOptionPane.YES_OPTION) {
                 saveFile();

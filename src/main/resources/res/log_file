@@ -1,3 +1,131 @@
+2024-11-07T22:15:02.560416100 [INFO] Event --> clear
+2024-11-07T22:15:00.466887200 [DEBUG] updating backup list
+2024-11-07T22:15:00.459942200 [INFO] Event --> auto backup disabled
+2024-11-07T22:15:00.453026300 [INFO] Event --> clear
+2024-11-07T22:15:00.447074 [INFO] Event --> new backup
+2024-11-07T22:14:56.965265800 [DEBUG] updating backup list
+2024-11-07T22:14:56.958293800 [INFO] Event --> auto backup disabled
+2024-11-07T22:14:55.755956700 [INFO] Event --> clear
+2024-11-07T22:14:54.380870300 [INFO] Event --> new backup
+2024-11-07T22:14:50.168009 [INFO] Event --> history
+2024-11-07T22:14:47.085938700 [INFO] Event --> clear
+2024-11-07T22:14:42.356326900 [INFO] Event --> opening backup
+2024-11-07T22:14:42.349905900 [INFO] Edit row : 0
+2024-11-07T22:14:34.662714800 [DEBUG] updating backup list
+2024-11-07T22:14:34.653314500 [INFO] Event --> auto backup disabled
+2024-11-07T22:14:34.646346300 [INFO] Event --> clear
+2024-11-07T22:14:34.640422100 [INFO] Event --> new backup
+2024-11-07T22:14:24.986315200 [INFO] Event --> clear
+2024-11-07T22:14:19.503543400 [INFO] The application is running with administrator privileges.
+2024-11-07T22:14:18.996136200 [DEBUG] Background mode: false
+2024-11-07T22:14:18.979768200 [INFO] Application started
+2024-11-07T22:12:47.378557200 [INFO] Event --> clear
+2024-11-07T22:12:31.805208600 [INFO] The application is running with administrator privileges.
+2024-11-07T22:12:31.295843400 [DEBUG] Background mode: false
+2024-11-07T22:12:31.279974800 [INFO] Application started
+2024-11-07T22:07:20.345041500 [INFO] Event --> clear
+2024-11-07T22:07:13.306627800 [INFO] The application is running with administrator privileges.
+2024-11-07T22:07:12.759045700 [DEBUG] Background mode: false
+2024-11-07T22:07:12.743173 [INFO] Application started
+2024-11-07T22:06:48.007582400 [INFO] Event --> clear
+2024-11-07T22:06:42.691289 [INFO] The application is running with administrator privileges.
+2024-11-07T22:06:42.188346 [DEBUG] Background mode: false
+2024-11-07T22:06:42.172473900 [INFO] Application started
+2024-11-07T22:04:48.111944 [INFO] Event --> clear
+2024-11-07T22:04:43.294899200 [INFO] Event --> clear
+2024-11-07T22:04:39.885655600 [DEBUG] updating backup list
+2024-11-07T22:04:39.877224600 [INFO] Event --> auto backup disabled
+2024-11-07T22:04:39.151391500 [INFO] Event --> clear
+2024-11-07T22:04:34.152985500 [INFO] Event --> new backup
+2024-11-07T22:04:28.729338900 [INFO] The application is running with administrator privileges.
+2024-11-07T22:04:28.209035600 [DEBUG] Background mode: false
+2024-11-07T22:04:28.189692 [INFO] Application started
+2024-11-07T22:04:12.834525200 [DEBUG] updating backup list
+2024-11-07T22:04:12.826565 [INFO] Event --> auto backup disabled
+2024-11-07T22:04:11.971378800 [INFO] Event --> clear
+2024-11-07T22:04:08.432874400 [INFO] Event --> new backup
+2024-11-07T22:04:02.680721900 [INFO] Event --> new backup
+2024-11-07T22:03:59.234105 [INFO] The application is running with administrator privileges.
+2024-11-07T22:03:58.733640800 [DEBUG] Background mode: false
+2024-11-07T22:03:58.717273700 [INFO] Application started
+2024-11-07T22:03:10.972680900 [DEBUG] updating backup list
+2024-11-07T22:03:10.964768600 [INFO] Event --> auto backup disabled
+2024-11-07T22:03:07.326774300 [INFO] Event --> clear
+2024-11-07T22:03:06.500243900 [WARN] Unable to save the file. Both the initial and destination paths must be specified and cannot be empty
+2024-11-07T22:03:06.493299700 [INFO] Event --> saving backup
+2024-11-07T22:02:55.000560400 [INFO] Event --> new backup
+2024-11-07T22:02:34.196080 [INFO] The application is running with administrator privileges.
+2024-11-07T22:02:33.664369 [DEBUG] Background mode: false
+2024-11-07T22:02:33.647466600 [INFO] Application started
+2024-11-07T22:01:18.063607200 [INFO] Event --> opening backup
+2024-11-07T22:01:18.056687600 [INFO] Edit row : 0
+2024-11-07T22:01:14.431536300 [DEBUG] updating backup list
+2024-11-07T22:01:14.423600800 [INFO] Event --> auto backup disabled
+2024-11-07T22:01:14.417125400 [INFO] Event --> clear
+2024-11-07T22:01:13.338341600 [INFO] Event --> new backup
+2024-11-07T22:01:09.972999500 [INFO] Event --> opening backup
+2024-11-07T22:01:09.966546300 [INFO] Edit row : 0
+2024-11-07T22:01:01.047497500 [DEBUG] updating backup list
+2024-11-07T22:01:01.038589500 [INFO] Event --> auto backup disabled
+2024-11-07T22:01:01.031128400 [INFO] Event --> clear
+2024-11-07T22:00:57.694083200 [INFO] Event --> new backup
+2024-11-07T22:00:17.208154900 [INFO] Event --> opening backup
+2024-11-07T22:00:17.201706600 [INFO] Edit row : 0
+2024-11-07T22:00:13.622612600 [INFO] Event --> opening backup
+2024-11-07T22:00:13.616142800 [INFO] Edit row : 0
+2024-11-07T22:00:09.489293100 [INFO] The application is running with administrator privileges.
+2024-11-07T22:00:08.982354600 [DEBUG] Background mode: false
+2024-11-07T22:00:08.964994800 [INFO] Application started
+2024-11-07T21:59:03.737270500 [INFO] Event --> opening backup
+2024-11-07T21:59:03.730326600 [INFO] Edit row : 0
+2024-11-07T21:58:59.681053400 [INFO] The application is running with administrator privileges.
+2024-11-07T21:58:59.156177 [DEBUG] Background mode: false
+2024-11-07T21:58:59.140305 [INFO] Application started
+2024-11-07T21:58:06.453896900 [INFO] Event --> opening backup
+2024-11-07T21:58:06.446952100 [INFO] Edit row : 0
+2024-11-07T21:58:01.917035200 [INFO] The application is running with administrator privileges.
+2024-11-07T21:58:01.410124300 [DEBUG] Background mode: false
+2024-11-07T21:58:01.393260100 [INFO] Application started
+2024-11-07T21:57:04.562324400 [INFO] Event --> opening backup
+2024-11-07T21:57:04.555854800 [INFO] Edit row : 0
+2024-11-07T21:56:57.891765100 [INFO] The application is running with administrator privileges.
+2024-11-07T21:56:57.387587 [DEBUG] Background mode: false
+2024-11-07T21:56:57.372210700 [INFO] Application started
+2024-11-07T21:56:19.387546500 [INFO] Event --> opening backup
+2024-11-07T21:56:19.380602900 [INFO] Edit row : 0
+2024-11-07T21:56:15.577528200 [INFO] The application is running with administrator privileges.
+2024-11-07T21:56:15.078892300 [DEBUG] Background mode: false
+2024-11-07T21:56:15.063515600 [INFO] Application started
+2024-11-07T21:55:59.467301200 [INFO] Event --> opening backup
+2024-11-07T21:55:59.459829300 [INFO] Edit row : 0
+2024-11-07T21:55:53.821892400 [INFO] Event --> opening backup
+2024-11-07T21:55:53.815445300 [INFO] Edit row : 0
+2024-11-07T21:55:45.868730100 [INFO] The application is running with administrator privileges.
+2024-11-07T21:55:45.299820100 [DEBUG] Background mode: false
+2024-11-07T21:55:45.281964 [INFO] Application started
+2024-11-07T21:54:09.056522700 [INFO] Event --> opening backup
+2024-11-07T21:54:09.048585100 [INFO] Edit row : 0
+2024-11-07T21:53:53.153767600 [INFO] The application is running with administrator privileges.
+2024-11-07T21:53:52.638920800 [DEBUG] Background mode: false
+2024-11-07T21:53:52.621561500 [INFO] Application started
+2024-11-07T21:50:20.426968900 [DEBUG] updating backup list
+2024-11-07T21:50:20.420049200 [INFO] Event --> auto backup disabled
+2024-11-07T21:50:14.474415500 [INFO] Event --> clear
+2024-11-07T21:50:14.468397400 [INFO] Event --> new backup
+2024-11-07T21:50:10.770496200 [INFO] You selected the directory: C:\Users\Utente\Desktop\gg
+2024-11-07T21:50:04.519174 [DEBUG] updating backup list
+2024-11-07T21:50:04.509254900 [INFO] Event --> auto backup disabled
+2024-11-07T21:50:04.501814500 [INFO] Event --> clear
+2024-11-07T21:50:04.495366600 [INFO] Event --> new backup
+2024-11-07T21:49:51.805873800 [INFO] The application is running with administrator privileges.
+2024-11-07T21:49:51.245890900 [DEBUG] Background mode: false
+2024-11-07T21:49:51.229523 [INFO] Application started
+2024-11-07T21:35:24.060646600 [INFO] The application is running with administrator privileges.
+2024-11-07T21:35:23.537864 [DEBUG] Background mode: false
+2024-11-07T21:35:23.521992 [INFO] Application started
+2024-11-07T21:14:05.800943900 [INFO] The application is running with administrator privileges.
+2024-11-07T21:14:05.318081700 [DEBUG] Background mode: false
+2024-11-07T21:14:05.302705800 [INFO] Application started
 2024-11-07T21:09:02.189634900 [INFO] Event --> opening backup
 2024-11-07T21:09:02.183201100 [INFO] Edit row : 0
 2024-11-07T21:08:59.234526700 [INFO] Zipping process manually interrupted

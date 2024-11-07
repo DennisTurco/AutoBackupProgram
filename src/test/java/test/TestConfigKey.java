@@ -2,14 +2,12 @@ package test;
 
 import com.mycompany.autobackupprogram.ConfigKey;
 
-import org.junit.jupiter.api.AfterAll;
-import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 
 import java.nio.file.Files;
-import java.nio.file.Paths;
+import java.io.File;
 import java.io.IOException;
 
 public class TestConfigKey {
@@ -26,7 +24,7 @@ public class TestConfigKey {
     private final String SHARE_LINK = "https://github.com/DennisTurco/BackupManager/releases";
     private final String EMAIL = "assistenza@shardpc.it";
 
-    private static final String TEST_JSON_PATH = "src/test/resources/config_test.json";
+    private static File temp_file;
 
     @BeforeEach
     void setup() throws IOException {
@@ -58,14 +56,14 @@ public class TestConfigKey {
                              SHARE_LINK);
 
         // write json test
-        Files.createDirectories(Paths.get("src/test/resources"));
-        Files.write(Paths.get(TEST_JSON_PATH), jsonContent.getBytes());
+        temp_file = File.createTempFile("src/test/resources/config_test", ".json");
+        Files.write(temp_file.toPath(), jsonContent.getBytes());
     }
 
     @Test
     void testLoadFromJson() {
         // load the values from JSON test 
-        ConfigKey.loadFromJson(TEST_JSON_PATH);
+        ConfigKey.loadFromJson(temp_file.getPath());
 
         // check if the values are correctly loaded
         assertEquals(LOG_FILE_STRING, ConfigKey.LOG_FILE_STRING.getValue());
@@ -92,13 +90,13 @@ public class TestConfigKey {
                              BACKUP_FILE_STRING);
 
         try {
-            Files.write(Paths.get(TEST_JSON_PATH), jsonContent.getBytes());
+            Files.write(temp_file.toPath(), jsonContent.getBytes());
         } catch (IOException e) {
             e.printStackTrace();
         }
 
         // load the values
-        ConfigKey.loadFromJson(TEST_JSON_PATH);
+        ConfigKey.loadFromJson(temp_file.getPath());
 
         // checks
         assertNull(ConfigKey.CONFIG_FILE_STRING.getValue());
@@ -110,49 +108,37 @@ public class TestConfigKey {
     void testEmptyJsonFile() {
         String emptyJsonContent = "{}";
         try {
-            Files.write(Paths.get(TEST_JSON_PATH), emptyJsonContent.getBytes());
+            Files.write(temp_file.toPath(), emptyJsonContent.getBytes());
         } catch (IOException e) {
             e.printStackTrace();
         }
 
-        ConfigKey.loadFromJson(TEST_JSON_PATH);
+        ConfigKey.loadFromJson(temp_file.getPath());
 
         assertEquals(LOG_FILE_STRING, ConfigKey.LOG_FILE_STRING.getValue());
         assertEquals(BACKUP_FILE_STRING, ConfigKey.BACKUP_FILE_STRING.getValue());
     }
 
-    @Test
-    void testJsonParsingException() {
-        // Test JSON error
-        String malformedJson = String.format("""
-                               {
-                               "LOG_FILE_STRING": "log_file",
-                               "BACKUP_FILE_STRING": "backup_list.json"
-                               """,
-                               LOG_FILE_STRING,
-                               BACKUP_FILE_STRING
-                                ); // JSON error ('}' is missing)
+   @Test
+   void testJsonParsingException() {
+       // Test JSON error
+       String malformedJson = String.format("""
+                              {
+                              "LOG_FILE_STRING": "log_file",
+                              "BACKUP_FILE_STRING": "backup_list.json"
+                              """,
+                              LOG_FILE_STRING,
+                              BACKUP_FILE_STRING
+                               ); // JSON error ('}' is missing)
 
-        try {
-            Files.write(Paths.get(TEST_JSON_PATH), malformedJson.getBytes());
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+       try {
+           Files.write(temp_file.toPath(), malformedJson.getBytes());
+       } catch (IOException e) {
+           e.printStackTrace();
+       }
 
-        ConfigKey.loadFromJson(TEST_JSON_PATH);
-        assertEquals(LOG_FILE_STRING, ConfigKey.LOG_FILE_STRING.getValue());
-        assertEquals(BACKUP_FILE_STRING, ConfigKey.BACKUP_FILE_STRING.getValue());
-    }
-
-    @AfterEach
-    void tearDown() throws IOException {
-        // Clean up log file after each test
-        Files.deleteIfExists(Paths.get(TEST_JSON_PATH));
-    }
-
-    @AfterAll
-    static void tearDownAfterClass() throws IOException {
-        // Clean up the config file after all tests
-        Files.deleteIfExists(Paths.get(TEST_JSON_PATH));
-    }
+       ConfigKey.loadFromJson(temp_file.getPath());
+       assertEquals(LOG_FILE_STRING, ConfigKey.LOG_FILE_STRING.getValue());
+       assertEquals(BACKUP_FILE_STRING, ConfigKey.BACKUP_FILE_STRING.getValue());
+   }
 }

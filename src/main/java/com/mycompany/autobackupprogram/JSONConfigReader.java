@@ -20,7 +20,7 @@ public class JSONConfigReader {
 
     public boolean isLogLevelEnabled(String level) {
         if (config == null) {
-            Logger.logMessage("Configuration not loaded. Cannot check log level.", Logger.LogLevel.ERROR);
+            Logger.logMessage("Configuration not loaded. Cannot check log level", Logger.LogLevel.ERROR);
             return false;
         }
 
@@ -34,7 +34,7 @@ public class JSONConfigReader {
     
     public boolean isMenuItemEnabled(String menuItem) {
         if (config == null) {
-            Logger.logMessage("Configuration not loaded. Cannot check menu items.", Logger.LogLevel.ERROR);
+            Logger.logMessage("Configuration not loaded. Cannot check menu items", Logger.LogLevel.ERROR);
             return false;
         }
 

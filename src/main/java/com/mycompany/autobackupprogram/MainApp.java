@@ -28,7 +28,7 @@ public class MainApp {
             try {
                 service.startService();
             } catch (IOException ex) {
-                Logger.logMessage("An error occurred", Logger.LogLevel.ERROR, ex);
+                Logger.logMessage("An error occurred: " + ex.getMessage(), Logger.LogLevel.ERROR, ex);
                 OpenExceptionMessage(ex.getMessage(), Arrays.toString(ex.getStackTrace()));
             }
         }

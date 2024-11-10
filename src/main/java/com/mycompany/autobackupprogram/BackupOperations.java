@@ -21,10 +21,13 @@ import java.util.concurrent.atomic.AtomicInteger;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipOutputStream;
 
+import javax.management.OperationsException;
 import javax.swing.JButton;
 import javax.swing.JOptionPane;
 import javax.swing.JToggleButton;
 import javax.swing.SwingUtilities;
+
+import com.mycompany.autobackupprogram.Logger.LogLevel;
 
 public class BackupOperations{
     
@@ -38,34 +41,37 @@ public class BackupOperations{
 
         if (singleBackupBtn != null) singleBackupBtn.setEnabled(false);
         if (autoBackupBtn != null) autoBackupBtn.setEnabled(false);
-
-        System.out.println(singleBackupBtn.isEnabled());
-
-        String temp = "\\";
-        String path1 = backup.getInitialPath();
-        String path2 = backup.getDestinationPath();
-
-        if(!CheckInputCorrect(backup.getBackupName(), path1, path2, trayIcon)) return;
-
-        LocalDateTime dateNow = LocalDateTime.now();
-        String date = dateNow.format(dateForfolderNameFormatter);
-        String name1 = path1.substring(path1.length() - 1);
-
-        for(int i = path1.length() - 1; i >= 0; i--) {
-            if(path1.charAt(i) != temp.charAt(0)) name1 = path1.charAt(i) + name1;
-            else break;
-        }
-
-        path2 = path2 + "\\" + name1 + " (Backup " + date + ")";
         
         try {
+            String temp = "\\";
+            String path1 = backup.getInitialPath();
+            String path2 = backup.getDestinationPath();
+
+            if(!CheckInputCorrect(backup.getBackupName(), path1, path2, trayIcon)) return;
+
+            LocalDateTime dateNow = LocalDateTime.now();
+            String date = dateNow.format(dateForfolderNameFormatter);
+            String name1 = path1.substring(path1.length() - 1);
+
+            for(int i = path1.length() - 1; i >= 0; i--) {
+                if(path1.charAt(i) != temp.charAt(0)) name1 = path1.charAt(i) + name1;
+                else break;
+            }
+
+            path2 = path2 + "\\" + name1 + " (Backup " + date + ")";
+
             zipDirectory(path1, path2+".zip", backup, trayIcon, progressBar, singleBackupBtn, autoBackupBtn);
         } catch (IOException e) {
             Logger.logMessage("Error during the backup operation: the initial path is incorrect!", Logger.LogLevel.WARN);
             JOptionPane.showMessageDialog(null, "Error during the backup operation: the initial path is incorrect!", "Error", JOptionPane.ERROR_MESSAGE);
             if (singleBackupBtn != null) singleBackupBtn.setEnabled(true);
             if (autoBackupBtn != null) autoBackupBtn.setEnabled(true);
-        } 
+        } catch (Exception ex) {
+            Logger.logMessage("An error occurred: " + ex.getMessage(), Logger.LogLevel.ERROR, ex);
+            OpenExceptionMessage(ex.getMessage(), Arrays.toString(ex.getStackTrace()));
+            if (singleBackupBtn != null) singleBackupBtn.setEnabled(true);
+            if (autoBackupBtn != null) autoBackupBtn.setEnabled(true);
+        }
     }
     
     private static void updateAfterBackup(String path1, String path2, Backup backup, TrayIcon trayIcon, JButton singleBackupBtn, JToggleButton autoBackupBtn) {
@@ -108,7 +114,7 @@ public class BackupOperations{
                 trayIcon.displayMessage("Backup Manager", "Backup: "+ backup.getBackupName() +"\nThe backup was successfully completed:\nFrom: " + path1 + "\nTo: " + path2, TrayIcon.MessageType.INFO);
             }
         } catch (IllegalArgumentException ex) {
-            Logger.logMessage("An error occurred", Logger.LogLevel.ERROR, ex);
+            Logger.logMessage("An error occurred: " + ex.getMessage(), Logger.LogLevel.ERROR, ex);
             OpenExceptionMessage(ex.getMessage(), Arrays.toString(ex.getStackTrace()));
         } catch (Exception e) {
             Logger.logMessage("Error saving file", Logger.LogLevel.WARN);
@@ -155,6 +161,8 @@ public class BackupOperations{
     }
     
     public static void zipDirectory(String sourceDirectoryPath, String targetZipPath, Backup backup, TrayIcon trayIcon, BackupProgressGUI progressBar, JButton singleBackupBtn, JToggleButton autoBackupBtn) throws IOException { // Track copied files
+        Logger.logMessage("Starting zipping process", LogLevel.INFO);
+
         File file = new File(sourceDirectoryPath);
         int totalFilesCount = file.isDirectory() ? countFilesInDirectory(file) : 1;
         
@@ -222,8 +230,7 @@ public class BackupOperations{
                         });
                     }
                 } catch (IOException ex) {
-                    Logger.logMessage("An error occurred", Logger.LogLevel.ERROR, ex);
-                    ex.printStackTrace();  // Handle the exception as necessary
+                    Logger.logMessage("An error occurred: " + ex.getMessage() , Logger.LogLevel.ERROR, ex);
                     if (singleBackupBtn != null) singleBackupBtn.setEnabled(true);
                     if (autoBackupBtn != null) autoBackupBtn.setEnabled(true);
                 }

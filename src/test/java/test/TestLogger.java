@@ -14,7 +14,7 @@ import static org.mockito.Mockito.*;
 
 public class TestLogger {
 
-    private static final File TEST_LOG_PATH = new File("src/test/resources/log_test");
+    private static File temp_file;
 
     @Mock
     private static JSONConfigReader mockConfigReader;
@@ -22,11 +22,7 @@ public class TestLogger {
     @BeforeAll
     static void setUpBeforeClass() throws IOException {
         // Create test configuration file
-        if (Files.notExists(TEST_LOG_PATH.toPath())) {
-            Files.createFile(TEST_LOG_PATH.toPath());
-        } else {
-            Files.write(TEST_LOG_PATH.toPath(), new byte[0], StandardOpenOption.TRUNCATE_EXISTING);
-        }
+        temp_file = File.createTempFile("src/test/resources/log_test", "");
 
         // Set up the mock config reader
         mockConfigReader = mock(JSONConfigReader.class);
@@ -39,26 +35,22 @@ public class TestLogger {
 
         Logger.configReader = mockConfigReader;
 
-        Logger.setLogFilePath(TEST_LOG_PATH.getPath());
+        Logger.setLogFilePath(temp_file.getPath());
     }
 
     @BeforeEach
     void setup() throws IOException {
-        // Reset the console logging flag before each test
-        if (Files.notExists(TEST_LOG_PATH.toPath())) {
-            Files.createFile(TEST_LOG_PATH.toPath());
-        } else {
-            Files.write(TEST_LOG_PATH.toPath(), new byte[0], StandardOpenOption.TRUNCATE_EXISTING);
-        }
         Logger.setConsoleLoggingEnabled(false);
+
+        // clear the content of the log file for each test
+        Files.write(temp_file.toPath(), new byte[0], StandardOpenOption.TRUNCATE_EXISTING);
     }
 
     @Test
     void testLogMessageInfoLevel() throws IOException {
         Logger.logMessage("Test info message", Logger.LogLevel.INFO);
 
-        List<String> lines = Files.readAllLines(TEST_LOG_PATH.toPath());
-        System.out.println(lines.toString());
+        List<String> lines = Files.readAllLines(temp_file.toPath());
         assertTrue(lines.stream().anyMatch(line -> line.contains("INFO")));
     }
 
@@ -66,7 +58,7 @@ public class TestLogger {
     void testLogMessageDebugLevel() throws IOException {
         Logger.logMessage("Test debug message", Logger.LogLevel.DEBUG);
 
-        List<String> lines = Files.readAllLines(TEST_LOG_PATH.toPath());
+        List<String> lines = Files.readAllLines(temp_file.toPath());
         assertTrue(lines.stream().anyMatch(line -> line.contains("DEBUG") && line.contains("Test debug message")));
     }
 
@@ -74,16 +66,16 @@ public class TestLogger {
     void testLogMessageErrorLevel() throws IOException {
         Logger.logMessage("Test error message", Logger.LogLevel.ERROR);
 
-        List<String> lines = Files.readAllLines(TEST_LOG_PATH.toPath());
+        List<String> lines = Files.readAllLines(temp_file.toPath());
         assertTrue(lines.stream().anyMatch(line -> line.contains("ERROR") && line.contains("Test error message")));
     }
 
     @Test
     void testLogMessageWithException() throws IOException {
         Exception testException = new Exception("Test exception");
-        Logger.logMessage("Test message with exception", Logger.LogLevel.ERROR, testException);
+        Logger.logMessage("Test message with exception: " + testException.getMessage(), Logger.LogLevel.ERROR, testException);
 
-        List<String> lines = Files.readAllLines(TEST_LOG_PATH.toPath());
+        List<String> lines = Files.readAllLines(temp_file.toPath());
         assertTrue(lines.stream().anyMatch(line -> line.contains("ERROR") && line.contains("Test message with exception")));
         assertTrue(lines.stream().anyMatch(line -> line.contains("Exception: java.lang.Exception - Test exception")));
     }
@@ -106,20 +98,14 @@ public class TestLogger {
     }
 
     // @Test
-    // void testFileLoggingWithMaxLines() throws IOException {
-    //     // Create a large number of log entries to test maxLines
-    //     for (int i = 0; i < 200; i++) {
-    //         Logger.logMessage("Log entry " + i, Logger.LogLevel.INFO);
-    //     }
+    void testFileLoggingWithMaxLines() throws IOException {
+        // Create a large number of log entries to test maxLines
+        for (int i = 0; i < 200; i++) {
+            Logger.logMessage("Log entry " + i, Logger.LogLevel.INFO);
+        }
 
-    //     List<String> lines = Files.readAllLines(TEST_LOG_PATH.toPath());
-    //     assertEquals(100, lines.size()); // After trimming, only 100 lines should remain
-    // }
-
-    @AfterEach
-    void tearDown() throws IOException {
-        // Clean up log file after each test
-        Files.deleteIfExists(TEST_LOG_PATH.toPath());
+        List<String> lines = Files.readAllLines(temp_file.toPath());
+        assertEquals(100, lines.size()); // After trimming, only 100 lines should remain
     }
 
 }

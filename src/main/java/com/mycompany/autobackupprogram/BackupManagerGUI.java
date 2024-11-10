@@ -5,6 +5,7 @@ import com.formdev.flatlaf.FlatIntelliJLaf;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.Desktop;
+import java.awt.Dimension;
 import java.awt.HeadlessException;
 import java.awt.Image;
 import java.awt.Toolkit;
@@ -23,7 +24,9 @@ import javax.swing.ImageIcon;
 import javax.swing.JCheckBox;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
+import javax.swing.JScrollPane;
 import javax.swing.JTable;
+import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.SwingUtilities;
 import javax.swing.UIManager;
@@ -78,7 +81,7 @@ public class BackupManagerGUI extends javax.swing.JFrame {
             displayBackupList(backups);
         } catch (IOException ex) {
             backups = null;
-            Logger.logMessage(ex.getMessage());
+            Logger.logMessage("An error occurred: " + ex.getMessage(), Logger.LogLevel.ERROR, ex);
             OpenExceptionMessage(ex.getMessage(), Arrays.toString(ex.getStackTrace()));
         }
         
@@ -154,7 +157,7 @@ public class BackupManagerGUI extends javax.swing.JFrame {
                 try {
                     desktop.open(folder);
                 } catch (IOException ex) {
-                    Logger.logMessage("An error occurred", Logger.LogLevel.ERROR, ex);
+                    Logger.logMessage("An error occurred: " + ex.getMessage(), Logger.LogLevel.ERROR, ex);
                     OpenExceptionMessage(ex.getMessage(), Arrays.toString(ex.getStackTrace()));
                 }
             } else {
@@ -317,7 +320,7 @@ public class BackupManagerGUI extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(this, "Backup '" + currentBackup.getBackupName() + "' saved successfully!", "Backup saved", JOptionPane.INFORMATION_MESSAGE);
             savedChanges(true);
         } catch (IllegalArgumentException ex) {
-            Logger.logMessage("An error occurred", Logger.LogLevel.ERROR, ex);
+            Logger.logMessage("An error occurred: "  + ex.getMessage(), Logger.LogLevel.ERROR, ex);
             OpenExceptionMessage(ex.getMessage(), Arrays.toString(ex.getStackTrace()));
         } catch (HeadlessException ex) {
             Logger.logMessage("Error saving backup", Logger.LogLevel.WARN);
@@ -413,7 +416,7 @@ public class BackupManagerGUI extends javax.swing.JFrame {
             String last_date = LocalDateTime.now().format(formatter);
             lastBackupLabel.setText("last backup: " + last_date);
         } catch(Exception ex) {
-            Logger.logMessage("An error occurred", Logger.LogLevel.ERROR, ex);
+            Logger.logMessage("An error occurred: " + ex.getMessage(), Logger.LogLevel.ERROR, ex);
             OpenExceptionMessage(ex.getMessage(), Arrays.toString(ex.getStackTrace()));
         }
     }
@@ -422,7 +425,7 @@ public class BackupManagerGUI extends javax.swing.JFrame {
         try {
             updateCurrentFiedsByBackup(currentBackup);
         } catch (IllegalArgumentException ex) {
-            Logger.logMessage("An error occurred", Logger.LogLevel.ERROR, ex);
+            Logger.logMessage("An error occurred: " + ex.getMessage(), Logger.LogLevel.ERROR, ex);
             OpenExceptionMessage(ex.getMessage(), Arrays.toString(ex.getStackTrace()));
         }
         setAutoBackupPreference(currentBackup.isAutoBackup());
@@ -499,32 +502,50 @@ public class BackupManagerGUI extends javax.swing.JFrame {
     public static void OpenExceptionMessage(String errorMessage, String stackTrace) {
         Object[] options = {"Close", "Copy to clipboard", "Report the Problem"};
 
-        if (errorMessage == null ) {
+        if (errorMessage == null) {
             errorMessage = "";
         }
         stackTrace = !errorMessage.isEmpty() ? errorMessage + "\n" + stackTrace : errorMessage + stackTrace;
-        String stackTraceMessage = "Please report this error, either with an image of the screen or by copying the following error text (it is appreciable to provide a description of the operations performed before the error): \n" +  stackTrace;
+        String stackTraceMessage = "Please report this error, either with an image of the screen or by copying the following error text (it is appreciable to provide a description of the operations performed before the error): \n" + stackTrace;
 
         int choice;
+
+        // Set a maximum width for the error message
+        final int MAX_WIDTH = 500;
 
         // Keep displaying the dialog until the "Close" option (index 0) is chosen
         do {
             if (stackTraceMessage.length() > 1500) {
-                stackTraceMessage = stackTraceMessage.substring(0, 1500) + "...";     
+                stackTraceMessage = stackTraceMessage.substring(0, 1500) + "...";
             }
-                                
-            // Display the option dialog
+
+            // Create a JTextArea to hold the error message with line wrapping
+            JTextArea messageArea = new JTextArea(stackTraceMessage);
+            messageArea.setLineWrap(true);
+            messageArea.setWrapStyleWord(true);
+            messageArea.setEditable(false);
+            messageArea.setColumns(50); // Approximate width, adjust as necessary
+
+            // Limit the maximum width
+            messageArea.setSize(new Dimension(MAX_WIDTH, Integer.MAX_VALUE));
+            messageArea.setPreferredSize(new Dimension(MAX_WIDTH, messageArea.getPreferredSize().height));
+
+            // Put the JTextArea in a JScrollPane for scrollable display if needed
+            JScrollPane scrollPane = new JScrollPane(messageArea);
+            scrollPane.setPreferredSize(new Dimension(MAX_WIDTH, 300));
+
+            // Display the option dialog with the JScrollPane
             choice = JOptionPane.showOptionDialog(
                 null,
-                stackTraceMessage,                   // The detailed message or stack trace
-                "Error...",                          // The error message/title
-                JOptionPane.DEFAULT_OPTION,          // Option type (default option type)
-                JOptionPane.ERROR_MESSAGE,           // Message type (error message icon)
-                null,                                // Icon (null means default icon)
-                options,                             // The options for the buttons
-                options[0]                           // The default option (Close)
+                scrollPane,                           // The JScrollPane containing the error message
+                "Error...",                           // The error message/title
+                JOptionPane.DEFAULT_OPTION,           // Option type (default option type)
+                JOptionPane.ERROR_MESSAGE,            // Message type (error message icon)
+                null,                                 // Icon (null means default icon)
+                options,                              // The options for the buttons
+                options[0]                            // The default option (Close)
             );
-            
+
             if (choice == 1) {
                 StringSelection selection = new StringSelection(stackTrace);
                 Toolkit.getDefaultToolkit().getSystemClipboard().setContents(selection, null);
@@ -657,12 +678,14 @@ public class BackupManagerGUI extends javax.swing.JFrame {
         Logger.logMessage("Event --> clear", Logger.LogLevel.INFO);
 
         if ((!saveChanged && !currentBackup.getBackupName().isEmpty()) || (!startPathField.getText().isEmpty() || !destinationPathField.getText().isEmpty() || !backupNoteTextArea.getText().isEmpty())) {
-            int response = JOptionPane.showConfirmDialog(null, "Are you sure you want to clean the fields?", "Confimation required", JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE);
+            int response = JOptionPane.showConfirmDialog(null, "Are you sure you want to clean the fields?", "Confimation required", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
             if (response != JOptionPane.YES_OPTION) {
                 return;
             }
         }
         
+        saveChanged = false;
+        setCurrentBackupName("");
         startPathField.setText("");
         destinationPathField.setText("");
         lastBackupLabel.setText("");
@@ -713,7 +736,7 @@ public class BackupManagerGUI extends javax.swing.JFrame {
             BackupOperations.updateBackupList(backups);
             savedChanges(true);
         } catch (IllegalArgumentException ex) {
-            Logger.logMessage("An error occurred", Logger.LogLevel.ERROR, ex);
+            Logger.logMessage("An error occurred: " + ex.getMessage(), Logger.LogLevel.ERROR, ex);
             OpenExceptionMessage(ex.getMessage(), Arrays.toString(ex.getStackTrace()));
         }
     }
@@ -721,7 +744,7 @@ public class BackupManagerGUI extends javax.swing.JFrame {
     private void OpenBackup(String backupName) {
         Logger.logMessage("Event --> opening backup", Logger.LogLevel.INFO);
         
-        if ((!saveChanged && !currentBackup.getBackupName().isEmpty()) || (!startPathField.getText().isEmpty() || !destinationPathField.getText().isEmpty() || !backupNoteTextArea.getText().isEmpty())) {
+        if (!saveChanged) {
             int response = JOptionPane.showConfirmDialog(null, "There are unsaved changes, do you want to save them before moving to another file?", "Confimation required", JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE);
             if (response == JOptionPane.YES_OPTION) {
                 saveFile();
@@ -742,7 +765,7 @@ public class BackupManagerGUI extends javax.swing.JFrame {
             backupNoteTextArea.setEnabled(true);
             savedChanges(true);
         } catch (IllegalArgumentException ex) {
-            Logger.logMessage("An error occurred", Logger.LogLevel.ERROR, ex);
+            Logger.logMessage("An error occurred: " + ex.getMessage(), Logger.LogLevel.ERROR, ex);
             OpenExceptionMessage(ex.getMessage(), Arrays.toString(ex.getStackTrace()));
         }
     }
@@ -811,7 +834,7 @@ public class BackupManagerGUI extends javax.swing.JFrame {
     private void NewBackup() {
         Logger.logMessage("Event --> new backup", Logger.LogLevel.INFO);
         
-        if ((!saveChanged && !currentBackup.getBackupName().isEmpty()) || (startPathField.getText().length() != 0 || destinationPathField.getText().length() != 0 || backupNoteTextArea.getText().length() != 0)) {
+        if (!saveChanged) {
             int response = JOptionPane.showConfirmDialog(null, "There are unsaved changes, do you want to save them before moving to another backup?", "Confimation required", JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE);
             if (response == JOptionPane.YES_OPTION) {
                 saveFile();
@@ -1818,12 +1841,6 @@ public class BackupManagerGUI extends javax.swing.JFrame {
 
         JOptionPane.showMessageDialog(null, "Auto Backup has been activated\n\tFrom: " + startPathField.getText() + "\n\tTo: " + destinationPathField.getText() + "\nIs setted every " + timeInterval.toString() + " days", "AutoBackup", 1);
     }//GEN-LAST:event_btnTimePickerActionPerformed
-    
-    public static void main(String args[]) {        
-        java.awt.EventQueue.invokeLater(() -> {
-            new BackupManagerGUI().setVisible(true);
-        });
-    }
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JCheckBoxMenuItem AutoBackupMenuItem;

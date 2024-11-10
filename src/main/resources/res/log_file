@@ -1,3 +1,403 @@
+2024-11-10T22:28:42.186121 [INFO] Background service stopped
+2024-11-10T22:28:42.179176800 [DEBUG] Stopping background service
+2024-11-10T22:28:32.131683600 [INFO] Next date backup setted to: 2024-11-10T22:29:32.119782400
+2024-11-10T22:28:32.125231500 [INFO] Backup completed!
+2024-11-10T22:28:32.119256300 [INFO] Progress: 100
+2024-11-10T22:28:28.607006200 [INFO] Progress: 75
+2024-11-10T22:28:28.583646700 [INFO] Progress: 75
+2024-11-10T22:28:28.565294300 [INFO] Progress: 75
+2024-11-10T22:28:28.549422 [INFO] Progress: 75
+2024-11-10T22:28:28.533550 [INFO] Progress: 75
+2024-11-10T22:28:14.885819900 [INFO] Progress: 50
+2024-11-10T22:28:14.769689900 [INFO] Progress: 50
+2024-11-10T22:28:14.646311 [INFO] Progress: 50
+2024-11-10T22:28:14.521280900 [INFO] Progress: 50
+2024-11-10T22:28:14.379420 [INFO] Progress: 50
+2024-11-10T22:28:06.964192200 [INFO] Next date backup setted to: 2024-11-10T22:29:06.934432500
+2024-11-10T22:28:06.940384400 [INFO] Backup completed!
+2024-11-10T22:28:06.933440200 [INFO] Progress: 100
+2024-11-10T22:28:05.203159700 [INFO] Progress: 25
+2024-11-10T22:28:05.121815600 [INFO] Progress: 25
+2024-11-10T22:28:05.040497 [INFO] Progress: 25
+2024-11-10T22:28:04.978004300 [INFO] Progress: 25
+2024-11-10T22:28:04.918480800 [INFO] Progress: 25
+2024-11-10T22:28:00.478210300 [INFO] Progress: 75
+2024-11-10T22:28:00.448946500 [INFO] Progress: 75
+2024-11-10T22:27:58.372940 [INFO] Progress: 0
+2024-11-10T22:27:58.355084400 [INFO] Progress: 50
+2024-11-10T22:27:58.347148400 [INFO] Progress: 50
+2024-11-10T22:27:58.238552800 [INFO] Progress: 0
+2024-11-10T22:27:58.229130400 [INFO] Progress: 0
+2024-11-10T22:27:58.171067900 [INFO] Progress: 25
+2024-11-10T22:27:58.162635900 [INFO] Progress: 25
+2024-11-10T22:27:58.094684800 [INFO] Progress: 0
+2024-11-10T22:27:58.010364500 [INFO] Starting zipping process
+2024-11-10T22:27:58.003916 [INFO] Progress: 0
+2024-11-10T22:27:57.996476600 [INFO] Event --> automatic single backup started
+2024-11-10T22:27:57.976140100 [INFO] Starting zipping process
+2024-11-10T22:27:57.956798100 [INFO] Event --> automatic single backup started
+2024-11-10T22:27:57.947404 [INFO] Start backup process.
+2024-11-10T22:27:57.932989300 [INFO] Checking for automatic backup...
+2024-11-10T22:27:57.923068200 [INFO] Time interval set to 1 minutes
+2024-11-10T22:27:57.912676400 [INFO] TrayIcon added
+2024-11-10T22:27:57.674947500 [INFO] Backup service starting in the background
+2024-11-10T22:27:57.667011500 [DEBUG] Background mode: true
+2024-11-10T22:27:57.651138600 [INFO] Application started
+2024-11-10T22:27:07.356983200 [INFO] Event --> clear
+2024-11-10T22:27:05.814147100 [INFO] Event --> opening backup
+2024-11-10T22:27:05.807203100 [INFO] Edit row : 1
+2024-11-10T22:27:04.028528 [INFO] The application is running with administrator privileges.
+2024-11-10T22:27:03.469067900 [DEBUG] Background mode: false
+2024-11-10T22:27:03.451680200 [INFO] Application started
+2024-11-10T22:26:10.159754800 [DEBUG] updating backup list
+2024-11-10T22:26:10.151358600 [INFO] Event --> auto backup disabled
+2024-11-10T22:26:09.140694900 [INFO] Event --> opening backup
+2024-11-10T22:26:09.134246900 [INFO] Edit row : 2
+2024-11-10T22:26:05.652193700 [WARN] Unable to save the file. Both the initial and destination paths must be specified and cannot be empty
+2024-11-10T22:26:05.645748600 [INFO] Event --> saving backup
+2024-11-10T22:26:02.029862300 [INFO] Event --> clear
+2024-11-10T22:26:00.249434800 [DEBUG] updating backup list
+2024-11-10T22:26:00.240978400 [INFO] Event --> auto backup disabled
+2024-11-10T22:26:00.231058700 [INFO] Event --> opening backup
+2024-11-10T22:26:00.224139 [INFO] Edit row : 4
+2024-11-10T22:25:54.869415600 [INFO] The application is running with administrator privileges.
+2024-11-10T22:25:54.337208200 [DEBUG] Background mode: false
+2024-11-10T22:25:54.316871800 [INFO] Application started
+2024-11-10T22:25:19.180812600 [DEBUG] updating backup list
+2024-11-10T22:25:19.171390400 [INFO] Event --> auto backup disabled
+2024-11-10T22:25:19.162474400 [INFO] Event --> opening backup
+2024-11-10T22:25:19.155518900 [INFO] Edit row : 4
+2024-11-10T22:25:13.979591900 [INFO] Event --> clear
+2024-11-10T22:25:10.016314800 [INFO] Event --> clear
+2024-11-10T22:25:08.655306 [INFO] Event --> opening backup
+2024-11-10T22:25:08.647845100 [INFO] Edit row : 1
+2024-11-10T22:25:06.101411400 [INFO] The application is running with administrator privileges.
+2024-11-10T22:25:05.527043300 [DEBUG] Background mode: false
+2024-11-10T22:25:05.506707 [INFO] Application started
+2024-11-10T22:23:52.228212600 [INFO] Event --> clear
+2024-11-10T22:23:47.394229300 [INFO] Event --> clear
+2024-11-10T22:23:44.117518800 [INFO] Event --> clear
+2024-11-10T22:23:42.041594100 [DEBUG] updating backup list
+2024-11-10T22:23:42.034154200 [INFO] Event --> auto backup disabled
+2024-11-10T22:23:42.026714300 [INFO] Event --> opening backup
+2024-11-10T22:23:42.020266800 [INFO] Edit row : 2
+2024-11-10T22:23:33.438150 [DEBUG] updating backup list
+2024-11-10T22:23:33.429718100 [INFO] Event --> auto backup disabled
+2024-11-10T22:23:31.865329 [INFO] Event --> clear
+2024-11-10T22:23:31.858384300 [INFO] Event --> new backup
+2024-11-10T22:23:19.061229 [DEBUG] updating backup list
+2024-11-10T22:23:19.052797 [INFO] Event --> auto backup disabled
+2024-11-10T22:23:07.995290 [INFO] Event --> clear
+2024-11-10T22:23:07.988841500 [INFO] Event --> new backup
+2024-11-10T22:23:04.803175700 [DEBUG] updating backup list
+2024-11-10T22:23:04.794744200 [INFO] Event --> auto backup disabled
+2024-11-10T22:23:04.786311500 [INFO] Event --> opening backup
+2024-11-10T22:23:04.779368 [INFO] Edit row : 3
+2024-11-10T22:22:53.716926500 [INFO] The application is running with administrator privileges.
+2024-11-10T22:22:53.147942400 [DEBUG] Background mode: false
+2024-11-10T22:22:53.128599 [INFO] Application started
+2024-11-10T22:22:23.208028300 [DEBUG] updating backup list
+2024-11-10T22:22:23.200588300 [INFO] Event --> auto backup disabled
+2024-11-10T22:22:21.591947800 [INFO] Event --> clear
+2024-11-10T22:22:21.585995700 [INFO] Event --> new backup
+2024-11-10T22:22:19.712171800 [DEBUG] updating backup list
+2024-11-10T22:22:19.703739900 [INFO] Event --> auto backup disabled
+2024-11-10T22:22:19.695308600 [INFO] Event --> opening backup
+2024-11-10T22:22:19.687867800 [INFO] Edit row : 2
+2024-11-10T22:22:17.240439600 [INFO] The application is running with administrator privileges.
+2024-11-10T22:22:16.669422800 [DEBUG] Background mode: false
+2024-11-10T22:22:16.648590900 [INFO] Application started
+2024-11-10T22:22:03.808582400 [DEBUG] updating backup list
+2024-11-10T22:22:03.801638800 [INFO] Event --> auto backup disabled
+2024-11-10T22:22:02.594782 [INFO] Event --> clear
+2024-11-10T22:22:02.588358800 [INFO] Event --> new backup
+2024-11-10T22:21:59.950004800 [INFO] Event --> opening backup
+2024-11-10T22:21:59.943530700 [INFO] Edit row : 1
+2024-11-10T22:21:55.739625500 [DEBUG] updating backup list
+2024-11-10T22:21:55.732185700 [INFO] Event --> auto backup disabled
+2024-11-10T22:21:54.438663800 [INFO] Event --> opening backup
+2024-11-10T22:21:54.432406600 [INFO] Edit row : 2
+2024-11-10T22:21:37.090858300 [DEBUG] updating backup list
+2024-11-10T22:21:37.081435200 [INFO] Event --> auto backup disabled
+2024-11-10T22:21:35.391351800 [INFO] Event --> clear
+2024-11-10T22:21:33.272519400 [INFO] Event --> new backup
+2024-11-10T22:21:30.953902 [INFO] You selected the directory: C:\Users\Utente\Desktop\Dennis
+2024-11-10T22:21:25.452244100 [INFO] The application is running with administrator privileges.
+2024-11-10T22:21:24.945796900 [DEBUG] Background mode: false
+2024-11-10T22:21:24.926948500 [INFO] Application started
+2024-11-10T22:20:01.067697200 [DEBUG] updating backup list
+2024-11-10T22:20:01.061251900 [INFO] Event --> auto backup disabled
+2024-11-10T22:19:58.119758900 [INFO] Event --> clear
+2024-11-10T22:19:58.113779300 [INFO] Event --> new backup
+2024-11-10T22:19:56.088763600 [DEBUG] updating backup list
+2024-11-10T22:19:56.079807400 [INFO] Event --> Auto Backup setted to Enabled
+2024-11-10T22:19:56.072864 [DEBUG] updating backup list
+2024-11-10T22:19:55.049784900 [INFO] Event --> Next date backup setted to 2024-11-11T22:19:55.048793300
+2024-11-10T22:19:53.416408900 [INFO] Event --> automatic backup
+2024-11-10T22:19:53.409465 [INFO] Event --> Changing auto backup preference
+2024-11-10T22:19:52.802123800 [DEBUG] updating backup list
+2024-11-10T22:19:52.794683700 [INFO] Event --> auto backup disabled
+2024-11-10T22:19:52.788235800 [INFO] Event --> Auto Backup setted to Disabled
+2024-11-10T22:19:52.023477600 [INFO] Event --> Changing auto backup preference
+2024-11-10T22:19:51.060237800 [INFO] Event --> opening backup
+2024-11-10T22:19:51.053789 [INFO] Edit row : 9
+2024-11-10T22:19:47.838146900 [WARN] Input Error! One or both paths do not exist.
+2024-11-10T22:19:47.831691800 [INFO] Event --> Changing auto backup preference
+2024-11-10T22:19:47.074775200 [DEBUG] updating backup list
+2024-11-10T22:19:47.067336 [INFO] Event --> auto backup disabled
+2024-11-10T22:19:47.059895 [INFO] Event --> opening backup
+2024-11-10T22:19:47.052454900 [INFO] Edit row : 3
+2024-11-10T22:19:41.623730100 [INFO] Event --> Changing auto backup preference
+2024-11-10T22:19:38.866984200 [INFO] Event --> opening backup
+2024-11-10T22:19:38.860016200 [INFO] Edit row : 1
+2024-11-10T22:19:35.462703100 [DEBUG] updating backup list
+2024-11-10T22:19:35.455783200 [INFO] Event --> auto backup disabled
+2024-11-10T22:19:34.506336200 [INFO] Event --> clear
+2024-11-10T22:19:34.499888400 [INFO] Event --> new backup
+2024-11-10T22:19:31.241910200 [DEBUG] updating backup list
+2024-11-10T22:19:31.234993900 [INFO] Event --> auto backup disabled
+2024-11-10T22:19:31.227553700 [INFO] Event --> opening backup
+2024-11-10T22:19:31.219590700 [INFO] Edit row : 4
+2024-11-10T22:19:24.446637400 [INFO] Event --> opening backup
+2024-11-10T22:19:24.439693400 [INFO] Edit row : 9
+2024-11-10T22:19:18.322687500 [DEBUG] updating backup list
+2024-11-10T22:19:18.315743400 [INFO] Event --> auto backup disabled
+2024-11-10T22:19:16.813784400 [INFO] Event --> clear
+2024-11-10T22:19:16.807336 [INFO] Event --> new backup
+2024-11-10T22:19:14.422509600 [DEBUG] updating backup list
+2024-11-10T22:19:14.413554 [INFO] Event --> auto backup disabled
+2024-11-10T22:19:14.406138 [INFO] Event --> opening backup
+2024-11-10T22:19:14.399666300 [INFO] Edit row : 6
+2024-11-10T22:19:12.607990300 [INFO] Event --> opening backup
+2024-11-10T22:19:12.600550900 [INFO] Edit row : 9
+2024-11-10T22:19:10.087708300 [INFO] Event --> opening backup
+2024-11-10T22:19:10.080764500 [INFO] Edit row : 8
+2024-11-10T22:19:08.096851700 [INFO] The application is running with administrator privileges.
+2024-11-10T22:19:07.535380400 [DEBUG] Background mode: false
+2024-11-10T22:19:07.516036300 [INFO] Application started
+2024-11-10T22:18:26.115294 [INFO] Event --> opening backup
+2024-11-10T22:18:26.108349800 [INFO] Edit row : 9
+2024-11-10T22:18:21.868302300 [DEBUG] updating backup list
+2024-11-10T22:18:21.860891100 [INFO] Event --> saving backup
+2024-11-10T22:18:17.883845700 [INFO] Event --> opening backup
+2024-11-10T22:18:17.877866500 [INFO] Edit row : 9
+2024-11-10T22:18:10.481041600 [INFO] Event --> opening backup
+2024-11-10T22:18:10.474070800 [INFO] Edit row : 9
+2024-11-10T22:18:06.412165600 [INFO] Event --> opening backup
+2024-11-10T22:18:06.405195900 [INFO] Edit row : 9
+2024-11-10T22:18:04.209415600 [DEBUG] updating backup list
+2024-11-10T22:18:04.201975500 [INFO] Event --> saving backup
+2024-11-10T22:18:02.489039400 [INFO] Event --> opening backup
+2024-11-10T22:18:02.482318800 [INFO] Edit row : 9
+2024-11-10T22:17:57.593684900 [INFO] Event --> opening backup
+2024-11-10T22:17:57.587236900 [INFO] Edit row : 9
+2024-11-10T22:17:54.942303800 [DEBUG] updating backup list
+2024-11-10T22:17:53.508476 [INFO] Event --> save with name
+2024-11-10T22:17:53.502496500 [INFO] Event --> saving backup
+2024-11-10T22:17:51.941536500 [INFO] Event --> opening backup
+2024-11-10T22:17:51.934562700 [INFO] Edit row : 9
+2024-11-10T22:17:48.125830600 [DEBUG] updating backup list
+2024-11-10T22:17:46.776249800 [INFO] Event --> save with name
+2024-11-10T22:17:46.769795900 [INFO] Event --> saving backup
+2024-11-10T22:17:38.998138 [DEBUG] updating backup list
+2024-11-10T22:17:38.990697300 [INFO] Event --> auto backup disabled
+2024-11-10T22:17:34.759259500 [INFO] Event --> clear
+2024-11-10T22:17:34.752811600 [INFO] Event --> new backup
+2024-11-10T22:17:27.758420 [DEBUG] updating backup list
+2024-11-10T22:17:27.749960600 [INFO] Event --> Auto Backup setted to Enabled
+2024-11-10T22:17:27.743016900 [DEBUG] updating backup list
+2024-11-10T22:17:26.923230200 [INFO] Event --> Next date backup setted to 2024-11-11T22:17:26.922238600
+2024-11-10T22:17:23.547937900 [INFO] Backup 'ffff' saved successfully!
+2024-11-10T22:17:23.540469800 [DEBUG] updating backup list
+2024-11-10T22:17:18.577744800 [INFO] Event --> save with name
+2024-11-10T22:17:18.570305300 [INFO] Event --> automatic backup
+2024-11-10T22:17:18.559889100 [INFO] Event --> Changing auto backup preference
+2024-11-10T22:17:17.931005800 [INFO] You selected the directory: C:\Users\Utente\Desktop
+2024-11-10T22:17:15.441438400 [INFO] You selected the directory: C:\Users\Utente\Desktop\Foto
+2024-11-10T22:16:57.979403800 [DEBUG] updating backup list
+2024-11-10T22:16:57.971468600 [INFO] Event --> auto backup disabled
+2024-11-10T22:16:50.789426100 [INFO] Event --> clear
+2024-11-10T22:16:50.782977900 [INFO] Event --> new backup
+2024-11-10T22:16:47.339971700 [DEBUG] updating backup list
+2024-11-10T22:16:47.332003800 [INFO] Event --> saving backup
+2024-11-10T22:16:28.767701100 [INFO] Event --> new backup
+2024-11-10T22:16:22.984993 [DEBUG] updating backup list
+2024-11-10T22:16:22.977054700 [INFO] Event --> auto backup disabled
+2024-11-10T22:16:22.970113 [INFO] Event --> opening backup
+2024-11-10T22:16:22.963637800 [INFO] Edit row : 3
+2024-11-10T22:16:01.044491900 [DEBUG] updating backup list
+2024-11-10T22:16:01.037052100 [INFO] Event --> auto backup disabled
+2024-11-10T22:15:54.885058300 [INFO] Event --> clear
+2024-11-10T22:15:50.063157 [INFO] Event --> new backup
+2024-11-10T22:15:46.267143200 [INFO] Event --> opening backup
+2024-11-10T22:15:46.260663400 [INFO] Edit row : 0
+2024-11-10T22:15:30.057460400 [INFO] Event --> new backup
+2024-11-10T22:15:23.590282200 [DEBUG] updating backup list
+2024-11-10T22:15:23.577855100 [INFO] Event --> auto backup disabled
+2024-11-10T22:15:23.566943600 [INFO] Event --> clear
+2024-11-10T22:15:19.110787900 [INFO] Event --> new backup
+2024-11-10T22:15:15.397888700 [INFO] The application is running with administrator privileges.
+2024-11-10T22:15:14.817073200 [DEBUG] Background mode: false
+2024-11-10T22:15:14.798720600 [INFO] Application started
+2024-11-10T22:13:18.497340100 [INFO] Event --> new backup
+2024-11-10T22:13:16.774878300 [DEBUG] updating backup list
+2024-11-10T22:13:16.765949500 [INFO] Event --> Auto Backup setted to Enabled
+2024-11-10T22:13:16.758509200 [DEBUG] updating backup list
+2024-11-10T22:13:15.677444900 [INFO] Event --> Next date backup setted to 2024-11-10T22:14:15.676453500
+2024-11-10T22:13:12.525008 [INFO] Backup 'ffff' saved successfully!
+2024-11-10T22:13:12.517560900 [DEBUG] updating backup list
+2024-11-10T22:13:10.552849300 [INFO] Event --> save with name
+2024-11-10T22:13:10.545879100 [INFO] Event --> automatic backup
+2024-11-10T22:13:10.533006600 [INFO] Event --> Changing auto backup preference
+2024-11-10T22:13:09.875733300 [INFO] You selected the directory: C:\Users\Utente\Desktop
+2024-11-10T22:13:06.828258100 [INFO] You selected the directory: C:\Users\Utente\Desktop\Foto
+2024-11-10T22:12:57.756390200 [INFO] The application is running with administrator privileges.
+2024-11-10T22:12:57.177012 [DEBUG] Background mode: false
+2024-11-10T22:12:54.838086100 [INFO] Application started
+2024-11-10T22:10:02.928129300 [DEBUG] updating backup list
+2024-11-10T22:10:02.920220300 [INFO] Event --> auto backup disabled
+2024-11-10T22:10:01.789185500 [INFO] Event --> clear
+2024-11-10T22:09:55.591736 [INFO] Event --> new backup
+2024-11-10T22:09:50.326704800 [DEBUG] updating backup list
+2024-11-10T22:09:50.318300200 [INFO] Event --> Auto Backup setted to Enabled
+2024-11-10T22:09:50.311824100 [DEBUG] updating backup list
+2024-11-10T22:09:48.910734100 [INFO] Event --> Next date backup setted to 2024-11-10T22:10:48.909741300
+2024-11-10T22:09:44.742990800 [INFO] Backup 'gggg' saved successfully!
+2024-11-10T22:09:44.734063300 [DEBUG] updating backup list
+2024-11-10T22:09:41.650040900 [INFO] Event --> save with name
+2024-11-10T22:09:41.642075500 [INFO] Event --> automatic backup
+2024-11-10T22:09:41.627689700 [INFO] Event --> Changing auto backup preference
+2024-11-10T22:09:36.275877600 [INFO] You selected the directory: C:\Users\Utente\Desktop
+2024-11-10T22:09:32.317220200 [INFO] You selected the directory: C:\Users\Utente\Desktop\Foto
+2024-11-10T22:09:22.304903300 [INFO] The application is running with administrator privileges.
+2024-11-10T22:09:21.801463900 [DEBUG] Background mode: false
+2024-11-10T22:09:21.783607600 [INFO] Application started
+2024-11-10T21:57:53.088354300 [ERROR] errore di merda
+2024-11-10T21:57:40.741420300 [DEBUG] Background mode: false
+2024-11-10T21:57:31.116316600 [INFO] Application started
+2024-11-10T21:54:43.711546300 [ERROR] errore di merda
+2024-11-10T21:54:43.507194900 [DEBUG] Background mode: false
+2024-11-10T21:54:43.490329900 [INFO] Application started
+2024-11-10T21:53:11.227901700 [DEBUG] Background mode: false
+2024-11-10T21:53:11.211064 [INFO] Application started
+2024-11-10T21:48:09.387715700 [INFO] Background service stopped
+2024-11-10T21:48:09.380275600 [DEBUG] Stopping background service
+2024-11-10T21:47:51.369105500 [INFO] Next date backup setted to: 2024-11-10T21:48:51.355713400
+2024-11-10T21:47:51.361665300 [INFO] Backup completed!
+2024-11-10T21:47:51.355217400 [INFO] Progress: 100
+2024-11-10T21:47:44.998237600 [INFO] Progress: 75
+2024-11-10T21:47:44.967985100 [INFO] Progress: 75
+2024-11-10T21:47:42.709348300 [INFO] Progress: 50
+2024-11-10T21:47:42.677323 [INFO] Progress: 50
+2024-11-10T21:47:42.462507900 [INFO] Progress: 25
+2024-11-10T21:47:42.453084 [INFO] Progress: 25
+2024-11-10T21:47:42.329083400 [INFO] Next date backup setted to: 2024-11-12T01:53:42.316188600
+2024-11-10T21:47:42.322635300 [INFO] Backup completed!
+2024-11-10T21:47:42.315222 [INFO] Progress: 100
+2024-11-10T21:47:42.191211900 [INFO] Progress: 0
+2024-11-10T21:47:42.184251500 [INFO] Starting zipping process
+2024-11-10T21:47:42.176811300 [INFO] Event --> automatic single backup started
+2024-11-10T21:47:42.141583400 [INFO] Starting zipping process
+2024-11-10T21:47:42.120319200 [INFO] Event --> automatic single backup started
+2024-11-10T21:47:42.110399 [INFO] Start backup process.
+2024-11-10T21:47:42.097998500 [INFO] Checking for automatic backup...
+2024-11-10T21:47:42.089070400 [INFO] Time interval set to 1 minutes
+2024-11-10T21:47:42.078654500 [INFO] TrayIcon added
+2024-11-10T21:47:41.843024500 [INFO] Backup service starting in the background
+2024-11-10T21:47:41.833600800 [DEBUG] Background mode: true
+2024-11-10T21:47:41.817232700 [INFO] Application started
+2024-11-10T21:44:52.136906600 [INFO] Background service stopped
+2024-11-10T21:44:52.112796 [DEBUG] Stopping background service
+2024-11-10T21:44:48.430353200 [ERROR] An error occurred
+2024-11-10T21:44:48.420433400 [INFO] Event --> automatic single backup started
+2024-11-10T21:44:46.849944700 [ERROR] An error occurred
+2024-11-10T21:44:46.842505300 [INFO] Event --> automatic single backup started
+2024-11-10T21:44:46.835585200 [INFO] Start backup process.
+2024-11-10T21:44:46.827649600 [INFO] Checking for automatic backup...
+2024-11-10T21:44:01.243151700 [ERROR] An error occurred
+2024-11-10T21:44:01.235215200 [INFO] Event --> automatic single backup started
+2024-11-10T21:43:46.858907900 [ERROR] An error occurred
+2024-11-10T21:43:46.852460100 [INFO] Event --> automatic single backup started
+2024-11-10T21:43:46.845020200 [INFO] Start backup process.
+2024-11-10T21:43:46.837084100 [INFO] Checking for automatic backup...
+2024-11-10T21:43:15.026461 [ERROR] An error occurred
+2024-11-10T21:43:15.016045600 [INFO] Event --> automatic single backup started
+2024-11-10T21:42:46.864461500 [ERROR] An error occurred
+2024-11-10T21:42:46.855037300 [INFO] Event --> automatic single backup started
+2024-11-10T21:42:46.845642200 [INFO] Start backup process.
+2024-11-10T21:42:46.833213200 [INFO] Checking for automatic backup...
+2024-11-10T21:42:46.823789900 [INFO] Time interval set to 1 minutes
+2024-11-10T21:42:46.812904900 [INFO] TrayIcon added
+2024-11-10T21:42:46.578294400 [INFO] Backup service starting in the background
+2024-11-10T21:42:46.570361700 [DEBUG] Background mode: true
+2024-11-10T21:42:46.555949600 [INFO] Application started
+2024-11-10T21:37:34.112083 [INFO] Background service stopped
+2024-11-10T21:37:34.104147200 [DEBUG] Stopping background service
+2024-11-10T21:37:30.027330300 [ERROR] An error occurred
+2024-11-10T21:37:30.017906400 [INFO] Event --> automatic single backup started
+2024-11-10T21:37:26.328976700 [ERROR] An error occurred
+2024-11-10T21:37:26.321536800 [INFO] Event --> automatic single backup started
+2024-11-10T21:37:26.314069 [INFO] Start backup process.
+2024-11-10T21:37:26.305141100 [INFO] Checking for automatic backup...
+2024-11-10T21:37:11.314412100 [ERROR] An error occurred
+2024-11-10T21:37:11.307468 [INFO] Event --> automatic single backup started
+2024-11-10T21:36:26.354389800 [ERROR] An error occurred
+2024-11-10T21:36:26.331804500 [INFO] Event --> automatic single backup started
+2024-11-10T21:36:26.322366300 [INFO] Start backup process.
+2024-11-10T21:36:26.310529800 [INFO] Checking for automatic backup...
+2024-11-10T21:36:26.302097100 [INFO] Time interval set to 1 minutes
+2024-11-10T21:36:26.292673300 [INFO] TrayIcon added
+2024-11-10T21:36:26.076373100 [INFO] Backup service starting in the background
+2024-11-10T21:36:26.068465900 [DEBUG] Background mode: true
+2024-11-10T21:36:26.053087900 [INFO] Application started
+2024-11-10T21:35:55.371566100 [INFO] Background service stopped
+2024-11-10T21:35:55.364355700 [DEBUG] Stopping background service
+2024-11-10T21:35:37.208676600 [INFO] Event --> automatic single backup started
+2024-11-10T21:35:37.202256300 [INFO] Start backup process.
+2024-11-10T21:35:37.194788700 [INFO] Checking for automatic backup...
+2024-11-10T21:34:37.213785500 [INFO] Event --> automatic single backup started
+2024-11-10T21:34:37.207337400 [INFO] Start backup process.
+2024-11-10T21:34:37.198429300 [INFO] Checking for automatic backup...
+2024-11-10T21:33:37.206689200 [INFO] Event --> automatic single backup started
+2024-11-10T21:33:37.200240600 [INFO] Start backup process.
+2024-11-10T21:33:37.192801300 [INFO] Checking for automatic backup...
+2024-11-10T21:32:37.211893900 [INFO] Event --> automatic single backup started
+2024-11-10T21:32:37.205913900 [INFO] Start backup process.
+2024-11-10T21:32:37.197978600 [INFO] Checking for automatic backup...
+2024-11-10T21:31:37.225279300 [INFO] Event --> automatic single backup started
+2024-11-10T21:31:37.203751600 [INFO] Start backup process.
+2024-11-10T21:31:37.190388600 [INFO] Checking for automatic backup...
+2024-11-10T21:31:37.165559100 [INFO] Time interval set to 1 minutes
+2024-11-10T21:31:37.157153700 [INFO] TrayIcon added
+2024-11-10T21:31:36.927930600 [INFO] Backup service starting in the background
+2024-11-10T21:31:36.920965500 [DEBUG] Background mode: true
+2024-11-10T21:31:36.907098100 [INFO] Application started
+2024-11-10T21:29:08.850187100 [INFO] The application is running with administrator privileges.
+2024-11-10T21:29:07.850680300 [DEBUG] Background mode: false
+2024-11-10T21:29:07.818440200 [INFO] Application started
+2024-11-07T23:07:39.572008500 [INFO] The application is running with administrator privileges.
+2024-11-07T23:07:39.037321700 [DEBUG] Background mode: false
+2024-11-07T23:07:39.019465700 [INFO] Application started
+2024-11-07T23:05:23.000261600 [DEBUG] updating backup list
+2024-11-07T23:05:22.993290100 [INFO] Event --> Auto Backup setted to Enabled
+2024-11-07T23:05:22.986841200 [DEBUG] updating backup list
+2024-11-07T23:05:21.732372600 [INFO] Event --> Next date backup setted to 2024-11-09T03:11:21.726420500
+2024-11-07T23:05:07.894155200 [INFO] Event --> automatic backup
+2024-11-07T23:05:07.883739200 [INFO] Event --> Changing auto backup preference
+2024-11-07T23:05:07.035126300 [DEBUG] updating backup list
+2024-11-07T23:05:07.026693700 [INFO] Event --> auto backup disabled
+2024-11-07T23:05:07.019749600 [INFO] Event --> opening backup
+2024-11-07T23:05:07.011813700 [INFO] Edit row : 1
+2024-11-07T23:05:04.147855100 [INFO] The application is running with administrator privileges.
+2024-11-07T23:05:02.712957700 [DEBUG] Background mode: false
+2024-11-07T23:05:02.697086 [INFO] Application started
+2024-11-07T22:39:38.828279600 [WARN] Argument "--wrong_argument" not valid!
+2024-11-07T22:34:22.848498700 [INFO] The application is running with administrator privileges.
+2024-11-07T22:34:22.378321500 [DEBUG] Background mode: false
+2024-11-07T22:34:22.362944700 [INFO] Application started
+2024-11-07T22:31:57.510678200 [WARN] Argument "--wrong_argument" not valid!
+2024-11-07T22:29:02.908735800 [WARN] Argument "--wrong_argument" not valid!
+2024-11-07T22:20:57.326654100 [WARN] Argument "--wrong_argument" not valid!
 2024-11-07T22:20:05.622243400 [INFO] Event --> opening folder
 2024-11-07T22:20:00.989948600 [INFO] Event --> opening folder
 2024-11-07T22:19:56.655297500 [DEBUG] updating backup list
@@ -371,3 +771,195 @@
 2024-11-07T19:57:02.460436200 [INFO] The application is running with administrator privileges.
 2024-11-07T19:57:01.941995400 [DEBUG] Background mode: false
 2024-11-07T19:57:01.929127200 [INFO] Application started
+Exception: java.lang.NullPointerException - Cannot invoke "javax.swing.JButton.isEnabled()" because "singleBackupBtn" is null
+	at com.mycompany.autobackupprogram.BackupOperations.SingleBackup(BackupOperations.java:49)
+	at com.mycompany.autobackupprogram.BackupService$BackupTask.lambda$executeBackups$0(BackupService.java:138)
+	at java.desktop/java.awt.event.InvocationEvent.dispatch(InvocationEvent.java:318)
+	at java.desktop/java.awt.EventQueue.dispatchEventImpl(EventQueue.java:773)
+	at java.desktop/java.awt.EventQueue$4.run(EventQueue.java:720)
+	at java.desktop/java.awt.EventQueue$4.run(EventQueue.java:714)
+	at java.base/java.security.AccessController.doPrivileged(AccessController.java:400)
+	at java.base/java.security.ProtectionDomain$JavaSecurityAccessImpl.doIntersectionPrivilege(ProtectionDomain.java:87)
+	at java.desktop/java.awt.EventQueue.dispatchEvent(EventQueue.java:742)
+	at java.desktop/java.awt.EventDispatchThread.pumpOneEventForFilters(EventDispatchThread.java:203)
+	at java.desktop/java.awt.EventDispatchThread.pumpEventsForFilter(EventDispatchThread.java:124)
+	at java.desktop/java.awt.EventDispatchThread.pumpEventsForHierarchy(EventDispatchThread.java:113)
+	at java.desktop/java.awt.EventDispatchThread.pumpEvents(EventDispatchThread.java:109)
+	at java.desktop/java.awt.EventDispatchThread.pumpEvents(EventDispatchThread.java:101)
+	at java.desktop/java.awt.EventDispatchThread.run(EventDispatchThread.java:90)
+Exception: java.lang.NullPointerException - Cannot invoke "javax.swing.JButton.isEnabled()" because "singleBackupBtn" is null
+	at com.mycompany.autobackupprogram.BackupOperations.SingleBackup(BackupOperations.java:49)
+	at com.mycompany.autobackupprogram.BackupService$BackupTask.lambda$executeBackups$0(BackupService.java:138)
+	at java.desktop/java.awt.event.InvocationEvent.dispatch(InvocationEvent.java:318)
+	at java.desktop/java.awt.EventQueue.dispatchEventImpl(EventQueue.java:773)
+	at java.desktop/java.awt.EventQueue$4.run(EventQueue.java:720)
+	at java.desktop/java.awt.EventQueue$4.run(EventQueue.java:714)
+	at java.base/java.security.AccessController.doPrivileged(AccessController.java:400)
+	at java.base/java.security.ProtectionDomain$JavaSecurityAccessImpl.doIntersectionPrivilege(ProtectionDomain.java:87)
+	at java.desktop/java.awt.EventQueue.dispatchEvent(EventQueue.java:742)
+	at java.desktop/java.awt.EventDispatchThread.pumpOneEventForFilters(EventDispatchThread.java:203)
+	at java.desktop/java.awt.EventDispatchThread.pumpEventsForFilter(EventDispatchThread.java:124)
+	at java.desktop/java.awt.EventDispatchThread.pumpEventsForHierarchy(EventDispatchThread.java:113)
+	at java.desktop/java.awt.EventDispatchThread.pumpEvents(EventDispatchThread.java:109)
+	at java.desktop/java.awt.EventDispatchThread.pumpEvents(EventDispatchThread.java:101)
+	at java.desktop/java.awt.EventDispatchThread.run(EventDispatchThread.java:90)
+Exception: java.lang.NullPointerException - Cannot invoke "javax.swing.JButton.isEnabled()" because "singleBackupBtn" is null
+	at com.mycompany.autobackupprogram.BackupOperations.SingleBackup(BackupOperations.java:49)
+	at com.mycompany.autobackupprogram.BackupService$BackupTask.lambda$executeBackups$0(BackupService.java:138)
+	at java.desktop/java.awt.event.InvocationEvent.dispatch(InvocationEvent.java:318)
+	at java.desktop/java.awt.EventQueue.dispatchEventImpl(EventQueue.java:773)
+	at java.desktop/java.awt.EventQueue$4.run(EventQueue.java:720)
+	at java.desktop/java.awt.EventQueue$4.run(EventQueue.java:714)
+	at java.base/java.security.AccessController.doPrivileged(AccessController.java:400)
+	at java.base/java.security.ProtectionDomain$JavaSecurityAccessImpl.doIntersectionPrivilege(ProtectionDomain.java:87)
+	at java.desktop/java.awt.EventQueue.dispatchEvent(EventQueue.java:742)
+	at java.desktop/java.awt.EventDispatchThread.pumpOneEventForFilters(EventDispatchThread.java:203)
+	at java.desktop/java.awt.EventDispatchThread.pumpEventsForFilter(EventDispatchThread.java:124)
+	at java.desktop/java.awt.EventDispatchThread.pumpEventsForHierarchy(EventDispatchThread.java:113)
+	at java.desktop/java.awt.EventDispatchThread.pumpEvents(EventDispatchThread.java:109)
+	at java.desktop/java.awt.EventDispatchThread.pumpEvents(EventDispatchThread.java:101)
+	at java.desktop/java.awt.EventDispatchThread.run(EventDispatchThread.java:90)
+Exception: java.lang.NullPointerException - Cannot invoke "javax.swing.JButton.isEnabled()" because "singleBackupBtn" is null
+	at com.mycompany.autobackupprogram.BackupOperations.SingleBackup(BackupOperations.java:49)
+	at com.mycompany.autobackupprogram.BackupService$BackupTask.lambda$executeBackups$0(BackupService.java:138)
+	at java.desktop/java.awt.event.InvocationEvent.dispatch(InvocationEvent.java:318)
+	at java.desktop/java.awt.EventQueue.dispatchEventImpl(EventQueue.java:773)
+	at java.desktop/java.awt.EventQueue$4.run(EventQueue.java:720)
+	at java.desktop/java.awt.EventQueue$4.run(EventQueue.java:714)
+	at java.base/java.security.AccessController.doPrivileged(AccessController.java:400)
+	at java.base/java.security.ProtectionDomain$JavaSecurityAccessImpl.doIntersectionPrivilege(ProtectionDomain.java:87)
+	at java.desktop/java.awt.EventQueue.dispatchEvent(EventQueue.java:742)
+	at java.desktop/java.awt.EventDispatchThread.pumpOneEventForFilters(EventDispatchThread.java:203)
+	at java.desktop/java.awt.EventDispatchThread.pumpEventsForFilter(EventDispatchThread.java:124)
+	at java.desktop/java.awt.EventDispatchThread.pumpEventsForHierarchy(EventDispatchThread.java:113)
+	at java.desktop/java.awt.EventDispatchThread.pumpEvents(EventDispatchThread.java:109)
+	at java.desktop/java.awt.EventDispatchThread.pumpEvents(EventDispatchThread.java:101)
+	at java.desktop/java.awt.EventDispatchThread.run(EventDispatchThread.java:90)
+Exception: java.lang.NullPointerException - Cannot invoke "javax.swing.JButton.isEnabled()" because "singleBackupBtn" is null
+	at com.mycompany.autobackupprogram.BackupOperations.SingleBackup(BackupOperations.java:49)
+	at com.mycompany.autobackupprogram.BackupService$BackupTask.lambda$executeBackups$0(BackupService.java:138)
+	at java.desktop/java.awt.event.InvocationEvent.dispatch(InvocationEvent.java:318)
+	at java.desktop/java.awt.EventQueue.dispatchEventImpl(EventQueue.java:773)
+	at java.desktop/java.awt.EventQueue$4.run(EventQueue.java:720)
+	at java.desktop/java.awt.EventQueue$4.run(EventQueue.java:714)
+	at java.base/java.security.AccessController.doPrivileged(AccessController.java:400)
+	at java.base/java.security.ProtectionDomain$JavaSecurityAccessImpl.doIntersectionPrivilege(ProtectionDomain.java:87)
+	at java.desktop/java.awt.EventQueue.dispatchEvent(EventQueue.java:742)
+	at java.desktop/java.awt.EventDispatchThread.pumpOneEventForFilters(EventDispatchThread.java:203)
+	at java.desktop/java.awt.EventDispatchThread.pumpEventsForFilter(EventDispatchThread.java:124)
+	at java.desktop/java.awt.EventDispatchThread.pumpEventsForHierarchy(EventDispatchThread.java:113)
+	at java.desktop/java.awt.EventDispatchThread.pumpEvents(EventDispatchThread.java:109)
+	at java.desktop/java.awt.EventDispatchThread.pumpEvents(EventDispatchThread.java:101)
+	at java.desktop/java.awt.EventDispatchThread.run(EventDispatchThread.java:90)
+Exception: java.lang.NullPointerException - Cannot invoke "javax.swing.JButton.isEnabled()" because "singleBackupBtn" is null
+	at com.mycompany.autobackupprogram.BackupOperations.SingleBackup(BackupOperations.java:49)
+	at com.mycompany.autobackupprogram.BackupService$BackupTask.lambda$executeBackups$0(BackupService.java:138)
+	at java.desktop/java.awt.event.InvocationEvent.dispatch(InvocationEvent.java:318)
+	at java.desktop/java.awt.EventQueue.dispatchEventImpl(EventQueue.java:773)
+	at java.desktop/java.awt.EventQueue$4.run(EventQueue.java:720)
+	at java.desktop/java.awt.EventQueue$4.run(EventQueue.java:714)
+	at java.base/java.security.AccessController.doPrivileged(AccessController.java:400)
+	at java.base/java.security.ProtectionDomain$JavaSecurityAccessImpl.doIntersectionPrivilege(ProtectionDomain.java:87)
+	at java.desktop/java.awt.EventQueue.dispatchEvent(EventQueue.java:742)
+	at java.desktop/java.awt.EventDispatchThread.pumpOneEventForFilters(EventDispatchThread.java:203)
+	at java.desktop/java.awt.EventDispatchThread.pumpEventsForFilter(EventDispatchThread.java:124)
+	at java.desktop/java.awt.EventDispatchThread.pumpEventsForHierarchy(EventDispatchThread.java:113)
+	at java.desktop/java.awt.EventDispatchThread.pumpEvents(EventDispatchThread.java:109)
+	at java.desktop/java.awt.EventDispatchThread.pumpEvents(EventDispatchThread.java:101)
+	at java.desktop/java.awt.EventDispatchThread.run(EventDispatchThread.java:90)
+Exception: java.lang.NullPointerException - Cannot invoke "javax.swing.JButton.isEnabled()" because "singleBackupBtn" is null
+	at com.mycompany.autobackupprogram.BackupOperations.SingleBackup(BackupOperations.java:49)
+	at com.mycompany.autobackupprogram.BackupService$BackupTask.lambda$executeBackups$0(BackupService.java:138)
+	at java.desktop/java.awt.event.InvocationEvent.dispatch(InvocationEvent.java:318)
+	at java.desktop/java.awt.EventQueue.dispatchEventImpl(EventQueue.java:773)
+	at java.desktop/java.awt.EventQueue$4.run(EventQueue.java:720)
+	at java.desktop/java.awt.EventQueue$4.run(EventQueue.java:714)
+	at java.base/java.security.AccessController.doPrivileged(AccessController.java:400)
+	at java.base/java.security.ProtectionDomain$JavaSecurityAccessImpl.doIntersectionPrivilege(ProtectionDomain.java:87)
+	at java.desktop/java.awt.EventQueue.dispatchEvent(EventQueue.java:742)
+	at java.desktop/java.awt.EventDispatchThread.pumpOneEventForFilters(EventDispatchThread.java:203)
+	at java.desktop/java.awt.EventDispatchThread.pumpEventsForFilter(EventDispatchThread.java:124)
+	at java.desktop/java.awt.EventDispatchThread.pumpEventsForHierarchy(EventDispatchThread.java:113)
+	at java.desktop/java.awt.EventDispatchThread.pumpEvents(EventDispatchThread.java:109)
+	at java.desktop/java.awt.EventDispatchThread.pumpEvents(EventDispatchThread.java:101)
+	at java.desktop/java.awt.EventDispatchThread.run(EventDispatchThread.java:90)
+Exception: java.lang.NullPointerException - Cannot invoke "javax.swing.JButton.isEnabled()" because "singleBackupBtn" is null
+	at com.mycompany.autobackupprogram.BackupOperations.SingleBackup(BackupOperations.java:49)
+	at com.mycompany.autobackupprogram.BackupService$BackupTask.lambda$executeBackups$0(BackupService.java:138)
+	at java.desktop/java.awt.event.InvocationEvent.dispatch(InvocationEvent.java:318)
+	at java.desktop/java.awt.EventQueue.dispatchEventImpl(EventQueue.java:773)
+	at java.desktop/java.awt.EventQueue$4.run(EventQueue.java:720)
+	at java.desktop/java.awt.EventQueue$4.run(EventQueue.java:714)
+	at java.base/java.security.AccessController.doPrivileged(AccessController.java:400)
+	at java.base/java.security.ProtectionDomain$JavaSecurityAccessImpl.doIntersectionPrivilege(ProtectionDomain.java:87)
+	at java.desktop/java.awt.EventQueue.dispatchEvent(EventQueue.java:742)
+	at java.desktop/java.awt.EventDispatchThread.pumpOneEventForFilters(EventDispatchThread.java:203)
+	at java.desktop/java.awt.EventDispatchThread.pumpEventsForFilter(EventDispatchThread.java:124)
+	at java.desktop/java.awt.EventDispatchThread.pumpEventsForHierarchy(EventDispatchThread.java:113)
+	at java.desktop/java.awt.EventDispatchThread.pumpEvents(EventDispatchThread.java:109)
+	at java.desktop/java.awt.EventDispatchThread.pumpEvents(EventDispatchThread.java:101)
+	at java.desktop/java.awt.EventDispatchThread.run(EventDispatchThread.java:90)
+Exception: java.lang.NullPointerException - Cannot invoke "javax.swing.JButton.isEnabled()" because "singleBackupBtn" is null
+	at com.mycompany.autobackupprogram.BackupOperations.SingleBackup(BackupOperations.java:49)
+	at com.mycompany.autobackupprogram.BackupService$BackupTask.lambda$executeBackups$0(BackupService.java:138)
+	at java.desktop/java.awt.event.InvocationEvent.dispatch(InvocationEvent.java:318)
+	at java.desktop/java.awt.EventQueue.dispatchEventImpl(EventQueue.java:773)
+	at java.desktop/java.awt.EventQueue$4.run(EventQueue.java:720)
+	at java.desktop/java.awt.EventQueue$4.run(EventQueue.java:714)
+	at java.base/java.security.AccessController.doPrivileged(AccessController.java:400)
+	at java.base/java.security.ProtectionDomain$JavaSecurityAccessImpl.doIntersectionPrivilege(ProtectionDomain.java:87)
+	at java.desktop/java.awt.EventQueue.dispatchEvent(EventQueue.java:742)
+	at java.desktop/java.awt.EventDispatchThread.pumpOneEventForFilters(EventDispatchThread.java:203)
+	at java.desktop/java.awt.EventDispatchThread.pumpEventsForFilter(EventDispatchThread.java:124)
+	at java.desktop/java.awt.EventDispatchThread.pumpEventsForHierarchy(EventDispatchThread.java:113)
+	at java.desktop/java.awt.EventDispatchThread.pumpEvents(EventDispatchThread.java:109)
+	at java.desktop/java.awt.EventDispatchThread.pumpEvents(EventDispatchThread.java:101)
+	at java.desktop/java.awt.EventDispatchThread.run(EventDispatchThread.java:90)
+Exception: java.lang.NullPointerException - Cannot invoke "javax.swing.JButton.isEnabled()" because "singleBackupBtn" is null
+	at com.mycompany.autobackupprogram.BackupOperations.SingleBackup(BackupOperations.java:49)
+	at com.mycompany.autobackupprogram.BackupService$BackupTask.lambda$executeBackups$0(BackupService.java:138)
+	at java.desktop/java.awt.event.InvocationEvent.dispatch(InvocationEvent.java:318)
+	at java.desktop/java.awt.EventQueue.dispatchEventImpl(EventQueue.java:773)
+	at java.desktop/java.awt.EventQueue$4.run(EventQueue.java:720)
+	at java.desktop/java.awt.EventQueue$4.run(EventQueue.java:714)
+	at java.base/java.security.AccessController.doPrivileged(AccessController.java:400)
+	at java.base/java.security.ProtectionDomain$JavaSecurityAccessImpl.doIntersectionPrivilege(ProtectionDomain.java:87)
+	at java.desktop/java.awt.EventQueue.dispatchEvent(EventQueue.java:742)
+	at java.desktop/java.awt.EventDispatchThread.pumpOneEventForFilters(EventDispatchThread.java:203)
+	at java.desktop/java.awt.EventDispatchThread.pumpEventsForFilter(EventDispatchThread.java:124)
+	at java.desktop/java.awt.EventDispatchThread.pumpEventsForHierarchy(EventDispatchThread.java:113)
+	at java.desktop/java.awt.EventDispatchThread.pumpEvents(EventDispatchThread.java:109)
+	at java.desktop/java.awt.EventDispatchThread.pumpEvents(EventDispatchThread.java:101)
+	at java.desktop/java.awt.EventDispatchThread.run(EventDispatchThread.java:90)
+Exception: java.lang.Exception - PROVA
+	at com.mycompany.autobackupprogram.BackupManagerGUI.<init>(BackupManagerGUI.java:63)
+	at com.mycompany.autobackupprogram.MainApp.lambda$0(MainApp.java:41)
+	at java.desktop/java.awt.event.InvocationEvent.dispatch(InvocationEvent.java:318)
+	at java.desktop/java.awt.EventQueue.dispatchEventImpl(EventQueue.java:773)
+	at java.desktop/java.awt.EventQueue$4.run(EventQueue.java:720)
+	at java.desktop/java.awt.EventQueue$4.run(EventQueue.java:714)
+	at java.base/java.security.AccessController.doPrivileged(AccessController.java:399)
+	at java.base/java.security.ProtectionDomain$JavaSecurityAccessImpl.doIntersectionPrivilege(ProtectionDomain.java:86)
+	at java.desktop/java.awt.EventQueue.dispatchEvent(EventQueue.java:742)
+	at java.desktop/java.awt.EventDispatchThread.pumpOneEventForFilters(EventDispatchThread.java:203)
+	at java.desktop/java.awt.EventDispatchThread.pumpEventsForFilter(EventDispatchThread.java:124)
+	at java.desktop/java.awt.EventDispatchThread.pumpEventsForHierarchy(EventDispatchThread.java:113)
+	at java.desktop/java.awt.EventDispatchThread.pumpEvents(EventDispatchThread.java:109)
+	at java.desktop/java.awt.EventDispatchThread.pumpEvents(EventDispatchThread.java:101)
+	at java.desktop/java.awt.EventDispatchThread.run(EventDispatchThread.java:90)
+Exception: java.lang.Exception - PROVA
+	at com.mycompany.autobackupprogram.BackupManagerGUI.<init>(BackupManagerGUI.java:63)
+	at com.mycompany.autobackupprogram.MainApp.lambda$0(MainApp.java:41)
+	at java.desktop/java.awt.event.InvocationEvent.dispatch(InvocationEvent.java:318)
+	at java.desktop/java.awt.EventQueue.dispatchEventImpl(EventQueue.java:773)
+	at java.desktop/java.awt.EventQueue$4.run(EventQueue.java:720)
+	at java.desktop/java.awt.EventQueue$4.run(EventQueue.java:714)
+	at java.base/java.security.AccessController.doPrivileged(AccessController.java:399)
+	at java.base/java.security.ProtectionDomain$JavaSecurityAccessImpl.doIntersectionPrivilege(ProtectionDomain.java:86)
+	at java.desktop/java.awt.EventQueue.dispatchEvent(EventQueue.java:742)
+	at java.desktop/java.awt.EventDispatchThread.pumpOneEventForFilters(EventDispatchThread.java:203)
+	at java.desktop/java.awt.EventDispatchThread.pumpEventsForFilter(EventDispatchThread.java:124)
+	at java.desktop/java.awt.EventDispatchThread.pumpEventsForHierarchy(EventDispatchThread.java:113)
+	at java.desktop/java.awt.EventDispatchThread.pumpEvents(EventDispatchThread.java:109)
+	at java.desktop/java.awt.EventDispatchThread.pumpEvents(EventDispatchThread.java:101)
+	at java.desktop/java.awt.EventDispatchThread.run(EventDispatchThread.java:90)

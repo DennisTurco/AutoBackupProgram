@@ -13,12 +13,10 @@ import static org.mockito.Mockito.when;
 
 import java.io.File;
 import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.StandardOpenOption;
 
 public class TestBackupOperations {
     
-    private static final File TEST_LOG_PATH = new File("src/test/resources/log_test");
+    private static File temp_file;
 
     @Mock
     private static JSONConfigReader mockConfigReader;
@@ -26,11 +24,7 @@ public class TestBackupOperations {
     @BeforeAll
     static void setUpBeforeClass() throws IOException {
         // Create test configuration file
-        if (Files.notExists(TEST_LOG_PATH.toPath())) {
-            Files.createFile(TEST_LOG_PATH.toPath());
-        } else {
-            Files.write(TEST_LOG_PATH.toPath(), new byte[0], StandardOpenOption.TRUNCATE_EXISTING);
-        }
+        temp_file = File.createTempFile("src/test/resources/config_test", ".json");
 
         // Set up the mock config reader
         mockConfigReader = mock(JSONConfigReader.class);
@@ -43,17 +37,13 @@ public class TestBackupOperations {
 
         Logger.configReader = mockConfigReader;
 
-        Logger.setLogFilePath(TEST_LOG_PATH.getPath());
+        Logger.setLogFilePath(temp_file.getPath());
     }
 
     @BeforeEach
     void setup() throws IOException {
         // Reset the console logging flag before each test
-        if (Files.notExists(TEST_LOG_PATH.toPath())) {
-            Files.createFile(TEST_LOG_PATH.toPath());
-        } else {
-            Files.write(TEST_LOG_PATH.toPath(), new byte[0], StandardOpenOption.TRUNCATE_EXISTING);
-        }
+        temp_file = File.createTempFile("src/test/resources/config_test", ".json");
         Logger.setConsoleLoggingEnabled(false);
     }
 
@@ -65,15 +55,16 @@ public class TestBackupOperations {
     }
 
     @Test
+    void testCheckInputCorrectSameFilePaths() throws IOException {
+        File file1 = File.createTempFile("file1", ".csv");
+        File file2 = file1;
+        assertFalse(BackupOperations.CheckInputCorrect("backup", file1.getPath(), file2.getPath(), null));
+    }
+
+    @Test
     void testCheckInputCorrectCorrectFilePaths() throws IOException {
         File tempFile1 = File.createTempFile("file1", ".txt");
         File tempFile2 = File.createTempFile("file2", ".txt");  
         assertTrue(BackupOperations.CheckInputCorrect("backup", tempFile1.getPath(), tempFile2.getPath(), null));
-    }
-
-    @AfterEach
-    void tearDown() throws IOException {
-        // Clean up log file after each test
-        Files.deleteIfExists(TEST_LOG_PATH.toPath());
     }
 }

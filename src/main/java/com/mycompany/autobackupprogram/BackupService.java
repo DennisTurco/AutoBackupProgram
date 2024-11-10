@@ -117,7 +117,7 @@ public class BackupService {
                     Logger.logMessage("No backup needed at this time.", Logger.LogLevel.INFO);
                 }
             } catch (IOException ex) {
-                Logger.logMessage("An error occurred", Logger.LogLevel.ERROR, ex);
+                Logger.logMessage("An error occurred: " + ex.getMessage(), Logger.LogLevel.ERROR, ex);
                 ex.printStackTrace();
             }
         }

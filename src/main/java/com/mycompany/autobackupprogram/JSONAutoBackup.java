@@ -75,7 +75,7 @@ public class JSONAutoBackup implements IJSONAutoBackup {
             }
 
         } catch (IOException | ParseException ex) {
-            Logger.logMessage("An error occurred", Logger.LogLevel.ERROR, ex);
+            Logger.logMessage("An error occurred: " + ex.getMessage(), Logger.LogLevel.ERROR, ex);
             OpenExceptionMessage(ex.getMessage(), Arrays.toString(ex.getStackTrace()));
             ex.printStackTrace();
         }
@@ -108,7 +108,7 @@ public class JSONAutoBackup implements IJSONAutoBackup {
             file.write(updatedBackupArray.toJSONString());
             file.flush();
         } catch (IOException ex) {
-            Logger.logMessage("An error occurred", Logger.LogLevel.ERROR, ex);
+            Logger.logMessage("An error occurred: " + ex.getMessage(), Logger.LogLevel.ERROR, ex);
             OpenExceptionMessage(ex.getMessage(), Arrays.toString(ex.getStackTrace()));
         }
     }
@@ -148,7 +148,7 @@ public class JSONAutoBackup implements IJSONAutoBackup {
             }
 
         } catch (IOException | ParseException ex) {
-            Logger.logMessage("An error occurred", Logger.LogLevel.ERROR, ex);
+            Logger.logMessage("An error occurred: " + ex.getMessage(), Logger.LogLevel.ERROR, ex);
             OpenExceptionMessage(ex.getMessage(), Arrays.toString(ex.getStackTrace()));
         }
     }

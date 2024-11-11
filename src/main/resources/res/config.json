@@ -15,7 +15,7 @@
     "BugReport": true,
     "Clear": true,
     "Donate": false,
-    "History": true,
+    "History": false,
     "InfoPage": true,
     "New": true,
     "Quit": true,
@@ -38,12 +38,12 @@
     "WARN": true,
     "DEBUG": true,
     "MaxLines": {
-      "value": 1500,
+      "value": 10000,
       "type": "int",
       "description": "Maximum number of logs for the file"
     },
     "LinesToKeepAfterFileClear": {
-      "value": 150,
+      "value": 1000,
       "type": "int",
       "description": "Lines to keep after file clear"
     }

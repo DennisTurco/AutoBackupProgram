@@ -21,7 +21,6 @@ import java.util.concurrent.atomic.AtomicInteger;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipOutputStream;
 
-import javax.management.OperationsException;
 import javax.swing.JButton;
 import javax.swing.JOptionPane;
 import javax.swing.JToggleButton;

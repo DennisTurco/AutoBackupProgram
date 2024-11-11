@@ -6,6 +6,10 @@
 
 Each backup is carefully saved, and the program maintains a detailed log of all completed operations. Users can also view, manage, and edit the details of each backup, ensuring complete control and customization over saved data. This tool is an ideal solution for efficiently and securely protecting files, minimizing the risk of data loss.
 
+
+## Screenshots
+
+
 ## Startup Logic
 ```mermaid
 graph TD
@@ -16,14 +20,26 @@ graph TD
   n3 -->|exit| n6(Shutdown Backup Service)
 ```
 
+
 ## Important Notes:
 * If, for any reason, the setup program doesn't add the application to the startup registry (`regedit`), you can manually run "add_to_startup.bat" located in the installation folder by double-clicking it.
 * This program is set to run automatically at PC startup by default. If you disable it, automatic backups will no longer occur.
 
 
-## Screenshots
+## Platforms
 
+| Platform | Availability |
+| --- | --- |
+| Windows | ✅ |
+| Linux | ❌ |
+| MacOS | ❌ |
 
+## Supported Languages
+
+| Piattaforma | Availability |
+| --- | --- |
+| English | ✅ |
+| Italian | ❌ |
 
 
 ## Licence

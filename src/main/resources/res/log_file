@@ -1,3 +1,6 @@
+2024-11-11T20:11:26.001807700 [INFO] The application is running with administrator privileges.
+2024-11-11T20:11:25.483983600 [DEBUG] Background mode: false
+2024-11-11T20:11:25.464640200 [INFO] Application started
 2024-11-10T22:28:42.186121 [INFO] Background service stopped
 2024-11-10T22:28:42.179176800 [DEBUG] Stopping background service
 2024-11-10T22:28:32.131683600 [INFO] Next date backup setted to: 2024-11-10T22:29:32.119782400

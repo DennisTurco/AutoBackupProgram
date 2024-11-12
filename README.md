@@ -46,9 +46,12 @@ graph TD
 
 [![MIT License](https://img.shields.io/badge/License-MIT-green.svg)](https://choosealicense.com/licenses/mit/)
 
+## Time report
+[![wakatime](https://wakatime.com/badge/user/ce36d0fc-2f0b-4e85-b318-872804ab18b6/project/882e0afb-87a6-495d-9082-a9de9f9f4f19.svg)](https://wakatime.com/badge/user/ce36d0fc-2f0b-4e85-b318-872804ab18b6/project/882e0afb-87a6-495d-9082-a9de9f9f4f19)
+
 ## Authors
 
-- [@DennisTurco](https://www.github.com/DennisTurco)
+- [DennisTurco](https://www.github.com/DennisTurco)
 
 
 ## Support

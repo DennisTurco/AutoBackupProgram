@@ -1,16 +1,35 @@
 package com.mycompany.autobackupprogram;
 
-import static com.mycompany.autobackupprogram.BackupManagerGUI.OpenExceptionMessage;
+import static com.mycompany.autobackupprogram.GUI.BackupManagerGUI.OpenExceptionMessage;
+
 import java.io.IOException;
 import java.util.Arrays;
 
+import org.json.simple.parser.ParseException;
+
+import com.mycompany.autobackupprogram.Enums.ConfigKey;
+import com.mycompany.autobackupprogram.Enums.PreferencesLoader;
+import com.mycompany.autobackupprogram.Enums.TranslationLoaderEnum;
+import com.mycompany.autobackupprogram.GUI.BackupManagerGUI;
+
 public class MainApp {
-    private static final String CONFIG = "src/main/resources/res/config.json";
+    private static final String CONFIG = "src/main/resources/res/config/config.json";
 
     public static void main(String[] args) {
+        // load config keys
         ConfigKey.loadFromJson(CONFIG);
-        Logger.configReader = new JSONConfigReader(ConfigKey.CONFIG_FILE_STRING.getValue(), ConfigKey.RES_DIRECTORY_STRING.getValue());
-        
+        Logger.configReader = new JSONConfigReader(ConfigKey.CONFIG_FILE_STRING.getValue(), ConfigKey.CONFIG_DIRECTORY_STRING.getValue());
+
+        // load preferred language
+        try {
+            PreferencesLoader.loadPreferences("src/main/resources/res/config/preferences.json");
+            TranslationLoaderEnum.loadTranslations("" + ConfigKey.LANGUAGES_DIRECTORY_STRING.getValue() + PreferencesLoader.PreferencesKey.LANGUAGE.getValue());
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+
         boolean isBackgroundMode = args.length > 0 && args[0].equalsIgnoreCase("--background");
         
         // check argument correction

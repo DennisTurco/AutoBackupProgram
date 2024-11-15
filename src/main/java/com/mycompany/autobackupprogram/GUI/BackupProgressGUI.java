@@ -1,7 +1,11 @@
-package com.mycompany.autobackupprogram;
+package com.mycompany.autobackupprogram.GUI;
 
 import com.formdev.flatlaf.FlatIntelliJLaf;
-import static com.mycompany.autobackupprogram.BackupManagerGUI.OpenExceptionMessage;
+import com.mycompany.autobackupprogram.BackupOperations;
+import com.mycompany.autobackupprogram.Enums.ConfigKey;
+
+import static com.mycompany.autobackupprogram.GUI.BackupManagerGUI.OpenExceptionMessage;
+
 import java.awt.Image;
 import java.util.Arrays;
 import javax.swing.ImageIcon;
@@ -20,6 +24,8 @@ public class BackupProgressGUI extends javax.swing.JFrame {
         this.setIconImage(icon);
         
         this.setAlwaysOnTop(false);
+
+        setTranslations();
     }
     
     public BackupProgressGUI(String initialPath, String destinationPath) {
@@ -169,6 +175,10 @@ public class BackupProgressGUI extends javax.swing.JFrame {
         java.awt.EventQueue.invokeLater(() -> {
             new BackupProgressGUI().setVisible(true);
         });
+    }
+
+    private void setTranslations() {
+
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

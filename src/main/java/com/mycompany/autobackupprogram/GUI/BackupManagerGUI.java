@@ -1,7 +1,18 @@
-package com.mycompany.autobackupprogram;
+package com.mycompany.autobackupprogram.GUI;
 
 import com.formdev.flatlaf.FlatClientProperties;
 import com.formdev.flatlaf.FlatIntelliJLaf;
+import com.mycompany.autobackupprogram.BackupOperations;
+import com.mycompany.autobackupprogram.JSONAutoBackup;
+import com.mycompany.autobackupprogram.JSONConfigReader;
+import com.mycompany.autobackupprogram.Logger;
+import com.mycompany.autobackupprogram.Dialogs.TimePicker;
+import com.mycompany.autobackupprogram.Entities.Backup;
+import com.mycompany.autobackupprogram.Enums.ConfigKey;
+import com.mycompany.autobackupprogram.Enums.MenuItems;
+import com.mycompany.autobackupprogram.Enums.TranslationLoaderEnum.TranslationCategory;
+import com.mycompany.autobackupprogram.Enums.TranslationLoaderEnum.TranslationKey;
+
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.Desktop;
@@ -56,8 +67,10 @@ public class BackupManagerGUI extends javax.swing.JFrame {
     private boolean saveChanged;
     private Integer selectedRow;
     
-    private String backupOnText = "Auto Backup (ON)";
-    private String backupOffText = "Auto Backup (OFF)";
+    private String backupOnText = TranslationCategory.BACKUP_ENTRY.getTranslation(TranslationKey.AUTO_BACKUP_BUTTON_ON);
+    private String backupOffText = TranslationCategory.BACKUP_ENTRY.getTranslation(TranslationKey.AUTO_BACKUP_BUTTON_OFF);
+
+    private final String current_version = "2.0.3";
     
     public BackupManagerGUI() {
         try {
@@ -95,7 +108,7 @@ public class BackupManagerGUI extends javax.swing.JFrame {
         customListeners();
         
         // load Menu items
-        JSONConfigReader config = new JSONConfigReader(ConfigKey.CONFIG_FILE_STRING.getValue(), ConfigKey.RES_DIRECTORY_STRING.getValue());
+        JSONConfigReader config = new JSONConfigReader(ConfigKey.CONFIG_FILE_STRING.getValue(), ConfigKey.CONFIG_DIRECTORY_STRING.getValue());
         MenuBugReport.setVisible(config.isMenuItemEnabled(MenuItems.BugReport.name()));
         MenuClear.setVisible(config.isMenuItemEnabled(MenuItems.Clear.name()));
         MenuDonate.setVisible(config.isMenuItemEnabled(MenuItems.Donate.name()));
@@ -109,13 +122,11 @@ public class BackupManagerGUI extends javax.swing.JFrame {
         MenuSupport.setVisible(config.isMenuItemEnabled(MenuItems.Support.name()));
         MenuWebsite.setVisible(config.isMenuItemEnabled(MenuItems.Website.name()));
         
-        // place holder
-        researchField.putClientProperty(FlatClientProperties.PLACEHOLDER_TEXT, "search...");
-        startPathField.putClientProperty(FlatClientProperties.PLACEHOLDER_TEXT, "Initial path");
-        destinationPathField.putClientProperty(FlatClientProperties.PLACEHOLDER_TEXT, "Destination path");
-        
         // icons
         researchField.putClientProperty(FlatClientProperties.TEXT_FIELD_LEADING_ICON, new javax.swing.ImageIcon(getClass().getResource("/res/img/search.png")));
+
+        // translations
+        setTranslations();
     }
     
     public void showWindow() {
@@ -165,7 +176,8 @@ public class BackupManagerGUI extends javax.swing.JFrame {
             }
         } else {
             Logger.logMessage("The folder does not exist or is invalid", Logger.LogLevel.WARN);
-            JOptionPane.showMessageDialog(null, "The folder does not exist or is invalid", "Error", JOptionPane.ERROR_MESSAGE);
+
+            JOptionPane.showMessageDialog(null, TranslationCategory.DIALOGS.getTranslation(TranslationKey.ERROR_MESSAGE_FOR_FOLDER_NOT_EXISTING), TranslationCategory.DIALOGS.getTranslation(TranslationKey.ERROR_GENERIC_TITLE), JOptionPane.ERROR_MESSAGE);
         }
     }
     
@@ -225,7 +237,8 @@ public class BackupManagerGUI extends javax.swing.JFrame {
             btnTimePicker.setEnabled(true);
 
             Logger.logMessage("Event --> Next date backup setted to " + nextDateBackup, Logger.LogLevel.INFO);
-            JOptionPane.showMessageDialog(null, "Auto Backup has been activated\n\tFrom: " + startPathField.getText() + "\n\tTo: " + destinationPathField.getText() + "\nIs setted every " + timeInterval.toString() + " days", "AutoBackup", 1);
+
+            openBackupActivationMessage(timeInterval);
         }
 
         currentBackup.setInitialPath(GetStartPathField());
@@ -265,7 +278,8 @@ public class BackupManagerGUI extends javax.swing.JFrame {
             btnTimePicker.setEnabled(true);
 
             Logger.logMessage("Event --> Next date backup setted to " + nextDateBackup, Logger.LogLevel.INFO);
-            JOptionPane.showMessageDialog(null, "Auto Backup has been activated\n\tFrom: " + backup.getInitialPath() + "\n\tTo: " + backup.getDestinationPath() + "\nIs setted every " + timeInterval.toString() + " days", "AutoBackup", 1);
+
+            openBackupActivationMessage(timeInterval);
         }
 
         for (Backup b : backups) {
@@ -282,13 +296,29 @@ public class BackupManagerGUI extends javax.swing.JFrame {
         BackupOperations.updateBackupList(backups);
         return true;
     }
+
+    private void openBackupActivationMessage(TimeInterval timeInterval) {
+        if (timeInterval == null) 
+            throw new IllegalArgumentException("Time interval cannot be null");
+
+        String from = TranslationCategory.GENERAL.getTranslation(TranslationKey.FROM);
+        String to = TranslationCategory.GENERAL.getTranslation(TranslationKey.TO);
+        String activated = TranslationCategory.DIALOGS.getTranslation(TranslationKey.AUTO_BACKUP_ACTIVATED_MESSAGE);
+        String setted = TranslationCategory.DIALOGS.getTranslation(TranslationKey.SETTED_EVERY_MESSAGE);
+        String days = TranslationCategory.DIALOGS.getTranslation(TranslationKey.DAYS_MESSAGE);
+
+        JOptionPane.showMessageDialog(null,
+                activated + "\n\t" + from + ": " + startPathField.getText() + "\n\t" + to + ": "
+                + destinationPathField.getText() + setted + " " + timeInterval.toString() + days,
+                "AutoBackup", 1);
+    }
     
     private void SaveWithName() {
         Logger.logMessage("Event --> save with name", Logger.LogLevel.INFO);
         
         if (startPathField.getText().length() == 0 || destinationPathField.getText().length() == 0) {
-            Logger.logMessage("Unable to save the file. Both the initial and destination paths must be specified and cannot be empty", Logger.LogLevel.WARN);
-            JOptionPane.showMessageDialog(null, "Unable to save the file. Both the initial and destination paths must be specified and cannot be empty", "Error", JOptionPane.ERROR_MESSAGE);
+            Logger.logMessage("Unable to save the file. Both the initial and destination paths must be specified and cannot be empty", Logger.LogLevel.WARN);            
+            JOptionPane.showMessageDialog(null, TranslationCategory.DIALOGS.getTranslation(TranslationKey.ERROR_MESSAGE_FOR_SAVING_FILE_WITH_PATHS_EMPTY), TranslationCategory.DIALOGS.getTranslation(TranslationKey.ERROR_GENERIC_TITLE), JOptionPane.ERROR_MESSAGE);
             return;
         }
 
@@ -317,24 +347,25 @@ public class BackupManagerGUI extends javax.swing.JFrame {
             
             BackupOperations.updateBackupList(backups);
             Logger.logMessage("Backup '" + currentBackup.getBackupName() + "' saved successfully!", Logger.LogLevel.INFO);
-            JOptionPane.showMessageDialog(this, "Backup '" + currentBackup.getBackupName() + "' saved successfully!", "Backup saved", JOptionPane.INFORMATION_MESSAGE);
+            JOptionPane.showMessageDialog(this, "Backup '" + currentBackup.getBackupName() + "' " + TranslationCategory.DIALOGS.getTranslation(TranslationKey.BACKUP_SAVED_CORRECTLY_MESSAGE), TranslationCategory.DIALOGS.getTranslation(TranslationKey.BACKUP_SAVED_CORRECTLY_TITLE), JOptionPane.INFORMATION_MESSAGE);
             savedChanges(true);
         } catch (IllegalArgumentException ex) {
             Logger.logMessage("An error occurred: "  + ex.getMessage(), Logger.LogLevel.ERROR, ex);
             OpenExceptionMessage(ex.getMessage(), Arrays.toString(ex.getStackTrace()));
         } catch (HeadlessException ex) {
             Logger.logMessage("Error saving backup", Logger.LogLevel.WARN);
-            JOptionPane.showMessageDialog(null, "Error saving backup", "Error", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(null, TranslationCategory.DIALOGS.getTranslation(TranslationKey.ERROR_SAVING_BACKUP_MESSAGE), TranslationCategory.GENERAL.getTranslation(TranslationKey.ERROR_GENERIC_TITLE), JOptionPane.ERROR_MESSAGE);
         }
     }
     
     private String getBackupName(boolean canOverwrite) {
         String backup_name;
         do {
-            backup_name = JOptionPane.showInputDialog(null, "Name of the backup"); // pop-up message
+            
+            backup_name = JOptionPane.showInputDialog(null, TranslationCategory.DIALOGS.getTranslation(TranslationKey.BACKUP_NAME_INPUT)); // pop-up message
             for (Backup backup : backups) {
                 if (backup.getBackupName().equals(backup_name) && canOverwrite) {
-                    int response = JOptionPane.showConfirmDialog(null, "A backup with the same name already exists, do you want to overwrite it?", "Confimation required", JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE);
+                    int response = JOptionPane.showConfirmDialog(null, TranslationCategory.DIALOGS.getTranslation(TranslationKey.DUPLICATED_BACKUP_NAME_MESSAGE), TranslationCategory.DIALOGS.getTranslation(TranslationKey.CONFIRMATION_REQUIRED_TITLE), JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE);
                     if (response == JOptionPane.YES_OPTION) {
                         backups.remove(backup);
                         break;
@@ -343,7 +374,7 @@ public class BackupManagerGUI extends javax.swing.JFrame {
                     }
                 } else if (backup.getBackupName().equals(backup_name)) {
                     Logger.logMessage("Error saving backup", Logger.LogLevel.WARN);
-                    JOptionPane.showConfirmDialog(null, "Backup name already used!", "Error", JOptionPane.OK_OPTION, JOptionPane.ERROR_MESSAGE);
+                    JOptionPane.showConfirmDialog(null, TranslationCategory.DIALOGS.getTranslation(TranslationKey.BACKUP_NAME_ALREADY_USED_MESSAGE), TranslationCategory.DIALOGS.getTranslation(TranslationKey.ERROR_GENERIC_TITLE), JOptionPane.OK_OPTION, JOptionPane.ERROR_MESSAGE);
                 }
             }
             if (backup_name == null) return null;
@@ -399,12 +430,12 @@ public class BackupManagerGUI extends javax.swing.JFrame {
             
         } catch (IOException e) {
             Logger.logMessage("Error during the backup operation: the initial path is incorrect!", Logger.LogLevel.WARN);
-            JOptionPane.showMessageDialog(null, "Error during the backup operation: the initial path is incorrect!", "Error", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(null, TranslationCategory.DIALOGS.getTranslation(TranslationKey.ERROR_MESSAGE_FOR_INCORRECT_INITIAL_PATH), TranslationCategory.DIALOGS.getTranslation(TranslationKey.ERROR_GENERIC_TITLE), JOptionPane.ERROR_MESSAGE);
         } 
     }
     
     private void setCurrentBackupName(String name) {
-        currentFileLabel.setText("Current File: " + name);
+        currentFileLabel.setText(TranslationCategory.BACKUP_ENTRY.getTranslation(TranslationKey.CURRENT_FILE) + ": " + name);
     }
     
     private void setCurrentBackupNotes(String notes) {
@@ -414,7 +445,7 @@ public class BackupManagerGUI extends javax.swing.JFrame {
     public void setStringToText() {
         try {
             String last_date = LocalDateTime.now().format(formatter);
-            lastBackupLabel.setText("last backup: " + last_date);
+            lastBackupLabel.setText(TranslationCategory.BACKUP_ENTRY.getTranslation(TranslationKey.LAST_BACKUP) + last_date);
         } catch(Exception ex) {
             Logger.logMessage("An error occurred: " + ex.getMessage(), Logger.LogLevel.ERROR, ex);
             OpenExceptionMessage(ex.getMessage(), Arrays.toString(ex.getStackTrace()));
@@ -493,20 +524,20 @@ public class BackupManagerGUI extends javax.swing.JFrame {
     public void SetLastBackupLabel(LocalDateTime date) {
         if (date != null) {
             String dateStr = date.format(formatter);
-            dateStr = "last backup: " + dateStr;
+            dateStr = TranslationCategory.BACKUP_ENTRY.getTranslation(TranslationKey.LAST_BACKUP) + ": " + dateStr;
             lastBackupLabel.setText(dateStr);
         }
         else lastBackupLabel.setText("");
     }
     
     public static void OpenExceptionMessage(String errorMessage, String stackTrace) {
-        Object[] options = {"Close", "Copy to clipboard", "Report the Problem"};
+        Object[] options = {TranslationCategory.GENERAL.getTranslation(TranslationKey.CLOSE_BUTTON), TranslationCategory.DIALOGS.getTranslation(TranslationKey.EXCEPTION_MESSAGE_CLIPBOARD_BUTTON), TranslationCategory.DIALOGS.getTranslation(TranslationKey.EXCEPTION_MESSAGE_REPORT_BUTTON)};
 
         if (errorMessage == null) {
             errorMessage = "";
         }
         stackTrace = !errorMessage.isEmpty() ? errorMessage + "\n" + stackTrace : errorMessage + stackTrace;
-        String stackTraceMessage = "Please report this error, either with an image of the screen or by copying the following error text (it is appreciable to provide a description of the operations performed before the error): \n" + stackTrace;
+        String stackTraceMessage = TranslationCategory.DIALOGS.getTranslation(TranslationKey.EXCEPTION_MESSAGE_REPORT_MESSAGE) + "\n" + stackTrace;
 
         int choice;
 
@@ -535,13 +566,14 @@ public class BackupManagerGUI extends javax.swing.JFrame {
             scrollPane.setPreferredSize(new Dimension(MAX_WIDTH, 300));
 
             // Display the option dialog with the JScrollPane
+            String error = TranslationCategory.DIALOGS.getTranslation(TranslationKey.ERROR_GENERIC_TITLE);
             choice = JOptionPane.showOptionDialog(
                 null,
                 scrollPane,                           // The JScrollPane containing the error message
-                "Error...",                           // The error message/title
+                error,                                // The error message/title
                 JOptionPane.DEFAULT_OPTION,           // Option type (default option type)
                 JOptionPane.ERROR_MESSAGE,            // Message type (error message icon)
-                null,                                 // Icon (null means default icon)
+                null,                            // Icon (null means default icon)
                 options,                              // The options for the buttons
                 options[0]                            // The default option (Close)
             );
@@ -550,7 +582,7 @@ public class BackupManagerGUI extends javax.swing.JFrame {
                 StringSelection selection = new StringSelection(stackTrace);
                 Toolkit.getDefaultToolkit().getSystemClipboard().setContents(selection, null);
                 Logger.logMessage("Error text has been copied to the clipboard", Logger.LogLevel.INFO);
-                JOptionPane.showMessageDialog(null, "Error text has been copied to the clipboard.");
+                JOptionPane.showMessageDialog(null, TranslationCategory.DIALOGS.getTranslation(TranslationKey.EXCEPTION_MESSAGE_CLIPBOARD_MESSAGE));
             } else if (choice == 2) {
                 openWebSite(ConfigKey.ISSUE_PAGE_LINK.getValue());
             }
@@ -567,12 +599,19 @@ public class BackupManagerGUI extends javax.swing.JFrame {
             }
         } catch (IOException | URISyntaxException e) {
             Logger.logMessage("Failed to open the web page. Please try again", Logger.LogLevel.WARN);
-            JOptionPane.showMessageDialog(null, "Failed to open the web page. Please try again.", "Error", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(null, TranslationCategory.DIALOGS.getTranslation(TranslationKey.ERROR_MESSAGE_OPENING_WEBSITE), TranslationCategory.DIALOGS.getTranslation(TranslationKey.ERROR_GENERIC_TITLE), JOptionPane.ERROR_MESSAGE);
         }
     }
     
     private void displayBackupList(List<Backup> backups) {
-        model = new DefaultTableModel(new Object[]{"Backup Name", "Initial Path", "Destination Path", "Last Backup", "Automatic Backup", "Next Backup Date", "Time Interval"}, 0) {
+        String backupName = TranslationCategory.BACKUP_LIST.getTranslation(TranslationKey.BACKUP_NAME_COLUMN);
+        String initialPath = TranslationCategory.BACKUP_LIST.getTranslation(TranslationKey.INITIAL_PATH_COLUMN);
+        String destinationPath = TranslationCategory.BACKUP_LIST.getTranslation(TranslationKey.DESTINATION_PATH_COLUMN);
+        String lastBackup = TranslationCategory.BACKUP_LIST.getTranslation(TranslationKey.LAST_BACKUP_COLUMN);
+        String automaticBackup = TranslationCategory.BACKUP_LIST.getTranslation(TranslationKey.AUTOMATIC_BACKUP_COLUMN);
+        String nextBackupDate = TranslationCategory.BACKUP_LIST.getTranslation(TranslationKey.NEXT_BACKUP_DATE_COLUMN);
+        String timeInterval = TranslationCategory.BACKUP_LIST.getTranslation(TranslationKey.TIME_INTERVAL_COLUMN);
+        model = new DefaultTableModel(new Object[]{backupName, initialPath, destinationPath, lastBackup, automaticBackup, nextBackupDate, timeInterval}, 0) {
 
             @Override
             public Class<?> getColumnClass(int columnIndex) {
@@ -678,7 +717,7 @@ public class BackupManagerGUI extends javax.swing.JFrame {
         Logger.logMessage("Event --> clear", Logger.LogLevel.INFO);
 
         if ((!saveChanged && !currentBackup.getBackupName().isEmpty()) || (!startPathField.getText().isEmpty() || !destinationPathField.getText().isEmpty() || !backupNoteTextArea.getText().isEmpty())) {
-            int response = JOptionPane.showConfirmDialog(null, "Are you sure you want to clean the fields?", "Confimation required", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
+            int response = JOptionPane.showConfirmDialog(null, TranslationCategory.DIALOGS.getTranslation(TranslationKey.CONFIRMATION_MESSAGE_FOR_CLEAR), TranslationCategory.DIALOGS.getTranslation(TranslationKey.CONFIRMATION_REQUIRED_TITLE), JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
             if (response != JOptionPane.YES_OPTION) {
                 return;
             }
@@ -711,7 +750,7 @@ public class BackupManagerGUI extends javax.swing.JFrame {
         
         if (startPathField.getText().length() == 0 || destinationPathField.getText().length() == 0) {
             Logger.logMessage("Unable to save the file. Both the initial and destination paths must be specified and cannot be empty", Logger.LogLevel.WARN);
-            JOptionPane.showMessageDialog(null, "Unable to save the file. Both the initial and destination paths must be specified and cannot be empty", "Error", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(null, TranslationCategory.DIALOGS.getTranslation(TranslationKey.ERROR_MESSAGE_FOR_SAVING_FILE_WITH_PATHS_EMPTY), TranslationCategory.DIALOGS.getTranslation(TranslationKey.ERROR_GENERIC_TITLE), JOptionPane.ERROR_MESSAGE);
             return;
         }
         
@@ -745,7 +784,7 @@ public class BackupManagerGUI extends javax.swing.JFrame {
         Logger.logMessage("Event --> opening backup", Logger.LogLevel.INFO);
         
         if (!saveChanged) {
-            int response = JOptionPane.showConfirmDialog(null, "There are unsaved changes, do you want to save them before moving to another file?", "Confimation required", JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE);
+            int response = JOptionPane.showConfirmDialog(null, TranslationCategory.DIALOGS.getTranslation(TranslationKey.CONFIRMATION_MESSAGE_FOR_UNSAVED_CHANGES), TranslationCategory.DIALOGS.getTranslation(TranslationKey.CONFIRMATION_REQUIRED_TITLE), JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE);
             if (response == JOptionPane.YES_OPTION) {
                 saveFile();
             } else if (response == JOptionPane.CANCEL_OPTION) {
@@ -834,8 +873,8 @@ public class BackupManagerGUI extends javax.swing.JFrame {
     private void NewBackup() {
         Logger.logMessage("Event --> new backup", Logger.LogLevel.INFO);
         
-        if (!saveChanged) {
-            int response = JOptionPane.showConfirmDialog(null, "There are unsaved changes, do you want to save them before moving to another backup?", "Confimation required", JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE);
+        if (!saveChanged) {    
+            int response = JOptionPane.showConfirmDialog(null, TranslationCategory.DIALOGS.getTranslation(TranslationKey.CONFIRMATION_MESSAGE_FOR_UNSAVED_CHANGES), TranslationCategory.DIALOGS.getTranslation(TranslationKey.CONFIRMATION_REQUIRED_TITLE), JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE);
             if (response == JOptionPane.YES_OPTION) {
                 saveFile();
             } else if (response == JOptionPane.CANCEL_OPTION) {
@@ -1492,18 +1531,18 @@ public class BackupManagerGUI extends javax.swing.JFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(TabbedPane, javax.swing.GroupLayout.Alignment.TRAILING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 66, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addComponent(TabbedPane, javax.swing.GroupLayout.PREFERRED_SIZE, 636, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 19, Short.MAX_VALUE)
+                .addGap(18, 18, 18)
                 .addComponent(jLabel3)
-                .addContainerGap())
+                .addContainerGap(7, Short.MAX_VALUE))
         );
 
         pack();
@@ -1521,7 +1560,7 @@ public class BackupManagerGUI extends javax.swing.JFrame {
             new ProcessBuilder("notepad.exe", ConfigKey.RES_DIRECTORY_STRING.getValue() + ConfigKey.LOG_FILE_STRING.getValue()).start();
         } catch (IOException e) {
             Logger.logMessage("Error opening history file.", Logger.LogLevel.WARN);
-            JOptionPane.showMessageDialog(null, "Error opening history file.", "Error", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(null, TranslationCategory.DIALOGS.getTranslation(TranslationKey.ERROR_MESSAGE_OPEN_HISTORY_FILE), TranslationCategory.DIALOGS.getTranslation(TranslationKey.ERROR_GENERIC_TITLE), JOptionPane.ERROR_MESSAGE);
         }
     }//GEN-LAST:event_MenuHistoryActionPerformed
 
@@ -1557,7 +1596,7 @@ public class BackupManagerGUI extends javax.swing.JFrame {
         Logger.logMessage("Event --> deleting backup", Logger.LogLevel.INFO);
         
         if (selectedRow != -1) {
-            int response = JOptionPane.showConfirmDialog(null, "Are you sure you want to delete this item? Please note, this action cannot be undone", "Confirmation required", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
+            int response = JOptionPane.showConfirmDialog(null, TranslationCategory.DIALOGS.getTranslation(TranslationKey.CONFIRMATION_MESSAGE_BEFORE_DELETE_BACKUP), TranslationCategory.DIALOGS.getTranslation(TranslationKey.CONFIRMATION_REQUIRED_TITLE), JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
             if (response == JOptionPane.YES_OPTION) {
                 RemoveBackup(backups.get(selectedRow).getBackupName());
             }
@@ -1596,17 +1635,28 @@ public class BackupManagerGUI extends javax.swing.JFrame {
 
             // Handling single left mouse button click
             else if (SwingUtilities.isLeftMouseButton(evt)) {
+                String backupName = TranslationCategory.BACKUP_LIST.getTranslation(TranslationKey.BACKUP_NAME_DETAIL);
+                String initialPath = TranslationCategory.BACKUP_LIST.getTranslation(TranslationKey.INITIAL_PATH_DETAIL);
+                String destinationPath = TranslationCategory.BACKUP_LIST.getTranslation(TranslationKey.DESTINATION_PATH_DETAIL);
+                String lastBackup = TranslationCategory.BACKUP_LIST.getTranslation(TranslationKey.LAST_BACKUP_DETAIL);
+                String nextBackup = TranslationCategory.BACKUP_LIST.getTranslation(TranslationKey.NEXT_BACKUP_DATE_DETAIL);
+                String timeIntervalBackup = TranslationCategory.BACKUP_LIST.getTranslation(TranslationKey.TIME_INTERVAL_DETAIL);
+                String creationDate = TranslationCategory.BACKUP_LIST.getTranslation(TranslationKey.CREATION_DATE_DETAIL);
+                String lastUpdateDate = TranslationCategory.BACKUP_LIST.getTranslation(TranslationKey.LAST_UPDATE_DATE_DETAIL);
+                String backupCount = TranslationCategory.BACKUP_LIST.getTranslation(TranslationKey.BACKUP_COUNT_DETAIL);
+                String notes = TranslationCategory.BACKUP_LIST.getTranslation(TranslationKey.NOTES_DETAIL);
+
                 detailsLabel.setText(
-                    "<html><b>BackupName:</b> " + backups.get(selectedRow).getBackupName() + ", " +
-                    "<b>InitialPath:</b> " + backups.get(selectedRow).getInitialPath() + ", " +
-                    "<b>DestinationPath:</b> " + backups.get(selectedRow).getDestinationPath() + ", " +
-                    "<b>LastBackup:</b> " + (backups.get(selectedRow).getLastBackup() != null ? backups.get(selectedRow).getLastBackup().format(formatter) : "") + ", " +
-                    "<b>NextBackup:</b> " + (backups.get(selectedRow).getNextDateBackup() != null ? backups.get(selectedRow).getNextDateBackup().format(formatter) : "_") + ", " +
-                    "<b>TimeIntervalBackup:</b> " + (backups.get(selectedRow).getTimeIntervalBackup() != null ? backups.get(selectedRow).getTimeIntervalBackup().toString() : "_") + ", " +
-                    "<b>CreationDate:</b> " + (backups.get(selectedRow).getCreationDate() != null ? backups.get(selectedRow).getCreationDate().format(formatter) : "_") + ", " +
-                    "<b>LastUpdateDate:</b> " + (backups.get(selectedRow).getLastUpdateDate() != null ? backups.get(selectedRow).getLastUpdateDate().format(formatter) : "_") + ", " +
-                    "<b>BackupCount:</b> " + (backups.get(selectedRow).getBackupCount()) + ", " +
-                    "<b>Notes:</b> " + (backups.get(selectedRow).getNotes()) +
+                    "<html><b>" + backupName + ":</b> " + backups.get(selectedRow).getBackupName() + ", " +
+                    "<b>" + initialPath + ":</b> " + backups.get(selectedRow).getInitialPath() + ", " +
+                    "<b>" + destinationPath + ":</b> " + backups.get(selectedRow).getDestinationPath() + ", " +
+                    "<b>" + lastBackup + ":</b> " + (backups.get(selectedRow).getLastBackup() != null ? backups.get(selectedRow).getLastBackup().format(formatter) : "") + ", " +
+                    "<b>" + nextBackup + ":</b> " + (backups.get(selectedRow).getNextDateBackup() != null ? backups.get(selectedRow).getNextDateBackup().format(formatter) : "_") + ", " +
+                    "<b>" + timeIntervalBackup + ":</b> " + (backups.get(selectedRow).getTimeIntervalBackup() != null ? backups.get(selectedRow).getTimeIntervalBackup().toString() : "_") + ", " +
+                    "<b>" + creationDate + ":</b> " + (backups.get(selectedRow).getCreationDate() != null ? backups.get(selectedRow).getCreationDate().format(formatter) : "_") + ", " +
+                    "<b>" + lastUpdateDate + ":</b> " + (backups.get(selectedRow).getLastUpdateDate() != null ? backups.get(selectedRow).getLastUpdateDate().format(formatter) : "_") + ", " +
+                    "<b>" + backupCount + ":</b> " + (backups.get(selectedRow).getBackupCount()) + ", " +
+                    "<b>" + notes + ":</b> " + (backups.get(selectedRow).getNotes()) +
                     "</html>"
                 );
             }
@@ -1723,7 +1773,7 @@ public class BackupManagerGUI extends javax.swing.JFrame {
         Logger.logMessage("Event --> share", Logger.LogLevel.INFO);
 
         // pop-up message
-        JOptionPane.showMessageDialog(null, "Share link copied to clipboard!");
+        JOptionPane.showMessageDialog(null, TranslationCategory.DIALOGS.getTranslation(TranslationKey.SHARE_LINK_COPIED_MESSAGE));
 
         // copy link to the clipboard
         StringSelection stringSelectionObj = new StringSelection(ConfigKey.SHARE_LINK.getValue());
@@ -1742,7 +1792,7 @@ public class BackupManagerGUI extends javax.swing.JFrame {
             return;
         }
         if (currentBackup.isAutoBackup()) {
-            int response = JOptionPane.showConfirmDialog(null, "Are you sure you want to cancel automatic backup?", "Confimation required", JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE);
+            int response = JOptionPane.showConfirmDialog(null, TranslationCategory.DIALOGS.getTranslation(TranslationKey.CONFIRMATION_MESSAGE_CANCEL_AUTO_BACKUP), TranslationCategory.DIALOGS.getTranslation(TranslationKey.CONFIRMATION_REQUIRED_TITLE), JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE);
             if (response != JOptionPane.YES_OPTION) {
                 toggleAutoBackup.setSelected(false);
                 return;
@@ -1788,15 +1838,15 @@ public class BackupManagerGUI extends javax.swing.JFrame {
                     desktop.mail(uri);
                 } catch (IOException | URISyntaxException ex) {
                     Logger.logMessage("Failed to send email: " + ex.getMessage(), Logger.LogLevel.ERROR, ex);
-                    JOptionPane.showMessageDialog(null, "Unable to send email. Please try again later.", "Error", JOptionPane.ERROR_MESSAGE);
+                    JOptionPane.showMessageDialog(null, TranslationCategory.DIALOGS.getTranslation(TranslationKey.ERROR_MESSAGE_UNABLE_TO_SEND_EMAIL), TranslationCategory.DIALOGS.getTranslation(TranslationKey.ERROR_GENERIC_TITLE), JOptionPane.ERROR_MESSAGE);
                 }
             } else {
                 Logger.logMessage("Mail action is unsupported in your system's desktop environment.", Logger.LogLevel.WARN);
-                JOptionPane.showMessageDialog(null, "Your system does not support sending emails directly from this application.", "Error", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(null, TranslationCategory.DIALOGS.getTranslation(TranslationKey.ERROR_MESSAGE_NOT_SUPPORTED_EMAIL), TranslationCategory.DIALOGS.getTranslation(TranslationKey.ERROR_GENERIC_TITLE), JOptionPane.ERROR_MESSAGE);
             }
         } else {
             Logger.logMessage("Desktop integration is unsupported on this system.", Logger.LogLevel.WARN);
-            JOptionPane.showMessageDialog(null, "Your system does not support sending emails.", "Error", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(null, TranslationCategory.DIALOGS.getTranslation(TranslationKey.ERROR_MESSAGE_NOT_SUPPORTED_EMAIL_GENERIC), TranslationCategory.DIALOGS.getTranslation(TranslationKey.ERROR_GENERIC_TITLE), JOptionPane.ERROR_MESSAGE);
         }
     }//GEN-LAST:event_MenuSupportActionPerformed
     
@@ -1836,9 +1886,75 @@ public class BackupManagerGUI extends javax.swing.JFrame {
         }
         BackupOperations.updateBackupList(backups);
 
-        JOptionPane.showMessageDialog(null, "Auto Backup has been activated\n\tFrom: " + startPathField.getText() + "\n\tTo: " + destinationPathField.getText() + "\nIs setted every " + timeInterval.toString() + " days", "AutoBackup", 1);
+        openBackupActivationMessage(timeInterval);
+
     }//GEN-LAST:event_btnTimePickerActionPerformed
     
+    private void setTranslations() {
+        // general
+        jLabel3.setText(TranslationCategory.GENERAL.getTranslation(TranslationKey.VERSION) + " " + current_version);
+        
+        // menu
+        jMenu1.setText(TranslationCategory.MENU.getTranslation(TranslationKey.FILE));
+        jMenu2.setText(TranslationCategory.MENU.getTranslation(TranslationKey.OPTIONS));
+        jMenu3.setText(TranslationCategory.MENU.getTranslation(TranslationKey.ABOUT));
+        jMenu5.setText(TranslationCategory.MENU.getTranslation(TranslationKey.HELP));
+
+        // menu items
+        MenuBugReport.setText(TranslationCategory.MENU.getTranslation(TranslationKey.BUG_REPORT));
+        MenuClear.setText(TranslationCategory.MENU.getTranslation(TranslationKey.CLEAR));
+        MenuDonate.setText(TranslationCategory.MENU.getTranslation(TranslationKey.DONATE));
+        MenuHistory.setText(TranslationCategory.MENU.getTranslation(TranslationKey.HISTORY));
+        MenuInfoPage.setText(TranslationCategory.MENU.getTranslation(TranslationKey.INFO_PAGE));
+        MenuNew.setText(TranslationCategory.MENU.getTranslation(TranslationKey.NEW));
+        MenuQuit.setText(TranslationCategory.MENU.getTranslation(TranslationKey.QUIT));
+        MenuSave.setText(TranslationCategory.MENU.getTranslation(TranslationKey.SAVE));
+        MenuSaveWithName.setText(TranslationCategory.MENU.getTranslation(TranslationKey.SAVE_WITH_NAME));
+        MenuShare.setText(TranslationCategory.MENU.getTranslation(TranslationKey.SHARE));
+        MenuSupport.setText(TranslationCategory.MENU.getTranslation(TranslationKey.SUPPORT));
+        MenuWebsite.setText(TranslationCategory.MENU.getTranslation(TranslationKey.WEBSITE));
+
+        // backup entry
+        TabbedPane.setTitleAt(0, TranslationCategory.TABBED_FRAMES.getTranslation(TranslationKey.BACKUP_ENTRY));
+        TabbedPane.setTitleAt(1, TranslationCategory.TABBED_FRAMES.getTranslation(TranslationKey.BACKUP_LIST));
+        btnPathSearch1.setToolTipText(TranslationCategory.BACKUP_ENTRY.getTranslation(TranslationKey.INITIAL_FILE_CHOOSER_TOOLTIP));
+        btnPathSearch2.setToolTipText(TranslationCategory.BACKUP_ENTRY.getTranslation(TranslationKey.DESTINATION_FILE_CHOOSER_TOOLTIP));
+        startPathField.setToolTipText(TranslationCategory.BACKUP_ENTRY.getTranslation(TranslationKey.INITIAL_PATH_TOOLTIP));
+        destinationPathField.setToolTipText(TranslationCategory.BACKUP_ENTRY.getTranslation(TranslationKey.DESTINATION_PATH_TOOLTIP));
+        backupNoteTextArea.setToolTipText(TranslationCategory.BACKUP_ENTRY.getTranslation(TranslationKey.NOTES_TOOLTIP));
+        SingleBackup.setText(TranslationCategory.BACKUP_ENTRY.getTranslation(TranslationKey.SINGLE_BACKUP_BUTTON));
+        SingleBackup.setToolTipText(TranslationCategory.BACKUP_ENTRY.getTranslation(TranslationKey.SINGLE_BACKUP_TOOLTIP));
+        toggleAutoBackup.setText(TranslationCategory.BACKUP_ENTRY.getTranslation(TranslationKey.AUTO_BACKUP_BUTTON_OFF));
+        toggleAutoBackup.setToolTipText(TranslationCategory.BACKUP_ENTRY.getTranslation(TranslationKey.AUTO_BACKUP_TOOLTIP));
+        currentFileLabel.setText(TranslationCategory.BACKUP_ENTRY.getTranslation(TranslationKey.CURRENT_FILE) + ":");
+        jLabel2.setText(TranslationCategory.BACKUP_ENTRY.getTranslation(TranslationKey.NOTES) + ":");
+        lastBackupLabel.setText(TranslationCategory.BACKUP_ENTRY.getTranslation(TranslationKey.LAST_BACKUP) + ": ");
+        txtTitle.setText(TranslationCategory.BACKUP_ENTRY.getTranslation(TranslationKey.PAGE_TITLE));
+        startPathField.putClientProperty(FlatClientProperties.PLACEHOLDER_TEXT, TranslationCategory.BACKUP_ENTRY.getTranslation(TranslationKey.INITIAL_PATH_PLACEHOLDER));
+        destinationPathField.putClientProperty(FlatClientProperties.PLACEHOLDER_TEXT, TranslationCategory.BACKUP_ENTRY.getTranslation(TranslationKey.DESTINATION_PATH_PLACEHOLDER));
+        btnTimePicker.setToolTipText(TranslationCategory.BACKUP_ENTRY.getTranslation(TranslationKey.TIME_PICKER_TOOLTIP));
+
+        // backup list
+        addBackupEntryButton.setToolTipText(TranslationCategory.BACKUP_LIST.getTranslation(TranslationKey.ADD_BACKUP_TOOLTIP));
+        researchField.setToolTipText(TranslationCategory.BACKUP_LIST.getTranslation(TranslationKey.RESEARCH_BAR_TOOLTIP));
+        researchField.putClientProperty(FlatClientProperties.PLACEHOLDER_TEXT, TranslationCategory.BACKUP_LIST.getTranslation(TranslationKey.RESEARCH_BAR_PLACEHOLDER));
+
+        // popup
+        CopyBackupNamePopupItem.setText(TranslationCategory.BACKUP_LIST.getTranslation(TranslationKey.COPY_BACKUP_NAME_POPUP));
+        CopyDestinationPathPopupItem.setText(TranslationCategory.BACKUP_LIST.getTranslation(TranslationKey.COPY_DESTINATION_PATH_BACKUP));
+        RunBackupPopupItem.setText(TranslationCategory.BACKUP_LIST.getTranslation(TranslationKey.SINGLE_BACKUP_POPUP));
+        CopyInitialPathPopupItem.setText(TranslationCategory.BACKUP_LIST.getTranslation(TranslationKey.COPY_INITIAL_PATH_POPUP));
+        DeletePopupItem.setText(TranslationCategory.BACKUP_LIST.getTranslation(TranslationKey.DELETE_POPUP));
+        DuplicatePopupItem.setText(TranslationCategory.BACKUP_LIST.getTranslation(TranslationKey.DUPLICATE_POPUP));
+        EditPoputItem.setText(TranslationCategory.BACKUP_LIST.getTranslation(TranslationKey.EDIT_POPUP));
+        OpenInitialDestinationItem.setText(TranslationCategory.BACKUP_LIST.getTranslation(TranslationKey.OPEN_DESTINATION_FOLDER_POPUP));
+        OpenInitialFolderItem.setText(TranslationCategory.BACKUP_LIST.getTranslation(TranslationKey.OPEN_INITIAL_FOLDER_POPUP));
+        renamePopupItem.setText(TranslationCategory.BACKUP_LIST.getTranslation(TranslationKey.RENAME_BACKUP_POPUP));
+        jMenu4.setText(TranslationCategory.BACKUP_LIST.getTranslation(TranslationKey.COPY_TEXT_POPUP));
+        AutoBackupMenuItem.setText(TranslationCategory.BACKUP_LIST.getTranslation(TranslationKey.AUTO_BACKUP_POPUP));
+        Backup.setText(TranslationCategory.BACKUP_LIST.getTranslation(TranslationKey.BACKUP_POPUP));
+    }
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JCheckBoxMenuItem AutoBackupMenuItem;
     private javax.swing.JMenu Backup;

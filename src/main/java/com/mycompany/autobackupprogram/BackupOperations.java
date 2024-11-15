@@ -1,8 +1,9 @@
 package com.mycompany.autobackupprogram;
 
-import static com.mycompany.autobackupprogram.BackupManagerGUI.OpenExceptionMessage;
-import static com.mycompany.autobackupprogram.BackupManagerGUI.dateForfolderNameFormatter;
-import static com.mycompany.autobackupprogram.BackupManagerGUI.formatter;
+import static com.mycompany.autobackupprogram.GUI.BackupManagerGUI.OpenExceptionMessage;
+import static com.mycompany.autobackupprogram.GUI.BackupManagerGUI.dateForfolderNameFormatter;
+import static com.mycompany.autobackupprogram.GUI.BackupManagerGUI.formatter;
+
 import java.awt.TrayIcon;
 import java.io.File;
 import java.io.FileOutputStream;
@@ -26,6 +27,11 @@ import javax.swing.JOptionPane;
 import javax.swing.JToggleButton;
 import javax.swing.SwingUtilities;
 
+import com.mycompany.autobackupprogram.Entities.Backup;
+import com.mycompany.autobackupprogram.Enums.ConfigKey;
+import com.mycompany.autobackupprogram.GUI.BackupManagerGUI;
+import com.mycompany.autobackupprogram.GUI.BackupProgressGUI;
+import com.mycompany.autobackupprogram.GUI.TimeInterval;
 import com.mycompany.autobackupprogram.Logger.LogLevel;
 
 public class BackupOperations{

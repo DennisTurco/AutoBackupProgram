@@ -1,4 +1,4 @@
-package com.mycompany.autobackupprogram;
+package com.mycompany.autobackupprogram.GUI;
 
 public class TimeInterval {
     private int days;

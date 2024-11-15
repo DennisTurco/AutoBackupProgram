@@ -1,4 +1,4 @@
-package com.mycompany.autobackupprogram;
+package com.mycompany.autobackupprogram.Enums;
 
 import java.io.FileReader;
 import java.io.IOException;
@@ -12,7 +12,11 @@ public enum ConfigKey {
     LOG_FILE_STRING,
     BACKUP_FILE_STRING,
     CONFIG_FILE_STRING,
+    ITA_LANGUAGE_FILE_STRING,
+    ENG_LANGUAGE_FILE_STRING,
     RES_DIRECTORY_STRING,
+    LANGUAGES_DIRECTORY_STRING,
+    CONFIG_DIRECTORY_STRING,
     DONATE_PAGE_LINK,
     ISSUE_PAGE_LINK,
     INFO_PAGE_LINK,

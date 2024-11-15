@@ -1,7 +1,13 @@
-package com.mycompany.autobackupprogram;
+package com.mycompany.autobackupprogram.Dialogs;
 
 import com.formdev.flatlaf.FlatIntelliJLaf;
-import static com.mycompany.autobackupprogram.BackupManagerGUI.OpenExceptionMessage;
+import com.mycompany.autobackupprogram.Enums.ConfigKey;
+import com.mycompany.autobackupprogram.Enums.TranslationLoaderEnum.TranslationCategory;
+import com.mycompany.autobackupprogram.Enums.TranslationLoaderEnum.TranslationKey;
+import com.mycompany.autobackupprogram.GUI.TimeInterval;
+
+import static com.mycompany.autobackupprogram.GUI.BackupManagerGUI.OpenExceptionMessage;
+
 import java.awt.Image;
 import java.util.Arrays;
 import javax.swing.ImageIcon;
@@ -30,6 +36,8 @@ public class TimePicker extends javax.swing.JDialog {
         // logo application
         Image icon = new ImageIcon(this.getClass().getResource(ConfigKey.LOGO_IMG.getValue())).getImage();
         this.setIconImage(icon); 
+
+        setTranslations();
     }
     
     public TimeInterval getTimeInterval() {
@@ -289,6 +297,19 @@ public class TimePicker extends javax.swing.JDialog {
                 dialog.setVisible(true);
             }
         });
+    }
+
+    private void setTranslations() {
+        setTitle(TranslationCategory.TIME_PICKER_DIALOG.getTranslation(TranslationKey.TIME_INTERVAL_TITLE));
+        jTextArea1.setText(TranslationCategory.TIME_PICKER_DIALOG.getTranslation(TranslationKey.DESCRIPTION));
+        daysSpinner.setToolTipText(TranslationCategory.TIME_PICKER_DIALOG.getTranslation(TranslationKey.SPINNER_TOOLTIP));
+        hoursSpinner.setToolTipText(TranslationCategory.TIME_PICKER_DIALOG.getTranslation(TranslationKey.SPINNER_TOOLTIP));
+        minutesSpinner.setToolTipText(TranslationCategory.TIME_PICKER_DIALOG.getTranslation(TranslationKey.SPINNER_TOOLTIP));
+        btnOk.setText(TranslationCategory.TIME_PICKER_DIALOG.getTranslation(TranslationKey.OK_BUTTON));
+        jButton2.setText(TranslationCategory.GENERAL.getTranslation(TranslationKey.CANCEL_BUTTON));
+        jLabel1.setText(TranslationCategory.TIME_PICKER_DIALOG.getTranslation(TranslationKey.DAYS));
+        jLabel2.setText(TranslationCategory.TIME_PICKER_DIALOG.getTranslation(TranslationKey.HOURS));
+        jLabel3.setText(TranslationCategory.TIME_PICKER_DIALOG.getTranslation(TranslationKey.MINUTES));
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

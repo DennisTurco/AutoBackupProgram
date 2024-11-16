@@ -1,3 +1,62 @@
+2024-11-16T14:39:17.639903500 [INFO] Theme set to: macOS Dark
+2024-11-16T14:39:17.632919700 [INFO] Language set to: Italiano
+2024-11-16T14:39:09.419995600 [INFO] Theme set to: Dark
+2024-11-16T14:39:09.411564100 [INFO] Language set to: Italiano
+2024-11-16T14:38:49.886687700 [INFO] The application is running with administrator privileges.
+2024-11-16T14:38:49.391184400 [DEBUG] Background mode: false
+2024-11-16T14:38:49.373328100 [INFO] Application started
+2024-11-16T14:29:47.183453300 [INFO] The application is running with administrator privileges.
+2024-11-16T14:29:46.705309300 [DEBUG] Background mode: false
+2024-11-16T14:29:46.687453400 [INFO] Application started
+2024-11-16T14:29:43.905629900 [INFO] Theme set to: Light
+2024-11-16T14:29:43.897170300 [INFO] Language set to: Italiano
+2024-11-16T14:29:31.942106200 [INFO] The application is running with administrator privileges.
+2024-11-16T14:29:31.445103300 [DEBUG] Background mode: false
+2024-11-16T14:29:31.428735200 [INFO] Application started
+2024-11-16T14:29:26.762828900 [INFO] Theme set to: Darcula
+2024-11-16T14:29:26.755359300 [INFO] Language set to: Italiano
+2024-11-16T14:29:18.284424400 [WARN] Unable to save the file. Both the initial and destination paths must be specified and cannot be empty
+2024-11-16T14:29:18.277480200 [INFO] Event --> saving backup
+2024-11-16T14:27:46.651681200 [DEBUG] updating backup list
+2024-11-16T14:27:45.856446600 [INFO] Backup 'asd' saved successfully!
+2024-11-16T14:27:45.849474500 [DEBUG] updating backup list
+2024-11-16T14:27:44.554165500 [INFO] Event --> save with name
+2024-11-16T14:27:44.545733600 [INFO] Event --> saving backup
+2024-11-16T14:27:33.900791500 [WARN] Input Missing!
+2024-11-16T14:27:33.891835900 [INFO] Event --> single backup
+2024-11-16T14:27:25.401205200 [INFO] Event --> clear
+2024-11-16T14:27:19.514024500 [INFO] Event --> clear
+2024-11-16T14:26:56.016846800 [INFO] The application is running with administrator privileges.
+2024-11-16T14:26:55.535109100 [DEBUG] Background mode: false
+2024-11-16T14:26:55.518690 [INFO] Application started
+2024-11-16T14:23:25.895218300 [INFO] The application is running with administrator privileges.
+2024-11-16T14:23:25.434930500 [DEBUG] Background mode: false
+2024-11-16T14:23:25.419058400 [INFO] Application started
+2024-11-16T14:23:22.706334600 [INFO] Theme set to: macOS Dark
+2024-11-16T14:23:22.698864500 [INFO] Language set to: Italiano
+2024-11-16T14:22:51.491262200 [INFO] The application is running with administrator privileges.
+2024-11-16T14:22:51.030478300 [DEBUG] Background mode: false
+2024-11-16T14:22:51.013639600 [INFO] Application started
+2024-11-16T14:22:41.417534800 [INFO] Theme set to: Dark
+2024-11-16T14:22:41.410555400 [INFO] Language set to: Italiano
+2024-11-16T14:22:31.999443400 [INFO] Theme set to: IntelliJ
+2024-11-16T14:22:31.991507600 [INFO] Language set to: Italiano
+2024-11-16T14:22:24.976961500 [INFO] The application is running with administrator privileges.
+2024-11-16T14:22:24.488401600 [DEBUG] Background mode: false
+2024-11-16T14:22:24.457649700 [INFO] Application started
+2024-11-16T14:08:48.340958200 [INFO] Language set to: Italiano
+2024-11-16T14:08:42.521867800 [INFO] The application is running with administrator privileges.
+2024-11-16T14:08:42.030385200 [DEBUG] Background mode: false
+2024-11-16T14:08:42.012529200 [INFO] Application started
+2024-11-16T14:08:19.920062800 [INFO] The application is running with administrator privileges.
+2024-11-16T14:08:19.305809100 [DEBUG] Background mode: false
+2024-11-16T14:08:19.288906100 [INFO] Application started
+2024-11-16T14:06:08.992267800 [INFO] The application is running with administrator privileges.
+2024-11-16T14:06:08.507647900 [DEBUG] Background mode: false
+2024-11-16T14:06:08.491775900 [INFO] Application started
+2024-11-16T12:11:25.532530900 [INFO] The application is running with administrator privileges.
+2024-11-16T12:11:24.620777 [DEBUG] Background mode: false
+2024-11-16T12:11:24.604408900 [INFO] Application started
 2024-11-16T12:09:26.634798400 [INFO] Language set to: Italiano
 2024-11-16T12:09:15.313785 [INFO] Language set to: English
 2024-11-16T12:09:10.618914700 [INFO] The application is running with administrator privileges.

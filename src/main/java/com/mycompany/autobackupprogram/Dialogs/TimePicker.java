@@ -4,6 +4,7 @@ import com.formdev.flatlaf.FlatIntelliJLaf;
 import com.mycompany.autobackupprogram.Enums.ConfigKey;
 import com.mycompany.autobackupprogram.Enums.TranslationLoaderEnum.TranslationCategory;
 import com.mycompany.autobackupprogram.Enums.TranslationLoaderEnum.TranslationKey;
+import com.mycompany.autobackupprogram.Managers.ThemeManager;
 import com.mycompany.autobackupprogram.Entities.TimeInterval;
 
 import static com.mycompany.autobackupprogram.GUI.BackupManagerGUI.OpenExceptionMessage;
@@ -276,28 +277,6 @@ public class TimePicker extends javax.swing.JDialog {
     private void minutesSpinnerStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_minutesSpinnerStateChanged
         minutesIntervalSpinnerChange();
     }//GEN-LAST:event_minutesSpinnerStateChanged
-
-    public static void main(String args[]) {
-        try {
-            UIManager.setLookAndFeel(new FlatIntelliJLaf());
-        } catch (UnsupportedLookAndFeelException ex) {
-            System.err.println("Exception (main) --> " + ex);
-            OpenExceptionMessage(ex.getMessage(), Arrays.toString(ex.getStackTrace()));
-        }
-        
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                TimePicker dialog = new TimePicker(new javax.swing.JFrame(), null, true);
-                dialog.addWindowListener(new java.awt.event.WindowAdapter() {
-                    @Override
-                    public void windowClosing(java.awt.event.WindowEvent e) {
-                        System.exit(0);
-                    }
-                });
-                dialog.setVisible(true);
-            }
-        });
-    }
 
     private void setTranslations() {
         setTitle(TranslationCategory.TIME_PICKER_DIALOG.getTranslation(TranslationKey.TIME_INTERVAL_TITLE));

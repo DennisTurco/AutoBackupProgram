@@ -12,10 +12,11 @@ import com.mycompany.autobackupprogram.Logger;
 import com.mycompany.autobackupprogram.Logger.LogLevel;
 import com.mycompany.autobackupprogram.Enums.ConfigKey;
 import com.mycompany.autobackupprogram.Enums.LanguagesEnum;
+import com.mycompany.autobackupprogram.Enums.ThemesEnum;
 
 public class Preferences {
     private static LanguagesEnum language = LanguagesEnum.ENG;
-    private static String theme = "light";
+    private static ThemesEnum theme = ThemesEnum.LIGHT;
 
     public static void loadPreferencesFromJSON() {
         try (FileReader reader = new FileReader(ConfigKey.CONFIG_DIRECTORY_STRING.getValue() + ConfigKey.PREFERENCES_FILE_STRING.getValue())) {
@@ -31,7 +32,14 @@ public class Preferences {
                 }
             }
             
-            theme = jsonObject.get("Theme").getAsString();
+            // Map the "Theme" JSON value to the ThemesEnum
+            String themeName = jsonObject.get("Theme").getAsString();
+            for (ThemesEnum t : ThemesEnum.values()) {
+                if (t.getThemeName().equals(themeName)) {
+                    theme = t;
+                    break;
+                }
+            }
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -42,7 +50,7 @@ public class Preferences {
             JsonObject jsonObject = new JsonObject();
 
             jsonObject.addProperty("Language", language.getFileName());
-            jsonObject.addProperty("Theme", theme);
+            jsonObject.addProperty("Theme", theme.getThemeName());
 
             // Convert JsonObject to JSON string using Gson
             Gson gson = new Gson();
@@ -56,13 +64,13 @@ public class Preferences {
     public static LanguagesEnum getLanguage() {
         return language;
     }
-    public static String getTheme() {
+    public static ThemesEnum getTheme() {
         return theme;
     }
     public static void setLanguage(LanguagesEnum language) {
         Preferences.language = language;
     }
-    public static void setTheme(String theme) {
+    public static void setTheme(ThemesEnum theme) {
         Preferences.theme = theme;
     }
     public static void setLanguage(String selectedLanguage) {
@@ -75,6 +83,20 @@ public class Preferences {
                 }
             }
             Logger.logMessage("Invalid language name: " + selectedLanguage, LogLevel.ERROR);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+    public static void setTheme(String selectedTheme) {
+        try {
+            for (ThemesEnum t : ThemesEnum.values()) {
+                if (t.getThemeName().equalsIgnoreCase(selectedTheme)) {
+                    theme = t;
+                    Logger.logMessage("Theme set to: " + theme.getThemeName(), LogLevel.INFO);
+                    return;
+                }
+            }
+            Logger.logMessage("Invalid theme name: " + selectedTheme, LogLevel.ERROR);
         } catch (Exception e) {
             e.printStackTrace();
         }

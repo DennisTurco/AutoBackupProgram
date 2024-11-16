@@ -1,19 +1,14 @@
 package com.mycompany.autobackupprogram.GUI;
 
-import com.formdev.flatlaf.FlatIntelliJLaf;
 import com.mycompany.autobackupprogram.BackupOperations;
 import com.mycompany.autobackupprogram.Enums.ConfigKey;
 import com.mycompany.autobackupprogram.Enums.TranslationLoaderEnum.TranslationCategory;
 import com.mycompany.autobackupprogram.Enums.TranslationLoaderEnum.TranslationKey;
-
-import static com.mycompany.autobackupprogram.GUI.BackupManagerGUI.OpenExceptionMessage;
+import com.mycompany.autobackupprogram.Managers.ThemeManager;
 
 import java.awt.Image;
-import java.util.Arrays;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
-import javax.swing.UIManager;
-import javax.swing.UnsupportedLookAndFeelException;
 import javax.swing.WindowConstants;
 
 public class BackupProgressGUI extends javax.swing.JFrame {
@@ -166,18 +161,6 @@ public class BackupProgressGUI extends javax.swing.JFrame {
             this.dispose();
         }
     }//GEN-LAST:event_CancelButtonActionPerformed
-
-    public static void main(String args[]) {
-        try {
-            UIManager.setLookAndFeel(new FlatIntelliJLaf());
-        } catch (UnsupportedLookAndFeelException ex) {
-            OpenExceptionMessage(ex.getMessage(), Arrays.toString(ex.getStackTrace()));
-        }
-
-        java.awt.EventQueue.invokeLater(() -> {
-            new BackupProgressGUI().setVisible(true);
-        });
-    }
 
     private void setTranslations() {
         setTitle(TranslationCategory.PROGRESS_BACKUP_FRAME.getTranslation(TranslationKey.PROGRESS_BACKUP_TITLE));

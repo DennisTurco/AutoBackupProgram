@@ -2,7 +2,6 @@ package com.mycompany.autobackupprogram.GUI;
 
 import com.mycompany.autobackupprogram.Entities.TimeInterval;
 import com.formdev.flatlaf.FlatClientProperties;
-import com.formdev.flatlaf.FlatIntelliJLaf;
 import com.mycompany.autobackupprogram.BackupOperations;
 import com.mycompany.autobackupprogram.Dialogs.PreferencesDialog;
 import com.mycompany.autobackupprogram.JSONAutoBackup;
@@ -16,6 +15,7 @@ import com.mycompany.autobackupprogram.Enums.MenuItems;
 import com.mycompany.autobackupprogram.Enums.TranslationLoaderEnum;
 import com.mycompany.autobackupprogram.Enums.TranslationLoaderEnum.TranslationCategory;
 import com.mycompany.autobackupprogram.Enums.TranslationLoaderEnum.TranslationKey;
+import com.mycompany.autobackupprogram.Managers.ThemeManager;
 
 import java.awt.Color;
 import java.awt.Component;
@@ -44,8 +44,6 @@ import javax.swing.JTable;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.SwingUtilities;
-import javax.swing.UIManager;
-import javax.swing.UnsupportedLookAndFeelException;
 import javax.swing.filechooser.FileSystemView;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
@@ -80,9 +78,7 @@ public class BackupManagerGUI extends javax.swing.JFrame {
     private final String current_version = "2.0.3";
     
     public BackupManagerGUI() {
-        try {
-            UIManager.setLookAndFeel(new FlatIntelliJLaf());
-        } catch (UnsupportedLookAndFeelException ex) {}
+        ThemeManager.updateThemeFrame(this);
         
         initComponents();
         
@@ -162,7 +158,7 @@ public class BackupManagerGUI extends javax.swing.JFrame {
         }
         
         // load theme
-        //
+        ThemeManager.updateThemeFrame(this);
     }
     
     private void renameBackup(Backup backup) {

@@ -4,9 +4,11 @@ import com.formdev.flatlaf.FlatIntelliJLaf;
 import com.mycompany.autobackupprogram.Entities.Preferences;
 import com.mycompany.autobackupprogram.Enums.ConfigKey;
 import com.mycompany.autobackupprogram.Enums.LanguagesEnum;
+import com.mycompany.autobackupprogram.Enums.ThemesEnum;
 import com.mycompany.autobackupprogram.Enums.TranslationLoaderEnum;
 import com.mycompany.autobackupprogram.Enums.TranslationLoaderEnum.TranslationCategory;
 import com.mycompany.autobackupprogram.Enums.TranslationLoaderEnum.TranslationKey;
+import com.mycompany.autobackupprogram.Managers.ThemeManager;
 
 import static com.mycompany.autobackupprogram.GUI.BackupManagerGUI.OpenExceptionMessage;
 import java.awt.Image;
@@ -25,17 +27,12 @@ public class PreferencesDialog extends javax.swing.JDialog {
     public PreferencesDialog(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
-
-        try {
-            UIManager.setLookAndFeel(new FlatIntelliJLaf());
-        } catch (UnsupportedLookAndFeelException ex) {
-            OpenExceptionMessage(ex.getMessage(), Arrays.toString(ex.getStackTrace()));
-        }
         
         // logo application
         Image icon = new ImageIcon(this.getClass().getResource(ConfigKey.LOGO_IMG.getValue())).getImage();
         this.setIconImage(icon); 
         
+        ThemeManager.updateThemeDialog(this);
         setLanguages();
         setThemes();
         setTranslations();
@@ -72,7 +69,6 @@ public class PreferencesDialog extends javax.swing.JDialog {
 
         jLabel2.setText("Theme");
 
-        themesComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
         themesComboBox.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 themesComboBoxActionPerformed(evt);
@@ -142,14 +138,17 @@ public class PreferencesDialog extends javax.swing.JDialog {
     private void applyBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_applyBtnActionPerformed
         isApply = true;
         try {
+            // translactions
             Preferences.setLanguage((String) languagesComboBox.getSelectedItem());
             TranslationLoaderEnum.loadTranslations(ConfigKey.LANGUAGES_DIRECTORY_STRING.getValue() + Preferences.getLanguage().getFileName());
             setTranslations();
+
+            // theme
+            Preferences.setTheme((String) themesComboBox.getSelectedItem());
+            ThemeManager.updateThemeDialog(this);
         } catch (IOException | ParseException e) {
             e.printStackTrace();
-        }
-        
-        
+        }  
     }//GEN-LAST:event_applyBtnActionPerformed
 
     private void closeBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_closeBtnActionPerformed
@@ -164,7 +163,14 @@ public class PreferencesDialog extends javax.swing.JDialog {
     }
     
     private void setThemes() {
-        
+        themesComboBox.addItem(ThemesEnum.LIGHT.getThemeName());
+        themesComboBox.addItem(ThemesEnum.DARK.getThemeName());
+        themesComboBox.addItem(ThemesEnum.INTELLIJ.getThemeName());
+        themesComboBox.addItem(ThemesEnum.DRACULA.getThemeName());
+        themesComboBox.addItem(ThemesEnum.LIGHTMAC.getThemeName());
+        themesComboBox.addItem(ThemesEnum.DARKMAC.getThemeName());
+
+        themesComboBox.setSelectedItem(Preferences.getTheme().getThemeName());
     }
     
     private void setTranslations() {

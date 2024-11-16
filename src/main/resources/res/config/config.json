@@ -2,6 +2,7 @@
   "LOG_FILE_STRING": "log_file",
   "BACKUP_FILE_STRING": "backup_list.json",
   "CONFIG_FILE_STRING": "config.json",
+  "PREFERENCES_FILE_STRING": "preferences.json",
   "ITA_LANGUAGE_FILE_STRING": "ita.json",
   "ENG_LANGUAGE_FILE_STRING": "eng.json",
   "RES_DIRECTORY_STRING": "src/main/resources/res/",
@@ -17,6 +18,7 @@
 
   "MenuItems": {
     "BugReport": true,
+    "Preferences": true,
     "Clear": true,
     "Donate": false,
     "History": false,

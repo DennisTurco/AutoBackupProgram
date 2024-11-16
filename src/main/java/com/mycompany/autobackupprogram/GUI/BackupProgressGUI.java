@@ -3,6 +3,8 @@ package com.mycompany.autobackupprogram.GUI;
 import com.formdev.flatlaf.FlatIntelliJLaf;
 import com.mycompany.autobackupprogram.BackupOperations;
 import com.mycompany.autobackupprogram.Enums.ConfigKey;
+import com.mycompany.autobackupprogram.Enums.TranslationLoaderEnum.TranslationCategory;
+import com.mycompany.autobackupprogram.Enums.TranslationLoaderEnum.TranslationKey;
 
 import static com.mycompany.autobackupprogram.GUI.BackupManagerGUI.OpenExceptionMessage;
 
@@ -48,7 +50,7 @@ public class BackupProgressGUI extends javax.swing.JFrame {
         percentageLabel.setText(value + " %");
         
         if (value == 100) {
-            loadingMessageLabel.setText("backup completed!");
+            loadingMessageLabel.setText(TranslationCategory.PROGRESS_BACKUP_FRAME.getTranslation(TranslationKey.STATUS_COMPLETED));
             closeButton.setEnabled(true);
             CancelButton.setEnabled(false);
             this.setAlwaysOnTop(true);
@@ -158,7 +160,7 @@ public class BackupProgressGUI extends javax.swing.JFrame {
     }//GEN-LAST:event_closeButtonActionPerformed
 
     private void CancelButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CancelButtonActionPerformed
-        int response = JOptionPane.showConfirmDialog(null, "Are you sure you want to stop this backup?", "Confimation required", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
+        int response = JOptionPane.showConfirmDialog(null, TranslationCategory.DIALOGS.getTranslation(TranslationKey.INTERRUPT_BACKUP_PROCESS_MESSAGE), TranslationCategory.DIALOGS.getTranslation(TranslationKey.CONFIRMATION_REQUIRED_TITLE), JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
         if (response == JOptionPane.YES_OPTION) {
             BackupOperations.StopCopyFiles();
             this.dispose();
@@ -178,7 +180,10 @@ public class BackupProgressGUI extends javax.swing.JFrame {
     }
 
     private void setTranslations() {
-
+        setTitle(TranslationCategory.PROGRESS_BACKUP_FRAME.getTranslation(TranslationKey.PROGRESS_BACKUP_TITLE));
+        CancelButton.setText(TranslationCategory.GENERAL.getTranslation(TranslationKey.CANCEL_BUTTON));
+        closeButton.setText(TranslationCategory.GENERAL.getTranslation(TranslationKey.CLOSE_BUTTON));
+        loadingMessageLabel.setText(TranslationCategory.PROGRESS_BACKUP_FRAME.getTranslation(TranslationKey.STATUS_LOADING));
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

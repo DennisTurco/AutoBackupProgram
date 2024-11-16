@@ -5,7 +5,8 @@
     "To": "A",
     "CloseButton": "Chiudi",
     "OkButton": "Ok",
-    "CancelButton": "Annulla"
+    "CancelButton": "Annulla",
+    "ApplyButton":"Applica"
   },
   "Menu": {
     "File": "File",
@@ -92,12 +93,15 @@
     "Minutes": "Minuti",
     "SpinnerTooltip": "Usa la rotellina per regolare il valore"
   },
+  "PreferencesDialog": {
+    "PreferencesTitle": "Preferenze",
+    "Language": "Lingua",
+    "Theme": "Tema"
+  },
   "ProgressBackupFrame": {
     "ProgressBackupTitle": "Backup in corso",
     "StatusCompleted": "Backup completato!",
-    "StatusLoading": "Caricamento...",
-    "CancelTitleOption": "Conferma richiesta",
-    "CancelMessageOption": "Sei sicuro di voler interrompere questo backup?"
+    "StatusLoading": "Caricamento..."
   },
   "TrayIcon": {
     "TrayTooltip": "Servizio di Backup",
@@ -133,8 +137,10 @@
     "ErrorMessageUnableToSendEmail": "Impossibile inviare l'email. Riprova più tardi.",
     "ErrorMessageNotSupportedEmail": "Il tuo sistema non supporta l'invio di email direttamente da questa applicazione.",
     "ErrorMessageNotSupportedEmailGeneric": "Il tuo sistema non supporta l'invio di email.",
+    "ErrorWrongTimeInterval":"L'intervallo di tempo non è corretto",
     "AutoBackupActivatedMessage": "Backup Automatico attivato",
     "SettedEveryMessage": "\nImpostato ogni",
-    "DaysMessage": " giorni"
+    "DaysMessage": " giorni",
+    "InterruptBackupProcessMessage": "Sei sicuro di voler interrompere questo backup?"
   }
 }

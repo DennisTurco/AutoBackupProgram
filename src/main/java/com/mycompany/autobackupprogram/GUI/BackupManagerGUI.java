@@ -1,15 +1,19 @@
 package com.mycompany.autobackupprogram.GUI;
 
+import com.mycompany.autobackupprogram.Entities.TimeInterval;
 import com.formdev.flatlaf.FlatClientProperties;
 import com.formdev.flatlaf.FlatIntelliJLaf;
 import com.mycompany.autobackupprogram.BackupOperations;
+import com.mycompany.autobackupprogram.Dialogs.PreferencesDialog;
 import com.mycompany.autobackupprogram.JSONAutoBackup;
 import com.mycompany.autobackupprogram.JSONConfigReader;
 import com.mycompany.autobackupprogram.Logger;
 import com.mycompany.autobackupprogram.Dialogs.TimePicker;
 import com.mycompany.autobackupprogram.Entities.Backup;
+import com.mycompany.autobackupprogram.Entities.Preferences;
 import com.mycompany.autobackupprogram.Enums.ConfigKey;
 import com.mycompany.autobackupprogram.Enums.MenuItems;
+import com.mycompany.autobackupprogram.Enums.TranslationLoaderEnum;
 import com.mycompany.autobackupprogram.Enums.TranslationLoaderEnum.TranslationCategory;
 import com.mycompany.autobackupprogram.Enums.TranslationLoaderEnum.TranslationKey;
 
@@ -47,6 +51,9 @@ import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableCellRenderer;
 import javax.swing.table.TableColumnModel;
+
+import org.json.simple.parser.ParseException;
+
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 
@@ -67,8 +74,8 @@ public class BackupManagerGUI extends javax.swing.JFrame {
     private boolean saveChanged;
     private Integer selectedRow;
     
-    private String backupOnText = TranslationCategory.BACKUP_ENTRY.getTranslation(TranslationKey.AUTO_BACKUP_BUTTON_ON);
-    private String backupOffText = TranslationCategory.BACKUP_ENTRY.getTranslation(TranslationKey.AUTO_BACKUP_BUTTON_OFF);
+    private String backupOnText;
+    private String backupOffText;
 
     private final String current_version = "2.0.3";
     
@@ -88,15 +95,6 @@ public class BackupManagerGUI extends javax.swing.JFrame {
         saveChanged = true;
         
         toggleAutoBackup.setText(toggleAutoBackup.isSelected() ? backupOnText : backupOffText);
-                
-        try {
-            backups = JSON.ReadBackupListFromJSON(ConfigKey.BACKUP_FILE_STRING.getValue(), ConfigKey.RES_DIRECTORY_STRING.getValue());
-            displayBackupList(backups);
-        } catch (IOException ex) {
-            backups = null;
-            Logger.logMessage("An error occurred: " + ex.getMessage(), Logger.LogLevel.ERROR, ex);
-            OpenExceptionMessage(ex.getMessage(), Arrays.toString(ex.getStackTrace()));
-        }
         
         File file = new File(System.getProperty("os.name").toLowerCase().contains("win") ? "C:\\Windows\\System32" : "/root");
         if (file.canWrite()) {
@@ -110,6 +108,7 @@ public class BackupManagerGUI extends javax.swing.JFrame {
         // load Menu items
         JSONConfigReader config = new JSONConfigReader(ConfigKey.CONFIG_FILE_STRING.getValue(), ConfigKey.CONFIG_DIRECTORY_STRING.getValue());
         MenuBugReport.setVisible(config.isMenuItemEnabled(MenuItems.BugReport.name()));
+        MenuPreferences.setVisible(config.isMenuItemEnabled(MenuItems.Preferences.name()));
         MenuClear.setVisible(config.isMenuItemEnabled(MenuItems.Clear.name()));
         MenuDonate.setVisible(config.isMenuItemEnabled(MenuItems.Donate.name()));
         MenuHistory.setVisible(config.isMenuItemEnabled(MenuItems.History.name()));
@@ -139,6 +138,31 @@ public class BackupManagerGUI extends javax.swing.JFrame {
         TimePicker picker = new TimePicker(this, time, true);
         picker.setVisible(true);
         return picker.getTimeInterval();
+    }
+    
+    private void openPreferences() {
+        PreferencesDialog prefs = new PreferencesDialog(this, true);
+        prefs.setVisible(true);
+
+        // reload preferences
+        if (prefs.isApply()) {
+            Preferences.updatePreferencesToJSON();
+            reloadPreferences();
+        }
+            
+    }
+
+    private void reloadPreferences() {
+        // load language
+        try {
+            TranslationLoaderEnum.loadTranslations(ConfigKey.LANGUAGES_DIRECTORY_STRING.getValue() + Preferences.getLanguage().getFileName());
+            setTranslations();
+        } catch (IOException | ParseException e) {
+            e.printStackTrace();
+        }
+        
+        // load theme
+        //
     }
     
     private void renameBackup(Backup backup) {
@@ -970,14 +994,15 @@ public class BackupManagerGUI extends javax.swing.JFrame {
         MenuClear = new javax.swing.JMenuItem();
         MenuHistory = new javax.swing.JMenuItem();
         jMenu2 = new javax.swing.JMenu();
-        MenuBugReport = new javax.swing.JMenuItem();
+        MenuPreferences = new javax.swing.JMenuItem();
         MenuQuit = new javax.swing.JMenuItem();
         jMenu3 = new javax.swing.JMenu();
+        MenuWebsite = new javax.swing.JMenuItem();
+        MenuInfoPage = new javax.swing.JMenuItem();
         MenuShare = new javax.swing.JMenuItem();
         MenuDonate = new javax.swing.JMenuItem();
-        MenuInfoPage = new javax.swing.JMenuItem();
         jMenu5 = new javax.swing.JMenu();
-        MenuWebsite = new javax.swing.JMenuItem();
+        MenuBugReport = new javax.swing.JMenuItem();
         MenuSupport = new javax.swing.JMenuItem();
 
         EditPoputItem.setIcon(new javax.swing.ImageIcon(getClass().getResource("/res/img/pen.png"))); // NOI18N
@@ -1450,14 +1475,14 @@ public class BackupManagerGUI extends javax.swing.JFrame {
 
         jMenu2.setText("Options");
 
-        MenuBugReport.setIcon(new javax.swing.ImageIcon(getClass().getResource("/res/img/bug.png"))); // NOI18N
-        MenuBugReport.setText("Report a bug");
-        MenuBugReport.addActionListener(new java.awt.event.ActionListener() {
+        MenuPreferences.setIcon(new javax.swing.ImageIcon(getClass().getResource("/res/img/cogwheel.png"))); // NOI18N
+        MenuPreferences.setText("Preferences");
+        MenuPreferences.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                MenuBugReportActionPerformed(evt);
+                MenuPreferencesActionPerformed(evt);
             }
         });
-        jMenu2.add(MenuBugReport);
+        jMenu2.add(MenuPreferences);
 
         MenuQuit.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_F4, java.awt.event.InputEvent.ALT_DOWN_MASK));
         MenuQuit.setIcon(new javax.swing.ImageIcon(getClass().getResource("/res/img/remove.png"))); // NOI18N
@@ -1472,6 +1497,24 @@ public class BackupManagerGUI extends javax.swing.JFrame {
         jMenuBar1.add(jMenu2);
 
         jMenu3.setText("About");
+
+        MenuWebsite.setIcon(new javax.swing.ImageIcon(getClass().getResource("/res/img/website.png"))); // NOI18N
+        MenuWebsite.setText("Website");
+        MenuWebsite.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                MenuWebsiteActionPerformed(evt);
+            }
+        });
+        jMenu3.add(MenuWebsite);
+
+        MenuInfoPage.setIcon(new javax.swing.ImageIcon(getClass().getResource("/res/img/info.png"))); // NOI18N
+        MenuInfoPage.setText("Info");
+        MenuInfoPage.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                MenuInfoPageActionPerformed(evt);
+            }
+        });
+        jMenu3.add(MenuInfoPage);
 
         MenuShare.setIcon(new javax.swing.ImageIcon(getClass().getResource("/res/img/share.png"))); // NOI18N
         MenuShare.setText("Share");
@@ -1491,27 +1534,18 @@ public class BackupManagerGUI extends javax.swing.JFrame {
         });
         jMenu3.add(MenuDonate);
 
-        MenuInfoPage.setIcon(new javax.swing.ImageIcon(getClass().getResource("/res/img/info.png"))); // NOI18N
-        MenuInfoPage.setText("Info");
-        MenuInfoPage.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                MenuInfoPageActionPerformed(evt);
-            }
-        });
-        jMenu3.add(MenuInfoPage);
-
         jMenuBar1.add(jMenu3);
 
         jMenu5.setText("Help");
 
-        MenuWebsite.setIcon(new javax.swing.ImageIcon(getClass().getResource("/res/img/website.png"))); // NOI18N
-        MenuWebsite.setText("Website");
-        MenuWebsite.addActionListener(new java.awt.event.ActionListener() {
+        MenuBugReport.setIcon(new javax.swing.ImageIcon(getClass().getResource("/res/img/bug.png"))); // NOI18N
+        MenuBugReport.setText("Report a bug");
+        MenuBugReport.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                MenuWebsiteActionPerformed(evt);
+                MenuBugReportActionPerformed(evt);
             }
         });
-        jMenu5.add(MenuWebsite);
+        jMenu5.add(MenuBugReport);
 
         MenuSupport.setIcon(new javax.swing.ImageIcon(getClass().getResource("/res/img/help-desk.png"))); // NOI18N
         MenuSupport.setText("Support");
@@ -1889,8 +1923,24 @@ public class BackupManagerGUI extends javax.swing.JFrame {
         openBackupActivationMessage(timeInterval);
 
     }//GEN-LAST:event_btnTimePickerActionPerformed
-    
+
+    private void MenuPreferencesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MenuPreferencesActionPerformed
+        openPreferences();
+    }//GEN-LAST:event_MenuPreferencesActionPerformed
+
     private void setTranslations() {
+        try {
+            backups = JSON.ReadBackupListFromJSON(ConfigKey.BACKUP_FILE_STRING.getValue(), ConfigKey.RES_DIRECTORY_STRING.getValue());
+            displayBackupList(backups);
+        } catch (IOException ex) {
+            backups = null;
+            Logger.logMessage("An error occurred: " + ex.getMessage(), Logger.LogLevel.ERROR, ex);
+            OpenExceptionMessage(ex.getMessage(), Arrays.toString(ex.getStackTrace()));
+        }
+
+        backupOnText = TranslationCategory.BACKUP_ENTRY.getTranslation(TranslationKey.AUTO_BACKUP_BUTTON_ON);
+        backupOffText = TranslationCategory.BACKUP_ENTRY.getTranslation(TranslationKey.AUTO_BACKUP_BUTTON_OFF);
+
         // general
         jLabel3.setText(TranslationCategory.GENERAL.getTranslation(TranslationKey.VERSION) + " " + current_version);
         
@@ -1970,6 +2020,7 @@ public class BackupManagerGUI extends javax.swing.JFrame {
     private javax.swing.JMenuItem MenuHistory;
     private javax.swing.JMenuItem MenuInfoPage;
     private javax.swing.JMenuItem MenuNew;
+    private javax.swing.JMenuItem MenuPreferences;
     private javax.swing.JMenuItem MenuQuit;
     private javax.swing.JMenuItem MenuSave;
     private javax.swing.JMenuItem MenuSaveWithName;

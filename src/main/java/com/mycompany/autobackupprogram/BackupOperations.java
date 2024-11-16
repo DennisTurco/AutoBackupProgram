@@ -31,7 +31,7 @@ import com.mycompany.autobackupprogram.Entities.Backup;
 import com.mycompany.autobackupprogram.Enums.ConfigKey;
 import com.mycompany.autobackupprogram.GUI.BackupManagerGUI;
 import com.mycompany.autobackupprogram.GUI.BackupProgressGUI;
-import com.mycompany.autobackupprogram.GUI.TimeInterval;
+import com.mycompany.autobackupprogram.Entities.TimeInterval;
 import com.mycompany.autobackupprogram.Logger.LogLevel;
 
 public class BackupOperations{

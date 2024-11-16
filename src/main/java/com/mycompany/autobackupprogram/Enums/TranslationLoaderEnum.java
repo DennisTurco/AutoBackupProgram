@@ -17,6 +17,7 @@ public class TranslationLoaderEnum {
         BACKUP_ENTRY("BackupEntry"),
         BACKUP_LIST("BackupList"),
         TIME_PICKER_DIALOG("TimePickerDialog"),
+        PREFERENCES_DIALOG("PreferencesDialog"),
         PROGRESS_BACKUP_FRAME("ProgressBackupFrame"),
         TRAY_ICON("TrayIcon"),
         DIALOGS("Dialogs");
@@ -50,6 +51,7 @@ public class TranslationLoaderEnum {
         CLOSE_BUTTON("CloseButton", "Close"),
         OK_BUTTON("OkButton", "Ok"),
         CANCEL_BUTTON("CancelButton", "Cancel"),
+        APPLY_BUTTON("ApplyButton", "Apply"),
 
         // Menu
         FILE("File", "File"),
@@ -136,12 +138,15 @@ public class TranslationLoaderEnum {
         MINUTES("Minutes", "Minutes"),
         SPINNER_TOOLTIP("SpinnerTooltip", "Mouse wheel to adjust the value"),
 
+        // PreferencesDialog
+        PREFERENCES_TITLE("PreferencesTitle", "Preferences"),
+        LANGUAGE("Language", "Language"),
+        THEME("Theme", "Theme"),
+
         // ProgressBackupFrame
         PROGRESS_BACKUP_TITLE("ProgressBackupTitle", "Backup in progress"),
         STATUS_COMPLETED("StatusCompleted", "Backup completed!"),
         STATUS_LOADING("StatusLoading", "Loading..."), 
-        CANCEL_TITLE_OPTION("CancelTitleOption", "Confimation required"),
-        CANCEL_MESSAGE_OPTION("CancelMessageOption", "Are you sure you want to stop this backup?"),
 
         // TrayIcon
         TRAY_TOOLTIP("TrayTooltip", "Backup Service"),
@@ -182,10 +187,12 @@ public class TranslationLoaderEnum {
         ERROR_MESSAGE_INVALID_PATH("ErrorMessageInvalidPath", "The selected path is invalid!"),
         ERROR_MESSAGE_NOT_SUPPORTED_EMAIL("ErrorMessageNotSupportedEmail", "Your system does not support sending emails directly from this application."),
         ERROR_MESSAGE_NOT_SUPPORTED_EMAIL_GENERIC("ErrorMessageNotSupportedEmailGeneric", "Your system does not support sending emails."),
+        ERROR_WRONG_TIME_INTERVAL("ErrorWrongTimeInterval", "The time interval is not correct"),
         AUTO_BACKUP_ACTIVATED_MESSAGE("AutoBackupActivatedMessage", "Auto Backup has been activated"),
         SETTED_EVERY_MESSAGE("SettedEveryMessage", "\nIs setted every"),
         DAYS_MESSAGE("DaysMessage", " days"),
         ERROR_MESSAGE_UNABLE_TO_SEND_EMAIL("ErrorMessageUnableToSendEmail", "Unable to send email. Please try again later."),
+        INTERRUPT_BACKUP_PROCESS_MESSAGE("InterruptBackupProcessMessage", "Are you sure you want to stop this backup?"),
 
         // InfoPage
         INFO_PAGE_DESCRIPTION("InfoPageDescription", "Backup automatic system for files with the option to schedule and make backups regularly."),

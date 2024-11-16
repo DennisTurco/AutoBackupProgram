@@ -2,6 +2,7 @@ package com.mycompany.autobackupprogram.Enums;
 
 public enum MenuItems {
     BugReport,
+    Preferences,
     Clear,
     Donate,
     History,

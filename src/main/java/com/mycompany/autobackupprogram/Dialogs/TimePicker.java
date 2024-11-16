@@ -4,7 +4,7 @@ import com.formdev.flatlaf.FlatIntelliJLaf;
 import com.mycompany.autobackupprogram.Enums.ConfigKey;
 import com.mycompany.autobackupprogram.Enums.TranslationLoaderEnum.TranslationCategory;
 import com.mycompany.autobackupprogram.Enums.TranslationLoaderEnum.TranslationKey;
-import com.mycompany.autobackupprogram.GUI.TimeInterval;
+import com.mycompany.autobackupprogram.Entities.TimeInterval;
 
 import static com.mycompany.autobackupprogram.GUI.BackupManagerGUI.OpenExceptionMessage;
 
@@ -256,7 +256,7 @@ public class TimePicker extends javax.swing.JDialog {
             this.dispose();
         }
         else {
-            JOptionPane.showMessageDialog(null, "The time interval is not correct", "Error", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(null, TranslationCategory.DIALOGS.getTranslation(TranslationKey.ERROR_WRONG_TIME_INTERVAL), TranslationCategory.DIALOGS.getTranslation(TranslationKey.ERROR_GENERIC_TITLE), JOptionPane.ERROR_MESSAGE);
         }
     }//GEN-LAST:event_btnOkActionPerformed
 

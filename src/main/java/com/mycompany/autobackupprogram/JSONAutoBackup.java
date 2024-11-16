@@ -13,7 +13,7 @@ import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 
 import com.mycompany.autobackupprogram.Entities.Backup;
-import com.mycompany.autobackupprogram.GUI.TimeInterval;
+import com.mycompany.autobackupprogram.Entities.TimeInterval;
 import com.mycompany.autobackupprogram.Interfaces.IJSONAutoBackup;
 
 public class JSONAutoBackup implements IJSONAutoBackup {

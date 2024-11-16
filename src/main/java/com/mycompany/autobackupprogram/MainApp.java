@@ -7,8 +7,8 @@ import java.util.Arrays;
 
 import org.json.simple.parser.ParseException;
 
+import com.mycompany.autobackupprogram.Entities.Preferences;
 import com.mycompany.autobackupprogram.Enums.ConfigKey;
-import com.mycompany.autobackupprogram.Enums.PreferencesLoader;
 import com.mycompany.autobackupprogram.Enums.TranslationLoaderEnum;
 import com.mycompany.autobackupprogram.GUI.BackupManagerGUI;
 
@@ -22,8 +22,8 @@ public class MainApp {
 
         // load preferred language
         try {
-            PreferencesLoader.loadPreferences("src/main/resources/res/config/preferences.json");
-            TranslationLoaderEnum.loadTranslations("" + ConfigKey.LANGUAGES_DIRECTORY_STRING.getValue() + PreferencesLoader.PreferencesKey.LANGUAGE.getValue());
+            Preferences.loadPreferencesFromJSON();
+            TranslationLoaderEnum.loadTranslations(ConfigKey.LANGUAGES_DIRECTORY_STRING.getValue() + Preferences.getLanguage().getFileName());
         } catch (IOException e) {
             e.printStackTrace();
         } catch (ParseException e) {

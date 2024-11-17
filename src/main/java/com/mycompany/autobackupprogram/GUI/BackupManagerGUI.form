@@ -249,7 +249,7 @@
             <MenuItem class="javax.swing.JMenuItem" name="MenuInfoPage">
               <Properties>
                 <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-                  <Image iconType="3" name="/res/img/info.png"/>
+                  <Image iconType="3" name="/res/img/information.png"/>
                 </Property>
                 <Property name="text" type="java.lang.String" value="Info"/>
               </Properties>

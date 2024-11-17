@@ -4,7 +4,6 @@ import com.mycompany.autobackupprogram.BackupOperations;
 import com.mycompany.autobackupprogram.Enums.ConfigKey;
 import com.mycompany.autobackupprogram.Enums.TranslationLoaderEnum.TranslationCategory;
 import com.mycompany.autobackupprogram.Enums.TranslationLoaderEnum.TranslationKey;
-import com.mycompany.autobackupprogram.Managers.ThemeManager;
 
 import java.awt.Image;
 import javax.swing.ImageIcon;
@@ -12,19 +11,6 @@ import javax.swing.JOptionPane;
 import javax.swing.WindowConstants;
 
 public class BackupProgressGUI extends javax.swing.JFrame {
-
-    private BackupProgressGUI() {
-        initComponents();
-        
-        // logo application
-        Image icon = new ImageIcon(this.getClass().getResource(ConfigKey.LOGO_IMG.getValue())).getImage();
-        this.setIconImage(icon);
-        
-        this.setAlwaysOnTop(false);
-
-        setTranslations();
-    }
-    
     public BackupProgressGUI(String initialPath, String destinationPath) {
         initComponents();
         
@@ -38,6 +24,8 @@ public class BackupProgressGUI extends javax.swing.JFrame {
         destinationPathLabel.setText(destinationPath);
         
         closeButton.setEnabled(false);
+
+        setTranslations();
    }
     
     public void UpdateProgressBar(int value) {

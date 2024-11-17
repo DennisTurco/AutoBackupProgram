@@ -45,7 +45,9 @@ public class TranslationLoaderEnum {
 
     public enum TranslationKey {
         // General
+        APP_NAME("AppName", "Backup Manager"),
         VERSION("Version", "Version"),
+        BACKUP("Backup", "Backup"),
         FROM("From", "From"),
         TO("To", "To"),
         CLOSE_BUTTON("CloseButton", "Close"),
@@ -193,6 +195,10 @@ public class TranslationLoaderEnum {
         DAYS_MESSAGE("DaysMessage", " days"),
         ERROR_MESSAGE_UNABLE_TO_SEND_EMAIL("ErrorMessageUnableToSendEmail", "Unable to send email. Please try again later."),
         INTERRUPT_BACKUP_PROCESS_MESSAGE("InterruptBackupProcessMessage", "Are you sure you want to stop this backup?"),
+        ERROR_MESSAGE_INPUT_MISSING_GENERIC("ErrorMessageInputMissingGeneric", "Input Missing!"),
+        ERROR_MESSAGE_SAVING_FILE("ErrorMessageForSavingFile", "Error saving file"),
+        ERROR_MESSAGE_PATH_NOT_EXISTING("ErrorMessageForPathNotExisting", "One or both paths do not exist!"),
+        ERROR_MESSAGE_SAME_PATHS_GENERIC("ErrorMessageForSamePaths", "The initial path and destination path cannot be the same. Please choose different paths!"),
 
         // InfoPage
         INFO_PAGE_DESCRIPTION("InfoPageDescription", "Backup automatic system for files with the option to schedule and make backups regularly."),

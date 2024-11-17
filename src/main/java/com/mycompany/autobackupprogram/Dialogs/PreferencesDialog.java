@@ -163,12 +163,16 @@ public class PreferencesDialog extends javax.swing.JDialog {
     }
     
     private void setThemes() {
-        themesComboBox.addItem(ThemesEnum.LIGHT.getThemeName());
-        themesComboBox.addItem(ThemesEnum.DARK.getThemeName());
         themesComboBox.addItem(ThemesEnum.INTELLIJ.getThemeName());
         themesComboBox.addItem(ThemesEnum.DRACULA.getThemeName());
-        themesComboBox.addItem(ThemesEnum.LIGHTMAC.getThemeName());
-        themesComboBox.addItem(ThemesEnum.DARKMAC.getThemeName());
+        themesComboBox.addItem(ThemesEnum.CARBON.getThemeName());
+        themesComboBox.addItem(ThemesEnum.ARC_ORAGE.getThemeName());
+        themesComboBox.addItem(ThemesEnum.ARC_DARK_ORANGE.getThemeName());
+        themesComboBox.addItem(ThemesEnum.CYAN_LIGHT.getThemeName());
+        themesComboBox.addItem(ThemesEnum.NORD.getThemeName());
+        themesComboBox.addItem(ThemesEnum.HIGH_CONTRAST.getThemeName());
+        themesComboBox.addItem(ThemesEnum.SOLARIZED_DARK.getThemeName());
+        themesComboBox.addItem(ThemesEnum.SOLARIZED_LIGHT.getThemeName());
 
         themesComboBox.setSelectedItem(Preferences.getTheme().getThemeName());
     }

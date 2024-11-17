@@ -159,6 +159,7 @@ public class BackupManagerGUI extends javax.swing.JFrame {
         
         // load theme
         ThemeManager.updateThemeFrame(this);
+        ThemeManager.refreshPopup(TablePopup);
     }
     
     private void renameBackup(Backup backup) {
@@ -733,13 +734,13 @@ public class BackupManagerGUI extends javax.swing.JFrame {
         }
     }
     
-    public void Clear() {
+    public boolean Clear() {
         Logger.logMessage("Event --> clear", Logger.LogLevel.INFO);
 
         if ((!saveChanged && !currentBackup.getBackupName().isEmpty()) || (!startPathField.getText().isEmpty() || !destinationPathField.getText().isEmpty() || !backupNoteTextArea.getText().isEmpty())) {
             int response = JOptionPane.showConfirmDialog(null, TranslationCategory.DIALOGS.getTranslation(TranslationKey.CONFIRMATION_MESSAGE_FOR_CLEAR), TranslationCategory.DIALOGS.getTranslation(TranslationKey.CONFIRMATION_REQUIRED_TITLE), JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
             if (response != JOptionPane.YES_OPTION) {
-                return;
+                return false;
             }
         }
         
@@ -749,6 +750,8 @@ public class BackupManagerGUI extends javax.swing.JFrame {
         destinationPathField.setText("");
         lastBackupLabel.setText("");
         backupNoteTextArea.setText("");
+
+        return true;
     }
         
     private void RemoveBackup(String backupName) {
@@ -902,7 +905,9 @@ public class BackupManagerGUI extends javax.swing.JFrame {
             }
         }
         
-        Clear();
+        if (!Clear()) {
+            return;
+        }
         currentBackup = new Backup();
         currentBackup.setAutoBackup(false);
         currentBackup.setBackupName("");
@@ -1503,7 +1508,7 @@ public class BackupManagerGUI extends javax.swing.JFrame {
         });
         jMenu3.add(MenuWebsite);
 
-        MenuInfoPage.setIcon(new javax.swing.ImageIcon(getClass().getResource("/res/img/info.png"))); // NOI18N
+        MenuInfoPage.setIcon(new javax.swing.ImageIcon(getClass().getResource("/res/img/information.png"))); // NOI18N
         MenuInfoPage.setText("Info");
         MenuInfoPage.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {

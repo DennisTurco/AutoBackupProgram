@@ -1,5 +1,7 @@
 {
   "General": {
+    "AppName": "Backup Manager",
+    "Backup": "Backup",
     "Version": "Version",
     "From": "From",
     "To": "A",
@@ -141,6 +143,10 @@
     "AutoBackupActivatedMessage":"Auto Backup has been activated",
     "SettedEveryMessage":"\nIs setted every",
     "DaysMessage":" days",
-    "InterruptBackupProcessMessage":"Are you sure you want to stop this backup?"
+    "InterruptBackupProcessMessage":"Are you sure you want to stop this backup?",
+    "ErrorMessageInputMissingGeneric": "Input Missing!",
+    "ErrorMessageForSavingFile": "Error saving file",
+    "ErrorMessageForPathNotExisting": "One or both paths do not exist!",
+    "ErrorMessageForSamePaths": "The initial path and destination path cannot be the same. Please choose different paths!"
   }
 }

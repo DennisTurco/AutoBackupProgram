@@ -1,5 +1,7 @@
 {
   "General": {
+    "AppName": "Backup Manager",
+    "Backup": "Backup",
     "Version": "Versione",
     "From": "Da",
     "To": "A",
@@ -141,6 +143,10 @@
     "AutoBackupActivatedMessage": "Backup Automatico attivato",
     "SettedEveryMessage": "\nImpostato ogni",
     "DaysMessage": " giorni",
-    "InterruptBackupProcessMessage": "Sei sicuro di voler interrompere questo backup?"
+    "InterruptBackupProcessMessage": "Sei sicuro di voler interrompere questo backup?",
+    "ErrorMessageInputMissingGeneric": "Input Mancanti!",
+    "ErrorMessageForSavingFile": "Errore nel salvataggio del file",
+    "ErrorMessageForPathNotExisting": "Uno o entrambi i percorsi non esistono!",
+    "ErrorMessageForSamePaths": "Il percorso iniziale e il percorso di destinazione non possono essere uguali. Si prega di scegliere percorsi diversi!"
   }
 }

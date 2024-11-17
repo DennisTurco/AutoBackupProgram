@@ -1,12 +1,16 @@
 package com.mycompany.autobackupprogram.Enums;
 
 public enum ThemesEnum {
-    LIGHT("Light"),
-    DARK("Dark"),
-    INTELLIJ("IntelliJ"),
-    DRACULA("Darcula"),
-    LIGHTMAC("macOS Light"),
-    DARKMAC("macOS Dark");
+    INTELLIJ("Light"),
+    DRACULA("Dark"),
+    CARBON("Carbon"),
+    ARC_ORAGE("Arc - Orange"),
+    ARC_DARK_ORANGE("Arc Dark - Orange"),
+    CYAN_LIGHT("Cyan light"),
+    NORD("Nord"),
+    HIGH_CONTRAST("High contrast"),
+    SOLARIZED_DARK("Solarized dark"),
+    SOLARIZED_LIGHT("Solarized light");
 
     private final String themeName;
 

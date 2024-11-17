@@ -4,16 +4,25 @@ import java.awt.Dialog;
 import java.awt.Frame;
 
 import javax.swing.SwingUtilities;
+import javax.swing.JPopupMenu;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
 
 import com.formdev.flatlaf.FlatDarculaLaf;
-import com.formdev.flatlaf.FlatDarkLaf;
 import com.formdev.flatlaf.FlatIntelliJLaf;
-import com.formdev.flatlaf.FlatLightLaf;
-import com.formdev.flatlaf.themes.FlatMacDarkLaf;
-import com.formdev.flatlaf.themes.FlatMacLightLaf;
+import com.formdev.flatlaf.intellijthemes.FlatArcDarkOrangeIJTheme;
+import com.formdev.flatlaf.intellijthemes.FlatArcOrangeIJTheme;
+import com.formdev.flatlaf.intellijthemes.FlatCarbonIJTheme;
+import com.formdev.flatlaf.intellijthemes.FlatCyanLightIJTheme;
+import com.formdev.flatlaf.intellijthemes.FlatHighContrastIJTheme;
+import com.formdev.flatlaf.intellijthemes.FlatNordIJTheme;
+import com.formdev.flatlaf.intellijthemes.FlatSolarizedDarkIJTheme;
+import com.formdev.flatlaf.intellijthemes.FlatSolarizedLightIJTheme;
 import com.mycompany.autobackupprogram.Entities.Preferences;
+
+// https://www.formdev.com/flatlaf/#demo
+// https://www.formdev.com/flatlaf/themes/
+// https://github.com/JFormDesigner/FlatLaf/tree/main/flatlaf-intellij-themes
 
 public class ThemeManager {
 
@@ -24,6 +33,13 @@ public class ThemeManager {
         SwingUtilities.updateComponentTreeUI(frame);
         frame.revalidate();
         frame.repaint();
+    }
+
+    public static void refreshPopup(JPopupMenu popup) {
+        // Update all components and Revalidate and repaint
+        SwingUtilities.updateComponentTreeUI(popup);
+        popup.revalidate();
+        popup.repaint();
     }
 
     public static void updateThemeDialog(Dialog dialog) {
@@ -41,26 +57,38 @@ public class ThemeManager {
 
             switch (selectedTheme.toLowerCase()) {
                 case "light":
-                    UIManager.setLookAndFeel(new FlatLightLaf());
-                    break;
-                case "dark":
-                    UIManager.setLookAndFeel(new FlatDarkLaf());
-                    break;
-                case "intellij":
                     UIManager.setLookAndFeel(new FlatIntelliJLaf());
                     break;
-                case "darcula":
+                case "dark":
                     UIManager.setLookAndFeel(new FlatDarculaLaf());
                     break;
-                case "macos light":
-                    UIManager.setLookAndFeel(new FlatMacLightLaf());
+                case "carbon":
+                    UIManager.setLookAndFeel(new FlatCarbonIJTheme());
                     break;
-                case "macos dark":
-                    UIManager.setLookAndFeel(new FlatMacDarkLaf());
+                case "arc - orange":
+                    UIManager.setLookAndFeel(new FlatArcOrangeIJTheme());
+                    break;
+                case "arc dark - orange":
+                    UIManager.setLookAndFeel(new FlatArcDarkOrangeIJTheme());
+                    break;
+                case "cyan light":
+                    UIManager.setLookAndFeel(new FlatCyanLightIJTheme());
+                    break;
+                case "nord":
+                    UIManager.setLookAndFeel(new FlatNordIJTheme());
+                    break;
+                case "high contrast":
+                    UIManager.setLookAndFeel(new FlatHighContrastIJTheme());
+                    break;
+                case "solarized dark":
+                    UIManager.setLookAndFeel(new FlatSolarizedDarkIJTheme());
+                    break;
+                case "solarized light":
+                    UIManager.setLookAndFeel(new FlatSolarizedLightIJTheme());
                     break;
                 default:
                     // If no match, apply the default theme
-                    UIManager.setLookAndFeel(new FlatLightLaf());
+                    UIManager.setLookAndFeel(new FlatIntelliJLaf());
                     break;
             }
 

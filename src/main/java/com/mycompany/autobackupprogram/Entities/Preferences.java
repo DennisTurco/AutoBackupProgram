@@ -16,7 +16,7 @@ import com.mycompany.autobackupprogram.Enums.ThemesEnum;
 
 public class Preferences {
     private static LanguagesEnum language = LanguagesEnum.ENG;
-    private static ThemesEnum theme = ThemesEnum.LIGHT;
+    private static ThemesEnum theme = ThemesEnum.INTELLIJ;
 
     public static void loadPreferencesFromJSON() {
         try (FileReader reader = new FileReader(ConfigKey.CONFIG_DIRECTORY_STRING.getValue() + ConfigKey.PREFERENCES_FILE_STRING.getValue())) {

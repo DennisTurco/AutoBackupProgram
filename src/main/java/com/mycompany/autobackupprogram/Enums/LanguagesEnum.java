@@ -2,7 +2,10 @@ package com.mycompany.autobackupprogram.Enums;
 
 public enum LanguagesEnum {
     ITA("Italiano", "ita.json"),
-    ENG("English", "eng.json");
+    ENG("English", "eng.json"),
+    DEU("Deutsch", "deu.json"),
+    ESP("Español", "esp.json"),
+    FRA("Français", "fra.json");
 
     private final String languageName;
     private final String fileName;

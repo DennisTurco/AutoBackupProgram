@@ -165,6 +165,9 @@
             </MenuItem>
             <MenuItem class="javax.swing.JMenuItem" name="MenuSaveWithName">
               <Properties>
+                <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+                  <Image iconType="3" name="/res/img/save.png"/>
+                </Property>
                 <Property name="text" type="java.lang.String" value="Save with name"/>
               </Properties>
               <Events>

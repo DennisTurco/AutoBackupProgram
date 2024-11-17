@@ -1445,6 +1445,7 @@ public class BackupManagerGUI extends javax.swing.JFrame {
         });
         jMenu1.add(MenuSave);
 
+        MenuSaveWithName.setIcon(new javax.swing.ImageIcon(getClass().getResource("/res/img/save.png"))); // NOI18N
         MenuSaveWithName.setText("Save with name");
         MenuSaveWithName.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {

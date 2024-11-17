@@ -158,6 +158,9 @@ public class PreferencesDialog extends javax.swing.JDialog {
     private void setLanguages() {
         languagesComboBox.addItem(LanguagesEnum.ENG.getLanguageName());
         languagesComboBox.addItem(LanguagesEnum.ITA.getLanguageName());
+        languagesComboBox.addItem(LanguagesEnum.ESP.getLanguageName());
+        languagesComboBox.addItem(LanguagesEnum.DEU.getLanguageName());
+        languagesComboBox.addItem(LanguagesEnum.FRA.getLanguageName());
         
         languagesComboBox.setSelectedItem(Preferences.getLanguage().getLanguageName());
     }

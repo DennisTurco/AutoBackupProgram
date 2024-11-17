@@ -39,8 +39,10 @@ graph TD
 | Piattaforma | Availability |
 | --- | --- |
 | English | ✅ |
-| Italian | ❌ |
-
+| Italian | ✅ |
+| Spanish | ✅ |
+| German | ✅ |
+| French | ✅ |
 
 ## Licence
 

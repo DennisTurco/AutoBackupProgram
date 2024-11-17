@@ -13,10 +13,14 @@ import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
 import javax.swing.JFrame;
 
+import com.mycompany.autobackupprogram.Entities.Backup;
+import com.mycompany.autobackupprogram.Enums.ConfigKey;
+import com.mycompany.autobackupprogram.GUI.BackupManagerGUI;
+
 public class BackupService {
     private ScheduledExecutorService scheduler;
     private final JSONAutoBackup json = new JSONAutoBackup();
-    private final JSONConfigReader jsonConfig = new JSONConfigReader(ConfigKey.CONFIG_FILE_STRING.getValue(), ConfigKey.RES_DIRECTORY_STRING.getValue());
+    private final JSONConfigReader jsonConfig = new JSONConfigReader(ConfigKey.CONFIG_FILE_STRING.getValue(), ConfigKey.CONFIG_DIRECTORY_STRING.getValue());
     private TrayIcon trayIcon = null;
     private BackupManagerGUI guiInstance = null;
 

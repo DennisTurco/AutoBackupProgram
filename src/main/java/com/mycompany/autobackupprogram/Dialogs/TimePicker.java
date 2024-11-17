@@ -1,7 +1,14 @@
-package com.mycompany.autobackupprogram;
+package com.mycompany.autobackupprogram.Dialogs;
 
 import com.formdev.flatlaf.FlatIntelliJLaf;
-import static com.mycompany.autobackupprogram.BackupManagerGUI.OpenExceptionMessage;
+import com.mycompany.autobackupprogram.Enums.ConfigKey;
+import com.mycompany.autobackupprogram.Enums.TranslationLoaderEnum.TranslationCategory;
+import com.mycompany.autobackupprogram.Enums.TranslationLoaderEnum.TranslationKey;
+import com.mycompany.autobackupprogram.Managers.ThemeManager;
+import com.mycompany.autobackupprogram.Entities.TimeInterval;
+
+import static com.mycompany.autobackupprogram.GUI.BackupManagerGUI.OpenExceptionMessage;
+
 import java.awt.Image;
 import java.util.Arrays;
 import javax.swing.ImageIcon;
@@ -30,6 +37,8 @@ public class TimePicker extends javax.swing.JDialog {
         // logo application
         Image icon = new ImageIcon(this.getClass().getResource(ConfigKey.LOGO_IMG.getValue())).getImage();
         this.setIconImage(icon); 
+
+        setTranslations();
     }
     
     public TimeInterval getTimeInterval() {
@@ -248,7 +257,7 @@ public class TimePicker extends javax.swing.JDialog {
             this.dispose();
         }
         else {
-            JOptionPane.showMessageDialog(null, "The time interval is not correct", "Error", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(null, TranslationCategory.DIALOGS.getTranslation(TranslationKey.ERROR_WRONG_TIME_INTERVAL), TranslationCategory.DIALOGS.getTranslation(TranslationKey.ERROR_GENERIC_TITLE), JOptionPane.ERROR_MESSAGE);
         }
     }//GEN-LAST:event_btnOkActionPerformed
 
@@ -269,26 +278,17 @@ public class TimePicker extends javax.swing.JDialog {
         minutesIntervalSpinnerChange();
     }//GEN-LAST:event_minutesSpinnerStateChanged
 
-    public static void main(String args[]) {
-        try {
-            UIManager.setLookAndFeel(new FlatIntelliJLaf());
-        } catch (UnsupportedLookAndFeelException ex) {
-            System.err.println("Exception (main) --> " + ex);
-            OpenExceptionMessage(ex.getMessage(), Arrays.toString(ex.getStackTrace()));
-        }
-        
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                TimePicker dialog = new TimePicker(new javax.swing.JFrame(), null, true);
-                dialog.addWindowListener(new java.awt.event.WindowAdapter() {
-                    @Override
-                    public void windowClosing(java.awt.event.WindowEvent e) {
-                        System.exit(0);
-                    }
-                });
-                dialog.setVisible(true);
-            }
-        });
+    private void setTranslations() {
+        setTitle(TranslationCategory.TIME_PICKER_DIALOG.getTranslation(TranslationKey.TIME_INTERVAL_TITLE));
+        jTextArea1.setText(TranslationCategory.TIME_PICKER_DIALOG.getTranslation(TranslationKey.DESCRIPTION));
+        daysSpinner.setToolTipText(TranslationCategory.TIME_PICKER_DIALOG.getTranslation(TranslationKey.SPINNER_TOOLTIP));
+        hoursSpinner.setToolTipText(TranslationCategory.TIME_PICKER_DIALOG.getTranslation(TranslationKey.SPINNER_TOOLTIP));
+        minutesSpinner.setToolTipText(TranslationCategory.TIME_PICKER_DIALOG.getTranslation(TranslationKey.SPINNER_TOOLTIP));
+        btnOk.setText(TranslationCategory.TIME_PICKER_DIALOG.getTranslation(TranslationKey.OK_BUTTON));
+        jButton2.setText(TranslationCategory.GENERAL.getTranslation(TranslationKey.CANCEL_BUTTON));
+        jLabel1.setText(TranslationCategory.TIME_PICKER_DIALOG.getTranslation(TranslationKey.DAYS));
+        jLabel2.setText(TranslationCategory.TIME_PICKER_DIALOG.getTranslation(TranslationKey.HOURS));
+        jLabel3.setText(TranslationCategory.TIME_PICKER_DIALOG.getTranslation(TranslationKey.MINUTES));
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

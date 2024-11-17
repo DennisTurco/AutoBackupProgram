@@ -7,6 +7,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.locks.ReentrantLock;
 
+import com.mycompany.autobackupprogram.Enums.ConfigKey;
+
 public class Logger {
     
     private static String LOG_PATH = ConfigKey.RES_DIRECTORY_STRING.getValue() + ConfigKey.LOG_FILE_STRING.getValue();

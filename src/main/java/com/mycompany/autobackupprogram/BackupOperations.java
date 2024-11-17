@@ -1,8 +1,9 @@
 package com.mycompany.autobackupprogram;
 
-import static com.mycompany.autobackupprogram.BackupManagerGUI.OpenExceptionMessage;
-import static com.mycompany.autobackupprogram.BackupManagerGUI.dateForfolderNameFormatter;
-import static com.mycompany.autobackupprogram.BackupManagerGUI.formatter;
+import static com.mycompany.autobackupprogram.GUI.BackupManagerGUI.OpenExceptionMessage;
+import static com.mycompany.autobackupprogram.GUI.BackupManagerGUI.dateForfolderNameFormatter;
+import static com.mycompany.autobackupprogram.GUI.BackupManagerGUI.formatter;
+
 import java.awt.TrayIcon;
 import java.io.File;
 import java.io.FileOutputStream;
@@ -26,6 +27,13 @@ import javax.swing.JOptionPane;
 import javax.swing.JToggleButton;
 import javax.swing.SwingUtilities;
 
+import com.mycompany.autobackupprogram.Entities.Backup;
+import com.mycompany.autobackupprogram.Enums.ConfigKey;
+import com.mycompany.autobackupprogram.Enums.TranslationLoaderEnum.TranslationCategory;
+import com.mycompany.autobackupprogram.Enums.TranslationLoaderEnum.TranslationKey;
+import com.mycompany.autobackupprogram.GUI.BackupManagerGUI;
+import com.mycompany.autobackupprogram.GUI.BackupProgressGUI;
+import com.mycompany.autobackupprogram.Entities.TimeInterval;
 import com.mycompany.autobackupprogram.Logger.LogLevel;
 
 public class BackupOperations{
@@ -62,7 +70,7 @@ public class BackupOperations{
             zipDirectory(path1, path2+".zip", backup, trayIcon, progressBar, singleBackupBtn, autoBackupBtn);
         } catch (IOException e) {
             Logger.logMessage("Error during the backup operation: the initial path is incorrect!", Logger.LogLevel.WARN);
-            JOptionPane.showMessageDialog(null, "Error during the backup operation: the initial path is incorrect!", "Error", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(null, TranslationCategory.DIALOGS.getTranslation(TranslationKey.ERROR_MESSAGE_FOR_INCORRECT_INITIAL_PATH), TranslationCategory.DIALOGS.getTranslation(TranslationKey.ERROR_GENERIC_TITLE), JOptionPane.ERROR_MESSAGE);
             if (singleBackupBtn != null) singleBackupBtn.setEnabled(true);
             if (autoBackupBtn != null) autoBackupBtn.setEnabled(true);
         } catch (Exception ex) {
@@ -109,15 +117,15 @@ public class BackupOperations{
             
             updateBackup(backups, backup);
             
-            if (trayIcon != null) {
-                trayIcon.displayMessage("Backup Manager", "Backup: "+ backup.getBackupName() +"\nThe backup was successfully completed:\nFrom: " + path1 + "\nTo: " + path2, TrayIcon.MessageType.INFO);
+            if (trayIcon != null) { 
+                trayIcon.displayMessage(TranslationCategory.GENERAL.getTranslation(TranslationKey.APP_NAME), TranslationCategory.GENERAL.getTranslation(TranslationKey.BACKUP) + ": " + backup.getBackupName() + TranslationCategory.TRAY_ICON.getTranslation(TranslationKey.SUCCESS_MESSAGE) + "\n" + TranslationCategory.GENERAL.getTranslation(TranslationKey.FROM) + ": " + path1 + "\n" + TranslationCategory.GENERAL.getTranslation(TranslationKey.TO) + ": " + path2, TrayIcon.MessageType.INFO);
             }
         } catch (IllegalArgumentException ex) {
             Logger.logMessage("An error occurred: " + ex.getMessage(), Logger.LogLevel.ERROR, ex);
             OpenExceptionMessage(ex.getMessage(), Arrays.toString(ex.getStackTrace()));
         } catch (Exception e) {
             Logger.logMessage("Error saving file", Logger.LogLevel.WARN);
-            JOptionPane.showMessageDialog(null, "Error saving file", "Error", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(null, TranslationCategory.DIALOGS.getTranslation(TranslationKey.ERROR_MESSAGE_SAVING_FILE), TranslationCategory.DIALOGS.getTranslation(TranslationKey.ERROR_GENERIC_TITLE), JOptionPane.ERROR_MESSAGE);
         }
     }
     
@@ -125,11 +133,11 @@ public class BackupOperations{
         //check if inputs are null
         if(path1.length() == 0 || path2.length() == 0) {
             Logger.logMessage("Input Missing!", Logger.LogLevel.WARN);
-            
-            if (trayIcon != null){ 
-                trayIcon.displayMessage("Backup Manager", "Backup: "+ backupName +"\nError during automatic backup.\nInput Missing!", TrayIcon.MessageType.ERROR);
+ 
+            if (trayIcon != null) {
+                trayIcon.displayMessage(TranslationCategory.GENERAL.getTranslation(TranslationKey.APP_NAME), TranslationCategory.GENERAL.getTranslation(TranslationKey.BACKUP) + ": " + backupName + TranslationCategory.TRAY_ICON.getTranslation(TranslationKey.ERROR_MESSAGE_INPUT_MISSING), TrayIcon.MessageType.ERROR);
             } else {
-                JOptionPane.showMessageDialog(null, "Input Missing!", "Error", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(null, TranslationCategory.DIALOGS.getTranslation(TranslationKey.ERROR_MESSAGE_INPUT_MISSING_GENERIC), TranslationCategory.DIALOGS.getTranslation(TranslationKey.ERROR_GENERIC_TITLE), JOptionPane.ERROR_MESSAGE);
             }
             return false;
         }
@@ -138,9 +146,9 @@ public class BackupOperations{
             Logger.logMessage("Input Error! One or both paths do not exist.", Logger.LogLevel.WARN);
 
             if (trayIcon != null) { 
-                trayIcon.displayMessage("Backup Manager", "Backup: "+ backupName +"\nError during automatic backup.\nOne or both paths do not exist!", TrayIcon.MessageType.ERROR);
+                trayIcon.displayMessage(TranslationCategory.GENERAL.getTranslation(TranslationKey.APP_NAME), TranslationCategory.GENERAL.getTranslation(TranslationKey.BACKUP) + ": " + backupName + TranslationCategory.TRAY_ICON.getTranslation(TranslationKey.ERROR_MESSAGE_FILES_NOT_EXISTING), TrayIcon.MessageType.ERROR);
             } else {
-                JOptionPane.showMessageDialog(null, "One or both paths do not exist!", "Error", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(null, TranslationCategory.DIALOGS.getTranslation(TranslationKey.ERROR_MESSAGE_PATH_NOT_EXISTING), TranslationCategory.DIALOGS.getTranslation(TranslationKey.ERROR_GENERIC_TITLE), JOptionPane.ERROR_MESSAGE);
             }
             return false;
         }
@@ -149,9 +157,9 @@ public class BackupOperations{
             Logger.logMessage("The initial path and destination path cannot be the same. Please choose different paths", Logger.LogLevel.WARN);
 
             if (trayIcon != null) { 
-                trayIcon.displayMessage("Backup Manager", "Backup: "+ backupName +"\nError during automatic backup.\nThe initial path and destination path cannot be the same. Please choose different paths!", TrayIcon.MessageType.ERROR);
+                trayIcon.displayMessage(TranslationCategory.GENERAL.getTranslation(TranslationKey.APP_NAME), TranslationCategory.GENERAL.getTranslation(TranslationKey.BACKUP) + ": " + backupName + TranslationCategory.TRAY_ICON.getTranslation(TranslationKey.ERROR_MESSAGE_SAME_PATHS), TrayIcon.MessageType.ERROR);
             } else {
-                JOptionPane.showMessageDialog(null, "The initial path and destination path cannot be the same. Please choose different paths!", "Error", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(null, TranslationCategory.DIALOGS.getTranslation(TranslationKey.ERROR_MESSAGE_SAME_PATHS_GENERIC), TranslationCategory.DIALOGS.getTranslation(TranslationKey.ERROR_GENERIC_TITLE), JOptionPane.ERROR_MESSAGE);
             }
             return false;
         }

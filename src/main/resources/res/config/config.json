@@ -2,7 +2,10 @@
   "LOG_FILE_STRING": "log_file",
   "BACKUP_FILE_STRING": "backup_list.json",
   "CONFIG_FILE_STRING": "config.json",
+  "PREFERENCES_FILE_STRING": "preferences.json",
   "RES_DIRECTORY_STRING": "src/main/resources/res/",
+  "LANGUAGES_DIRECTORY_STRING": "src/main/resources/res/languages/",
+  "CONFIG_DIRECTORY_STRING": "src/main/resources/res/config/",
   "DONATE_PAGE_LINK": "https://buymeacoffee.com/denno",
   "ISSUE_PAGE_LINK": "https://github.com/DennisTurco/BackupManager/issues",
   "INFO_PAGE_LINK": "https://github.com/DennisTurco/BackupManager",
@@ -13,6 +16,7 @@
 
   "MenuItems": {
     "BugReport": true,
+    "Preferences": true,
     "Clear": true,
     "Donate": false,
     "History": false,
@@ -20,7 +24,7 @@
     "New": true,
     "Quit": true,
     "Save": true,
-    "SavceWithName": true,
+    "SaveWithName": true,
     "Share": true,
     "Support": true,
     "Website": true

@@ -1,6 +1,7 @@
 package com.mycompany.autobackupprogram;
 
-import static com.mycompany.autobackupprogram.BackupManagerGUI.OpenExceptionMessage;
+import static com.mycompany.autobackupprogram.GUI.BackupManagerGUI.OpenExceptionMessage;
+
 import java.io.*;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -10,6 +11,10 @@ import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
+
+import com.mycompany.autobackupprogram.Entities.Backup;
+import com.mycompany.autobackupprogram.Entities.TimeInterval;
+import com.mycompany.autobackupprogram.Interfaces.IJSONAutoBackup;
 
 public class JSONAutoBackup implements IJSONAutoBackup {
     @Override

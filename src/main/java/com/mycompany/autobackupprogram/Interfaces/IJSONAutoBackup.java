@@ -1,7 +1,9 @@
-package com.mycompany.autobackupprogram;
+package com.mycompany.autobackupprogram.Interfaces;
 
 import java.io.IOException;
 import java.util.List;
+
+import com.mycompany.autobackupprogram.Entities.Backup;
 
 public interface IJSONAutoBackup {
     public List<Backup> ReadBackupListFromJSON(String filename, String directoryPath) throws IOException;

@@ -1,14 +1,12 @@
 package test;
 
-import com.mycompany.autobackupprogram.ConfigKey;
-import com.mycompany.autobackupprogram.Logger;
+import com.mycompany.autobackupprogram.Enums.ConfigKey;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 
 import java.nio.file.Files;
-import java.nio.file.StandardOpenOption;
 import java.io.File;
 import java.io.IOException;
 

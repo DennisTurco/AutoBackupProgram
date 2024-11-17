@@ -1,6 +1,7 @@
-package com.mycompany.autobackupprogram;
+package com.mycompany.autobackupprogram.Entities;
 
 import java.time.LocalDateTime;
+
 
 public class Backup {
 

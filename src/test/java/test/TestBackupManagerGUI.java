@@ -1,8 +1,9 @@
 package test;
 
-import com.mycompany.autobackupprogram.BackupManagerGUI;
-
 import org.junit.jupiter.api.BeforeEach;
+
+import com.mycompany.autobackupprogram.GUI.BackupManagerGUI;
+
 import org.junit.jupiter.api.AfterEach;
 
 public class TestBackupManagerGUI {

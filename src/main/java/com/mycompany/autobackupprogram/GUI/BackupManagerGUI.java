@@ -75,7 +75,7 @@ public class BackupManagerGUI extends javax.swing.JFrame {
     private String backupOnText;
     private String backupOffText;
 
-    private final String current_version = "2.0.3";
+    private final String current_version = "2.0.4";
     
     public BackupManagerGUI() {
         ThemeManager.updateThemeFrame(this);
@@ -1866,7 +1866,7 @@ public class BackupManagerGUI extends javax.swing.JFrame {
             Desktop desktop = Desktop.getDesktop();
 
             if (desktop.isSupported(Desktop.Action.MAIL)) {
-                String subject = "Support - Auto Backup Program";
+                String subject = "Support - Backup Manager";
                 String mailTo = "mailto:" + ConfigKey.EMAIL.getValue() + "?subject=" + encodeURI(subject);
 
                 try {

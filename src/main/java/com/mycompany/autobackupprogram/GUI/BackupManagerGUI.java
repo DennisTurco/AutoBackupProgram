@@ -15,6 +15,7 @@ import com.mycompany.autobackupprogram.Enums.MenuItems;
 import com.mycompany.autobackupprogram.Enums.TranslationLoaderEnum;
 import com.mycompany.autobackupprogram.Enums.TranslationLoaderEnum.TranslationCategory;
 import com.mycompany.autobackupprogram.Enums.TranslationLoaderEnum.TranslationKey;
+import com.mycompany.autobackupprogram.Logger.LogLevel;
 import com.mycompany.autobackupprogram.Managers.ThemeManager;
 
 import java.awt.Color;
@@ -94,9 +95,9 @@ public class BackupManagerGUI extends javax.swing.JFrame {
         
         File file = new File(System.getProperty("os.name").toLowerCase().contains("win") ? "C:\\Windows\\System32" : "/root");
         if (file.canWrite()) {
-            Logger.logMessage("The application is running with administrator privileges.", Logger.LogLevel.INFO);
+            Logger.logMessage("The application is running with administrator privileges.", Logger.LogLevel.DEBUG);
         } else {
-            Logger.logMessage("The application does NOT have administrator privileges.", Logger.LogLevel.INFO);
+            Logger.logMessage("The application does NOT have administrator privileges.", Logger.LogLevel.DEBUG);
         }
         
         customListeners();
@@ -137,6 +138,8 @@ public class BackupManagerGUI extends javax.swing.JFrame {
     }
     
     private void openPreferences() {
+        Logger.logMessage("Event --> opening preferences dialog", LogLevel.INFO);
+
         PreferencesDialog prefs = new PreferencesDialog(this, true);
         prefs.setVisible(true);
 
@@ -145,16 +148,18 @@ public class BackupManagerGUI extends javax.swing.JFrame {
             Preferences.updatePreferencesToJSON();
             reloadPreferences();
         }
-            
     }
 
     private void reloadPreferences() {
+        Logger.logMessage("Reloading preferences", LogLevel.INFO);
+
         // load language
         try {
             TranslationLoaderEnum.loadTranslations(ConfigKey.LANGUAGES_DIRECTORY_STRING.getValue() + Preferences.getLanguage().getFileName());
             setTranslations();
-        } catch (IOException | ParseException e) {
-            e.printStackTrace();
+        } catch (IOException | ParseException ex) {
+            Logger.logMessage("An error occurred during reloading preferences operation: " + ex.getMessage(), Logger.LogLevel.ERROR, ex);
+            OpenExceptionMessage(ex.getMessage(), Arrays.toString(ex.getStackTrace()));
         }
         
         // load theme
@@ -1819,9 +1824,7 @@ public class BackupManagerGUI extends javax.swing.JFrame {
     
     private void toggleAutoBackupActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_toggleAutoBackupActionPerformed
         Logger.logMessage("Event --> Changing auto backup preference", Logger.LogLevel.INFO);
-        
-        System.out.println(currentBackup.toString());
-        
+
         // checks
         if (!BackupOperations.CheckInputCorrect(currentBackup.getBackupName(),startPathField.getText(), destinationPathField.getText(), null)) {
             toggleAutoBackup.setSelected(false);
@@ -1850,8 +1853,6 @@ public class BackupManagerGUI extends javax.swing.JFrame {
         toggleAutoBackup.setText(toggleAutoBackup.isSelected() ? backupOnText : backupOffText);
         currentBackup.setAutoBackup(enabled);
         BackupOperations.updateBackupList(backups);
-        
-        System.out.println(currentBackup.toString());
     }//GEN-LAST:event_toggleAutoBackupActionPerformed
 
     private void MenuWebsiteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MenuWebsiteActionPerformed

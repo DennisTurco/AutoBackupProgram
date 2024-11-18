@@ -1,0 +1,41 @@
+2024-11-18T16:18:54.096382500 [INFO] Event --> opening preferences dialog
+2024-11-18T16:18:51.009950500 [DEBUG] The application is running with administrator privileges.
+2024-11-18T16:18:50.510973600 [DEBUG] Background mode: false
+2024-11-18T16:18:50.497085500 [INFO] Application started
+2024-11-18T16:16:47.814842700 [INFO] Reloading preferences
+2024-11-18T16:16:46.718507300 [INFO] Theme set to: Arc - Orange
+2024-11-18T16:16:46.712091 [INFO] Language set to: Italiano
+2024-11-18T16:16:46.706603800 [INFO] Updating preferences -> Language: Italiano; Theme: Arc - Orange
+2024-11-18T16:16:43.988962 [INFO] Theme set to: Arc - Orange
+2024-11-18T16:16:43.981511700 [INFO] Language set to: English
+2024-11-18T16:16:43.975552200 [INFO] Updating preferences -> Language: English; Theme: Arc - Orange
+2024-11-18T16:16:37.838224800 [INFO] Event --> opening preferences dialog
+2024-11-18T16:16:33.029699900 [INFO] Reloading preferences
+2024-11-18T16:16:31.616151400 [INFO] Theme set to: Carbon
+2024-11-18T16:16:31.610170100 [INFO] Language set to: English
+2024-11-18T16:16:31.604822900 [INFO] Updating preferences -> Language: English; Theme: Carbon
+2024-11-18T16:16:29.033458200 [INFO] Event --> opening preferences dialog
+2024-11-18T16:16:26.384562100 [DEBUG] The application is running with administrator privileges.
+2024-11-18T16:16:25.768625400 [DEBUG] Background mode: false
+2024-11-18T16:16:25.754737400 [INFO] Application started
+2024-11-18T16:00:09.501385500 [INFO] The application is running with administrator privileges.
+2024-11-18T16:00:08.984057400 [DEBUG] Background mode: false
+2024-11-18T16:00:08.969176900 [INFO] Application started
+2024-11-18T15:52:48.729049600 [INFO] The application is running with administrator privileges.
+2024-11-18T15:52:48.222429600 [DEBUG] Background mode: false
+2024-11-18T15:52:48.208541200 [INFO] Application started
+2024-11-18T15:43:31.070105600 [INFO] Theme set to: Cyan light
+2024-11-18T15:43:31.064649800 [INFO] Language set to: English
+2024-11-18T15:43:02.688416800 [INFO] Theme set to: Arc Dark - Orange
+2024-11-18T15:43:02.681898300 [INFO] Language set to: English
+2024-11-18T15:42:55.412789200 [INFO] Theme set to: Carbon
+2024-11-18T15:42:55.406869200 [INFO] Language set to: English
+2024-11-18T15:42:42.757131300 [WARN] Input Error! One or both paths do not exist.
+2024-11-18T15:42:42.750707 [INFO] Event --> single backup
+2024-11-18T15:42:41.732247200 [INFO] You selected the directory: C:\Users\Utente\Desktop\gg
+2024-11-18T15:42:34.558278500 [INFO] You selected the directory: C:\Users\Utente\Desktop\Foto
+2024-11-18T15:42:23.197921100 [WARN] Input Missing!
+2024-11-18T15:42:23.192465 [INFO] Event --> single backup
+2024-11-18T15:42:20.985446800 [INFO] The application is running with administrator privileges.
+2024-11-18T15:42:20.458213700 [DEBUG] Background mode: false
+2024-11-18T15:42:20.445797900 [INFO] Application started

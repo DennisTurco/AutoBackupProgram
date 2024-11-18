@@ -1,20 +1,13 @@
 package com.mycompany.autobackupprogram.Dialogs;
 
-import com.formdev.flatlaf.FlatIntelliJLaf;
 import com.mycompany.autobackupprogram.Enums.ConfigKey;
 import com.mycompany.autobackupprogram.Enums.TranslationLoaderEnum.TranslationCategory;
 import com.mycompany.autobackupprogram.Enums.TranslationLoaderEnum.TranslationKey;
-import com.mycompany.autobackupprogram.Managers.ThemeManager;
 import com.mycompany.autobackupprogram.Entities.TimeInterval;
 
-import static com.mycompany.autobackupprogram.GUI.BackupManagerGUI.OpenExceptionMessage;
-
 import java.awt.Image;
-import java.util.Arrays;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
-import javax.swing.UIManager;
-import javax.swing.UnsupportedLookAndFeelException;
 
 public class TimePicker extends javax.swing.JDialog {
 

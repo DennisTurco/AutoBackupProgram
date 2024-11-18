@@ -3,6 +3,10 @@ package com.mycompany.autobackupprogram.Enums;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
+
+import com.mycompany.autobackupprogram.Logger;
+import com.mycompany.autobackupprogram.Logger.LogLevel;
+
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.HashMap;
@@ -268,7 +272,7 @@ public class TranslationLoaderEnum {
                             category.addTranslation(translationKey, translationValue);
                         } else {
                             // If the key is not recognized in the enum, log it and use the default value
-                            System.err.println("Warning: Unrecognized key in JSON: " + key + ", using default value.");
+                            Logger.logMessage("Warning: Unrecognized key in JSON: " + key + ", using default value.", LogLevel.WARN);
                             category.addTranslation(translationKey, translationKey.getDefaultValue());
                         }
                     }

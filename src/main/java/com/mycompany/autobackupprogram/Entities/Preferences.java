@@ -101,13 +101,4 @@ public class Preferences {
             e.printStackTrace();
         }
     }
-
-    // for test
-    public static void main(String[] args) {
-        String CONFIG = "src/main/resources/res/config/config.json";
-        ConfigKey.loadFromJson(CONFIG);
-        loadPreferencesFromJSON();
-        updatePreferencesToJSON();
-    }
-
 }

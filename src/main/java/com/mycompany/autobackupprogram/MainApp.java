@@ -24,10 +24,8 @@ public class MainApp {
         try {
             Preferences.loadPreferencesFromJSON();
             TranslationLoaderEnum.loadTranslations(ConfigKey.LANGUAGES_DIRECTORY_STRING.getValue() + Preferences.getLanguage().getFileName());
-        } catch (IOException e) {
-            e.printStackTrace();
-        } catch (ParseException e) {
-            e.printStackTrace();
+        } catch (IOException | ParseException ex) {
+            ex.printStackTrace();
         }
 
         boolean isBackgroundMode = args.length > 0 && args[0].equalsIgnoreCase("--background");

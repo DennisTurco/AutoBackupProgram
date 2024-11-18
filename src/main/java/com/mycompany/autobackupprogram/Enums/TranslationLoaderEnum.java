@@ -226,7 +226,7 @@ public class TranslationLoaderEnum {
         }
 
         // Constructor to assign both key and default value
-        TranslationKey(String keyName, String defaultValue) {
+        private TranslationKey(String keyName, String defaultValue) {
             this.keyName = keyName;
             this.defaultValue = defaultValue;
         }

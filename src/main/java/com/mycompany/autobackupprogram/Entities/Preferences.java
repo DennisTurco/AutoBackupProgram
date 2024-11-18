@@ -3,6 +3,7 @@ package com.mycompany.autobackupprogram.Entities;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.util.Arrays;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonElement;
@@ -13,6 +14,7 @@ import com.mycompany.autobackupprogram.Logger.LogLevel;
 import com.mycompany.autobackupprogram.Enums.ConfigKey;
 import com.mycompany.autobackupprogram.Enums.LanguagesEnum;
 import com.mycompany.autobackupprogram.Enums.ThemesEnum;
+import static com.mycompany.autobackupprogram.GUI.BackupManagerGUI.OpenExceptionMessage;
 
 public class Preferences {
     private static LanguagesEnum language = LanguagesEnum.ENG;
@@ -40,8 +42,9 @@ public class Preferences {
                     break;
                 }
             }
-        } catch (Exception e) {
-            e.printStackTrace();
+        } catch (Exception ex) {
+            Logger.logMessage("An error occurred during loading preferences from json operation: " + ex.getMessage(), Logger.LogLevel.ERROR, ex);
+            OpenExceptionMessage(ex.getMessage(), Arrays.toString(ex.getStackTrace()));
         }
     }
 
@@ -56,8 +59,9 @@ public class Preferences {
             Gson gson = new Gson();
             gson.toJson(jsonObject, writer);
 
-        } catch (IOException e) {
-            e.printStackTrace();
+        } catch (IOException ex) {
+            Logger.logMessage("An error occurred during updating preferences to json operation: " + ex.getMessage(), Logger.LogLevel.ERROR, ex);
+            OpenExceptionMessage(ex.getMessage(), Arrays.toString(ex.getStackTrace()));
         }
     }
 
@@ -82,9 +86,10 @@ public class Preferences {
                     return;
                 }
             }
-            Logger.logMessage("Invalid language name: " + selectedLanguage, LogLevel.ERROR);
-        } catch (Exception e) {
-            e.printStackTrace();
+            Logger.logMessage("Invalid language name: " + selectedLanguage, LogLevel.WARN);
+        } catch (Exception ex) {
+            Logger.logMessage("An error occurred during setting language operation: " + ex.getMessage(), Logger.LogLevel.ERROR, ex);
+            OpenExceptionMessage(ex.getMessage(), Arrays.toString(ex.getStackTrace()));
         }
     }
     public static void setTheme(String selectedTheme) {
@@ -96,9 +101,10 @@ public class Preferences {
                     return;
                 }
             }
-            Logger.logMessage("Invalid theme name: " + selectedTheme, LogLevel.ERROR);
-        } catch (Exception e) {
-            e.printStackTrace();
+            Logger.logMessage("Invalid theme name: " + selectedTheme, LogLevel.WARN);
+        } catch (Exception ex) {
+            Logger.logMessage("An error occurred during setting theme operation: " + ex.getMessage(), Logger.LogLevel.ERROR, ex);
+            OpenExceptionMessage(ex.getMessage(), Arrays.toString(ex.getStackTrace()));
         }
     }
 }

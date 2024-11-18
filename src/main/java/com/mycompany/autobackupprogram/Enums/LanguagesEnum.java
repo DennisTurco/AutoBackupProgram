@@ -10,7 +10,7 @@ public enum LanguagesEnum {
     private final String languageName;
     private final String fileName;
 
-    LanguagesEnum(String languageName, String fileName) {
+    private LanguagesEnum(String languageName, String fileName) {
         this.languageName = languageName;
         this.fileName = fileName;
     }

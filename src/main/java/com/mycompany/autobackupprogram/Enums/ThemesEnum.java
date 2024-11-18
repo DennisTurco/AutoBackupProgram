@@ -14,7 +14,7 @@ public enum ThemesEnum {
 
     private final String themeName;
 
-    ThemesEnum(String themeName) {
+    private ThemesEnum(String themeName) {
         this.themeName = themeName;
     }
 

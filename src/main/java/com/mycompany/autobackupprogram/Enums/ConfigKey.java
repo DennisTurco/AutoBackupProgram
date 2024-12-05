@@ -22,7 +22,8 @@ public enum ConfigKey {
     EMAIL,
     SHARD_WEBSITE,
     LOGO_IMG,
-    SHARE_LINK;
+    SHARE_LINK,
+    VERSION;
 
     private static final Map<ConfigKey, String> configValues = new EnumMap<>(ConfigKey.class);
 

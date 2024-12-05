@@ -9,6 +9,7 @@ import com.mycompany.autobackupprogram.JSONConfigReader;
 import com.mycompany.autobackupprogram.Logger;
 import com.mycompany.autobackupprogram.Dialogs.TimePicker;
 import com.mycompany.autobackupprogram.Entities.Backup;
+import com.mycompany.autobackupprogram.Entities.BackupList;
 import com.mycompany.autobackupprogram.Entities.Preferences;
 import com.mycompany.autobackupprogram.Enums.ConfigKey;
 import com.mycompany.autobackupprogram.Enums.MenuItems;
@@ -31,6 +32,10 @@ import java.io.File;
 import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.nio.file.StandardCopyOption;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
@@ -45,6 +50,7 @@ import javax.swing.JTable;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.SwingUtilities;
+import javax.swing.filechooser.FileNameExtensionFilter;
 import javax.swing.filechooser.FileSystemView;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
@@ -117,6 +123,8 @@ public class BackupManagerGUI extends javax.swing.JFrame {
         MenuShare.setVisible(config.isMenuItemEnabled(MenuItems.Share.name()));
         MenuSupport.setVisible(config.isMenuItemEnabled(MenuItems.Support.name()));
         MenuWebsite.setVisible(config.isMenuItemEnabled(MenuItems.Website.name()));
+        MenuImport.setVisible(config.isMenuItemEnabled(MenuItems.Import.name()));
+        MenuExport.setVisible(config.isMenuItemEnabled(MenuItems.Export.name()));
         
         // icons
         researchField.putClientProperty(FlatClientProperties.TEXT_FIELD_LEADING_ICON, new javax.swing.ImageIcon(getClass().getResource("/res/img/search.png")));
@@ -849,14 +857,12 @@ public class BackupManagerGUI extends javax.swing.JFrame {
         if (returnValue == JFileChooser.APPROVE_OPTION) {
             File selectedFile = jfc.getSelectedFile();
 
-            // Logga il tipo di elemento selezionato
             if (selectedFile.isDirectory()) {
                 Logger.logMessage("You selected the directory: " + selectedFile, Logger.LogLevel.INFO);
             } else if (selectedFile.isFile()) {
                 Logger.logMessage("You selected the file: " + selectedFile, Logger.LogLevel.INFO);
             }
 
-            // Imposta il percorso nel campo di testo
             textField.setText(selectedFile.toString());
         }
         savedChanges(false);
@@ -997,6 +1003,10 @@ public class BackupManagerGUI extends javax.swing.JFrame {
         MenuNew = new javax.swing.JMenuItem();
         MenuSave = new javax.swing.JMenuItem();
         MenuSaveWithName = new javax.swing.JMenuItem();
+        jSeparator4 = new javax.swing.JPopupMenu.Separator();
+        MenuImport = new javax.swing.JMenuItem();
+        MenuExport = new javax.swing.JMenuItem();
+        jSeparator5 = new javax.swing.JPopupMenu.Separator();
         MenuClear = new javax.swing.JMenuItem();
         MenuHistory = new javax.swing.JMenuItem();
         jMenu2 = new javax.swing.JMenu();
@@ -1458,6 +1468,26 @@ public class BackupManagerGUI extends javax.swing.JFrame {
             }
         });
         jMenu1.add(MenuSaveWithName);
+        jMenu1.add(jSeparator4);
+
+        MenuImport.setIcon(new javax.swing.ImageIcon(getClass().getResource("/res/img/import.png"))); // NOI18N
+        MenuImport.setText("Import backup list");
+        MenuImport.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                MenuImportActionPerformed(evt);
+            }
+        });
+        jMenu1.add(MenuImport);
+
+        MenuExport.setIcon(new javax.swing.ImageIcon(getClass().getResource("/res/img/export.png"))); // NOI18N
+        MenuExport.setText("Export backup list");
+        MenuExport.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                MenuExportActionPerformed(evt);
+            }
+        });
+        jMenu1.add(MenuExport);
+        jMenu1.add(jSeparator5);
 
         MenuClear.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_C, java.awt.event.InputEvent.CTRL_DOWN_MASK));
         MenuClear.setIcon(new javax.swing.ImageIcon(getClass().getResource("/res/img/clean.png"))); // NOI18N
@@ -1931,9 +1961,62 @@ public class BackupManagerGUI extends javax.swing.JFrame {
         openPreferences();
     }//GEN-LAST:event_MenuPreferencesActionPerformed
 
+    private void MenuImportActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MenuImportActionPerformed
+        Logger.logMessage("Event --> importing backup list", Logger.LogLevel.INFO);
+
+        JFileChooser jfc = new JFileChooser(ConfigKey.RES_DIRECTORY_STRING.getValue());
+        jfc.setFileSelectionMode(JFileChooser.FILES_ONLY);
+
+        FileNameExtensionFilter jsonFilter = new FileNameExtensionFilter("JSON Files (*.json)", "json");
+        jfc.setFileFilter(jsonFilter);
+        int returnValue = jfc.showSaveDialog(null);
+
+        if (returnValue == JFileChooser.APPROVE_OPTION) {
+            File selectedFile = jfc.getSelectedFile();
+            if (selectedFile.isFile() && selectedFile.getName().toLowerCase().endsWith(".json")) {
+                Logger.logMessage("File imported: " + selectedFile, Logger.LogLevel.INFO);
+
+                Preferences.setBackupList(new BackupList(selectedFile.getParent()+File.separator, selectedFile.getName()));
+                Preferences.updatePreferencesToJSON();
+
+                try {
+                    backups = JSON.ReadBackupListFromJSON(Preferences.getBackupList().getDirectory(), Preferences.getBackupList().getFile());
+                    BackupOperations.updateTableWithNewBackupList(backups);
+                } catch (IOException ex) {
+                    Logger.logMessage("An error occurred: " + ex.getMessage(), Logger.LogLevel.ERROR, ex);
+                }
+
+                JOptionPane.showMessageDialog(this, TranslationCategory.DIALOGS.getTranslation(TranslationKey.BACKUP_LIST_CORRECTLY_IMPORTED_MESSAGE), TranslationCategory.DIALOGS.getTranslation(TranslationKey.BACKUP_LIST_CORRECTLY_IMPORTED_TITLE), JOptionPane.INFORMATION_MESSAGE);
+            } else {
+                JOptionPane.showMessageDialog(this, TranslationCategory.DIALOGS.getTranslation(TranslationKey.ERROR_MESSAGE_FOR_WRONG_FILE_EXTENSION_MESSAGE), TranslationCategory.DIALOGS.getTranslation(TranslationKey.ERROR_MESSAGE_FOR_WRONG_FILE_EXTENSION_TITLE), JOptionPane.ERROR_MESSAGE);
+            }
+        }
+    }//GEN-LAST:event_MenuImportActionPerformed
+
+    private void MenuExportActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MenuExportActionPerformed
+        Logger.logMessage("Event --> exporting backup list", Logger.LogLevel.INFO);
+
+        Path desktopPath = Paths.get(System.getProperty("user.home"), "Desktop", Preferences.getBackupList().getFile());
+        Path sourcePath = Paths.get(Preferences.getBackupList().getDirectory() + Preferences.getBackupList().getFile());
+
+        try {
+            Files.copy(sourcePath, desktopPath, StandardCopyOption.REPLACE_EXISTING);
+            JOptionPane.showMessageDialog(null, TranslationCategory.DIALOGS.getTranslation(TranslationKey.BACKUP_LIST_CORRECTLY_EXPORTED_MESSAGE), TranslationCategory.DIALOGS.getTranslation(TranslationKey.BACKUP_LIST_CORRECTLY_EXPORTED_TITLE), JOptionPane.INFORMATION_MESSAGE);
+        } catch (java.nio.file.NoSuchFileException ex) {
+            Logger.logMessage("Source file not found: " + ex.getMessage(), Logger.LogLevel.ERROR);
+            JOptionPane.showMessageDialog(null, "Error: The source file was not found.\nPlease check the file path.", "Export Error", JOptionPane.ERROR_MESSAGE);
+        } catch (java.nio.file.AccessDeniedException ex) {
+            Logger.logMessage("Access denied to desktop: " + ex.getMessage(), Logger.LogLevel.ERROR);
+            JOptionPane.showMessageDialog(null, "Error: Access to the Desktop is denied.\nPlease check folder permissions and try again.","Export Error", JOptionPane.ERROR_MESSAGE);
+        } catch (IOException ex) {
+            Logger.logMessage("Unexpected error: " + ex.getMessage(), Logger.LogLevel.ERROR);
+            OpenExceptionMessage(ex.getMessage(), Arrays.toString(ex.getStackTrace()));
+        }
+    }//GEN-LAST:event_MenuExportActionPerformed
+
     private void setTranslations() {
         try {
-            backups = JSON.ReadBackupListFromJSON(ConfigKey.BACKUP_FILE_STRING.getValue(), ConfigKey.RES_DIRECTORY_STRING.getValue());
+            backups = JSON.ReadBackupListFromJSON(Preferences.getBackupList().getDirectory(), Preferences.getBackupList().getFile());
             displayBackupList(backups);
         } catch (IOException ex) {
             backups = null;
@@ -1963,6 +2046,9 @@ public class BackupManagerGUI extends javax.swing.JFrame {
         MenuQuit.setText(TranslationCategory.MENU.getTranslation(TranslationKey.QUIT));
         MenuSave.setText(TranslationCategory.MENU.getTranslation(TranslationKey.SAVE));
         MenuSaveWithName.setText(TranslationCategory.MENU.getTranslation(TranslationKey.SAVE_WITH_NAME));
+        MenuPreferences.setText(TranslationCategory.MENU.getTranslation(TranslationKey.PREFERENCES));
+        MenuImport.setText(TranslationCategory.MENU.getTranslation(TranslationKey.IMPORT));
+        MenuExport.setText(TranslationCategory.MENU.getTranslation(TranslationKey.EXPORT));
         MenuShare.setText(TranslationCategory.MENU.getTranslation(TranslationKey.SHARE));
         MenuSupport.setText(TranslationCategory.MENU.getTranslation(TranslationKey.SUPPORT));
         MenuWebsite.setText(TranslationCategory.MENU.getTranslation(TranslationKey.WEBSITE));
@@ -2020,7 +2106,9 @@ public class BackupManagerGUI extends javax.swing.JFrame {
     private javax.swing.JMenuItem MenuBugReport;
     private javax.swing.JMenuItem MenuClear;
     private javax.swing.JMenuItem MenuDonate;
+    private javax.swing.JMenuItem MenuExport;
     private javax.swing.JMenuItem MenuHistory;
+    private javax.swing.JMenuItem MenuImport;
     private javax.swing.JMenuItem MenuInfoPage;
     private javax.swing.JMenuItem MenuNew;
     private javax.swing.JMenuItem MenuPreferences;
@@ -2062,6 +2150,8 @@ public class BackupManagerGUI extends javax.swing.JFrame {
     private javax.swing.JPopupMenu.Separator jSeparator1;
     private javax.swing.JPopupMenu.Separator jSeparator2;
     private javax.swing.JPopupMenu.Separator jSeparator3;
+    private javax.swing.JPopupMenu.Separator jSeparator4;
+    private javax.swing.JPopupMenu.Separator jSeparator5;
     private javax.swing.JLabel lastBackupLabel;
     private javax.swing.JMenuItem renamePopupItem;
     private javax.swing.JTextField researchField;

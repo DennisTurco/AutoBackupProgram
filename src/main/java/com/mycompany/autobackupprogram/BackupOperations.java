@@ -31,12 +31,13 @@ import com.mycompany.autobackupprogram.Entities.Backup;
 import com.mycompany.autobackupprogram.Enums.ConfigKey;
 import com.mycompany.autobackupprogram.Enums.TranslationLoaderEnum.TranslationCategory;
 import com.mycompany.autobackupprogram.Enums.TranslationLoaderEnum.TranslationKey;
+import com.mycompany.autobackupprogram.Entities.Preferences;
 import com.mycompany.autobackupprogram.GUI.BackupManagerGUI;
 import com.mycompany.autobackupprogram.GUI.BackupProgressGUI;
 import com.mycompany.autobackupprogram.Entities.TimeInterval;
 import com.mycompany.autobackupprogram.Logger.LogLevel;
 
-public class BackupOperations{
+public class BackupOperations {
     
     private static final JSONAutoBackup JSON = new JSONAutoBackup();
     private static Thread zipThread;
@@ -106,7 +107,7 @@ public class BackupOperations{
         backup.setBackupCount(backup.getBackupCount()+1);
                     
         try {
-            List<Backup> backups = JSON.ReadBackupListFromJSON(ConfigKey.BACKUP_FILE_STRING.getValue(), ConfigKey.RES_DIRECTORY_STRING.getValue());
+            List<Backup> backups = JSON.ReadBackupListFromJSON(Preferences.getBackupList().getDirectory(), Preferences.getBackupList().getFile());
                         
             for (Backup b : backups) {
                 if (b.getBackupName().equals(backup.getBackupName())) {
@@ -271,7 +272,7 @@ public class BackupOperations{
     public static void updateBackupList(List<Backup> backups) {
         if (backups == null) throw new IllegalArgumentException("Backup list is null!");
             
-        JSON.UpdateBackupListJSON(ConfigKey.BACKUP_FILE_STRING.getValue(), ConfigKey.RES_DIRECTORY_STRING.getValue(), backups);
+        JSON.UpdateBackupListJSON(Preferences.getBackupList().getDirectory(), Preferences.getBackupList().getFile(), backups);
         
         if (BackupManagerGUI.model != null)
             updateTableWithNewBackupList(backups);
@@ -280,7 +281,7 @@ public class BackupOperations{
     public static void updateBackup(List<Backup> backups, Backup updatedBackup) {
         if (updatedBackup == null) throw new IllegalArgumentException("Backup is null!");
         
-        JSON.UpdateSingleBackupInJSON(ConfigKey.BACKUP_FILE_STRING.getValue(), ConfigKey.RES_DIRECTORY_STRING.getValue(), updatedBackup);
+        JSON.UpdateSingleBackupInJSON(Preferences.getBackupList().getDirectory(), Preferences.getBackupList().getFile(), updatedBackup);
         
         if (BackupManagerGUI.model != null)
             updateTableWithNewBackupList(backups);

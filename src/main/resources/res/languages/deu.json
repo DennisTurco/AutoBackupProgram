@@ -24,6 +24,9 @@
       "Quit": "Beenden",
       "Save": "Speichern",
       "SaveWithName": "Speichern unter",
+      "Preferences": "Einstellungen",
+      "Import": "Backup-Liste importieren",
+      "Export": "Backup-Liste exportieren",
       "Share": "Teilen",
       "Support": "Support",
       "Website": "Webseite"
@@ -147,7 +150,13 @@
       "ErrorMessageInputMissingGeneric": "Eingabe fehlt!",
       "ErrorMessageForSavingFile": "Fehler beim Speichern der Datei",
       "ErrorMessageForPathNotExisting": "Ein oder beide Pfade existieren nicht!",
-      "ErrorMessageForSamePaths": "Der Anfangspfad und der Zielpfad dürfen nicht gleich sein. Bitte wählen Sie unterschiedliche Pfade!"
+      "ErrorMessageForSamePaths": "Der Anfangspfad und der Zielpfad dürfen nicht gleich sein. Bitte wählen Sie unterschiedliche Pfade!",
+      "BackupListCorrectlyExportedTitle": "Menü Exportieren",
+      "BackupListCorrectlyExportedMessage": "Backup-Liste erfolgreich auf den Desktop exportiert!",
+      "BackupListCorrectlyImportedTitle": "Menü Importieren",
+      "BackupListCorrectlyImportedMessage": "Backup-Liste erfolgreich importiert!",
+      "ErrorMessageForWrongFileExtensionTitle": "Ungültige Datei",
+      "ErrorMessageForWrongFileExtensionMessage": "Fehler: Bitte wählen Sie eine gültige JSON-Datei aus."
     }
   }
   

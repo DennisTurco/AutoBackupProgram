@@ -10,6 +10,8 @@ public enum MenuItems {
     New,
     Quit,
     Save,
+    Import,
+    Export,
     SaveWithName,
     Share,
     Support,

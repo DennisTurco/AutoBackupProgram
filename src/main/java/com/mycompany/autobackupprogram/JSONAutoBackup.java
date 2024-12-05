@@ -15,21 +15,32 @@ import org.json.simple.parser.ParseException;
 import com.mycompany.autobackupprogram.Entities.Backup;
 import com.mycompany.autobackupprogram.Entities.TimeInterval;
 import com.mycompany.autobackupprogram.Interfaces.IJSONAutoBackup;
+import com.mycompany.autobackupprogram.Logger.LogLevel;
 
 public class JSONAutoBackup implements IJSONAutoBackup {
     @Override
-    public List<Backup> ReadBackupListFromJSON(String filename, String directoryPath) throws IOException {
-
+    public List<Backup> ReadBackupListFromJSON(String directoryPath, String filename) throws IOException {
         List<Backup> backupList = new ArrayList<>();
         String filePath = directoryPath + filename;
 
         // Check if the file exists and is not empty
         File file = new File(filePath);
-        if (!file.exists() || file.length() == 0) {
-            Logger.logMessage("The file does not exist or is empty: " + filePath, Logger.LogLevel.WARN);
-            return backupList;
+
+        if (!file.exists()) {
+            file.createNewFile();
+            Logger.logMessage("New backup list created with name: " + filePath, LogLevel.INFO);
         }
-        
+
+        if (file.length() == 0) {
+            try (FileWriter writer = new FileWriter(file)) {
+                writer.write("[]");
+                Logger.logMessage("File initialized with empty JSON array: []", LogLevel.INFO);
+            } catch (IOException e) {
+                Logger.logMessage("Error initializing file: " + e.getMessage(), LogLevel.ERROR, e);
+                throw e;
+            }
+        }
+
         JSONParser parser = new JSONParser();
 
         try (FileReader reader = new FileReader(filePath)) {
@@ -88,7 +99,7 @@ public class JSONAutoBackup implements IJSONAutoBackup {
     }
     
     @Override
-    public void UpdateBackupListJSON(String filename, String directoryPath, List<Backup> backups) {
+    public void UpdateBackupListJSON(String directoryPath, String filename, List<Backup> backups) {
         String filePath = directoryPath + filename;
         
         JSONArray updatedBackupArray = new JSONArray();
@@ -119,7 +130,7 @@ public class JSONAutoBackup implements IJSONAutoBackup {
     }
     
     @Override
-    public void UpdateSingleBackupInJSON(String filename, String directoryPath, Backup updatedBackup) {
+    public void UpdateSingleBackupInJSON(String directoryPath, String filename, Backup updatedBackup) {
         String filePath = directoryPath + filename;
 
         try (FileReader reader = new FileReader(filePath)) {

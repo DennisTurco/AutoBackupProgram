@@ -24,6 +24,9 @@
       "Quit": "Salir",
       "Save": "Guardar",
       "SaveWithName": "Guardar con nombre",
+      "Preferences": "Preferencias",
+      "Import": "Importar lista de copias de seguridad",
+      "Export": "Exportar lista de copias de seguridad",
       "Share": "Compartir",
       "Support": "Soporte",
       "Website": "Sitio web"
@@ -147,7 +150,13 @@
       "ErrorMessageInputMissingGeneric": "¡Faltan datos de entrada!",
       "ErrorMessageForSavingFile": "Error al guardar el archivo",
       "ErrorMessageForPathNotExisting": "¡Una o ambas rutas no existen!",
-      "ErrorMessageForSamePaths": "La ruta inicial y la de destino no pueden ser iguales. ¡Elija rutas diferentes!"
+      "ErrorMessageForSamePaths": "La ruta inicial y la de destino no pueden ser iguales. ¡Elija rutas diferentes!",
+      "BackupListCorrectlyExportedTitle": "Menú Exportar",
+      "BackupListCorrectlyExportedMessage": "¡Lista de copias de seguridad exportada correctamente al escritorio!",
+      "BackupListCorrectlyImportedTitle": "Menú Importar",
+      "BackupListCorrectlyImportedMessage": "¡Lista de copias de seguridad importada correctamente!",
+      "ErrorMessageForWrongFileExtensionTitle": "Archivo no válido",
+      "ErrorMessageForWrongFileExtensionMessage": "Error: por favor selecciona un archivo JSON válido."
     }
   }
   

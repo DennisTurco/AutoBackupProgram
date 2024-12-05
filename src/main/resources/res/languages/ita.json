@@ -24,6 +24,9 @@
     "Quit": "Esci",
     "Save": "Salva",
     "SaveWithName": "Salva con nome",
+    "Preferences": "Preferenze",
+    "Import": "Importa lista di backup",
+    "Export": "Esporta lista di backup",
     "Share": "Condividi",
     "Support": "Supporto",
     "Website": "Sito web"
@@ -147,6 +150,12 @@
     "ErrorMessageInputMissingGeneric": "Input Mancanti!",
     "ErrorMessageForSavingFile": "Errore nel salvataggio del file",
     "ErrorMessageForPathNotExisting": "Uno o entrambi i percorsi non esistono!",
-    "ErrorMessageForSamePaths": "Il percorso iniziale e il percorso di destinazione non possono essere uguali. Si prega di scegliere percorsi diversi!"
+    "ErrorMessageForSamePaths": "Il percorso iniziale e il percorso di destinazione non possono essere uguali. Si prega di scegliere percorsi diversi!",
+    "BackupListCorrectlyExportedTitle": "Menu Esporta",
+    "BackupListCorrectlyExportedMessage": "Lista di backup esportata correttamente sul desktop!",
+    "BackupListCorrectlyImportedTitle": "Menu Importa",
+    "BackupListCorrectlyImportedMessage": "Lista di backup importata correttamente!",
+    "ErrorMessageForWrongFileExtensionTitle": "File non valido",
+    "ErrorMessageForWrongFileExtensionMessage": "Errore: seleziona un file JSON valido."
   }
 }

@@ -3,7 +3,6 @@ package com.mycompany.autobackupprogram.Entities;
 import java.time.LocalDateTime;
 
 public class Backup {
-
     private String _backupName;
     private String _initialPath;
     private String _destinationPath;
@@ -15,7 +14,6 @@ public class Backup {
     private LocalDateTime _creationDate;
     private LocalDateTime _lastUpdateDate;
     private int _backupCount;
-
     
     public Backup() {
         _backupName = "";

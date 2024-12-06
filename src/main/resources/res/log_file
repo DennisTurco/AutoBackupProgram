@@ -1,3 +1,36 @@
+2024-12-06T22:43:27.001076 [INFO] Reloading preferences
+2024-12-06T22:43:26.965576500 [INFO] Theme set to: Dark
+2024-12-06T22:43:26.957886300 [INFO] Language set to: Italiano
+2024-12-06T22:43:26.948628 [INFO] Updating preferences -> Language: Italiano; Theme: Dark
+2024-12-06T22:43:22.008912900 [INFO] Reloading preferences
+2024-12-06T22:43:21.954694 [INFO] Theme set to: Dark
+2024-12-06T22:43:21.948901900 [INFO] Language set to: Français
+2024-12-06T22:43:21.943795900 [INFO] Updating preferences -> Language: Français; Theme: Dark
+2024-12-06T22:43:16.946481200 [INFO] Event --> opening preferences dialog
+2024-12-06T22:43:14.571637500 [DEBUG] The application is running with administrator privileges.
+2024-12-06T22:43:13.775066600 [DEBUG] Background mode: false
+2024-12-06T22:43:13.759500 [INFO] Application started
+2024-12-06T22:43:09.352801100 [INFO] Reloading preferences
+2024-12-06T22:43:09.272084800 [INFO] Theme set to: Dark
+2024-12-06T22:43:09.263013100 [INFO] Language set to: Italiano
+2024-12-06T22:43:09.255996400 [INFO] Updating preferences -> Language: Italiano; Theme: Dark
+2024-12-06T22:43:02.703090700 [INFO] Event --> opening preferences dialog
+2024-12-06T22:42:59.663456800 [DEBUG] The application is running with administrator privileges.
+2024-12-06T22:42:58.198267700 [DEBUG] Background mode: false
+2024-12-06T22:42:58.176801900 [INFO] Application started
+2024-12-06T22:40:50.461672300 [INFO] Reloading preferences
+2024-12-06T22:40:48.286376900 [INFO] Reloading preferences
+2024-12-06T22:40:48.222683500 [INFO] Theme set to: Cyan light
+2024-12-06T22:40:48.210685 [INFO] Language set to: Italiano
+2024-12-06T22:40:48.203689100 [INFO] Updating preferences -> Language: Italiano; Theme: Cyan light
+2024-12-06T22:40:40.340470200 [INFO] Reloading preferences
+2024-12-06T22:40:40.261261700 [INFO] Theme set to: Carbon
+2024-12-06T22:40:40.254249700 [INFO] Language set to: Italiano
+2024-12-06T22:40:40.248136100 [INFO] Updating preferences -> Language: Italiano; Theme: Carbon
+2024-12-06T22:40:35.338425900 [INFO] Event --> opening preferences dialog
+2024-12-06T22:40:31.238135400 [DEBUG] The application is running with administrator privileges.
+2024-12-06T22:40:30.537871100 [DEBUG] Background mode: false
+2024-12-06T22:40:30.524485800 [INFO] Application started
 2024-12-06T22:16:45.222332300 [INFO] Directory of the backup list file doesn't exists (D:\Documents\NetBeansProjects\AutoBackupProgram\src\main\resources\res\), resetted to default value.
 2024-12-06T22:16:45.209333600 [DEBUG] The application is running with administrator privileges.
 2024-12-06T22:16:44.352773600 [DEBUG] Background mode: false

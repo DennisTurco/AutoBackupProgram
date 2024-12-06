@@ -10,6 +10,7 @@ import com.mycompany.autobackupprogram.Enums.ConfigKey;
 import com.mycompany.autobackupprogram.Enums.TranslationLoaderEnum;
 import com.mycompany.autobackupprogram.GUI.BackupManagerGUI;
 import static com.mycompany.autobackupprogram.GUI.BackupManagerGUI.OpenExceptionMessage;
+import com.mycompany.autobackupprogram.Logger.LogLevel;
 
 public class MainApp {
     private static final String CONFIG = "src/main/resources/res/config/config.json";
@@ -24,7 +25,7 @@ public class MainApp {
             Preferences.loadPreferencesFromJSON();
             TranslationLoaderEnum.loadTranslations(ConfigKey.LANGUAGES_DIRECTORY_STRING.getValue() + Preferences.getLanguage().getFileName());
         } catch (IOException | ParseException ex) {
-            ex.printStackTrace();
+            Logger.logMessage("An error occurred during loading preferences: ", LogLevel.DEBUG, ex);
         }
 
         boolean isBackgroundMode = args.length > 0 && args[0].equalsIgnoreCase("--background");

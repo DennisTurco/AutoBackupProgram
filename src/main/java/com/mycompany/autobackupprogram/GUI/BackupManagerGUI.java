@@ -159,17 +159,11 @@ public class BackupManagerGUI extends javax.swing.JFrame {
     private void openPreferences() {
         Logger.logMessage("Event --> opening preferences dialog", LogLevel.INFO);
 
-        PreferencesDialog prefs = new PreferencesDialog(this, true);
+        PreferencesDialog prefs = new PreferencesDialog(this, true, this);
         prefs.setVisible(true);
-
-        // reload preferences
-        if (prefs.isApply()) {
-            Preferences.updatePreferencesToJSON();
-            reloadPreferences();
-        }
     }
 
-    private void reloadPreferences() {
+    public void reloadPreferences() {
         Logger.logMessage("Reloading preferences", LogLevel.INFO);
 
         // load language

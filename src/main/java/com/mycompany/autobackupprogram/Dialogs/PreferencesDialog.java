@@ -20,12 +20,16 @@ import javax.swing.ImageIcon;
 
 import org.json.simple.parser.ParseException;
 
+import com.mycompany.autobackupprogram.GUI.BackupManagerGUI;
+
 public class PreferencesDialog extends javax.swing.JDialog {
 
-    private boolean isApply = false; 
+    private final BackupManagerGUI mainGui;
 
-    public PreferencesDialog(java.awt.Frame parent, boolean modal) {
+    public PreferencesDialog(java.awt.Frame parent, boolean modal, BackupManagerGUI mainGui) {
         super(parent, modal);
+        this.mainGui = mainGui;
+        
         initComponents();
         
         // logo application
@@ -137,7 +141,6 @@ public class PreferencesDialog extends javax.swing.JDialog {
 
         Logger.logMessage("Updating preferences -> Language: " + selectedLanguage + "; Theme: " + selectedTheme, LogLevel.INFO);
 
-        isApply = true;
         try {
             // translactions
             Preferences.setLanguage(selectedLanguage);
@@ -147,6 +150,10 @@ public class PreferencesDialog extends javax.swing.JDialog {
             // theme
             Preferences.setTheme(selectedTheme);
             ThemeManager.updateThemeDialog(this);
+
+            // update globally
+            Preferences.updatePreferencesToJSON();
+            mainGui.reloadPreferences();
         } catch (IOException | ParseException ex) {
             Logger.logMessage("An error occurred during applying preferences: " + ex.getMessage(), Logger.LogLevel.ERROR, ex);
             OpenExceptionMessage(ex.getMessage(), Arrays.toString(ex.getStackTrace()));
@@ -188,10 +195,6 @@ public class PreferencesDialog extends javax.swing.JDialog {
         closeBtn.setText(TranslationCategory.GENERAL.getTranslation(TranslationKey.CLOSE_BUTTON));
         jLabel1.setText(TranslationCategory.PREFERENCES_DIALOG.getTranslation(TranslationKey.LANGUAGE));
         jLabel2.setText(TranslationCategory.PREFERENCES_DIALOG.getTranslation(TranslationKey.THEME));
-    }
-    
-    public boolean isApply() {
-        return isApply;
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

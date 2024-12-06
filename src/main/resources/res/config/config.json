@@ -14,6 +14,8 @@
   "SHARD_WEBSITE": "https://www.shardpc.it/",
   "LOGO_IMG": "/res/img/logo.png",
   "VERSION": "2.0.4",
+  "GUI_WIDTH": "982",
+  "GUI_HEIGHT": "715",
 
   "MenuItems": {
     "BugReport": true,

@@ -10,12 +10,12 @@ import com.google.gson.Gson;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
-import com.mycompany.autobackupprogram.Logger;
-import com.mycompany.autobackupprogram.Logger.LogLevel;
 import com.mycompany.autobackupprogram.Enums.ConfigKey;
 import com.mycompany.autobackupprogram.Enums.LanguagesEnum;
 import com.mycompany.autobackupprogram.Enums.ThemesEnum;
 import static com.mycompany.autobackupprogram.GUI.BackupManagerGUI.OpenExceptionMessage;
+import com.mycompany.autobackupprogram.Logger;
+import com.mycompany.autobackupprogram.Logger.LogLevel;
 
 public class Preferences {
     private static LanguagesEnum language;
@@ -103,10 +103,7 @@ public class Preferences {
 
             return new BackupList(directory, file);
         }
-        return new BackupList(
-            ConfigKey.RES_DIRECTORY_STRING.getValue(),
-            ConfigKey.BACKUP_FILE_STRING.getValue() + ConfigKey.VERSION.getValue() + ".json"
-        );
+        return getDefaultBackupList();
     }
 
     public static LanguagesEnum getLanguage() {
@@ -117,6 +114,12 @@ public class Preferences {
     }
     public static BackupList getBackupList() {
         return backupList;
+    }
+    public static BackupList getDefaultBackupList() {
+        return new BackupList(
+            ConfigKey.RES_DIRECTORY_STRING.getValue(),
+            ConfigKey.BACKUP_FILE_STRING.getValue() + ConfigKey.VERSION.getValue() + ".json"
+        );
     }
     public static void setLanguage(LanguagesEnum language) {
         Preferences.language = language;

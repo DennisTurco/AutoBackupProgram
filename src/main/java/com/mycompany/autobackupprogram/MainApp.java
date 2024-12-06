@@ -1,7 +1,5 @@
 package com.mycompany.autobackupprogram;
 
-import static com.mycompany.autobackupprogram.GUI.BackupManagerGUI.OpenExceptionMessage;
-
 import java.io.IOException;
 import java.util.Arrays;
 
@@ -11,6 +9,7 @@ import com.mycompany.autobackupprogram.Entities.Preferences;
 import com.mycompany.autobackupprogram.Enums.ConfigKey;
 import com.mycompany.autobackupprogram.Enums.TranslationLoaderEnum;
 import com.mycompany.autobackupprogram.GUI.BackupManagerGUI;
+import static com.mycompany.autobackupprogram.GUI.BackupManagerGUI.OpenExceptionMessage;
 
 public class MainApp {
     private static final String CONFIG = "src/main/resources/res/config/config.json";

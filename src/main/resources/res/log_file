@@ -1,0 +1,211 @@
+2024-12-06T22:16:45.222332300 [INFO] Directory of the backup list file doesn't exists (D:\Documents\NetBeansProjects\AutoBackupProgram\src\main\resources\res\), resetted to default value.
+2024-12-06T22:16:45.209333600 [DEBUG] The application is running with administrator privileges.
+2024-12-06T22:16:44.352773600 [DEBUG] Background mode: false
+2024-12-06T22:16:44.332762700 [INFO] Application started
+2024-12-06T22:15:50.447172900 [INFO] Directory of the backup list file doesn't exists (D:\Documents\NetBeansProjects\AutoBackupProgram\src\main\resources\res\), resetted to default value.
+2024-12-06T22:15:50.437254600 [DEBUG] The application is running with administrator privileges.
+2024-12-06T22:15:49.715682 [DEBUG] Background mode: false
+2024-12-06T22:15:49.691012400 [INFO] Application started
+2024-12-06T22:14:36.111338700 [ERROR] An error occurred: The system cannot find the path specified
+2024-12-06T22:14:36.106338800 [INFO] Directory of the backup list file doesn't exists (D:\Documents\NetBeansProjects\AutoBackupProgram\src\main\resources\res\), resetted to default value.
+2024-12-06T22:14:35.403759700 [DEBUG] Background mode: false
+2024-12-06T22:14:35.383449800 [INFO] Application started
+2024-12-06T22:01:53.858719200 [ERROR] An error occurred: The system cannot find the path specified
+2024-12-06T22:01:53.849569600 [DEBUG] The application is running with administrator privileges.
+2024-12-06T22:01:53.102478800 [DEBUG] Background mode: false
+2024-12-06T22:01:53.086958200 [INFO] Application started
+2024-12-06T22:00:39.943328 [ERROR] An error occurred: The system cannot find the path specified
+2024-12-06T22:00:39.935327500 [DEBUG] The application is running with administrator privileges.
+2024-12-06T22:00:39.101099600 [DEBUG] Background mode: false
+2024-12-06T22:00:39.079224400 [INFO] Application started
+2024-12-06T21:58:02.906808800 [ERROR] An error occurred: The system cannot find the path specified
+2024-12-06T21:58:02.897508400 [DEBUG] The application is running with administrator privileges.
+2024-12-06T21:58:02.015651 [DEBUG] Background mode: false
+2024-12-06T21:58:01.994319900 [INFO] Application started
+2024-12-06T21:56:56.144837400 [ERROR] An error occurred: The system cannot find the path specified
+2024-12-06T21:56:56.118286200 [DEBUG] The application is running with administrator privileges.
+2024-12-06T21:56:55.207114200 [DEBUG] Background mode: false
+2024-12-06T21:56:55.190342700 [INFO] Application started
+2024-12-06T21:56:10.781454500 [ERROR] An error occurred: The system cannot find the path specified
+2024-12-06T21:56:10.769447300 [DEBUG] The application is running with administrator privileges.
+2024-12-06T21:56:09.996384900 [DEBUG] Background mode: false
+2024-12-06T21:56:09.984132700 [INFO] Application started
+2024-12-06T21:53:59.854004900 [ERROR] An error occurred: The system cannot find the path specified
+2024-12-06T21:53:59.833901700 [DEBUG] The application is running with administrator privileges.
+2024-12-06T21:53:59.017302200 [DEBUG] Background mode: false
+2024-12-06T21:53:59.002440500 [INFO] Application started
+2024-12-06T21:51:31.515319600 [ERROR] An error occurred: The system cannot find the path specified
+2024-12-06T21:51:31.503310800 [DEBUG] The application is running with administrator privileges.
+2024-12-06T21:51:30.175803500 [DEBUG] Background mode: false
+2024-12-06T21:51:30.157599200 [INFO] Application started
+2024-12-06T21:50:58.157953900 [DEBUG] The application is running with administrator privileges.
+2024-12-06T21:50:56.826177600 [DEBUG] Background mode: false
+2024-12-06T21:50:56.814276100 [INFO] Application started
+Exception: java.io.IOException - The system cannot find the path specified
+	at java.base/java.io.WinNTFileSystem.createFileExclusively0(Native Method)
+	at java.base/java.io.WinNTFileSystem.createFileExclusively(WinNTFileSystem.java:536)
+	at java.base/java.io.File.createNewFile(File.java:1045)
+	at com.mycompany.autobackupprogram.JSONAutoBackup.ReadBackupListFromJSON(JSONAutoBackup.java:30)
+	at com.mycompany.autobackupprogram.GUI.BackupManagerGUI.setTranslations(BackupManagerGUI.java:2033)
+	at com.mycompany.autobackupprogram.GUI.BackupManagerGUI.<init>(BackupManagerGUI.java:138)
+	at com.mycompany.autobackupprogram.MainApp.lambda$0(MainApp.java:53)
+	at java.desktop/java.awt.event.InvocationEvent.dispatch(InvocationEvent.java:318)
+	at java.desktop/java.awt.EventQueue.dispatchEventImpl(EventQueue.java:773)
+	at java.desktop/java.awt.EventQueue$4.run(EventQueue.java:720)
+	at java.desktop/java.awt.EventQueue$4.run(EventQueue.java:714)
+	at java.base/java.security.AccessController.doPrivileged(AccessController.java:400)
+	at java.base/java.security.ProtectionDomain$JavaSecurityAccessImpl.doIntersectionPrivilege(ProtectionDomain.java:87)
+	at java.desktop/java.awt.EventQueue.dispatchEvent(EventQueue.java:742)
+	at java.desktop/java.awt.EventDispatchThread.pumpOneEventForFilters(EventDispatchThread.java:203)
+	at java.desktop/java.awt.EventDispatchThread.pumpEventsForFilter(EventDispatchThread.java:124)
+	at java.desktop/java.awt.EventDispatchThread.pumpEventsForHierarchy(EventDispatchThread.java:113)
+	at java.desktop/java.awt.EventDispatchThread.pumpEvents(EventDispatchThread.java:109)
+	at java.desktop/java.awt.EventDispatchThread.pumpEvents(EventDispatchThread.java:101)
+	at java.desktop/java.awt.EventDispatchThread.run(EventDispatchThread.java:90)
+Exception: java.io.IOException - The system cannot find the path specified
+	at java.base/java.io.WinNTFileSystem.createFileExclusively0(Native Method)
+	at java.base/java.io.WinNTFileSystem.createFileExclusively(WinNTFileSystem.java:536)
+	at java.base/java.io.File.createNewFile(File.java:1045)
+	at com.mycompany.autobackupprogram.JSONAutoBackup.ReadBackupListFromJSON(JSONAutoBackup.java:30)
+	at com.mycompany.autobackupprogram.GUI.BackupManagerGUI.setTranslations(BackupManagerGUI.java:2035)
+	at com.mycompany.autobackupprogram.GUI.BackupManagerGUI.<init>(BackupManagerGUI.java:140)
+	at com.mycompany.autobackupprogram.MainApp.lambda$0(MainApp.java:53)
+	at java.desktop/java.awt.event.InvocationEvent.dispatch(InvocationEvent.java:318)
+	at java.desktop/java.awt.EventQueue.dispatchEventImpl(EventQueue.java:773)
+	at java.desktop/java.awt.EventQueue$4.run(EventQueue.java:720)
+	at java.desktop/java.awt.EventQueue$4.run(EventQueue.java:714)
+	at java.base/java.security.AccessController.doPrivileged(AccessController.java:400)
+	at java.base/java.security.ProtectionDomain$JavaSecurityAccessImpl.doIntersectionPrivilege(ProtectionDomain.java:87)
+	at java.desktop/java.awt.EventQueue.dispatchEvent(EventQueue.java:742)
+	at java.desktop/java.awt.EventDispatchThread.pumpOneEventForFilters(EventDispatchThread.java:203)
+	at java.desktop/java.awt.EventDispatchThread.pumpEventsForFilter(EventDispatchThread.java:124)
+	at java.desktop/java.awt.EventDispatchThread.pumpEventsForHierarchy(EventDispatchThread.java:113)
+	at java.desktop/java.awt.EventDispatchThread.pumpEvents(EventDispatchThread.java:109)
+	at java.desktop/java.awt.EventDispatchThread.pumpEvents(EventDispatchThread.java:101)
+	at java.desktop/java.awt.EventDispatchThread.run(EventDispatchThread.java:90)
+Exception: java.io.IOException - The system cannot find the path specified
+	at java.base/java.io.WinNTFileSystem.createFileExclusively0(Native Method)
+	at java.base/java.io.WinNTFileSystem.createFileExclusively(WinNTFileSystem.java:536)
+	at java.base/java.io.File.createNewFile(File.java:1045)
+	at com.mycompany.autobackupprogram.JSONAutoBackup.ReadBackupListFromJSON(JSONAutoBackup.java:30)
+	at com.mycompany.autobackupprogram.GUI.BackupManagerGUI.setTranslations(BackupManagerGUI.java:2035)
+	at com.mycompany.autobackupprogram.GUI.BackupManagerGUI.<init>(BackupManagerGUI.java:140)
+	at com.mycompany.autobackupprogram.MainApp.lambda$0(MainApp.java:53)
+	at java.desktop/java.awt.event.InvocationEvent.dispatch(InvocationEvent.java:318)
+	at java.desktop/java.awt.EventQueue.dispatchEventImpl(EventQueue.java:773)
+	at java.desktop/java.awt.EventQueue$4.run(EventQueue.java:720)
+	at java.desktop/java.awt.EventQueue$4.run(EventQueue.java:714)
+	at java.base/java.security.AccessController.doPrivileged(AccessController.java:400)
+	at java.base/java.security.ProtectionDomain$JavaSecurityAccessImpl.doIntersectionPrivilege(ProtectionDomain.java:87)
+	at java.desktop/java.awt.EventQueue.dispatchEvent(EventQueue.java:742)
+	at java.desktop/java.awt.EventDispatchThread.pumpOneEventForFilters(EventDispatchThread.java:203)
+	at java.desktop/java.awt.EventDispatchThread.pumpEventsForFilter(EventDispatchThread.java:124)
+	at java.desktop/java.awt.EventDispatchThread.pumpEventsForHierarchy(EventDispatchThread.java:113)
+	at java.desktop/java.awt.EventDispatchThread.pumpEvents(EventDispatchThread.java:109)
+	at java.desktop/java.awt.EventDispatchThread.pumpEvents(EventDispatchThread.java:101)
+	at java.desktop/java.awt.EventDispatchThread.run(EventDispatchThread.java:90)
+Exception: java.io.IOException - The system cannot find the path specified
+	at java.base/java.io.WinNTFileSystem.createFileExclusively0(Native Method)
+	at java.base/java.io.WinNTFileSystem.createFileExclusively(WinNTFileSystem.java:536)
+	at java.base/java.io.File.createNewFile(File.java:1045)
+	at com.mycompany.autobackupprogram.JSONAutoBackup.ReadBackupListFromJSON(JSONAutoBackup.java:30)
+	at com.mycompany.autobackupprogram.GUI.BackupManagerGUI.setTranslations(BackupManagerGUI.java:2035)
+	at com.mycompany.autobackupprogram.GUI.BackupManagerGUI.<init>(BackupManagerGUI.java:140)
+	at com.mycompany.autobackupprogram.MainApp.lambda$0(MainApp.java:53)
+	at java.desktop/java.awt.event.InvocationEvent.dispatch(InvocationEvent.java:318)
+	at java.desktop/java.awt.EventQueue.dispatchEventImpl(EventQueue.java:773)
+	at java.desktop/java.awt.EventQueue$4.run(EventQueue.java:720)
+	at java.desktop/java.awt.EventQueue$4.run(EventQueue.java:714)
+	at java.base/java.security.AccessController.doPrivileged(AccessController.java:400)
+	at java.base/java.security.ProtectionDomain$JavaSecurityAccessImpl.doIntersectionPrivilege(ProtectionDomain.java:87)
+	at java.desktop/java.awt.EventQueue.dispatchEvent(EventQueue.java:742)
+	at java.desktop/java.awt.EventDispatchThread.pumpOneEventForFilters(EventDispatchThread.java:203)
+	at java.desktop/java.awt.EventDispatchThread.pumpEventsForFilter(EventDispatchThread.java:124)
+	at java.desktop/java.awt.EventDispatchThread.pumpEventsForHierarchy(EventDispatchThread.java:113)
+	at java.desktop/java.awt.EventDispatchThread.pumpEvents(EventDispatchThread.java:109)
+	at java.desktop/java.awt.EventDispatchThread.pumpEvents(EventDispatchThread.java:101)
+	at java.desktop/java.awt.EventDispatchThread.run(EventDispatchThread.java:90)
+Exception: java.io.IOException - The system cannot find the path specified
+	at java.base/java.io.WinNTFileSystem.createFileExclusively0(Native Method)
+	at java.base/java.io.WinNTFileSystem.createFileExclusively(WinNTFileSystem.java:536)
+	at java.base/java.io.File.createNewFile(File.java:1045)
+	at com.mycompany.autobackupprogram.JSONAutoBackup.ReadBackupListFromJSON(JSONAutoBackup.java:30)
+	at com.mycompany.autobackupprogram.GUI.BackupManagerGUI.setTranslations(BackupManagerGUI.java:2030)
+	at com.mycompany.autobackupprogram.GUI.BackupManagerGUI.<init>(BackupManagerGUI.java:136)
+	at com.mycompany.autobackupprogram.MainApp.lambda$0(MainApp.java:53)
+	at java.desktop/java.awt.event.InvocationEvent.dispatch(InvocationEvent.java:318)
+	at java.desktop/java.awt.EventQueue.dispatchEventImpl(EventQueue.java:773)
+	at java.desktop/java.awt.EventQueue$4.run(EventQueue.java:720)
+	at java.desktop/java.awt.EventQueue$4.run(EventQueue.java:714)
+	at java.base/java.security.AccessController.doPrivileged(AccessController.java:400)
+	at java.base/java.security.ProtectionDomain$JavaSecurityAccessImpl.doIntersectionPrivilege(ProtectionDomain.java:87)
+	at java.desktop/java.awt.EventQueue.dispatchEvent(EventQueue.java:742)
+	at java.desktop/java.awt.EventDispatchThread.pumpOneEventForFilters(EventDispatchThread.java:203)
+	at java.desktop/java.awt.EventDispatchThread.pumpEventsForFilter(EventDispatchThread.java:124)
+	at java.desktop/java.awt.EventDispatchThread.pumpEventsForHierarchy(EventDispatchThread.java:113)
+	at java.desktop/java.awt.EventDispatchThread.pumpEvents(EventDispatchThread.java:109)
+	at java.desktop/java.awt.EventDispatchThread.pumpEvents(EventDispatchThread.java:101)
+	at java.desktop/java.awt.EventDispatchThread.run(EventDispatchThread.java:90)
+Exception: java.io.IOException - The system cannot find the path specified
+	at java.base/java.io.WinNTFileSystem.createFileExclusively0(Native Method)
+	at java.base/java.io.WinNTFileSystem.createFileExclusively(WinNTFileSystem.java:536)
+	at java.base/java.io.File.createNewFile(File.java:1045)
+	at com.mycompany.autobackupprogram.JSONAutoBackup.ReadBackupListFromJSON(JSONAutoBackup.java:30)
+	at com.mycompany.autobackupprogram.GUI.BackupManagerGUI.setTranslations(BackupManagerGUI.java:2030)
+	at com.mycompany.autobackupprogram.GUI.BackupManagerGUI.<init>(BackupManagerGUI.java:136)
+	at com.mycompany.autobackupprogram.MainApp.lambda$0(MainApp.java:53)
+	at java.desktop/java.awt.event.InvocationEvent.dispatch(InvocationEvent.java:318)
+	at java.desktop/java.awt.EventQueue.dispatchEventImpl(EventQueue.java:773)
+	at java.desktop/java.awt.EventQueue$4.run(EventQueue.java:720)
+	at java.desktop/java.awt.EventQueue$4.run(EventQueue.java:714)
+	at java.base/java.security.AccessController.doPrivileged(AccessController.java:400)
+	at java.base/java.security.ProtectionDomain$JavaSecurityAccessImpl.doIntersectionPrivilege(ProtectionDomain.java:87)
+	at java.desktop/java.awt.EventQueue.dispatchEvent(EventQueue.java:742)
+	at java.desktop/java.awt.EventDispatchThread.pumpOneEventForFilters(EventDispatchThread.java:203)
+	at java.desktop/java.awt.EventDispatchThread.pumpEventsForFilter(EventDispatchThread.java:124)
+	at java.desktop/java.awt.EventDispatchThread.pumpEventsForHierarchy(EventDispatchThread.java:113)
+	at java.desktop/java.awt.EventDispatchThread.pumpEvents(EventDispatchThread.java:109)
+	at java.desktop/java.awt.EventDispatchThread.pumpEvents(EventDispatchThread.java:101)
+	at java.desktop/java.awt.EventDispatchThread.run(EventDispatchThread.java:90)
+Exception: java.io.IOException - The system cannot find the path specified
+	at java.base/java.io.WinNTFileSystem.createFileExclusively0(Native Method)
+	at java.base/java.io.WinNTFileSystem.createFileExclusively(WinNTFileSystem.java:536)
+	at java.base/java.io.File.createNewFile(File.java:1045)
+	at com.mycompany.autobackupprogram.JSONAutoBackup.ReadBackupListFromJSON(JSONAutoBackup.java:30)
+	at com.mycompany.autobackupprogram.GUI.BackupManagerGUI.setTranslations(BackupManagerGUI.java:2030)
+	at com.mycompany.autobackupprogram.GUI.BackupManagerGUI.<init>(BackupManagerGUI.java:136)
+	at com.mycompany.autobackupprogram.MainApp.lambda$0(MainApp.java:53)
+	at java.desktop/java.awt.event.InvocationEvent.dispatch(InvocationEvent.java:318)
+	at java.desktop/java.awt.EventQueue.dispatchEventImpl(EventQueue.java:773)
+	at java.desktop/java.awt.EventQueue$4.run(EventQueue.java:720)
+	at java.desktop/java.awt.EventQueue$4.run(EventQueue.java:714)
+	at java.base/java.security.AccessController.doPrivileged(AccessController.java:400)
+	at java.base/java.security.ProtectionDomain$JavaSecurityAccessImpl.doIntersectionPrivilege(ProtectionDomain.java:87)
+	at java.desktop/java.awt.EventQueue.dispatchEvent(EventQueue.java:742)
+	at java.desktop/java.awt.EventDispatchThread.pumpOneEventForFilters(EventDispatchThread.java:203)
+	at java.desktop/java.awt.EventDispatchThread.pumpEventsForFilter(EventDispatchThread.java:124)
+	at java.desktop/java.awt.EventDispatchThread.pumpEventsForHierarchy(EventDispatchThread.java:113)
+	at java.desktop/java.awt.EventDispatchThread.pumpEvents(EventDispatchThread.java:109)
+	at java.desktop/java.awt.EventDispatchThread.pumpEvents(EventDispatchThread.java:101)
+	at java.desktop/java.awt.EventDispatchThread.run(EventDispatchThread.java:90)
+Exception: java.io.IOException - The system cannot find the path specified
+	at java.base/java.io.WinNTFileSystem.createFileExclusively0(Native Method)
+	at java.base/java.io.WinNTFileSystem.createFileExclusively(WinNTFileSystem.java:536)
+	at java.base/java.io.File.createNewFile(File.java:1045)
+	at com.mycompany.autobackupprogram.JSONAutoBackup.ReadBackupListFromJSON(JSONAutoBackup.java:41)
+	at com.mycompany.autobackupprogram.GUI.BackupManagerGUI.setTranslations(BackupManagerGUI.java:2030)
+	at com.mycompany.autobackupprogram.GUI.BackupManagerGUI.<init>(BackupManagerGUI.java:136)
+	at com.mycompany.autobackupprogram.MainApp.lambda$0(MainApp.java:53)
+	at java.desktop/java.awt.event.InvocationEvent.dispatch(InvocationEvent.java:318)
+	at java.desktop/java.awt.EventQueue.dispatchEventImpl(EventQueue.java:773)
+	at java.desktop/java.awt.EventQueue$4.run(EventQueue.java:720)
+	at java.desktop/java.awt.EventQueue$4.run(EventQueue.java:714)
+	at java.base/java.security.AccessController.doPrivileged(AccessController.java:400)
+	at java.base/java.security.ProtectionDomain$JavaSecurityAccessImpl.doIntersectionPrivilege(ProtectionDomain.java:87)
+	at java.desktop/java.awt.EventQueue.dispatchEvent(EventQueue.java:742)
+	at java.desktop/java.awt.EventDispatchThread.pumpOneEventForFilters(EventDispatchThread.java:203)
+	at java.desktop/java.awt.EventDispatchThread.pumpEventsForFilter(EventDispatchThread.java:124)
+	at java.desktop/java.awt.EventDispatchThread.pumpEventsForHierarchy(EventDispatchThread.java:113)
+	at java.desktop/java.awt.EventDispatchThread.pumpEvents(EventDispatchThread.java:109)
+	at java.desktop/java.awt.EventDispatchThread.pumpEvents(EventDispatchThread.java:101)
+	at java.desktop/java.awt.EventDispatchThread.run(EventDispatchThread.java:90)

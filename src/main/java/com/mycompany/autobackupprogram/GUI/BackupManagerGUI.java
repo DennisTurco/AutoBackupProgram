@@ -126,6 +126,9 @@ public class BackupManagerGUI extends javax.swing.JFrame {
         MenuImport.setVisible(config.isMenuItemEnabled(MenuItems.Import.name()));
         MenuExport.setVisible(config.isMenuItemEnabled(MenuItems.Export.name()));
         
+        // set app size
+        setScreenSize();
+
         // icons
         researchField.putClientProperty(FlatClientProperties.TEXT_FIELD_LEADING_ICON, new javax.swing.ImageIcon(getClass().getResource("/res/img/search.png")));
 
@@ -137,6 +140,14 @@ public class BackupManagerGUI extends javax.swing.JFrame {
         setVisible(true);
         toFront();
         requestFocus();
+    }
+
+    private void setScreenSize() {
+        Dimension size = Toolkit.getDefaultToolkit().getScreenSize();
+        int width = Math.min((int) size.getWidth(), Integer.parseInt(ConfigKey.GUI_WIDTH.getValue()));
+        int height = Math.min((int) size.getHeight(), Integer.parseInt(ConfigKey.GUI_HEIGHT.getValue()));
+
+        this.setSize(width,height);
     }
     
     private TimeInterval openTimePicker(TimeInterval time) {

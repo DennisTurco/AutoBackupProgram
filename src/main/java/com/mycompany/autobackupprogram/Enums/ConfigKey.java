@@ -4,6 +4,7 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.util.EnumMap;
 import java.util.Map;
+
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
@@ -23,7 +24,9 @@ public enum ConfigKey {
     SHARD_WEBSITE,
     LOGO_IMG,
     SHARE_LINK,
-    VERSION;
+    VERSION,
+    GUI_WIDTH,
+    GUI_HEIGHT;
 
     private static final Map<ConfigKey, String> configValues = new EnumMap<>(ConfigKey.class);
 

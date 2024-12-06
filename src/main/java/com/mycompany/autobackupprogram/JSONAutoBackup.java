@@ -1,19 +1,23 @@
 package com.mycompany.autobackupprogram;
 
-import static com.mycompany.autobackupprogram.GUI.BackupManagerGUI.OpenExceptionMessage;
-
-import java.io.*;
+import java.io.File;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 
 import com.mycompany.autobackupprogram.Entities.Backup;
+import com.mycompany.autobackupprogram.Entities.Preferences;
 import com.mycompany.autobackupprogram.Entities.TimeInterval;
+import static com.mycompany.autobackupprogram.GUI.BackupManagerGUI.OpenExceptionMessage;
 import com.mycompany.autobackupprogram.Interfaces.IJSONAutoBackup;
 import com.mycompany.autobackupprogram.Logger.LogLevel;
 
@@ -21,16 +25,24 @@ public class JSONAutoBackup implements IJSONAutoBackup {
     @Override
     public List<Backup> ReadBackupListFromJSON(String directoryPath, String filename) throws IOException {
         List<Backup> backupList = new ArrayList<>();
-        String filePath = directoryPath + filename;
+        
+        // check if the directory is correct, otherwise we have to reset to default
+        File directory = new File(directoryPath);
+        if (!directory.exists() || !directory.isDirectory()) {
+            Logger.logMessage("Directory of the backup list file doesn't exists (" + directoryPath + "), resetted to default value.", LogLevel.INFO);
+            Preferences.setBackupList(Preferences.getDefaultBackupList());
+            Preferences.updatePreferencesToJSON();
+            directoryPath = Preferences.getBackupList().getDirectory();
+        }
 
-        // Check if the file exists and is not empty
+        String filePath = directoryPath + filename;
         File file = new File(filePath);
 
+        // Check if the file exists and is not empty
         if (!file.exists()) {
             file.createNewFile();
             Logger.logMessage("New backup list created with name: " + filePath, LogLevel.INFO);
         }
-
         if (file.length() == 0) {
             try (FileWriter writer = new FileWriter(file)) {
                 writer.write("[]");

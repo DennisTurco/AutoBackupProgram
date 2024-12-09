@@ -53,7 +53,9 @@
     "NotesTooltip": "(Opzionale) Descrizione del backup",
     "SingleBackupTooltip": "Esegui il backup",
     "AutoBackupTooltip": "Attiva/Disattiva backup automatico",
-    "TimePickerTooltip": "Selettore orario"
+    "TimePickerTooltip": "Selettore orario",
+    "MaxBackupsToKeep": "Massimo di backup da mantenere",
+    "MaxBackupsToKeepTooltip": "Numero massimo di backup da conservare prima di eliminare i più vecchi."
   },
   "BackupList": {
     "BackupNameColumn": "Nome del Backup",
@@ -72,6 +74,7 @@
     "CreationDateDetail": "DataCreazione",
     "LastUpdateDateDetail": "DataUltimoAggiornamento",
     "BackupCountDetail": "ConteggioBackup",
+    "MaxBackupsToKeepDetail": "MassimoBackupDaMantenere",
     "NotesDetail": "Note",
     "AddBackupTooltip": "Aggiungi nuovo backup",
     "ResearchBarTooltip": "Barra di ricerca",

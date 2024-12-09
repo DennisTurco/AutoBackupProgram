@@ -40,7 +40,6 @@
     "type": "int",
     "description": "Interval in minutes to check for auto backup"
   },
-
   "LogService": {
     "ERROR": true,
     "INFO": true,
@@ -55,6 +54,11 @@
       "value": 1000,
       "type": "int",
       "description": "Lines to keep after file clear"
+    },
+    "MaxCountForSameBackup": {
+      "value": 3,
+      "type": "int",
+      "description": "Max count for the same backup in the same directory"
     }
   }
 }

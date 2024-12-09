@@ -7,6 +7,7 @@ import static com.mycompany.autobackupprogram.GUI.BackupManagerGUI.formatter;
 import java.awt.TrayIcon;
 import java.io.File;
 import java.io.FileOutputStream;
+import java.io.FilenameFilter;
 import java.io.IOException;
 import java.io.InputStream;
 import java.nio.file.FileVisitResult;
@@ -15,10 +16,14 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.SimpleFileVisitor;
 import java.nio.file.attribute.BasicFileAttributes;
+import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.Arrays;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicInteger;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipOutputStream;
 
@@ -28,7 +33,6 @@ import javax.swing.JToggleButton;
 import javax.swing.SwingUtilities;
 
 import com.mycompany.autobackupprogram.Entities.Backup;
-import com.mycompany.autobackupprogram.Enums.ConfigKey;
 import com.mycompany.autobackupprogram.Enums.TranslationLoaderEnum.TranslationCategory;
 import com.mycompany.autobackupprogram.Enums.TranslationLoaderEnum.TranslationKey;
 import com.mycompany.autobackupprogram.Entities.Preferences;
@@ -288,7 +292,6 @@ public class BackupOperations {
     }
     
     public static void UpdateProgressPercentage(int value, String path1, String path2, Backup backup, TrayIcon trayIcon, BackupProgressGUI progressBar, JButton singleBackupBtn, JToggleButton autoBackupBtn) {
-        
         if (value == 0 || value == 25 || value == 50 || value == 75 || value == 100)
             Logger.logMessage("Progress: " + value, Logger.LogLevel.INFO);
         
@@ -297,7 +300,77 @@ public class BackupOperations {
         
         if (value == 100) {
             updateAfterBackup(path1, path2, backup, trayIcon, singleBackupBtn, autoBackupBtn);
+
+            // delete 
+            deleteOldBackupsIfNecessary(backup.getMaxBackupsToKeep(), path2);
         }
+    }
+
+    private static void deleteOldBackupsIfNecessary(int maxBackupsToKeep, String destinationPath) {
+        Logger.logMessage("Deleting old backups if necessary", LogLevel.INFO);
+
+        File folder = new File(destinationPath).getParentFile();
+        String fileBackuppedToSearch = new File(destinationPath).getName();
+        
+        // extract the file name (before the parentesis)
+        String baseName = fileBackuppedToSearch.substring(0, fileBackuppedToSearch.indexOf(" (Backup"));
+        
+        if (folder != null && folder.isDirectory()) {
+            // get current count
+            FilenameFilter filter = (dir, name) -> name.matches(baseName + " \\(Backup \\d{2}-\\d{2}-\\d{4} \\d{2}\\.\\d{2}\\.\\d{2}\\)\\.zip");
+            File[] matchingFiles = folder.listFiles(filter); // getting files for that filter  
+
+            if (matchingFiles == null) {
+                Logger.logMessage("Error during deleting old backups: none matching files", LogLevel.WARN);
+                return;
+            }
+
+            // check if the max is passed, and if it is, remove the oldest
+            if (matchingFiles.length > maxBackupsToKeep) {
+                Logger.logMessage("Found " + matchingFiles.length + " matching files, exceeding max allowed: " + maxBackupsToKeep, LogLevel.INFO);
+
+                Arrays.sort(matchingFiles, (f1, f2) -> {
+                    String datePattern = "\\(Backup (\\d{2}-\\d{2}-\\d{4} \\d{2}\\.\\d{2}\\.\\d{2})\\)\\.zip"; // regex aggiornata
+                
+                    try {
+                        // extracting dates from file names
+                        String date1 = extractDateFromFileName(f1.getName(), datePattern);
+                        String date2 = extractDateFromFileName(f2.getName(), datePattern);
+                
+                        LocalDateTime dateTime1 = LocalDateTime.parse(date1, BackupManagerGUI.dateForfolderNameFormatter);
+                        LocalDateTime dateTime2 = LocalDateTime.parse(date2, BackupManagerGUI.dateForfolderNameFormatter);
+
+                        return dateTime1.compareTo(dateTime2);
+                    } catch (Exception e) {
+                        Logger.logMessage("Error parsing dates: " + e.getMessage(), LogLevel.ERROR);
+                        return 0;
+                    }
+                });
+
+                // delete older files
+                for (int i = 0; i < matchingFiles.length - maxBackupsToKeep; i++) {
+                    File fileToDelete = matchingFiles[i];
+                    if (fileToDelete.delete()) {
+                        Logger.logMessage("Deleted old backup: " + fileToDelete.getName(), LogLevel.INFO);
+                    } else {
+                        Logger.logMessage("Failed to delete old backup: " + fileToDelete.getName(), LogLevel.WARN);
+                    }
+                }
+            }
+        } else {
+            Logger.logMessage("Destination path is not a directory: " + destinationPath, LogLevel.ERROR);
+        }
+    }
+
+    private static String extractDateFromFileName(String fileName, String pattern) throws Exception {
+        Pattern regex = Pattern.compile(pattern);
+        Matcher matcher = regex.matcher(fileName);
+
+        if (matcher.find()) {
+            return matcher.group(1);
+        }
+        
+        throw new Exception("No date found in file name: " + fileName);
     }
     
     public static void updateTableWithNewBackupList(List<Backup> updatedBackups) { 

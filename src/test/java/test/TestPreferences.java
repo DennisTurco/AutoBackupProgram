@@ -1,7 +1,5 @@
 package test;
 
-import org.junit.jupiter.api.BeforeEach;
-
 import com.mycompany.autobackupprogram.Entities.Preferences;
 import com.mycompany.autobackupprogram.Enums.ConfigKey;
 import com.mycompany.autobackupprogram.Enums.LanguagesEnum;

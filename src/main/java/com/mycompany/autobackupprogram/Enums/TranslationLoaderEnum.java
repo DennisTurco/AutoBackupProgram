@@ -103,6 +103,8 @@ public class TranslationLoaderEnum {
         SINGLE_BACKUP_TOOLTIP("SingleBackupTooltip", "Perform the backup"),
         AUTO_BACKUP_TOOLTIP("AutoBackupTooltip", "Enable/Disable automatic backup"),
         TIME_PICKER_TOOLTIP("TimePickerTooltip", "Time picker"),
+        MAX_BACKUPS_TO_KEEP("MaxBackupsToKeep", "Max backups to keep"),
+        MAX_BACKUPS_TO_KEEP_TOOLTIP("MaxBackupsToKeepTooltip", "Maximum number of backups before removing the oldest."),
 
         // BackupList
         BACKUP_NAME_COLUMN("BackupNameColumn", "Backup Name"),
@@ -122,6 +124,7 @@ public class TranslationLoaderEnum {
         LAST_UPDATE_DATE_DETAIL("LastUpdateDateDetail", "LastUpdateDate"),
         BACKUP_COUNT_DETAIL("BackupCountDetail", "BackupCount"),
         NOTES_DETAIL("NotesDetail", "Notes"),
+        MAX_BACKUPS_TO_KEEP_DETAIL("MaxBackupsToKeepDetail", "MaxBackupsToKeep"),
         ADD_BACKUP_TOOLTIP("AddBackupTooltip", "Add new backup"),
         RESEARCH_BAR_TOOLTIP("ResearchBarTooltip", "Research bar"),
         RESEARCH_BAR_PLACEHOLDER("ResearchBarPlaceholder", "Search..."),

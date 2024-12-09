@@ -69,6 +69,7 @@ public class JSONAutoBackup implements IJSONAutoBackup {
                 String creationDateStr = (String) backupObj.get("creation_date");
                 String lastUpdateDateStr = (String) backupObj.get("last_update_date");
                 int backupCountValue = Math.toIntExact((Long) backupObj.get("backup_count"));
+                int maxBackupsToKeepValue = Math.toIntExact((Long) backupObj.get("max_backups_to_keep"));
 
                 Object value = backupObj.get("automatic_backup");
                 Boolean automaticBackupValue = null;
@@ -98,14 +99,14 @@ public class JSONAutoBackup implements IJSONAutoBackup {
                     notesValue,    
                     creationDateValue,
                     lastUpdateDateValue,
-                    backupCountValue
+                    backupCountValue,
+                    maxBackupsToKeepValue
                 ));
             }
 
-        } catch (IOException | ParseException ex) {
+        } catch (IOException | ParseException | NullPointerException ex) {
             Logger.logMessage("An error occurred: " + ex.getMessage(), Logger.LogLevel.ERROR, ex);
             OpenExceptionMessage(ex.getMessage(), Arrays.toString(ex.getStackTrace()));
-            ex.printStackTrace();
         }
         return backupList;
     }
@@ -128,6 +129,7 @@ public class JSONAutoBackup implements IJSONAutoBackup {
             backupObject.put("creation_date", backup.getCreationDate() != null ? backup.getCreationDate().toString() : null);
             backupObject.put("last_update_date", backup.getLastUpdateDate() != null ? backup.getLastUpdateDate().toString() : null);
             backupObject.put("backup_count", backup.getBackupCount());
+            backupObject.put("max_backups_to_keep", backup.getMaxBackupsToKeep());
 
             updatedBackupArray.add(backupObject);
         }
@@ -164,6 +166,7 @@ public class JSONAutoBackup implements IJSONAutoBackup {
                     backupObject.put("creation_date", updatedBackup.getCreationDate() != null ? updatedBackup.getCreationDate().toString() : null);
                     backupObject.put("last_update_date", updatedBackup.getLastUpdateDate() != null ? updatedBackup.getLastUpdateDate().toString() : null);
                     backupObject.put("backup_count", updatedBackup.getBackupCount());
+                    backupObject.put("max_backups_to_keep", updatedBackup.getMaxBackupsToKeep());
                     break;
                 }
             }

@@ -1,244 +1,121 @@
-2024-12-06T22:43:27.001076 [INFO] Reloading preferences
-2024-12-06T22:43:26.965576500 [INFO] Theme set to: Dark
-2024-12-06T22:43:26.957886300 [INFO] Language set to: Italiano
-2024-12-06T22:43:26.948628 [INFO] Updating preferences -> Language: Italiano; Theme: Dark
-2024-12-06T22:43:22.008912900 [INFO] Reloading preferences
-2024-12-06T22:43:21.954694 [INFO] Theme set to: Dark
-2024-12-06T22:43:21.948901900 [INFO] Language set to: Français
-2024-12-06T22:43:21.943795900 [INFO] Updating preferences -> Language: Français; Theme: Dark
-2024-12-06T22:43:16.946481200 [INFO] Event --> opening preferences dialog
-2024-12-06T22:43:14.571637500 [DEBUG] The application is running with administrator privileges.
-2024-12-06T22:43:13.775066600 [DEBUG] Background mode: false
-2024-12-06T22:43:13.759500 [INFO] Application started
-2024-12-06T22:43:09.352801100 [INFO] Reloading preferences
-2024-12-06T22:43:09.272084800 [INFO] Theme set to: Dark
-2024-12-06T22:43:09.263013100 [INFO] Language set to: Italiano
-2024-12-06T22:43:09.255996400 [INFO] Updating preferences -> Language: Italiano; Theme: Dark
-2024-12-06T22:43:02.703090700 [INFO] Event --> opening preferences dialog
-2024-12-06T22:42:59.663456800 [DEBUG] The application is running with administrator privileges.
-2024-12-06T22:42:58.198267700 [DEBUG] Background mode: false
-2024-12-06T22:42:58.176801900 [INFO] Application started
-2024-12-06T22:40:50.461672300 [INFO] Reloading preferences
-2024-12-06T22:40:48.286376900 [INFO] Reloading preferences
-2024-12-06T22:40:48.222683500 [INFO] Theme set to: Cyan light
-2024-12-06T22:40:48.210685 [INFO] Language set to: Italiano
-2024-12-06T22:40:48.203689100 [INFO] Updating preferences -> Language: Italiano; Theme: Cyan light
-2024-12-06T22:40:40.340470200 [INFO] Reloading preferences
-2024-12-06T22:40:40.261261700 [INFO] Theme set to: Carbon
-2024-12-06T22:40:40.254249700 [INFO] Language set to: Italiano
-2024-12-06T22:40:40.248136100 [INFO] Updating preferences -> Language: Italiano; Theme: Carbon
-2024-12-06T22:40:35.338425900 [INFO] Event --> opening preferences dialog
-2024-12-06T22:40:31.238135400 [DEBUG] The application is running with administrator privileges.
-2024-12-06T22:40:30.537871100 [DEBUG] Background mode: false
-2024-12-06T22:40:30.524485800 [INFO] Application started
-2024-12-06T22:16:45.222332300 [INFO] Directory of the backup list file doesn't exists (D:\Documents\NetBeansProjects\AutoBackupProgram\src\main\resources\res\), resetted to default value.
-2024-12-06T22:16:45.209333600 [DEBUG] The application is running with administrator privileges.
-2024-12-06T22:16:44.352773600 [DEBUG] Background mode: false
-2024-12-06T22:16:44.332762700 [INFO] Application started
-2024-12-06T22:15:50.447172900 [INFO] Directory of the backup list file doesn't exists (D:\Documents\NetBeansProjects\AutoBackupProgram\src\main\resources\res\), resetted to default value.
-2024-12-06T22:15:50.437254600 [DEBUG] The application is running with administrator privileges.
-2024-12-06T22:15:49.715682 [DEBUG] Background mode: false
-2024-12-06T22:15:49.691012400 [INFO] Application started
-2024-12-06T22:14:36.111338700 [ERROR] An error occurred: The system cannot find the path specified
-2024-12-06T22:14:36.106338800 [INFO] Directory of the backup list file doesn't exists (D:\Documents\NetBeansProjects\AutoBackupProgram\src\main\resources\res\), resetted to default value.
-2024-12-06T22:14:35.403759700 [DEBUG] Background mode: false
-2024-12-06T22:14:35.383449800 [INFO] Application started
-2024-12-06T22:01:53.858719200 [ERROR] An error occurred: The system cannot find the path specified
-2024-12-06T22:01:53.849569600 [DEBUG] The application is running with administrator privileges.
-2024-12-06T22:01:53.102478800 [DEBUG] Background mode: false
-2024-12-06T22:01:53.086958200 [INFO] Application started
-2024-12-06T22:00:39.943328 [ERROR] An error occurred: The system cannot find the path specified
-2024-12-06T22:00:39.935327500 [DEBUG] The application is running with administrator privileges.
-2024-12-06T22:00:39.101099600 [DEBUG] Background mode: false
-2024-12-06T22:00:39.079224400 [INFO] Application started
-2024-12-06T21:58:02.906808800 [ERROR] An error occurred: The system cannot find the path specified
-2024-12-06T21:58:02.897508400 [DEBUG] The application is running with administrator privileges.
-2024-12-06T21:58:02.015651 [DEBUG] Background mode: false
-2024-12-06T21:58:01.994319900 [INFO] Application started
-2024-12-06T21:56:56.144837400 [ERROR] An error occurred: The system cannot find the path specified
-2024-12-06T21:56:56.118286200 [DEBUG] The application is running with administrator privileges.
-2024-12-06T21:56:55.207114200 [DEBUG] Background mode: false
-2024-12-06T21:56:55.190342700 [INFO] Application started
-2024-12-06T21:56:10.781454500 [ERROR] An error occurred: The system cannot find the path specified
-2024-12-06T21:56:10.769447300 [DEBUG] The application is running with administrator privileges.
-2024-12-06T21:56:09.996384900 [DEBUG] Background mode: false
-2024-12-06T21:56:09.984132700 [INFO] Application started
-2024-12-06T21:53:59.854004900 [ERROR] An error occurred: The system cannot find the path specified
-2024-12-06T21:53:59.833901700 [DEBUG] The application is running with administrator privileges.
-2024-12-06T21:53:59.017302200 [DEBUG] Background mode: false
-2024-12-06T21:53:59.002440500 [INFO] Application started
-2024-12-06T21:51:31.515319600 [ERROR] An error occurred: The system cannot find the path specified
-2024-12-06T21:51:31.503310800 [DEBUG] The application is running with administrator privileges.
-2024-12-06T21:51:30.175803500 [DEBUG] Background mode: false
-2024-12-06T21:51:30.157599200 [INFO] Application started
-2024-12-06T21:50:58.157953900 [DEBUG] The application is running with administrator privileges.
-2024-12-06T21:50:56.826177600 [DEBUG] Background mode: false
-2024-12-06T21:50:56.814276100 [INFO] Application started
-Exception: java.io.IOException - The system cannot find the path specified
-	at java.base/java.io.WinNTFileSystem.createFileExclusively0(Native Method)
-	at java.base/java.io.WinNTFileSystem.createFileExclusively(WinNTFileSystem.java:536)
-	at java.base/java.io.File.createNewFile(File.java:1045)
-	at com.mycompany.autobackupprogram.JSONAutoBackup.ReadBackupListFromJSON(JSONAutoBackup.java:30)
-	at com.mycompany.autobackupprogram.GUI.BackupManagerGUI.setTranslations(BackupManagerGUI.java:2033)
-	at com.mycompany.autobackupprogram.GUI.BackupManagerGUI.<init>(BackupManagerGUI.java:138)
-	at com.mycompany.autobackupprogram.MainApp.lambda$0(MainApp.java:53)
-	at java.desktop/java.awt.event.InvocationEvent.dispatch(InvocationEvent.java:318)
-	at java.desktop/java.awt.EventQueue.dispatchEventImpl(EventQueue.java:773)
-	at java.desktop/java.awt.EventQueue$4.run(EventQueue.java:720)
-	at java.desktop/java.awt.EventQueue$4.run(EventQueue.java:714)
-	at java.base/java.security.AccessController.doPrivileged(AccessController.java:400)
-	at java.base/java.security.ProtectionDomain$JavaSecurityAccessImpl.doIntersectionPrivilege(ProtectionDomain.java:87)
-	at java.desktop/java.awt.EventQueue.dispatchEvent(EventQueue.java:742)
-	at java.desktop/java.awt.EventDispatchThread.pumpOneEventForFilters(EventDispatchThread.java:203)
-	at java.desktop/java.awt.EventDispatchThread.pumpEventsForFilter(EventDispatchThread.java:124)
-	at java.desktop/java.awt.EventDispatchThread.pumpEventsForHierarchy(EventDispatchThread.java:113)
-	at java.desktop/java.awt.EventDispatchThread.pumpEvents(EventDispatchThread.java:109)
-	at java.desktop/java.awt.EventDispatchThread.pumpEvents(EventDispatchThread.java:101)
-	at java.desktop/java.awt.EventDispatchThread.run(EventDispatchThread.java:90)
-Exception: java.io.IOException - The system cannot find the path specified
-	at java.base/java.io.WinNTFileSystem.createFileExclusively0(Native Method)
-	at java.base/java.io.WinNTFileSystem.createFileExclusively(WinNTFileSystem.java:536)
-	at java.base/java.io.File.createNewFile(File.java:1045)
-	at com.mycompany.autobackupprogram.JSONAutoBackup.ReadBackupListFromJSON(JSONAutoBackup.java:30)
-	at com.mycompany.autobackupprogram.GUI.BackupManagerGUI.setTranslations(BackupManagerGUI.java:2035)
-	at com.mycompany.autobackupprogram.GUI.BackupManagerGUI.<init>(BackupManagerGUI.java:140)
-	at com.mycompany.autobackupprogram.MainApp.lambda$0(MainApp.java:53)
-	at java.desktop/java.awt.event.InvocationEvent.dispatch(InvocationEvent.java:318)
-	at java.desktop/java.awt.EventQueue.dispatchEventImpl(EventQueue.java:773)
-	at java.desktop/java.awt.EventQueue$4.run(EventQueue.java:720)
-	at java.desktop/java.awt.EventQueue$4.run(EventQueue.java:714)
-	at java.base/java.security.AccessController.doPrivileged(AccessController.java:400)
-	at java.base/java.security.ProtectionDomain$JavaSecurityAccessImpl.doIntersectionPrivilege(ProtectionDomain.java:87)
-	at java.desktop/java.awt.EventQueue.dispatchEvent(EventQueue.java:742)
-	at java.desktop/java.awt.EventDispatchThread.pumpOneEventForFilters(EventDispatchThread.java:203)
-	at java.desktop/java.awt.EventDispatchThread.pumpEventsForFilter(EventDispatchThread.java:124)
-	at java.desktop/java.awt.EventDispatchThread.pumpEventsForHierarchy(EventDispatchThread.java:113)
-	at java.desktop/java.awt.EventDispatchThread.pumpEvents(EventDispatchThread.java:109)
-	at java.desktop/java.awt.EventDispatchThread.pumpEvents(EventDispatchThread.java:101)
-	at java.desktop/java.awt.EventDispatchThread.run(EventDispatchThread.java:90)
-Exception: java.io.IOException - The system cannot find the path specified
-	at java.base/java.io.WinNTFileSystem.createFileExclusively0(Native Method)
-	at java.base/java.io.WinNTFileSystem.createFileExclusively(WinNTFileSystem.java:536)
-	at java.base/java.io.File.createNewFile(File.java:1045)
-	at com.mycompany.autobackupprogram.JSONAutoBackup.ReadBackupListFromJSON(JSONAutoBackup.java:30)
-	at com.mycompany.autobackupprogram.GUI.BackupManagerGUI.setTranslations(BackupManagerGUI.java:2035)
-	at com.mycompany.autobackupprogram.GUI.BackupManagerGUI.<init>(BackupManagerGUI.java:140)
-	at com.mycompany.autobackupprogram.MainApp.lambda$0(MainApp.java:53)
-	at java.desktop/java.awt.event.InvocationEvent.dispatch(InvocationEvent.java:318)
-	at java.desktop/java.awt.EventQueue.dispatchEventImpl(EventQueue.java:773)
-	at java.desktop/java.awt.EventQueue$4.run(EventQueue.java:720)
-	at java.desktop/java.awt.EventQueue$4.run(EventQueue.java:714)
-	at java.base/java.security.AccessController.doPrivileged(AccessController.java:400)
-	at java.base/java.security.ProtectionDomain$JavaSecurityAccessImpl.doIntersectionPrivilege(ProtectionDomain.java:87)
-	at java.desktop/java.awt.EventQueue.dispatchEvent(EventQueue.java:742)
-	at java.desktop/java.awt.EventDispatchThread.pumpOneEventForFilters(EventDispatchThread.java:203)
-	at java.desktop/java.awt.EventDispatchThread.pumpEventsForFilter(EventDispatchThread.java:124)
-	at java.desktop/java.awt.EventDispatchThread.pumpEventsForHierarchy(EventDispatchThread.java:113)
-	at java.desktop/java.awt.EventDispatchThread.pumpEvents(EventDispatchThread.java:109)
-	at java.desktop/java.awt.EventDispatchThread.pumpEvents(EventDispatchThread.java:101)
-	at java.desktop/java.awt.EventDispatchThread.run(EventDispatchThread.java:90)
-Exception: java.io.IOException - The system cannot find the path specified
-	at java.base/java.io.WinNTFileSystem.createFileExclusively0(Native Method)
-	at java.base/java.io.WinNTFileSystem.createFileExclusively(WinNTFileSystem.java:536)
-	at java.base/java.io.File.createNewFile(File.java:1045)
-	at com.mycompany.autobackupprogram.JSONAutoBackup.ReadBackupListFromJSON(JSONAutoBackup.java:30)
-	at com.mycompany.autobackupprogram.GUI.BackupManagerGUI.setTranslations(BackupManagerGUI.java:2035)
-	at com.mycompany.autobackupprogram.GUI.BackupManagerGUI.<init>(BackupManagerGUI.java:140)
-	at com.mycompany.autobackupprogram.MainApp.lambda$0(MainApp.java:53)
-	at java.desktop/java.awt.event.InvocationEvent.dispatch(InvocationEvent.java:318)
-	at java.desktop/java.awt.EventQueue.dispatchEventImpl(EventQueue.java:773)
-	at java.desktop/java.awt.EventQueue$4.run(EventQueue.java:720)
-	at java.desktop/java.awt.EventQueue$4.run(EventQueue.java:714)
-	at java.base/java.security.AccessController.doPrivileged(AccessController.java:400)
-	at java.base/java.security.ProtectionDomain$JavaSecurityAccessImpl.doIntersectionPrivilege(ProtectionDomain.java:87)
-	at java.desktop/java.awt.EventQueue.dispatchEvent(EventQueue.java:742)
-	at java.desktop/java.awt.EventDispatchThread.pumpOneEventForFilters(EventDispatchThread.java:203)
-	at java.desktop/java.awt.EventDispatchThread.pumpEventsForFilter(EventDispatchThread.java:124)
-	at java.desktop/java.awt.EventDispatchThread.pumpEventsForHierarchy(EventDispatchThread.java:113)
-	at java.desktop/java.awt.EventDispatchThread.pumpEvents(EventDispatchThread.java:109)
-	at java.desktop/java.awt.EventDispatchThread.pumpEvents(EventDispatchThread.java:101)
-	at java.desktop/java.awt.EventDispatchThread.run(EventDispatchThread.java:90)
-Exception: java.io.IOException - The system cannot find the path specified
-	at java.base/java.io.WinNTFileSystem.createFileExclusively0(Native Method)
-	at java.base/java.io.WinNTFileSystem.createFileExclusively(WinNTFileSystem.java:536)
-	at java.base/java.io.File.createNewFile(File.java:1045)
-	at com.mycompany.autobackupprogram.JSONAutoBackup.ReadBackupListFromJSON(JSONAutoBackup.java:30)
-	at com.mycompany.autobackupprogram.GUI.BackupManagerGUI.setTranslations(BackupManagerGUI.java:2030)
-	at com.mycompany.autobackupprogram.GUI.BackupManagerGUI.<init>(BackupManagerGUI.java:136)
-	at com.mycompany.autobackupprogram.MainApp.lambda$0(MainApp.java:53)
-	at java.desktop/java.awt.event.InvocationEvent.dispatch(InvocationEvent.java:318)
-	at java.desktop/java.awt.EventQueue.dispatchEventImpl(EventQueue.java:773)
-	at java.desktop/java.awt.EventQueue$4.run(EventQueue.java:720)
-	at java.desktop/java.awt.EventQueue$4.run(EventQueue.java:714)
-	at java.base/java.security.AccessController.doPrivileged(AccessController.java:400)
-	at java.base/java.security.ProtectionDomain$JavaSecurityAccessImpl.doIntersectionPrivilege(ProtectionDomain.java:87)
-	at java.desktop/java.awt.EventQueue.dispatchEvent(EventQueue.java:742)
-	at java.desktop/java.awt.EventDispatchThread.pumpOneEventForFilters(EventDispatchThread.java:203)
-	at java.desktop/java.awt.EventDispatchThread.pumpEventsForFilter(EventDispatchThread.java:124)
-	at java.desktop/java.awt.EventDispatchThread.pumpEventsForHierarchy(EventDispatchThread.java:113)
-	at java.desktop/java.awt.EventDispatchThread.pumpEvents(EventDispatchThread.java:109)
-	at java.desktop/java.awt.EventDispatchThread.pumpEvents(EventDispatchThread.java:101)
-	at java.desktop/java.awt.EventDispatchThread.run(EventDispatchThread.java:90)
-Exception: java.io.IOException - The system cannot find the path specified
-	at java.base/java.io.WinNTFileSystem.createFileExclusively0(Native Method)
-	at java.base/java.io.WinNTFileSystem.createFileExclusively(WinNTFileSystem.java:536)
-	at java.base/java.io.File.createNewFile(File.java:1045)
-	at com.mycompany.autobackupprogram.JSONAutoBackup.ReadBackupListFromJSON(JSONAutoBackup.java:30)
-	at com.mycompany.autobackupprogram.GUI.BackupManagerGUI.setTranslations(BackupManagerGUI.java:2030)
-	at com.mycompany.autobackupprogram.GUI.BackupManagerGUI.<init>(BackupManagerGUI.java:136)
-	at com.mycompany.autobackupprogram.MainApp.lambda$0(MainApp.java:53)
-	at java.desktop/java.awt.event.InvocationEvent.dispatch(InvocationEvent.java:318)
-	at java.desktop/java.awt.EventQueue.dispatchEventImpl(EventQueue.java:773)
-	at java.desktop/java.awt.EventQueue$4.run(EventQueue.java:720)
-	at java.desktop/java.awt.EventQueue$4.run(EventQueue.java:714)
-	at java.base/java.security.AccessController.doPrivileged(AccessController.java:400)
-	at java.base/java.security.ProtectionDomain$JavaSecurityAccessImpl.doIntersectionPrivilege(ProtectionDomain.java:87)
-	at java.desktop/java.awt.EventQueue.dispatchEvent(EventQueue.java:742)
-	at java.desktop/java.awt.EventDispatchThread.pumpOneEventForFilters(EventDispatchThread.java:203)
-	at java.desktop/java.awt.EventDispatchThread.pumpEventsForFilter(EventDispatchThread.java:124)
-	at java.desktop/java.awt.EventDispatchThread.pumpEventsForHierarchy(EventDispatchThread.java:113)
-	at java.desktop/java.awt.EventDispatchThread.pumpEvents(EventDispatchThread.java:109)
-	at java.desktop/java.awt.EventDispatchThread.pumpEvents(EventDispatchThread.java:101)
-	at java.desktop/java.awt.EventDispatchThread.run(EventDispatchThread.java:90)
-Exception: java.io.IOException - The system cannot find the path specified
-	at java.base/java.io.WinNTFileSystem.createFileExclusively0(Native Method)
-	at java.base/java.io.WinNTFileSystem.createFileExclusively(WinNTFileSystem.java:536)
-	at java.base/java.io.File.createNewFile(File.java:1045)
-	at com.mycompany.autobackupprogram.JSONAutoBackup.ReadBackupListFromJSON(JSONAutoBackup.java:30)
-	at com.mycompany.autobackupprogram.GUI.BackupManagerGUI.setTranslations(BackupManagerGUI.java:2030)
-	at com.mycompany.autobackupprogram.GUI.BackupManagerGUI.<init>(BackupManagerGUI.java:136)
-	at com.mycompany.autobackupprogram.MainApp.lambda$0(MainApp.java:53)
-	at java.desktop/java.awt.event.InvocationEvent.dispatch(InvocationEvent.java:318)
-	at java.desktop/java.awt.EventQueue.dispatchEventImpl(EventQueue.java:773)
-	at java.desktop/java.awt.EventQueue$4.run(EventQueue.java:720)
-	at java.desktop/java.awt.EventQueue$4.run(EventQueue.java:714)
-	at java.base/java.security.AccessController.doPrivileged(AccessController.java:400)
-	at java.base/java.security.ProtectionDomain$JavaSecurityAccessImpl.doIntersectionPrivilege(ProtectionDomain.java:87)
-	at java.desktop/java.awt.EventQueue.dispatchEvent(EventQueue.java:742)
-	at java.desktop/java.awt.EventDispatchThread.pumpOneEventForFilters(EventDispatchThread.java:203)
-	at java.desktop/java.awt.EventDispatchThread.pumpEventsForFilter(EventDispatchThread.java:124)
-	at java.desktop/java.awt.EventDispatchThread.pumpEventsForHierarchy(EventDispatchThread.java:113)
-	at java.desktop/java.awt.EventDispatchThread.pumpEvents(EventDispatchThread.java:109)
-	at java.desktop/java.awt.EventDispatchThread.pumpEvents(EventDispatchThread.java:101)
-	at java.desktop/java.awt.EventDispatchThread.run(EventDispatchThread.java:90)
-Exception: java.io.IOException - The system cannot find the path specified
-	at java.base/java.io.WinNTFileSystem.createFileExclusively0(Native Method)
-	at java.base/java.io.WinNTFileSystem.createFileExclusively(WinNTFileSystem.java:536)
-	at java.base/java.io.File.createNewFile(File.java:1045)
-	at com.mycompany.autobackupprogram.JSONAutoBackup.ReadBackupListFromJSON(JSONAutoBackup.java:41)
-	at com.mycompany.autobackupprogram.GUI.BackupManagerGUI.setTranslations(BackupManagerGUI.java:2030)
-	at com.mycompany.autobackupprogram.GUI.BackupManagerGUI.<init>(BackupManagerGUI.java:136)
-	at com.mycompany.autobackupprogram.MainApp.lambda$0(MainApp.java:53)
-	at java.desktop/java.awt.event.InvocationEvent.dispatch(InvocationEvent.java:318)
-	at java.desktop/java.awt.EventQueue.dispatchEventImpl(EventQueue.java:773)
-	at java.desktop/java.awt.EventQueue$4.run(EventQueue.java:720)
-	at java.desktop/java.awt.EventQueue$4.run(EventQueue.java:714)
-	at java.base/java.security.AccessController.doPrivileged(AccessController.java:400)
-	at java.base/java.security.ProtectionDomain$JavaSecurityAccessImpl.doIntersectionPrivilege(ProtectionDomain.java:87)
-	at java.desktop/java.awt.EventQueue.dispatchEvent(EventQueue.java:742)
-	at java.desktop/java.awt.EventDispatchThread.pumpOneEventForFilters(EventDispatchThread.java:203)
-	at java.desktop/java.awt.EventDispatchThread.pumpEventsForFilter(EventDispatchThread.java:124)
-	at java.desktop/java.awt.EventDispatchThread.pumpEventsForHierarchy(EventDispatchThread.java:113)
-	at java.desktop/java.awt.EventDispatchThread.pumpEvents(EventDispatchThread.java:109)
-	at java.desktop/java.awt.EventDispatchThread.pumpEvents(EventDispatchThread.java:101)
-	at java.desktop/java.awt.EventDispatchThread.run(EventDispatchThread.java:90)
+2024-12-09T10:44:13.842455900 [INFO] Reloading preferences
+2024-12-09T10:44:13.822119800 [INFO] Theme set to: Dark
+2024-12-09T10:44:13.814679900 [INFO] Language set to: English
+2024-12-09T10:44:13.807736700 [INFO] Updating preferences -> Language: English; Theme: Dark
+2024-12-09T10:44:10.337572900 [INFO] Reloading preferences
+2024-12-09T10:44:10.317774100 [INFO] Theme set to: Dark
+2024-12-09T10:44:10.310320 [INFO] Language set to: Italiano
+2024-12-09T10:44:10.303349300 [INFO] Updating preferences -> Language: Italiano; Theme: Dark
+2024-12-09T10:44:07.224003300 [INFO] Reloading preferences
+2024-12-09T10:44:07.200093200 [INFO] Theme set to: Dark
+2024-12-09T10:44:07.192179500 [INFO] Language set to: Deutsch
+2024-12-09T10:44:07.184740500 [INFO] Updating preferences -> Language: Deutsch; Theme: Dark
+2024-12-09T10:44:04.477651300 [INFO] Event --> opening preferences dialog
+2024-12-09T10:43:59.194752100 [DEBUG] The application is running with administrator privileges.
+2024-12-09T10:43:58.649312100 [DEBUG] Background mode: false
+2024-12-09T10:43:58.637904300 [INFO] Application started
+2024-12-09T10:43:31.725826500 [INFO] Reloading preferences
+2024-12-09T10:43:31.706432500 [INFO] Theme set to: Dark
+2024-12-09T10:43:31.698996900 [INFO] Language set to: Español
+2024-12-09T10:43:31.692520400 [INFO] Updating preferences -> Language: Español; Theme: Dark
+2024-12-09T10:43:24.567824800 [INFO] Reloading preferences
+2024-12-09T10:43:24.546151900 [INFO] Theme set to: Dark
+2024-12-09T10:43:24.534275200 [INFO] Language set to: Deutsch
+2024-12-09T10:43:24.528323700 [INFO] Updating preferences -> Language: Deutsch; Theme: Dark
+2024-12-09T10:43:17.545813400 [INFO] Event --> opening preferences dialog
+2024-12-09T10:43:06.318172400 [INFO] Event --> opening backup
+2024-12-09T10:43:06.311724500 [INFO] Edit row : 2
+2024-12-09T10:43:04.151116500 [DEBUG] updating backup list
+2024-12-09T10:43:04.141140200 [INFO] Event --> auto backup disabled
+2024-12-09T10:43:04.134197 [INFO] Event --> opening backup
+2024-12-09T10:43:04.126306200 [INFO] Edit row : 1
+2024-12-09T10:43:02.005755800 [INFO] Event --> opening backup
+2024-12-09T10:43:01.998812400 [INFO] Edit row : 3
+2024-12-09T10:42:44.536252200 [DEBUG] The application is running with administrator privileges.
+2024-12-09T10:42:43.999088700 [DEBUG] Background mode: false
+2024-12-09T10:42:43.988191300 [INFO] Application started
+2024-12-09T10:41:53.945990900 [INFO] Event --> opening backup
+2024-12-09T10:41:53.937557300 [INFO] Edit row : 3
+2024-12-09T10:41:45.908019800 [DEBUG] The application is running with administrator privileges.
+2024-12-09T10:41:45.350091200 [DEBUG] Background mode: false
+2024-12-09T10:41:45.338187 [INFO] Application started
+2024-12-09T10:27:26.375628 [INFO] Deleted old backup: gg (Backup 09-12-2024 09.26.03).zip
+2024-12-09T10:27:26.367691800 [INFO] Found 3 matching files, exceeding max allowed: 2
+2024-12-09T10:27:26.355787800 [INFO] Deleting old backups if necessary
+2024-12-09T10:27:26.348348300 [DEBUG] updating backup list
+2024-12-09T10:27:26.339916400 [INFO] Next date backup setted to: 2024-12-09T15:31:26.285034
+2024-12-09T10:27:26.290985500 [INFO] Backup completed!
+2024-12-09T10:27:26.267878700 [INFO] Progress: 100
+2024-12-09T10:27:26.162230400 [INFO] Starting zipping process
+2024-12-09T10:27:26.136992 [INFO] date backup: 09-12-2024 10.27.26
+2024-12-09T10:27:26.130514500 [INFO] Event --> single backup
+2024-12-09T10:27:18.955774800 [INFO] Deleted old backup: gg (Backup 07-12-2024 16.05.41).zip
+2024-12-09T10:27:18.947366500 [INFO] Deleted old backup: gg (Backup 07-12-2024 16.05.17).zip
+2024-12-09T10:27:18.938939800 [INFO] Found 4 matching files, exceeding max allowed: 2
+2024-12-09T10:27:18.929518 [INFO] Deleting old backups if necessary
+2024-12-09T10:27:18.922543800 [DEBUG] updating backup list
+2024-12-09T10:27:18.912622700 [INFO] Next date backup setted to: 2024-12-09T15:31:18.872267300
+2024-12-09T10:27:18.879212600 [INFO] Backup completed!
+2024-12-09T10:27:18.828956500 [INFO] Progress: 100
+2024-12-09T10:27:18.715925600 [INFO] Starting zipping process
+2024-12-09T10:27:18.683142500 [INFO] date backup: 09-12-2024 10.27.18
+2024-12-09T10:27:18.674214700 [INFO] Event --> single backup
+2024-12-09T10:27:14.567052300 [INFO] Event --> opening backup
+2024-12-09T10:27:14.560603800 [INFO] Edit row : 3
+2024-12-09T10:27:06.977857600 [DEBUG] updating backup list
+2024-12-09T10:27:06.968749500 [INFO] Event --> saving backup
+2024-12-09T10:27:03.980000800 [INFO] Event --> opening backup
+2024-12-09T10:27:03.973552700 [INFO] Edit row : 3
+2024-12-09T10:26:50.543803200 [DEBUG] The application is running with administrator privileges.
+2024-12-09T10:26:49.963620900 [DEBUG] Background mode: false
+2024-12-09T10:26:49.952212800 [INFO] Application started
+2024-12-09T10:24:23.993380 [DEBUG] The application is running with administrator privileges.
+2024-12-09T10:24:23.445664700 [DEBUG] Background mode: false
+2024-12-09T10:24:23.433264200 [INFO] Application started
+2024-12-09T09:36:58.886098900 [INFO] Event --> opening backup
+2024-12-09T09:36:58.879602300 [INFO] Edit row : 3
+2024-12-09T09:36:55.683105300 [DEBUG] The application is running with administrator privileges.
+2024-12-09T09:36:55.098579 [DEBUG] Background mode: false
+2024-12-09T09:36:55.080723300 [INFO] Application started
+2024-12-09T09:36:08.739250200 [INFO] Event --> opening backup
+2024-12-09T09:36:08.732778700 [INFO] Edit row : 3
+2024-12-09T09:36:02.640282800 [DEBUG] The application is running with administrator privileges.
+2024-12-09T09:36:02.031113400 [DEBUG] Background mode: false
+2024-12-09T09:36:02.019224900 [INFO] Application started
+2024-12-09T09:31:28.457418900 [DEBUG] updating backup list
+2024-12-09T09:31:18.715176700 [INFO] Event --> opening backup
+2024-12-09T09:31:18.708728400 [INFO] Edit row : 3
+2024-12-09T09:31:11.057716500 [DEBUG] The application is running with administrator privileges.
+2024-12-09T09:31:10.516181 [DEBUG] Background mode: false
+2024-12-09T09:31:10.502291500 [INFO] Application started
+2024-12-09T09:26:24.804153300 [DEBUG] updating backup list
+2024-12-09T09:26:04.049109200 [INFO] Deleted old backup: gg (Backup 07-12-2024 00.27.53).zip
+2024-12-09T09:26:04.040679500 [INFO] Found 4 matching files, exceeding max allowed: 3
+2024-12-09T09:26:04.032217200 [INFO] Deleting old backups if necessary
+2024-12-09T09:26:04.024807100 [DEBUG] updating backup list
+2024-12-09T09:26:04.016345500 [INFO] Next date backup setted to: 2024-12-09T14:30:03.993877
+2024-12-09T09:26:03.999828700 [INFO] Backup completed!
+2024-12-09T09:26:03.953549800 [INFO] Progress: 100
+2024-12-09T09:26:03.822234300 [INFO] Starting zipping process
+2024-12-09T09:26:03.793467 [INFO] date backup: 09-12-2024 09.26.03
+2024-12-09T09:26:03.785531 [INFO] Event --> single backup
+2024-12-09T09:26:00.472784600 [DEBUG] updating backup list
+2024-12-09T09:26:00.465839600 [INFO] Event --> Auto Backup setted to Enabled
+2024-12-09T09:26:00.459392200 [DEBUG] updating backup list
+2024-12-09T09:25:59.450474700 [INFO] Event --> Next date backup setted to 2024-12-09T14:29:59.449978500
+2024-12-09T09:25:32.182044600 [INFO] Event --> automatic backup
+2024-12-09T09:25:32.175576500 [INFO] Event --> Changing auto backup preference
+2024-12-09T09:25:17.331971800 [DEBUG] updating backup list
+2024-12-09T09:25:16.402799100 [INFO] Backup 'gfd' saved successfully!
+2024-12-09T09:25:16.395855400 [DEBUG] updating backup list
+2024-12-09T09:25:14.064159200 [INFO] Event --> save with name
+2024-12-09T09:25:14.058403900 [INFO] Event --> saving backup
+2024-12-09T09:25:11.387470500 [INFO] You selected the directory: C:\Users\Utente\Desktop
+2024-12-09T09:25:09.291610200 [INFO] You selected the directory: C:\Users\Utente\Desktop\gg
+2024-12-09T09:25:01.856932700 [DEBUG] updating backup list
+2024-12-09T09:25:01.848968900 [INFO] Event --> auto backup disabled
+2024-12-09T09:25:01.843016700 [INFO] Event --> clear
+2024-12-09T09:25:01.837560600 [INFO] Event --> new backup
+2024-12-09T09:24:52.610160700 [DEBUG] The application is running with administrator privileges.
+2024-12-09T09:24:52.099604900 [DEBUG] Background mode: false
+2024-12-09T09:24:52.089188600 [INFO] Application started

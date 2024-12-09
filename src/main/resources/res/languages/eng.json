@@ -53,7 +53,9 @@
     "NotesTooltip": "(Optional) Backup description",
     "SingleBackupTooltip": "Perform the backup",
     "AutoBackupTooltip": "Enable/Disable automatic backup",
-    "TimePickerTooltip": "Time picker"
+    "TimePickerTooltip": "Time picker",
+    "MaxBackupsToKeep": "Max backups to keep",
+    "MaxBackupsToKeepTooltip": "Maximum number of backups before removing the oldest."
   },
   "BackupList": {
     "BackupNameColumn": "Backup Name",
@@ -73,6 +75,7 @@
     "LastUpdateDateDetail": "LastUpdateDate",
     "BackupCountDetail": "BackupCount",
     "NotesDetail": "Notes",
+    "MaxBackupsToKeepDetail": "MaxBackupsToKeep",
     "AddBackupTooltip": "Add new backup",
     "ResearchBarTooltip": "Research bar",
     "ResearchBarPlaceholder": "Search...",

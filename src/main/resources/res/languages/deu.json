@@ -53,7 +53,9 @@
       "NotesTooltip": "(Optional) Backup-Beschreibung",
       "SingleBackupTooltip": "Backup durchführen",
       "AutoBackupTooltip": "Automatisches Backup aktivieren/deaktivieren",
-      "TimePickerTooltip": "Zeitwähler"
+      "TimePickerTooltip": "Zeitwähler",
+      "MaxBackupsToKeep": "Maximale Anzahl an Sicherungen beibehalten",
+      "MaxBackupsToKeepTooltip": "Maximale Anzahl an Sicherungen, bevor die ältesten entfernt werden."
     },
     "BackupList": {
       "BackupNameColumn": "Backup-Name",
@@ -66,13 +68,14 @@
       "BackupNameDetail": "Backup-Name",
       "InitialPathDetail": "Anfangspfad",
       "DestinationPathDetail": "Zielpfad",
-      "LastBackupDetail": "Letztes Backup",
-      "NextBackupDateDetail": "Nächstes Backup",
+      "LastBackupDetail": "LetztesBackup",
+      "NextBackupDateDetail": "NächstesBackup",
       "TimeIntervalDetail": "Zeitintervall",
       "CreationDateDetail": "Erstellungsdatum",
-      "LastUpdateDateDetail": "Letzte Aktualisierung",
+      "LastUpdateDateDetail": "LetzteAktualisierung",
       "BackupCountDetail": "Backup-Anzahl",
       "NotesDetail": "Notizen",
+      "MaxBackupsToKeepDetail": "MaximaleSicherungenBehalten",
       "AddBackupTooltip": "Neues Backup hinzufügen",
       "ResearchBarTooltip": "Suchleiste",
       "ResearchBarPlaceholder": "Suchen...",

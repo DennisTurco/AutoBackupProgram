@@ -67,28 +67,26 @@ import javax.swing.event.DocumentListener;
  */
 public class BackupManagerGUI extends javax.swing.JFrame {
     private static final JSONConfigReader configReader = new JSONConfigReader(ConfigKey.CONFIG_FILE_STRING.getValue(), ConfigKey.CONFIG_DIRECTORY_STRING.getValue());
-
     public static final DateTimeFormatter dateForfolderNameFormatter = DateTimeFormatter.ofPattern("dd-MM-yyyy HH.mm.ss");
     public static final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm:ss");
     
     public static Backup currentBackup;
-    
     private static List<Backup> backups;
     private static JSONAutoBackup JSON;
     public static DefaultTableModel model;
     private BackupProgressGUI progressBar;
     private boolean saveChanged;
     private Integer selectedRow;
-    
     private String backupOnText;
     private String backupOffText;
-
-    private final String current_version = "2.0.4";
+    private String current_version;
     
     public BackupManagerGUI() {
         ThemeManager.updateThemeFrame(this);
         
         initComponents();
+
+        current_version = ConfigKey.VERSION.getValue();
         
         // logo application
         Image icon = new ImageIcon(this.getClass().getResource(ConfigKey.LOGO_IMG.getValue())).getImage();
@@ -224,12 +222,13 @@ public class BackupManagerGUI extends javax.swing.JFrame {
     }
     
     private void savedChanges(boolean saved) {
-        if (saved || currentBackup.getBackupName() == null || currentBackup.getBackupName().isEmpty() || (currentBackup.getInitialPath().equals(startPathField.getText())) && currentBackup.getDestinationPath().equals(destinationPathField.getText()) && currentBackup.getNotes().equals(backupNoteTextArea.getText())) {
+        if (saved) {
             setCurrentBackupName(currentBackup.getBackupName());
+            saveChanged = true;
         } else {
             setCurrentBackupName(currentBackup.getBackupName() + "*");
+            saveChanged = false;
         }
-        saveChanged = saved;
     }
     
     public void setAutoBackupPreference(boolean option) {         
@@ -449,6 +448,8 @@ public class BackupManagerGUI extends javax.swing.JFrame {
             else break;
         }
 
+        name1 = BackupOperations.removeExtension(name1);
+
         path2 = path2 + "\\" + name1 + " (Backup " + date + ")";
 
         //------------------------------COPY THE FILE OR DIRECTORY------------------------------
@@ -512,8 +513,10 @@ public class BackupManagerGUI extends javax.swing.JFrame {
     private void customListeners() {
         startPathField.getDocument().addDocumentListener(new DocumentListener() {
             @Override
-            public void insertUpdate(DocumentEvent e) {
-                savedChanges(false);
+            public void insertUpdate(DocumentEvent e) { 
+                if ((!saveChanged && currentBackup.getBackupName() != null) || (!currentBackup.getBackupName().isEmpty() && (!currentBackup.getInitialPath().equals(startPathField.getText())) || !currentBackup.getDestinationPath().equals(destinationPathField.getText()) && !currentBackup.getNotes().equals(backupNoteTextArea.getText()))) {
+                    savedChanges(false);
+                }
             }
 
             @Override
@@ -779,6 +782,7 @@ public class BackupManagerGUI extends javax.swing.JFrame {
         destinationPathField.setText("");
         lastBackupLabel.setText("");
         backupNoteTextArea.setText("");
+        maxBackupCountSpinner.setValue(configReader.getMaxCountForSameBackup());
 
         return true;
     }
@@ -984,6 +988,7 @@ public class BackupManagerGUI extends javax.swing.JFrame {
         } else {
             spinner.setValue((Integer) spinner.getValue() - 1);
         }
+        savedChanges(false);
     }
 
     /**

@@ -514,8 +514,10 @@ public class BackupManagerGUI extends javax.swing.JFrame {
         startPathField.getDocument().addDocumentListener(new DocumentListener() {
             @Override
             public void insertUpdate(DocumentEvent e) { 
-                if ((!saveChanged && currentBackup.getBackupName() != null) || (!currentBackup.getBackupName().isEmpty() && (!currentBackup.getInitialPath().equals(startPathField.getText())) || !currentBackup.getDestinationPath().equals(destinationPathField.getText()) && !currentBackup.getNotes().equals(backupNoteTextArea.getText()))) {
+                if ((!saveChanged && currentBackup.getBackupName() != null) || (!currentBackup.getInitialPath().equals(startPathField.getText())) || !currentBackup.getDestinationPath().equals(destinationPathField.getText()) || !currentBackup.getNotes().equals(backupNoteTextArea.getText())) {
                     savedChanges(false);
+                } else {
+                    savedChanges(true);
                 }
             }
 

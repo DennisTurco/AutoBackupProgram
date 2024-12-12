@@ -1,3 +1,19 @@
+2024-12-12T23:50:12.757263100 [DEBUG] updating backup list
+2024-12-12T23:50:12.749359600 [INFO] Event --> saving backup
+2024-12-12T23:50:05.751424600 [DEBUG] updating backup list
+2024-12-12T23:50:05.741037 [INFO] Event --> auto backup disabled
+2024-12-12T23:50:05.732576600 [INFO] Event --> opening backup
+2024-12-12T23:50:05.725136700 [INFO] Edit row : 1
+2024-12-12T23:50:03.402402900 [DEBUG] The application is running with administrator privileges.
+2024-12-12T23:50:02.746912700 [DEBUG] Background mode: false
+2024-12-12T23:50:02.732032400 [INFO] Application started
+2024-12-12T23:49:25.150231800 [DEBUG] updating backup list
+2024-12-12T23:49:25.140807300 [INFO] Event --> auto backup disabled
+2024-12-12T23:49:23.107740900 [INFO] Event --> opening backup
+2024-12-12T23:49:23.099308200 [INFO] Edit row : 1
+2024-12-12T23:49:14.755885700 [DEBUG] The application is running with administrator privileges.
+2024-12-12T23:49:14.072389500 [DEBUG] Background mode: false
+2024-12-12T23:49:14.057509700 [INFO] Application started
 2024-12-12T23:46:18.250946500 [DEBUG] updating backup list
 2024-12-12T23:46:18.243506900 [INFO] Event --> auto backup disabled
 2024-12-12T23:46:18.235533200 [INFO] Event --> opening backup

@@ -240,6 +240,12 @@ public class BackupOperations {
                                 if (autoBackupBtn != null) autoBackupBtn.setEnabled(true);
                                 return FileVisitResult.TERMINATE; // Stop if interrupted
                             }
+                            
+                            // case when the initial folder is empty
+                            if (totalFilesCount == 0) {
+                                UpdateProgressPercentage(100, sourceDirectoryPath, targetZipPath, backup, trayIcon, progressBar, singleBackupBtn, autoBackupBtn);
+                                return FileVisitResult.TERMINATE;
+                            }
 
                             // Create directory entry in the zip if needed
                             Path targetDir = sourceDir.relativize(dir);
@@ -251,9 +257,10 @@ public class BackupOperations {
                 }
             } catch (Exception ex) {
                 Logger.logMessage("An error occurred: " + ex.getMessage() , Logger.LogLevel.ERROR, ex);
+                ex.printStackTrace();
+            } finally {
                 if (singleBackupBtn != null) singleBackupBtn.setEnabled(true);
                 if (autoBackupBtn != null) autoBackupBtn.setEnabled(true);
-                ex.printStackTrace();
             }
         });
 

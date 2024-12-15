@@ -8,7 +8,7 @@ Each backup is carefully saved, and the program maintains a detailed log of all 
 
 
 ## Screenshots and Videos
-[](./docs/video/BackupManagerVideo.mp4)
+![](./docs/imgs/BackupManagerPresentation.gif)
 
 ![](./docs/imgs/AutoBackup.png)
 ![](./docs/imgs/BackupList.png)

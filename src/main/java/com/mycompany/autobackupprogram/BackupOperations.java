@@ -61,7 +61,7 @@ public class BackupOperations {
 
             LocalDateTime dateNow = LocalDateTime.now();
             String date = dateNow.format(dateForfolderNameFormatter);
-            String name1 = path1.substring(path1.length() - 1);
+            String name1 = path1.substring(path1.length()-1, path1.length()-1);
 
             for(int i = path1.length() - 1; i >= 0; i--) {
                 if(path1.charAt(i) != temp.charAt(0)) name1 = path1.charAt(i) + name1;

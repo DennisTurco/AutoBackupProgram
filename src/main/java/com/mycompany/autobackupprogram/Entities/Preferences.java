@@ -98,8 +98,8 @@ public class Preferences {
                 : ConfigKey.RES_DIRECTORY_STRING.getValue();
 
             String file = backupListObject.has("File") && !backupListObject.get("File").isJsonNull()
-                    ? backupListObject.get("File").getAsString()
-                    : ConfigKey.BACKUP_FILE_STRING.getValue() + ConfigKey.VERSION.getValue() + ".json";
+                ? backupListObject.get("File").getAsString()
+                : ConfigKey.BACKUP_FILE_STRING.getValue() + ConfigKey.VERSION.getValue() + ".json";
 
             return new BackupList(directory, file);
         }

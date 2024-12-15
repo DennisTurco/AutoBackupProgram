@@ -222,6 +222,8 @@ public class BackupManagerGUI extends javax.swing.JFrame {
     }
     
     private void savedChanges(boolean saved) {
+        System.out.println("saved? " + saved);
+
         if (saved) {
             setCurrentBackupName(currentBackup.getBackupName());
             saveChanged = true;
@@ -518,7 +520,9 @@ public class BackupManagerGUI extends javax.swing.JFrame {
             }
 
             @Override
-            public void removeUpdate(DocumentEvent e) {}
+            public void removeUpdate(DocumentEvent e) {
+                somethingHasChanged();
+            }
 
             @Override
             public void changedUpdate(DocumentEvent e) {}
@@ -531,7 +535,9 @@ public class BackupManagerGUI extends javax.swing.JFrame {
             }
 
             @Override
-            public void removeUpdate(DocumentEvent e) {}
+            public void removeUpdate(DocumentEvent e) {
+                somethingHasChanged();
+            }
 
             @Override
             public void changedUpdate(DocumentEvent e) {}
@@ -544,7 +550,9 @@ public class BackupManagerGUI extends javax.swing.JFrame {
             }
 
             @Override
-            public void removeUpdate(DocumentEvent e) {}
+            public void removeUpdate(DocumentEvent e) {
+                somethingHasChanged();
+            }
 
             @Override
             public void changedUpdate(DocumentEvent e) {}
@@ -552,10 +560,16 @@ public class BackupManagerGUI extends javax.swing.JFrame {
     }
 
     private void somethingHasChanged() {
-        if ((!saveChanged && currentBackup.getBackupName() != null) || (!currentBackup.getInitialPath().equals(startPathField.getText())) || !currentBackup.getDestinationPath().equals(destinationPathField.getText()) || !currentBackup.getNotes().equals(backupNoteTextArea.getText())) {
-            savedChanges(false);
-        } else {
+        boolean backupNameNotNull = currentBackup.getBackupName() != null;
+        boolean pathsOrNotesChanged = 
+                !startPathField.getText().equals(currentBackup.getInitialPath()) ||
+                !destinationPathField.getText().equals(currentBackup.getDestinationPath()) ||
+                !backupNoteTextArea.getText().equals(currentBackup.getNotes());
+
+        if (backupNameNotNull && !pathsOrNotesChanged) {
             savedChanges(true);
+        } else {
+            savedChanges(false);
         }
     }
     
@@ -846,7 +860,8 @@ public class BackupManagerGUI extends javax.swing.JFrame {
     private void OpenBackup(String backupName) {
         Logger.logMessage("Event --> opening backup", Logger.LogLevel.INFO);
         
-        if (!saveChanged) {
+        // if canges are not saved and if something has been written
+        if (!saveChanged && (startPathField.getText().length() != 0 || destinationPathField.getText().length() != 0 || backupNoteTextArea.getText().length() != 0)) {
             int response = JOptionPane.showConfirmDialog(null, TranslationCategory.DIALOGS.getTranslation(TranslationKey.CONFIRMATION_MESSAGE_FOR_UNSAVED_CHANGES), TranslationCategory.DIALOGS.getTranslation(TranslationKey.CONFIRMATION_REQUIRED_TITLE), JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE);
             if (response == JOptionPane.YES_OPTION) {
                 saveFile();
@@ -994,7 +1009,11 @@ public class BackupManagerGUI extends javax.swing.JFrame {
         } else {
             spinner.setValue((Integer) spinner.getValue() - 1);
         }
-        savedChanges(false);
+
+        if ((int) spinner.getValue() != currentBackup.getMaxBackupsToKeep()) 
+            savedChanges(false);
+        else 
+            savedChanges(true);
     }
 
     /**

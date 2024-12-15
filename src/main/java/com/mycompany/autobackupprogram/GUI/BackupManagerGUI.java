@@ -222,8 +222,6 @@ public class BackupManagerGUI extends javax.swing.JFrame {
     }
     
     private void savedChanges(boolean saved) {
-        System.out.println("saved? " + saved);
-
         if (saved) {
             setCurrentBackupName(currentBackup.getBackupName());
             saveChanged = true;

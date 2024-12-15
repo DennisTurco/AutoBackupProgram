@@ -7,7 +7,18 @@
 Each backup is carefully saved, and the program maintains a detailed log of all completed operations. Users can also view, manage, and edit the details of each backup, ensuring complete control and customization over saved data. This tool is an ideal solution for efficiently and securely protecting files, minimizing the risk of data loss.
 
 
-## Screenshots
+## Screenshots and Videos
+[](./docs/video/BackupManagerVideo.mp4)
+
+![](./docs/imgs/AutoBackup.png)
+![](./docs/imgs/BackupList.png)
+![](./docs/imgs/CompletedBackup.png)
+![](./docs/imgs/ThemeLanguage.png)
+
+### Multi theme
+![](./docs/imgs/Home.png)
+![](./docs/imgs/Home2.png)
+![](./docs/imgs/Home3.png)
 
 
 ## Startup Logic

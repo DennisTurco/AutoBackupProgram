@@ -11,7 +11,6 @@ import java.io.File;
 import java.io.IOException;
 
 public class TestConfigKey {
-    
     private final String LOG_FILE_STRING = "log_file";
     private final String BACKUP_FILE_STRING = "backup_list.json";
     private final String CONFIG_FILE_STRING = "config.json";

@@ -6,7 +6,7 @@ import java.util.List;
 import com.mycompany.autobackupprogram.Entities.Backup;
 
 public interface IJSONAutoBackup {
-    public List<Backup> ReadBackupListFromJSON(String filename, String directoryPath) throws IOException;
-    public void UpdateBackupListJSON(String filename, String directoryPath, List<Backup> backups);
-    public void UpdateSingleBackupInJSON(String filename, String directoryPath, Backup updatedBackup);
+    public List<Backup> ReadBackupListFromJSON(String directoryPath, String filename) throws IOException;
+    public void UpdateBackupListJSON(String directoryPath, String filename, List<Backup> backups);
+    public void UpdateSingleBackupInJSON(String directoryPath, String filename, Backup updatedBackup);
 }

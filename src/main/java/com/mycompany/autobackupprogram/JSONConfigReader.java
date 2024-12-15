@@ -54,17 +54,21 @@ public class JSONConfigReader {
         return getConfigValue("LinesToKeepAfterFileClear", 150); // Default to 150
     }
 
+    public int getMaxCountForSameBackup() {
+        return getConfigValue("MaxCountForSameBackup", 3); // Default to 3
+    }
+
     public int readCheckForBackupTimeInterval() throws IOException {
         int timeInterval;
         try {
             JSONObject backupService = getBackupServiceConfig();
             Long interval = (Long) backupService.get("value");
 
-            // If the interval is null, set to default of 5
+            // if the interval is null, set to default of 5 minutes
             timeInterval = (interval != null) ? interval.intValue() : 5;
         } catch (NullPointerException e) {
             Logger.logMessage("Error retrieving backup time interval, defaulting to 5 minutes: " + e.getMessage(), Logger.LogLevel.ERROR);
-            timeInterval = 5; // Default to every 5 minutes
+            timeInterval = 5;
         }
 
         Logger.logMessage("Time interval set to " + timeInterval + " minutes", Logger.LogLevel.INFO);
@@ -79,12 +83,12 @@ public class JSONConfigReader {
             return (value != null) ? value.intValue() : defaultValue;
         } catch (IOException | NullPointerException e) {
             Logger.logMessage("Error retrieving config value for " + key + ": " + e.getMessage(), Logger.LogLevel.ERROR);
-            return defaultValue; // Return default value on error
+            return defaultValue;
         }
     }
     
     private void loadConfig() {
-        String filePath = directoryPath + filename; // Use provided filename and directoryPath
+        String filePath = directoryPath + filename;
         try (FileReader reader = new FileReader(filePath)) {
             JSONParser parser = new JSONParser();
             config = (JSONObject) parser.parse(reader);

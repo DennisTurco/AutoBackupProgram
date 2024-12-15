@@ -3,6 +3,10 @@ package com.mycompany.autobackupprogram.Enums;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
+
+import com.mycompany.autobackupprogram.Logger;
+import com.mycompany.autobackupprogram.Logger.LogLevel;
+
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.HashMap;
@@ -68,6 +72,9 @@ public class TranslationLoaderEnum {
         NEW("New", "New"),
         QUIT("Quit", "Quit"),
         SAVE("Save", "Save"),
+        PREFERENCES("Preferences", "Preferences"),
+        IMPORT("Import", "Import"),
+        EXPORT("Export", "Export"),
         SAVE_WITH_NAME("SaveWithName", "Save with name"),
         SHARE("Share", "Share"),
         SUPPORT("Support", "Support"),
@@ -96,6 +103,8 @@ public class TranslationLoaderEnum {
         SINGLE_BACKUP_TOOLTIP("SingleBackupTooltip", "Perform the backup"),
         AUTO_BACKUP_TOOLTIP("AutoBackupTooltip", "Enable/Disable automatic backup"),
         TIME_PICKER_TOOLTIP("TimePickerTooltip", "Time picker"),
+        MAX_BACKUPS_TO_KEEP("MaxBackupsToKeep", "Max backups to keep"),
+        MAX_BACKUPS_TO_KEEP_TOOLTIP("MaxBackupsToKeepTooltip", "Maximum number of backups before removing the oldest."),
 
         // BackupList
         BACKUP_NAME_COLUMN("BackupNameColumn", "Backup Name"),
@@ -115,6 +124,7 @@ public class TranslationLoaderEnum {
         LAST_UPDATE_DATE_DETAIL("LastUpdateDateDetail", "LastUpdateDate"),
         BACKUP_COUNT_DETAIL("BackupCountDetail", "BackupCount"),
         NOTES_DETAIL("NotesDetail", "Notes"),
+        MAX_BACKUPS_TO_KEEP_DETAIL("MaxBackupsToKeepDetail", "MaxBackupsToKeep"),
         ADD_BACKUP_TOOLTIP("AddBackupTooltip", "Add new backup"),
         RESEARCH_BAR_TOOLTIP("ResearchBarTooltip", "Research bar"),
         RESEARCH_BAR_PLACEHOLDER("ResearchBarPlaceholder", "Search..."),
@@ -167,6 +177,10 @@ public class TranslationLoaderEnum {
         BACKUP_NAME_INPUT("BackupNameInput", "Name of the backup"),
         CONFIRMATION_REQUIRED_TITLE("ConfirmationRequiredTitle", "Confirmation required"),
         DUPLICATED_BACKUP_NAME_MESSAGE("DuplicatedBackupNameMessage", "A backup with the same name already exists, do you want to overwrite it?"),
+        BACKUP_LIST_CORRECTLY_EXPORTED_TITLE("BackupListCorrectlyExportedTitle", "Menu Export"),
+        BACKUP_LIST_CORRECTLY_EXPORTED_MESSAGE("BackupListCorrectlyExportedMessage", "Backup list successfully exported to the Desktop!"),
+        BACKUP_LIST_CORRECTLY_IMPORTED_TITLE("BackupListCorrectlyImportedTitle", "Menu Import"),
+        BACKUP_LIST_CORRECTLY_IMPORTED_MESSAGE("BackupListCorrectlyImportedMessage", "Backup list successfully imported!"),
         BACKUP_NAME_ALREADY_USED_MESSAGE("BackupNameAlreadyUsedMessage", "Backup name already used!"),
         ERROR_MESSAGE_FOR_INCORRECT_INITIAL_PATH("ErrorMessageForIncorrectInitialPath", "Error during the backup operation: the initial path is incorrect!"),
         EXCEPTION_MESSAGE_TITLE("ExceptionMessageTitle", "Error..."),
@@ -199,6 +213,8 @@ public class TranslationLoaderEnum {
         ERROR_MESSAGE_SAVING_FILE("ErrorMessageForSavingFile", "Error saving file"),
         ERROR_MESSAGE_PATH_NOT_EXISTING("ErrorMessageForPathNotExisting", "One or both paths do not exist!"),
         ERROR_MESSAGE_SAME_PATHS_GENERIC("ErrorMessageForSamePaths", "The initial path and destination path cannot be the same. Please choose different paths!"),
+        ERROR_MESSAGE_FOR_WRONG_FILE_EXTENSION_TITLE("ErrorMessageForWrongFileExtensionTitle", "Invalid File"),
+        ERROR_MESSAGE_FOR_WRONG_FILE_EXTENSION_MESSAGE("ErrorMessageForWrongFileExtensionMessage", "Error: Please select a valid JSON file."),
 
         // InfoPage
         INFO_PAGE_DESCRIPTION("InfoPageDescription", "Backup automatic system for files with the option to schedule and make backups regularly."),
@@ -222,7 +238,7 @@ public class TranslationLoaderEnum {
         }
 
         // Constructor to assign both key and default value
-        TranslationKey(String keyName, String defaultValue) {
+        private TranslationKey(String keyName, String defaultValue) {
             this.keyName = keyName;
             this.defaultValue = defaultValue;
         }
@@ -268,7 +284,7 @@ public class TranslationLoaderEnum {
                             category.addTranslation(translationKey, translationValue);
                         } else {
                             // If the key is not recognized in the enum, log it and use the default value
-                            System.err.println("Warning: Unrecognized key in JSON: " + key + ", using default value.");
+                            Logger.logMessage("Warning: Unrecognized key in JSON: " + key + ", using default value.", LogLevel.WARN);
                             category.addTranslation(translationKey, translationKey.getDefaultValue());
                         }
                     }

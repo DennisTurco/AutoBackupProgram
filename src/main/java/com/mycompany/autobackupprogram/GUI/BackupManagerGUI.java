@@ -9,12 +9,14 @@ import com.mycompany.autobackupprogram.JSONConfigReader;
 import com.mycompany.autobackupprogram.Logger;
 import com.mycompany.autobackupprogram.Dialogs.TimePicker;
 import com.mycompany.autobackupprogram.Entities.Backup;
+import com.mycompany.autobackupprogram.Entities.BackupList;
 import com.mycompany.autobackupprogram.Entities.Preferences;
 import com.mycompany.autobackupprogram.Enums.ConfigKey;
 import com.mycompany.autobackupprogram.Enums.MenuItems;
 import com.mycompany.autobackupprogram.Enums.TranslationLoaderEnum;
 import com.mycompany.autobackupprogram.Enums.TranslationLoaderEnum.TranslationCategory;
 import com.mycompany.autobackupprogram.Enums.TranslationLoaderEnum.TranslationKey;
+import com.mycompany.autobackupprogram.Logger.LogLevel;
 import com.mycompany.autobackupprogram.Managers.ThemeManager;
 
 import java.awt.Color;
@@ -30,6 +32,10 @@ import java.io.File;
 import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.nio.file.StandardCopyOption;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
@@ -44,6 +50,7 @@ import javax.swing.JTable;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.SwingUtilities;
+import javax.swing.filechooser.FileNameExtensionFilter;
 import javax.swing.filechooser.FileSystemView;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
@@ -59,28 +66,27 @@ import javax.swing.event.DocumentListener;
  * @author Dennis Turco
  */
 public class BackupManagerGUI extends javax.swing.JFrame {
-    
+    private static final JSONConfigReader configReader = new JSONConfigReader(ConfigKey.CONFIG_FILE_STRING.getValue(), ConfigKey.CONFIG_DIRECTORY_STRING.getValue());
     public static final DateTimeFormatter dateForfolderNameFormatter = DateTimeFormatter.ofPattern("dd-MM-yyyy HH.mm.ss");
     public static final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm:ss");
     
     public static Backup currentBackup;
-    
     private static List<Backup> backups;
     private static JSONAutoBackup JSON;
     public static DefaultTableModel model;
     private BackupProgressGUI progressBar;
     private boolean saveChanged;
     private Integer selectedRow;
-    
     private String backupOnText;
     private String backupOffText;
-
-    private final String current_version = "2.0.3";
+    private String current_version;
     
     public BackupManagerGUI() {
         ThemeManager.updateThemeFrame(this);
         
         initComponents();
+
+        current_version = ConfigKey.VERSION.getValue();
         
         // logo application
         Image icon = new ImageIcon(this.getClass().getResource(ConfigKey.LOGO_IMG.getValue())).getImage();
@@ -94,9 +100,9 @@ public class BackupManagerGUI extends javax.swing.JFrame {
         
         File file = new File(System.getProperty("os.name").toLowerCase().contains("win") ? "C:\\Windows\\System32" : "/root");
         if (file.canWrite()) {
-            Logger.logMessage("The application is running with administrator privileges.", Logger.LogLevel.INFO);
+            Logger.logMessage("The application is running with administrator privileges.", Logger.LogLevel.DEBUG);
         } else {
-            Logger.logMessage("The application does NOT have administrator privileges.", Logger.LogLevel.INFO);
+            Logger.logMessage("The application does NOT have administrator privileges.", Logger.LogLevel.DEBUG);
         }
         
         customListeners();
@@ -116,18 +122,33 @@ public class BackupManagerGUI extends javax.swing.JFrame {
         MenuShare.setVisible(config.isMenuItemEnabled(MenuItems.Share.name()));
         MenuSupport.setVisible(config.isMenuItemEnabled(MenuItems.Support.name()));
         MenuWebsite.setVisible(config.isMenuItemEnabled(MenuItems.Website.name()));
+        MenuImport.setVisible(config.isMenuItemEnabled(MenuItems.Import.name()));
+        MenuExport.setVisible(config.isMenuItemEnabled(MenuItems.Export.name()));
         
+        // set app size
+        setScreenSize();
+
         // icons
         researchField.putClientProperty(FlatClientProperties.TEXT_FIELD_LEADING_ICON, new javax.swing.ImageIcon(getClass().getResource("/res/img/search.png")));
 
         // translations
         setTranslations();
+
+        setCurrentBackupMaxBackupsToKeep(configReader.getMaxCountForSameBackup());
     }
     
     public void showWindow() {
         setVisible(true);
         toFront();
         requestFocus();
+    }
+
+    private void setScreenSize() {
+        Dimension size = Toolkit.getDefaultToolkit().getScreenSize();
+        int width = Math.min((int) size.getWidth(), Integer.parseInt(ConfigKey.GUI_WIDTH.getValue()));
+        int height = Math.min((int) size.getHeight(), Integer.parseInt(ConfigKey.GUI_HEIGHT.getValue()));
+
+        this.setSize(width,height);
     }
     
     private TimeInterval openTimePicker(TimeInterval time) {
@@ -137,24 +158,22 @@ public class BackupManagerGUI extends javax.swing.JFrame {
     }
     
     private void openPreferences() {
-        PreferencesDialog prefs = new PreferencesDialog(this, true);
-        prefs.setVisible(true);
+        Logger.logMessage("Event --> opening preferences dialog", LogLevel.INFO);
 
-        // reload preferences
-        if (prefs.isApply()) {
-            Preferences.updatePreferencesToJSON();
-            reloadPreferences();
-        }
-            
+        PreferencesDialog prefs = new PreferencesDialog(this, true, this);
+        prefs.setVisible(true);
     }
 
-    private void reloadPreferences() {
+    public void reloadPreferences() {
+        Logger.logMessage("Reloading preferences", LogLevel.INFO);
+
         // load language
         try {
             TranslationLoaderEnum.loadTranslations(ConfigKey.LANGUAGES_DIRECTORY_STRING.getValue() + Preferences.getLanguage().getFileName());
             setTranslations();
-        } catch (IOException | ParseException e) {
-            e.printStackTrace();
+        } catch (IOException | ParseException ex) {
+            Logger.logMessage("An error occurred during reloading preferences operation: " + ex.getMessage(), Logger.LogLevel.ERROR, ex);
+            OpenExceptionMessage(ex.getMessage(), Arrays.toString(ex.getStackTrace()));
         }
         
         // load theme
@@ -203,12 +222,13 @@ public class BackupManagerGUI extends javax.swing.JFrame {
     }
     
     private void savedChanges(boolean saved) {
-        if (saved || currentBackup.getBackupName() == null || currentBackup.getBackupName().isEmpty() || (currentBackup.getInitialPath().equals(startPathField.getText())) && currentBackup.getDestinationPath().equals(destinationPathField.getText()) && currentBackup.getNotes().equals(backupNoteTextArea.getText())) {
+        if (saved) {
             setCurrentBackupName(currentBackup.getBackupName());
+            saveChanged = true;
         } else {
             setCurrentBackupName(currentBackup.getBackupName() + "*");
+            saveChanged = false;
         }
-        saveChanged = saved;
     }
     
     public void setAutoBackupPreference(boolean option) {         
@@ -360,7 +380,8 @@ public class BackupManagerGUI extends javax.swing.JFrame {
                     GetNotesTextArea(),
                     dateNow,
                     dateNow,
-                    0
+                    0,
+                    GetMaxBackupsToKeep()
             );
             
             backups.add(backup);
@@ -427,6 +448,8 @@ public class BackupManagerGUI extends javax.swing.JFrame {
             else break;
         }
 
+        name1 = BackupOperations.removeExtension(name1);
+
         path2 = path2 + "\\" + name1 + " (Backup " + date + ")";
 
         //------------------------------COPY THE FILE OR DIRECTORY------------------------------
@@ -462,6 +485,10 @@ public class BackupManagerGUI extends javax.swing.JFrame {
     private void setCurrentBackupNotes(String notes) {
         backupNoteTextArea.setText(notes);
     }
+
+    public void setCurrentBackupMaxBackupsToKeep(int maxBackupsCount) {
+        maxBackupCountSpinner.setValue(maxBackupsCount);
+    }
 	
     public void setStringToText() {
         try {
@@ -486,12 +513,14 @@ public class BackupManagerGUI extends javax.swing.JFrame {
     private void customListeners() {
         startPathField.getDocument().addDocumentListener(new DocumentListener() {
             @Override
-            public void insertUpdate(DocumentEvent e) {
-                savedChanges(false);
+            public void insertUpdate(DocumentEvent e) { 
+                somethingHasChanged();
             }
 
             @Override
-            public void removeUpdate(DocumentEvent e) {}
+            public void removeUpdate(DocumentEvent e) {
+                somethingHasChanged();
+            }
 
             @Override
             public void changedUpdate(DocumentEvent e) {}
@@ -500,11 +529,13 @@ public class BackupManagerGUI extends javax.swing.JFrame {
         destinationPathField.getDocument().addDocumentListener(new DocumentListener() {
             @Override
             public void insertUpdate(DocumentEvent e) {
-                savedChanges(false);
+                somethingHasChanged();
             }
 
             @Override
-            public void removeUpdate(DocumentEvent e) {}
+            public void removeUpdate(DocumentEvent e) {
+                somethingHasChanged();
+            }
 
             @Override
             public void changedUpdate(DocumentEvent e) {}
@@ -513,15 +544,31 @@ public class BackupManagerGUI extends javax.swing.JFrame {
         backupNoteTextArea.getDocument().addDocumentListener(new DocumentListener() {
             @Override
             public void insertUpdate(DocumentEvent e) {
-                savedChanges(false);
+                somethingHasChanged();
             }
 
             @Override
-            public void removeUpdate(DocumentEvent e) {}
+            public void removeUpdate(DocumentEvent e) {
+                somethingHasChanged();
+            }
 
             @Override
             public void changedUpdate(DocumentEvent e) {}
         });
+    }
+
+    private void somethingHasChanged() {
+        boolean backupNameNotNull = currentBackup.getBackupName() != null;
+        boolean pathsOrNotesChanged = 
+                !startPathField.getText().equals(currentBackup.getInitialPath()) ||
+                !destinationPathField.getText().equals(currentBackup.getDestinationPath()) ||
+                !backupNoteTextArea.getText().equals(currentBackup.getNotes());
+
+        if (backupNameNotNull && !pathsOrNotesChanged) {
+            savedChanges(true);
+        } else {
+            savedChanges(false);
+        }
     }
     
     public String GetStartPathField() {
@@ -535,6 +582,9 @@ public class BackupManagerGUI extends javax.swing.JFrame {
     }
     public boolean GetAutomaticBackupPreference() {
         return toggleAutoBackup.isSelected();
+    }
+    public int GetMaxBackupsToKeep() {
+        return (int) maxBackupCountSpinner.getValue();
     }
     public void SetStartPathField(String text) {
         startPathField.setText(text);
@@ -734,10 +784,10 @@ public class BackupManagerGUI extends javax.swing.JFrame {
         }
     }
     
-    public boolean Clear() {
+    public boolean Clear(boolean canMessageAppear) {
         Logger.logMessage("Event --> clear", Logger.LogLevel.INFO);
 
-        if ((!saveChanged && !currentBackup.getBackupName().isEmpty()) || (!startPathField.getText().isEmpty() || !destinationPathField.getText().isEmpty() || !backupNoteTextArea.getText().isEmpty())) {
+        if (canMessageAppear && ((!saveChanged && !currentBackup.getBackupName().isEmpty()) || (!startPathField.getText().isEmpty() || !destinationPathField.getText().isEmpty() || !backupNoteTextArea.getText().isEmpty()))) {
             int response = JOptionPane.showConfirmDialog(null, TranslationCategory.DIALOGS.getTranslation(TranslationKey.CONFIRMATION_MESSAGE_FOR_CLEAR), TranslationCategory.DIALOGS.getTranslation(TranslationKey.CONFIRMATION_REQUIRED_TITLE), JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
             if (response != JOptionPane.YES_OPTION) {
                 return false;
@@ -750,6 +800,7 @@ public class BackupManagerGUI extends javax.swing.JFrame {
         destinationPathField.setText("");
         lastBackupLabel.setText("");
         backupNoteTextArea.setText("");
+        maxBackupCountSpinner.setValue(configReader.getMaxCountForSameBackup());
 
         return true;
     }
@@ -785,6 +836,7 @@ public class BackupManagerGUI extends javax.swing.JFrame {
             currentBackup.setInitialPath(GetStartPathField());
             currentBackup.setDestinationPath(GetDestinationPathField());
             currentBackup.setNotes(GetNotesTextArea());
+            currentBackup.setMaxBackupsToKeep(GetMaxBackupsToKeep());
             
             LocalDateTime dateNow = LocalDateTime.now();
             currentBackup.setLastUpdateDate(dateNow);
@@ -806,7 +858,8 @@ public class BackupManagerGUI extends javax.swing.JFrame {
     private void OpenBackup(String backupName) {
         Logger.logMessage("Event --> opening backup", Logger.LogLevel.INFO);
         
-        if (!saveChanged) {
+        // if canges are not saved and if something has been written
+        if (!saveChanged && (startPathField.getText().length() != 0 || destinationPathField.getText().length() != 0 || backupNoteTextArea.getText().length() != 0)) {
             int response = JOptionPane.showConfirmDialog(null, TranslationCategory.DIALOGS.getTranslation(TranslationKey.CONFIRMATION_MESSAGE_FOR_UNSAVED_CHANGES), TranslationCategory.DIALOGS.getTranslation(TranslationKey.CONFIRMATION_REQUIRED_TITLE), JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE);
             if (response == JOptionPane.YES_OPTION) {
                 saveFile();
@@ -844,14 +897,12 @@ public class BackupManagerGUI extends javax.swing.JFrame {
         if (returnValue == JFileChooser.APPROVE_OPTION) {
             File selectedFile = jfc.getSelectedFile();
 
-            // Logga il tipo di elemento selezionato
             if (selectedFile.isDirectory()) {
                 Logger.logMessage("You selected the directory: " + selectedFile, Logger.LogLevel.INFO);
             } else if (selectedFile.isFile()) {
                 Logger.logMessage("You selected the file: " + selectedFile, Logger.LogLevel.INFO);
             }
 
-            // Imposta il percorso nel campo di testo
             textField.setText(selectedFile.toString());
         }
         savedChanges(false);
@@ -883,6 +934,7 @@ public class BackupManagerGUI extends javax.swing.JFrame {
         setAutoBackupPreference(backup.isAutoBackup());
         setCurrentBackupName(backup.getBackupName());
         setCurrentBackupNotes(backup.getNotes());
+        setCurrentBackupMaxBackupsToKeep(backup.getMaxBackupsToKeep());
         
         if (backup.getTimeIntervalBackup() != null) {
             btnTimePicker.setToolTipText(backup.getTimeIntervalBackup().toString());
@@ -905,12 +957,13 @@ public class BackupManagerGUI extends javax.swing.JFrame {
             }
         }
         
-        if (!Clear()) {
+        if (!Clear(false)) {
             return;
         }
         currentBackup = new Backup();
         currentBackup.setAutoBackup(false);
         currentBackup.setBackupName("");
+        currentBackup.setMaxBackupsToKeep(configReader.getMaxCountForSameBackup());
         
         // basic auto enable is disabled
         setAutoBackupPreference(currentBackup.isAutoBackup());
@@ -934,9 +987,36 @@ public class BackupManagerGUI extends javax.swing.JFrame {
             btnTimePicker.setEnabled(false);
         }
     }
+    
+    private void maxBackupCountSpinnerChange() {        
+        Integer backupCount = (Integer) maxBackupCountSpinner.getValue();
+        
+        if (backupCount == null || backupCount < 1) {
+            maxBackupCountSpinner.setValue(1);
+        }  else if (backupCount > 10) {
+            maxBackupCountSpinner.setValue(10);
+        } 
+    }
+
+    private void mouseWeel(java.awt.event.MouseWheelEvent evt) {
+        javax.swing.JSpinner spinner = (javax.swing.JSpinner) evt.getSource();
+        int rotation = evt.getWheelRotation();
+
+        if (rotation < 0) {
+            spinner.setValue((Integer) spinner.getValue() + 1);
+        } else {
+            spinner.setValue((Integer) spinner.getValue() - 1);
+        }
+
+        if ((int) spinner.getValue() != currentBackup.getMaxBackupsToKeep()) 
+            savedChanges(false);
+        else 
+            savedChanges(true);
+    }
 
     /**
      * This method is called from within the constructor to initialize the form.
+     *  
      * WARNING: Do NOT modify this code. The content of this method is always
      * regenerated by the Form Editor.
      */
@@ -977,6 +1057,8 @@ public class BackupManagerGUI extends javax.swing.JFrame {
         btnTimePicker = new javax.swing.JButton();
         toggleAutoBackup = new javax.swing.JToggleButton();
         filler1 = new javax.swing.Box.Filler(new java.awt.Dimension(0, 0), new java.awt.Dimension(0, 0), new java.awt.Dimension(0, 0));
+        jLabel4 = new javax.swing.JLabel();
+        maxBackupCountSpinner = new javax.swing.JSpinner();
         jPanel2 = new javax.swing.JPanel();
         tablePanel = new javax.swing.JPanel();
         addBackupEntryButton = new javax.swing.JButton();
@@ -992,6 +1074,10 @@ public class BackupManagerGUI extends javax.swing.JFrame {
         MenuNew = new javax.swing.JMenuItem();
         MenuSave = new javax.swing.JMenuItem();
         MenuSaveWithName = new javax.swing.JMenuItem();
+        jSeparator4 = new javax.swing.JPopupMenu.Separator();
+        MenuImport = new javax.swing.JMenuItem();
+        MenuExport = new javax.swing.JMenuItem();
+        jSeparator5 = new javax.swing.JPopupMenu.Separator();
         MenuClear = new javax.swing.JMenuItem();
         MenuHistory = new javax.swing.JMenuItem();
         jMenu2 = new javax.swing.JMenu();
@@ -1207,6 +1293,21 @@ public class BackupManagerGUI extends javax.swing.JFrame {
             }
         });
 
+        jLabel4.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        jLabel4.setText("Keep only last");
+
+        maxBackupCountSpinner.setToolTipText("Maximum number of backups before removing the oldest.");
+        maxBackupCountSpinner.addChangeListener(new javax.swing.event.ChangeListener() {
+            public void stateChanged(javax.swing.event.ChangeEvent evt) {
+                maxBackupCountSpinnerStateChanged(evt);
+            }
+        });
+        maxBackupCountSpinner.addMouseWheelListener(new java.awt.event.MouseWheelListener() {
+            public void mouseWheelMoved(java.awt.event.MouseWheelEvent evt) {
+                maxBackupCountSpinnerMouseWheelMoved(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -1236,13 +1337,19 @@ public class BackupManagerGUI extends javax.swing.JFrame {
                     .addComponent(txtTitle, javax.swing.GroupLayout.PREFERRED_SIZE, 466, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(211, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addContainerGap()
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(toggleAutoBackup, javax.swing.GroupLayout.PREFERRED_SIZE, 188, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(btnTimePicker, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(SingleBackup, javax.swing.GroupLayout.PREFERRED_SIZE, 188, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(jLabel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(maxBackupCountSpinner, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(SingleBackup, javax.swing.GroupLayout.PREFERRED_SIZE, 188, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(toggleAutoBackup, javax.swing.GroupLayout.PREFERRED_SIZE, 188, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(btnTimePicker, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(351, 351, 351))
             .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(jPanel1Layout.createSequentialGroup()
@@ -1277,7 +1384,11 @@ public class BackupManagerGUI extends javax.swing.JFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(toggleAutoBackup, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnTimePicker, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(57, 57, 57))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(maxBackupCountSpinner, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel4))
+                .addGap(20, 20, 20))
             .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(jPanel1Layout.createSequentialGroup()
                     .addGap(0, 0, Short.MAX_VALUE)
@@ -1453,6 +1564,26 @@ public class BackupManagerGUI extends javax.swing.JFrame {
             }
         });
         jMenu1.add(MenuSaveWithName);
+        jMenu1.add(jSeparator4);
+
+        MenuImport.setIcon(new javax.swing.ImageIcon(getClass().getResource("/res/img/import.png"))); // NOI18N
+        MenuImport.setText("Import backup list");
+        MenuImport.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                MenuImportActionPerformed(evt);
+            }
+        });
+        jMenu1.add(MenuImport);
+
+        MenuExport.setIcon(new javax.swing.ImageIcon(getClass().getResource("/res/img/export.png"))); // NOI18N
+        MenuExport.setText("Export backup list");
+        MenuExport.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                MenuExportActionPerformed(evt);
+            }
+        });
+        jMenu1.add(MenuExport);
+        jMenu1.add(jSeparator5);
 
         MenuClear.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_C, java.awt.event.InputEvent.CTRL_DOWN_MASK));
         MenuClear.setIcon(new javax.swing.ImageIcon(getClass().getResource("/res/img/clean.png"))); // NOI18N
@@ -1601,7 +1732,7 @@ public class BackupManagerGUI extends javax.swing.JFrame {
     }//GEN-LAST:event_MenuHistoryActionPerformed
 
     private void MenuClearActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MenuClearActionPerformed
-        Clear();
+        Clear(true);
     }//GEN-LAST:event_MenuClearActionPerformed
 
     private void MenuSaveWithNameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MenuSaveWithNameActionPerformed
@@ -1681,6 +1812,7 @@ public class BackupManagerGUI extends javax.swing.JFrame {
                 String lastUpdateDate = TranslationCategory.BACKUP_LIST.getTranslation(TranslationKey.LAST_UPDATE_DATE_DETAIL);
                 String backupCount = TranslationCategory.BACKUP_LIST.getTranslation(TranslationKey.BACKUP_COUNT_DETAIL);
                 String notes = TranslationCategory.BACKUP_LIST.getTranslation(TranslationKey.NOTES_DETAIL);
+                String maxBackupsToKeep = TranslationCategory.BACKUP_LIST.getTranslation(TranslationKey.MAX_BACKUPS_TO_KEEP_DETAIL);
 
                 detailsLabel.setText(
                     "<html><b>" + backupName + ":</b> " + backups.get(selectedRow).getBackupName() + ", " +
@@ -1692,6 +1824,7 @@ public class BackupManagerGUI extends javax.swing.JFrame {
                     "<b>" + creationDate + ":</b> " + (backups.get(selectedRow).getCreationDate() != null ? backups.get(selectedRow).getCreationDate().format(formatter) : "_") + ", " +
                     "<b>" + lastUpdateDate + ":</b> " + (backups.get(selectedRow).getLastUpdateDate() != null ? backups.get(selectedRow).getLastUpdateDate().format(formatter) : "_") + ", " +
                     "<b>" + backupCount + ":</b> " + (backups.get(selectedRow).getBackupCount()) + ", " +
+                    "<b>" + maxBackupsToKeep + ":</b> " + (backups.get(selectedRow).getMaxBackupsToKeep()) + ", " +
                     "<b>" + notes + ":</b> " + (backups.get(selectedRow).getNotes()) +
                     "</html>"
                 );
@@ -1721,7 +1854,8 @@ public class BackupManagerGUI extends javax.swing.JFrame {
                     backup.getNotes(),
                     dateNow,
                     dateNow,
-                    0
+                    0,
+                    backup.getMaxBackupsToKeep()
             );
             
             backups.add(newBackup); 
@@ -1819,9 +1953,7 @@ public class BackupManagerGUI extends javax.swing.JFrame {
     
     private void toggleAutoBackupActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_toggleAutoBackupActionPerformed
         Logger.logMessage("Event --> Changing auto backup preference", Logger.LogLevel.INFO);
-        
-        System.out.println(currentBackup.toString());
-        
+
         // checks
         if (!BackupOperations.CheckInputCorrect(currentBackup.getBackupName(),startPathField.getText(), destinationPathField.getText(), null)) {
             toggleAutoBackup.setSelected(false);
@@ -1850,8 +1982,6 @@ public class BackupManagerGUI extends javax.swing.JFrame {
         toggleAutoBackup.setText(toggleAutoBackup.isSelected() ? backupOnText : backupOffText);
         currentBackup.setAutoBackup(enabled);
         BackupOperations.updateBackupList(backups);
-        
-        System.out.println(currentBackup.toString());
     }//GEN-LAST:event_toggleAutoBackupActionPerformed
 
     private void MenuWebsiteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MenuWebsiteActionPerformed
@@ -1866,7 +1996,7 @@ public class BackupManagerGUI extends javax.swing.JFrame {
             Desktop desktop = Desktop.getDesktop();
 
             if (desktop.isSupported(Desktop.Action.MAIL)) {
-                String subject = "Support - Auto Backup Program";
+                String subject = "Support - Backup Manager";
                 String mailTo = "mailto:" + ConfigKey.EMAIL.getValue() + "?subject=" + encodeURI(subject);
 
                 try {
@@ -1901,7 +2031,6 @@ public class BackupManagerGUI extends javax.swing.JFrame {
 
     private void btnTimePickerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTimePickerActionPerformed
         TimeInterval timeInterval = openTimePicker(currentBackup.getTimeIntervalBackup());
-
         if (timeInterval == null) return;
 
         btnTimePicker.setToolTipText(timeInterval.toString());
@@ -1911,7 +2040,6 @@ public class BackupManagerGUI extends javax.swing.JFrame {
 
         currentBackup.setTimeIntervalBackup(timeInterval);
         currentBackup.setNextDateBackup(nextDateBackup);
-
         currentBackup.setInitialPath(GetStartPathField());
         currentBackup.setDestinationPath(GetDestinationPathField());
         for (Backup b : backups) {
@@ -1930,9 +2058,70 @@ public class BackupManagerGUI extends javax.swing.JFrame {
         openPreferences();
     }//GEN-LAST:event_MenuPreferencesActionPerformed
 
+    private void MenuImportActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MenuImportActionPerformed
+        Logger.logMessage("Event --> importing backup list", Logger.LogLevel.INFO);
+
+        JFileChooser jfc = new JFileChooser(ConfigKey.RES_DIRECTORY_STRING.getValue());
+        jfc.setFileSelectionMode(JFileChooser.FILES_ONLY);
+
+        FileNameExtensionFilter jsonFilter = new FileNameExtensionFilter("JSON Files (*.json)", "json");
+        jfc.setFileFilter(jsonFilter);
+        int returnValue = jfc.showSaveDialog(null);
+
+        if (returnValue == JFileChooser.APPROVE_OPTION) {
+            File selectedFile = jfc.getSelectedFile();
+            if (selectedFile.isFile() && selectedFile.getName().toLowerCase().endsWith(".json")) {
+                Logger.logMessage("File imported: " + selectedFile, Logger.LogLevel.INFO);
+
+                Preferences.setBackupList(new BackupList(selectedFile.getParent()+File.separator, selectedFile.getName()));
+                Preferences.updatePreferencesToJSON();
+
+                try {
+                    backups = JSON.ReadBackupListFromJSON(Preferences.getBackupList().getDirectory(), Preferences.getBackupList().getFile());
+                    BackupOperations.updateTableWithNewBackupList(backups);
+                } catch (IOException ex) {
+                    Logger.logMessage("An error occurred: " + ex.getMessage(), Logger.LogLevel.ERROR, ex);
+                }
+
+                JOptionPane.showMessageDialog(this, TranslationCategory.DIALOGS.getTranslation(TranslationKey.BACKUP_LIST_CORRECTLY_IMPORTED_MESSAGE), TranslationCategory.DIALOGS.getTranslation(TranslationKey.BACKUP_LIST_CORRECTLY_IMPORTED_TITLE), JOptionPane.INFORMATION_MESSAGE);
+            } else {
+                JOptionPane.showMessageDialog(this, TranslationCategory.DIALOGS.getTranslation(TranslationKey.ERROR_MESSAGE_FOR_WRONG_FILE_EXTENSION_MESSAGE), TranslationCategory.DIALOGS.getTranslation(TranslationKey.ERROR_MESSAGE_FOR_WRONG_FILE_EXTENSION_TITLE), JOptionPane.ERROR_MESSAGE);
+            }
+        }
+    }//GEN-LAST:event_MenuImportActionPerformed
+
+    private void MenuExportActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MenuExportActionPerformed
+        Logger.logMessage("Event --> exporting backup list", Logger.LogLevel.INFO);
+
+        Path desktopPath = Paths.get(System.getProperty("user.home"), "Desktop", Preferences.getBackupList().getFile());
+        Path sourcePath = Paths.get(Preferences.getBackupList().getDirectory() + Preferences.getBackupList().getFile());
+
+        try {
+            Files.copy(sourcePath, desktopPath, StandardCopyOption.REPLACE_EXISTING);
+            JOptionPane.showMessageDialog(null, TranslationCategory.DIALOGS.getTranslation(TranslationKey.BACKUP_LIST_CORRECTLY_EXPORTED_MESSAGE), TranslationCategory.DIALOGS.getTranslation(TranslationKey.BACKUP_LIST_CORRECTLY_EXPORTED_TITLE), JOptionPane.INFORMATION_MESSAGE);
+        } catch (java.nio.file.NoSuchFileException ex) {
+            Logger.logMessage("Source file not found: " + ex.getMessage(), Logger.LogLevel.ERROR);
+            JOptionPane.showMessageDialog(null, "Error: The source file was not found.\nPlease check the file path.", "Export Error", JOptionPane.ERROR_MESSAGE);
+        } catch (java.nio.file.AccessDeniedException ex) {
+            Logger.logMessage("Access denied to desktop: " + ex.getMessage(), Logger.LogLevel.ERROR);
+            JOptionPane.showMessageDialog(null, "Error: Access to the Desktop is denied.\nPlease check folder permissions and try again.","Export Error", JOptionPane.ERROR_MESSAGE);
+        } catch (IOException ex) {
+            Logger.logMessage("Unexpected error: " + ex.getMessage(), Logger.LogLevel.ERROR);
+            OpenExceptionMessage(ex.getMessage(), Arrays.toString(ex.getStackTrace()));
+        }
+    }//GEN-LAST:event_MenuExportActionPerformed
+
+    private void maxBackupCountSpinnerStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_maxBackupCountSpinnerStateChanged
+        maxBackupCountSpinnerChange();
+    }//GEN-LAST:event_maxBackupCountSpinnerStateChanged
+
+    private void maxBackupCountSpinnerMouseWheelMoved(java.awt.event.MouseWheelEvent evt) {//GEN-FIRST:event_maxBackupCountSpinnerMouseWheelMoved
+        mouseWeel(evt);
+    }//GEN-LAST:event_maxBackupCountSpinnerMouseWheelMoved
+
     private void setTranslations() {
         try {
-            backups = JSON.ReadBackupListFromJSON(ConfigKey.BACKUP_FILE_STRING.getValue(), ConfigKey.RES_DIRECTORY_STRING.getValue());
+            backups = JSON.ReadBackupListFromJSON(Preferences.getBackupList().getDirectory(), Preferences.getBackupList().getFile());
             displayBackupList(backups);
         } catch (IOException ex) {
             backups = null;
@@ -1962,6 +2151,9 @@ public class BackupManagerGUI extends javax.swing.JFrame {
         MenuQuit.setText(TranslationCategory.MENU.getTranslation(TranslationKey.QUIT));
         MenuSave.setText(TranslationCategory.MENU.getTranslation(TranslationKey.SAVE));
         MenuSaveWithName.setText(TranslationCategory.MENU.getTranslation(TranslationKey.SAVE_WITH_NAME));
+        MenuPreferences.setText(TranslationCategory.MENU.getTranslation(TranslationKey.PREFERENCES));
+        MenuImport.setText(TranslationCategory.MENU.getTranslation(TranslationKey.IMPORT));
+        MenuExport.setText(TranslationCategory.MENU.getTranslation(TranslationKey.EXPORT));
         MenuShare.setText(TranslationCategory.MENU.getTranslation(TranslationKey.SHARE));
         MenuSupport.setText(TranslationCategory.MENU.getTranslation(TranslationKey.SUPPORT));
         MenuWebsite.setText(TranslationCategory.MENU.getTranslation(TranslationKey.WEBSITE));
@@ -1985,6 +2177,8 @@ public class BackupManagerGUI extends javax.swing.JFrame {
         startPathField.putClientProperty(FlatClientProperties.PLACEHOLDER_TEXT, TranslationCategory.BACKUP_ENTRY.getTranslation(TranslationKey.INITIAL_PATH_PLACEHOLDER));
         destinationPathField.putClientProperty(FlatClientProperties.PLACEHOLDER_TEXT, TranslationCategory.BACKUP_ENTRY.getTranslation(TranslationKey.DESTINATION_PATH_PLACEHOLDER));
         btnTimePicker.setToolTipText(TranslationCategory.BACKUP_ENTRY.getTranslation(TranslationKey.TIME_PICKER_TOOLTIP));
+        maxBackupCountSpinner.setToolTipText(TranslationCategory.BACKUP_ENTRY.getTranslation(TranslationKey.MAX_BACKUPS_TO_KEEP_TOOLTIP).toString() + "\n" + TranslationCategory.TIME_PICKER_DIALOG.getTranslation(TranslationKey.SPINNER_TOOLTIP).toString());
+        jLabel4.setText(TranslationCategory.BACKUP_ENTRY.getTranslation(TranslationKey.MAX_BACKUPS_TO_KEEP));
 
         // backup list
         addBackupEntryButton.setToolTipText(TranslationCategory.BACKUP_LIST.getTranslation(TranslationKey.ADD_BACKUP_TOOLTIP));
@@ -2019,7 +2213,9 @@ public class BackupManagerGUI extends javax.swing.JFrame {
     private javax.swing.JMenuItem MenuBugReport;
     private javax.swing.JMenuItem MenuClear;
     private javax.swing.JMenuItem MenuDonate;
+    private javax.swing.JMenuItem MenuExport;
     private javax.swing.JMenuItem MenuHistory;
+    private javax.swing.JMenuItem MenuImport;
     private javax.swing.JMenuItem MenuInfoPage;
     private javax.swing.JMenuItem MenuNew;
     private javax.swing.JMenuItem MenuPreferences;
@@ -2048,6 +2244,7 @@ public class BackupManagerGUI extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenu jMenu3;
@@ -2061,7 +2258,10 @@ public class BackupManagerGUI extends javax.swing.JFrame {
     private javax.swing.JPopupMenu.Separator jSeparator1;
     private javax.swing.JPopupMenu.Separator jSeparator2;
     private javax.swing.JPopupMenu.Separator jSeparator3;
+    private javax.swing.JPopupMenu.Separator jSeparator4;
+    private javax.swing.JPopupMenu.Separator jSeparator5;
     private javax.swing.JLabel lastBackupLabel;
+    private javax.swing.JSpinner maxBackupCountSpinner;
     private javax.swing.JMenuItem renamePopupItem;
     private javax.swing.JTextField researchField;
     private javax.swing.JTextField startPathField;

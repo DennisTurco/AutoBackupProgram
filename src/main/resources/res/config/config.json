@@ -1,6 +1,6 @@
 {
   "LOG_FILE_STRING": "log_file",
-  "BACKUP_FILE_STRING": "backup_list.json",
+  "BACKUP_FILE_STRING": "backup_list",
   "CONFIG_FILE_STRING": "config.json",
   "PREFERENCES_FILE_STRING": "preferences.json",
   "RES_DIRECTORY_STRING": "src/main/resources/res/",
@@ -13,6 +13,9 @@
   "EMAIL": "assistenza@shardpc.it",
   "SHARD_WEBSITE": "https://www.shardpc.it/",
   "LOGO_IMG": "/res/img/logo.png",
+  "VERSION": "2.0.4",
+  "GUI_WIDTH": "982",
+  "GUI_HEIGHT": "715",
 
   "MenuItems": {
     "BugReport": true,
@@ -24,6 +27,8 @@
     "New": true,
     "Quit": true,
     "Save": true,
+    "Import": true,
+    "Export": true,
     "SaveWithName": true,
     "Share": true,
     "Support": true,
@@ -35,7 +40,6 @@
     "type": "int",
     "description": "Interval in minutes to check for auto backup"
   },
-
   "LogService": {
     "ERROR": true,
     "INFO": true,
@@ -50,6 +54,11 @@
       "value": 1000,
       "type": "int",
       "description": "Lines to keep after file clear"
+    },
+    "MaxCountForSameBackup": {
+      "value": 3,
+      "type": "int",
+      "description": "Max count for the same backup in the same directory"
     }
   }
 }

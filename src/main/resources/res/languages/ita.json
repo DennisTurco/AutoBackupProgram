@@ -24,6 +24,9 @@
     "Quit": "Esci",
     "Save": "Salva",
     "SaveWithName": "Salva con nome",
+    "Preferences": "Preferenze",
+    "Import": "Importa lista di backup",
+    "Export": "Esporta lista di backup",
     "Share": "Condividi",
     "Support": "Supporto",
     "Website": "Sito web"
@@ -50,7 +53,9 @@
     "NotesTooltip": "(Opzionale) Descrizione del backup",
     "SingleBackupTooltip": "Esegui il backup",
     "AutoBackupTooltip": "Attiva/Disattiva backup automatico",
-    "TimePickerTooltip": "Selettore orario"
+    "TimePickerTooltip": "Selettore orario",
+    "MaxBackupsToKeep": "Massimo di backup da mantenere",
+    "MaxBackupsToKeepTooltip": "Numero massimo di backup da conservare prima di eliminare i più vecchi."
   },
   "BackupList": {
     "BackupNameColumn": "Nome del Backup",
@@ -69,6 +74,7 @@
     "CreationDateDetail": "DataCreazione",
     "LastUpdateDateDetail": "DataUltimoAggiornamento",
     "BackupCountDetail": "ConteggioBackup",
+    "MaxBackupsToKeepDetail": "MassimoBackupDaMantenere",
     "NotesDetail": "Note",
     "AddBackupTooltip": "Aggiungi nuovo backup",
     "ResearchBarTooltip": "Barra di ricerca",
@@ -147,6 +153,12 @@
     "ErrorMessageInputMissingGeneric": "Input Mancanti!",
     "ErrorMessageForSavingFile": "Errore nel salvataggio del file",
     "ErrorMessageForPathNotExisting": "Uno o entrambi i percorsi non esistono!",
-    "ErrorMessageForSamePaths": "Il percorso iniziale e il percorso di destinazione non possono essere uguali. Si prega di scegliere percorsi diversi!"
+    "ErrorMessageForSamePaths": "Il percorso iniziale e il percorso di destinazione non possono essere uguali. Si prega di scegliere percorsi diversi!",
+    "BackupListCorrectlyExportedTitle": "Menu Esporta",
+    "BackupListCorrectlyExportedMessage": "Lista di backup esportata correttamente sul desktop!",
+    "BackupListCorrectlyImportedTitle": "Menu Importa",
+    "BackupListCorrectlyImportedMessage": "Lista di backup importata correttamente!",
+    "ErrorMessageForWrongFileExtensionTitle": "File non valido",
+    "ErrorMessageForWrongFileExtensionMessage": "Errore: seleziona un file JSON valido."
   }
 }

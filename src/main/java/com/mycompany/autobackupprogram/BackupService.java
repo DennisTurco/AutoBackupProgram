@@ -11,9 +11,11 @@ import java.util.List;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
+
 import javax.swing.JFrame;
 
 import com.mycompany.autobackupprogram.Entities.Backup;
+import com.mycompany.autobackupprogram.Entities.Preferences;
 import com.mycompany.autobackupprogram.Enums.ConfigKey;
 import com.mycompany.autobackupprogram.GUI.BackupManagerGUI;
 
@@ -112,7 +114,7 @@ public class BackupService {
         public void run() {
             Logger.logMessage("Checking for automatic backup...", Logger.LogLevel.INFO);
             try {
-                List<Backup> backups = json.ReadBackupListFromJSON(ConfigKey.BACKUP_FILE_STRING.getValue(), ConfigKey.RES_DIRECTORY_STRING.getValue());
+                List<Backup> backups = json.ReadBackupListFromJSON(Preferences.getBackupList().getDirectory(), Preferences.getBackupList().getFile());
                 List<Backup> needsBackup = getBackupsToDo(backups);
                 if (needsBackup != null && !needsBackup.isEmpty()) {
                     Logger.logMessage("Start backup process.", Logger.LogLevel.INFO);
@@ -122,7 +124,6 @@ public class BackupService {
                 }
             } catch (IOException ex) {
                 Logger.logMessage("An error occurred: " + ex.getMessage(), Logger.LogLevel.ERROR, ex);
-                ex.printStackTrace();
             }
         }
 

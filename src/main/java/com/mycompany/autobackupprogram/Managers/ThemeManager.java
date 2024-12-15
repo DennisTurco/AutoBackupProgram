@@ -1,12 +1,15 @@
 package com.mycompany.autobackupprogram.Managers;
 
+import java.awt.Component;
 import java.awt.Dialog;
 import java.awt.Frame;
+import java.util.Arrays;
 
 import javax.swing.SwingUtilities;
 import javax.swing.JPopupMenu;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
+import static com.mycompany.autobackupprogram.GUI.BackupManagerGUI.OpenExceptionMessage;
 
 import com.formdev.flatlaf.FlatDarculaLaf;
 import com.formdev.flatlaf.FlatIntelliJLaf;
@@ -19,6 +22,7 @@ import com.formdev.flatlaf.intellijthemes.FlatNordIJTheme;
 import com.formdev.flatlaf.intellijthemes.FlatSolarizedDarkIJTheme;
 import com.formdev.flatlaf.intellijthemes.FlatSolarizedLightIJTheme;
 import com.mycompany.autobackupprogram.Entities.Preferences;
+import com.mycompany.autobackupprogram.Logger;
 
 // https://www.formdev.com/flatlaf/#demo
 // https://www.formdev.com/flatlaf/themes/
@@ -28,27 +32,27 @@ public class ThemeManager {
 
     public static void updateThemeFrame(Frame frame) {
         updateTheme();
-
-        // Update all components and Revalidate and repaint
-        SwingUtilities.updateComponentTreeUI(frame);
-        frame.revalidate();
-        frame.repaint();
+        repaint(frame);
     }
 
     public static void refreshPopup(JPopupMenu popup) {
-        // Update all components and Revalidate and repaint
-        SwingUtilities.updateComponentTreeUI(popup);
-        popup.revalidate();
-        popup.repaint();
+        repaint(popup);
     }
 
     public static void updateThemeDialog(Dialog dialog) {
         updateTheme();
-        
-        // Update all components and Revalidate and repaint
-        SwingUtilities.updateComponentTreeUI(dialog);
-        dialog.revalidate();
-        dialog.repaint();
+        repaint(dialog);
+    }
+
+    private static void repaint(Object objectToRepaint) {
+        if (objectToRepaint instanceof Dialog || objectToRepaint instanceof JPopupMenu || objectToRepaint instanceof Frame) {
+            // Update all components and revalidate and repaint
+            SwingUtilities.updateComponentTreeUI((Component) objectToRepaint);
+            ((Component) objectToRepaint).revalidate();
+            ((Component) objectToRepaint).repaint();
+        } else {
+            throw new IllegalArgumentException("Unsupported object type for repainting: " + objectToRepaint.getClass().getName());
+        }
     }
 
     private static void updateTheme() {
@@ -93,7 +97,8 @@ public class ThemeManager {
             }
 
         } catch (UnsupportedLookAndFeelException ex) {
-            System.err.println("Error setting LookAndFeel: " + ex.getMessage());
+            Logger.logMessage("Error setting LookAndFeel: " + ex.getMessage(), Logger.LogLevel.ERROR, ex);
+            OpenExceptionMessage(ex.getMessage(), Arrays.toString(ex.getStackTrace()));
         }
     }
 }

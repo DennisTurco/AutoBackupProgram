@@ -24,6 +24,9 @@
       "Quit": "Quitter",
       "Save": "Enregistrer",
       "SaveWithName": "Enregistrer sous",
+      "Preferences": "Préférences",
+      "Import": "Importer la liste de sauvegarde",
+      "Export": "Exporter la liste de sauvegarde",
       "Share": "Partager",
       "Support": "Assistance",
       "Website": "Site web"
@@ -50,7 +53,9 @@
       "NotesTooltip": "(Optionnel) Description de la sauvegarde",
       "SingleBackupTooltip": "Effectuer la sauvegarde",
       "AutoBackupTooltip": "Activer/Désactiver la sauvegarde automatique",
-      "TimePickerTooltip": "Sélecteur de temps"
+      "TimePickerTooltip": "Sélecteur de temps",
+      "MaxBackupsToKeep": "Nombre maximum de sauvegardes à conserver",
+      "MaxBackupsToKeepTooltip": "Nombre maximum de sauvegardes avant de supprimer les plus anciennes."
     },
     "BackupList": {
       "BackupNameColumn": "Nom de la Sauvegarde",
@@ -60,16 +65,17 @@
       "AutomaticBackupColumn": "Sauvegarde Automatique",
       "NextBackupDateColumn": "Prochaine Date de Sauvegarde",
       "TimeIntervalColumn": "Intervalle de Temps",
-      "BackupNameDetail": "Nom de la Sauvegarde",
-      "InitialPathDetail": "Chemin Initial",
-      "DestinationPathDetail": "Chemin de Destination",
-      "LastBackupDetail": "Dernière Sauvegarde",
-      "NextBackupDateDetail": "Prochaine Sauvegarde",
-      "TimeIntervalDetail": "Intervalle de Temps",
-      "CreationDateDetail": "Date de Création",
-      "LastUpdateDateDetail": "Dernière Mise à Jour",
-      "BackupCountDetail": "Nombre de Sauvegardes",
+      "BackupNameDetail": "NomSauvegarde",
+      "InitialPathDetail": "CheminInitial",
+      "DestinationPathDetail": "CheminDestination",
+      "LastBackupDetail": "DernièreSauvegarde",
+      "NextBackupDateDetail": "ProchaineSauvegarde",
+      "TimeIntervalDetail": "IntervalleTemps",
+      "CreationDateDetail": "DateCréation",
+      "LastUpdateDateDetail": "DernièreMiseJour",
+      "BackupCountDetail": "NombreSauvegardes",
       "NotesDetail": "Notes",
+      "MaxBackupsToKeepDetail": "NombreMaxSauvegardesConserver",
       "AddBackupTooltip": "Ajouter une nouvelle sauvegarde",
       "ResearchBarTooltip": "Barre de recherche",
       "ResearchBarPlaceholder": "Rechercher...",
@@ -147,7 +153,13 @@
       "ErrorMessageInputMissingGeneric": "Entrée manquante !",
       "ErrorMessageForSavingFile": "Erreur lors de l'enregistrement du fichier",
       "ErrorMessageForPathNotExisting": "Un ou les deux chemins n'existent pas !",
-      "ErrorMessageForSamePaths": "Le chemin initial et le chemin de destination ne peuvent pas être identiques. Veuillez choisir des chemins différents !"
+      "ErrorMessageForSamePaths": "Le chemin initial et le chemin de destination ne peuvent pas être identiques. Veuillez choisir des chemins différents !",
+      "BackupListCorrectlyExportedTitle": "Menu Exporter",
+      "BackupListCorrectlyExportedMessage": "Liste de sauvegarde exportée avec succès sur le bureau !",
+      "BackupListCorrectlyImportedTitle": "Menu Importer",
+      "BackupListCorrectlyImportedMessage": "Liste de sauvegarde importée avec succès !",
+      "ErrorMessageForWrongFileExtensionTitle": "Fichier invalide",
+      "ErrorMessageForWrongFileExtensionMessage": "Erreur : Veuillez sélectionner un fichier JSON valide."
     }
   }
   

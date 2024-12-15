@@ -1,6 +1,7 @@
 package com.mycompany.autobackupprogram.Dialogs;
 
-import com.formdev.flatlaf.FlatIntelliJLaf;
+import com.mycompany.autobackupprogram.Logger;
+import com.mycompany.autobackupprogram.Logger.LogLevel;
 import com.mycompany.autobackupprogram.Entities.Preferences;
 import com.mycompany.autobackupprogram.Enums.ConfigKey;
 import com.mycompany.autobackupprogram.Enums.LanguagesEnum;
@@ -9,23 +10,26 @@ import com.mycompany.autobackupprogram.Enums.TranslationLoaderEnum;
 import com.mycompany.autobackupprogram.Enums.TranslationLoaderEnum.TranslationCategory;
 import com.mycompany.autobackupprogram.Enums.TranslationLoaderEnum.TranslationKey;
 import com.mycompany.autobackupprogram.Managers.ThemeManager;
-
 import static com.mycompany.autobackupprogram.GUI.BackupManagerGUI.OpenExceptionMessage;
+
 import java.awt.Image;
 import java.io.IOException;
 import java.util.Arrays;
+
 import javax.swing.ImageIcon;
-import javax.swing.UIManager;
-import javax.swing.UnsupportedLookAndFeelException;
 
 import org.json.simple.parser.ParseException;
 
+import com.mycompany.autobackupprogram.GUI.BackupManagerGUI;
+
 public class PreferencesDialog extends javax.swing.JDialog {
 
-    private boolean isApply = false; 
+    private final BackupManagerGUI mainGui;
 
-    public PreferencesDialog(java.awt.Frame parent, boolean modal) {
+    public PreferencesDialog(java.awt.Frame parent, boolean modal, BackupManagerGUI mainGui) {
         super(parent, modal);
+        this.mainGui = mainGui;
+        
         initComponents();
         
         // logo application
@@ -36,10 +40,6 @@ public class PreferencesDialog extends javax.swing.JDialog {
         setLanguages();
         setThemes();
         setTranslations();
-    }
-    
-    public void changeTheme() {
-        
     }
 
     /**
@@ -136,18 +136,27 @@ public class PreferencesDialog extends javax.swing.JDialog {
     }//GEN-LAST:event_themesComboBoxActionPerformed
 
     private void applyBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_applyBtnActionPerformed
-        isApply = true;
+        String selectedLanguage = (String) languagesComboBox.getSelectedItem();
+        String selectedTheme = (String) themesComboBox.getSelectedItem();
+
+        Logger.logMessage("Updating preferences -> Language: " + selectedLanguage + "; Theme: " + selectedTheme, LogLevel.INFO);
+
         try {
             // translactions
-            Preferences.setLanguage((String) languagesComboBox.getSelectedItem());
+            Preferences.setLanguage(selectedLanguage);
             TranslationLoaderEnum.loadTranslations(ConfigKey.LANGUAGES_DIRECTORY_STRING.getValue() + Preferences.getLanguage().getFileName());
             setTranslations();
 
             // theme
-            Preferences.setTheme((String) themesComboBox.getSelectedItem());
+            Preferences.setTheme(selectedTheme);
             ThemeManager.updateThemeDialog(this);
-        } catch (IOException | ParseException e) {
-            e.printStackTrace();
+
+            // update globally
+            Preferences.updatePreferencesToJSON();
+            mainGui.reloadPreferences();
+        } catch (IOException | ParseException ex) {
+            Logger.logMessage("An error occurred during applying preferences: " + ex.getMessage(), Logger.LogLevel.ERROR, ex);
+            OpenExceptionMessage(ex.getMessage(), Arrays.toString(ex.getStackTrace()));
         }  
     }//GEN-LAST:event_applyBtnActionPerformed
 
@@ -186,10 +195,6 @@ public class PreferencesDialog extends javax.swing.JDialog {
         closeBtn.setText(TranslationCategory.GENERAL.getTranslation(TranslationKey.CLOSE_BUTTON));
         jLabel1.setText(TranslationCategory.PREFERENCES_DIALOG.getTranslation(TranslationKey.LANGUAGE));
         jLabel2.setText(TranslationCategory.PREFERENCES_DIALOG.getTranslation(TranslationKey.THEME));
-    }
-    
-    public boolean isApply() {
-        return isApply;
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

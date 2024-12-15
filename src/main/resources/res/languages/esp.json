@@ -24,6 +24,9 @@
       "Quit": "Salir",
       "Save": "Guardar",
       "SaveWithName": "Guardar con nombre",
+      "Preferences": "Preferencias",
+      "Import": "Importar lista de copias de seguridad",
+      "Export": "Exportar lista de copias de seguridad",
       "Share": "Compartir",
       "Support": "Soporte",
       "Website": "Sitio web"
@@ -50,7 +53,9 @@
       "NotesTooltip": "(Opcional) Descripción de la copia de seguridad",
       "SingleBackupTooltip": "Realizar la copia de seguridad",
       "AutoBackupTooltip": "Activar/Desactivar copia de seguridad automática",
-      "TimePickerTooltip": "Selector de tiempo"
+      "TimePickerTooltip": "Selector de tiempo",
+      "MaxBackupsToKeep": "Máximo de copias de seguridad a mantener",
+      "MaxBackupsToKeepTooltip": "Número máximo de copias de seguridad antes de eliminar las más antiguas."
     },
     "BackupList": {
       "BackupNameColumn": "Nombre de la Copia de Seguridad",
@@ -60,16 +65,17 @@
       "AutomaticBackupColumn": "Copia Automática",
       "NextBackupDateColumn": "Próxima Fecha de Copia",
       "TimeIntervalColumn": "Intervalo de Tiempo",
-      "BackupNameDetail": "Nombre de la Copia",
-      "InitialPathDetail": "Ruta Inicial",
-      "DestinationPathDetail": "Ruta de Destino",
-      "LastBackupDetail": "Última Copia",
-      "NextBackupDateDetail": "Próxima Fecha",
-      "TimeIntervalDetail": "Intervalo de Tiempo",
-      "CreationDateDetail": "Fecha de Creación",
-      "LastUpdateDateDetail": "Última Actualización",
-      "BackupCountDetail": "Número de Copias",
+      "BackupNameDetail": "NombreCopia",
+      "InitialPathDetail": "RutaInicial",
+      "DestinationPathDetail": "RutaDestino",
+      "LastBackupDetail": "ÚltimaCopia",
+      "NextBackupDateDetail": "PróximaFecha",
+      "TimeIntervalDetail": "IntervaloTiempo",
+      "CreationDateDetail": "FechaCreación",
+      "LastUpdateDateDetail": "ÚltimaActualización",
+      "BackupCountDetail": "NúmeroCopias",
       "NotesDetail": "Notas",
+      "MaxBackupsToKeepDetail": "MaximoCopiasDeSeguridadMantener",
       "AddBackupTooltip": "Agregar nueva copia de seguridad",
       "ResearchBarTooltip": "Barra de búsqueda",
       "ResearchBarPlaceholder": "Buscar...",
@@ -147,7 +153,13 @@
       "ErrorMessageInputMissingGeneric": "¡Faltan datos de entrada!",
       "ErrorMessageForSavingFile": "Error al guardar el archivo",
       "ErrorMessageForPathNotExisting": "¡Una o ambas rutas no existen!",
-      "ErrorMessageForSamePaths": "La ruta inicial y la de destino no pueden ser iguales. ¡Elija rutas diferentes!"
+      "ErrorMessageForSamePaths": "La ruta inicial y la de destino no pueden ser iguales. ¡Elija rutas diferentes!",
+      "BackupListCorrectlyExportedTitle": "Menú Exportar",
+      "BackupListCorrectlyExportedMessage": "¡Lista de copias de seguridad exportada correctamente al escritorio!",
+      "BackupListCorrectlyImportedTitle": "Menú Importar",
+      "BackupListCorrectlyImportedMessage": "¡Lista de copias de seguridad importada correctamente!",
+      "ErrorMessageForWrongFileExtensionTitle": "Archivo no válido",
+      "ErrorMessageForWrongFileExtensionMessage": "Error: por favor selecciona un archivo JSON válido."
     }
   }
   

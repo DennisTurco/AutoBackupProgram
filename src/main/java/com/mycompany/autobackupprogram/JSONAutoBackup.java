@@ -1,35 +1,58 @@
 package com.mycompany.autobackupprogram;
 
-import static com.mycompany.autobackupprogram.GUI.BackupManagerGUI.OpenExceptionMessage;
-
-import java.io.*;
+import java.io.File;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 
 import com.mycompany.autobackupprogram.Entities.Backup;
+import com.mycompany.autobackupprogram.Entities.Preferences;
 import com.mycompany.autobackupprogram.Entities.TimeInterval;
+import static com.mycompany.autobackupprogram.GUI.BackupManagerGUI.OpenExceptionMessage;
 import com.mycompany.autobackupprogram.Interfaces.IJSONAutoBackup;
+import com.mycompany.autobackupprogram.Logger.LogLevel;
 
 public class JSONAutoBackup implements IJSONAutoBackup {
     @Override
-    public List<Backup> ReadBackupListFromJSON(String filename, String directoryPath) throws IOException {
-
+    public List<Backup> ReadBackupListFromJSON(String directoryPath, String filename) throws IOException {
         List<Backup> backupList = new ArrayList<>();
+        
+        // check if the directory is correct, otherwise we have to reset to default
+        File directory = new File(directoryPath);
+        if (!directory.exists() || !directory.isDirectory()) {
+            Logger.logMessage("Directory of the backup list file doesn't exists (" + directoryPath + "), resetted to default value.", LogLevel.INFO);
+            Preferences.setBackupList(Preferences.getDefaultBackupList());
+            Preferences.updatePreferencesToJSON();
+            directoryPath = Preferences.getBackupList().getDirectory();
+        }
+
         String filePath = directoryPath + filename;
+        File file = new File(filePath);
 
         // Check if the file exists and is not empty
-        File file = new File(filePath);
-        if (!file.exists() || file.length() == 0) {
-            Logger.logMessage("The file does not exist or is empty: " + filePath, Logger.LogLevel.WARN);
-            return backupList;
+        if (!file.exists()) {
+            file.createNewFile();
+            Logger.logMessage("New backup list created with name: " + filePath, LogLevel.INFO);
         }
-        
+        if (file.length() == 0) {
+            try (FileWriter writer = new FileWriter(file)) {
+                writer.write("[]");
+                Logger.logMessage("File initialized with empty JSON array: []", LogLevel.INFO);
+            } catch (IOException e) {
+                Logger.logMessage("Error initializing file: " + e.getMessage(), LogLevel.ERROR, e);
+                throw e;
+            }
+        }
+
         JSONParser parser = new JSONParser();
 
         try (FileReader reader = new FileReader(filePath)) {
@@ -46,6 +69,7 @@ public class JSONAutoBackup implements IJSONAutoBackup {
                 String creationDateStr = (String) backupObj.get("creation_date");
                 String lastUpdateDateStr = (String) backupObj.get("last_update_date");
                 int backupCountValue = Math.toIntExact((Long) backupObj.get("backup_count"));
+                int maxBackupsToKeepValue = Math.toIntExact((Long) backupObj.get("max_backups_to_keep"));
 
                 Object value = backupObj.get("automatic_backup");
                 Boolean automaticBackupValue = null;
@@ -75,20 +99,20 @@ public class JSONAutoBackup implements IJSONAutoBackup {
                     notesValue,    
                     creationDateValue,
                     lastUpdateDateValue,
-                    backupCountValue
+                    backupCountValue,
+                    maxBackupsToKeepValue
                 ));
             }
 
-        } catch (IOException | ParseException ex) {
+        } catch (IOException | ParseException | NullPointerException ex) {
             Logger.logMessage("An error occurred: " + ex.getMessage(), Logger.LogLevel.ERROR, ex);
             OpenExceptionMessage(ex.getMessage(), Arrays.toString(ex.getStackTrace()));
-            ex.printStackTrace();
         }
         return backupList;
     }
     
     @Override
-    public void UpdateBackupListJSON(String filename, String directoryPath, List<Backup> backups) {
+    public void UpdateBackupListJSON(String directoryPath, String filename, List<Backup> backups) {
         String filePath = directoryPath + filename;
         
         JSONArray updatedBackupArray = new JSONArray();
@@ -105,6 +129,7 @@ public class JSONAutoBackup implements IJSONAutoBackup {
             backupObject.put("creation_date", backup.getCreationDate() != null ? backup.getCreationDate().toString() : null);
             backupObject.put("last_update_date", backup.getLastUpdateDate() != null ? backup.getLastUpdateDate().toString() : null);
             backupObject.put("backup_count", backup.getBackupCount());
+            backupObject.put("max_backups_to_keep", backup.getMaxBackupsToKeep());
 
             updatedBackupArray.add(backupObject);
         }
@@ -119,7 +144,7 @@ public class JSONAutoBackup implements IJSONAutoBackup {
     }
     
     @Override
-    public void UpdateSingleBackupInJSON(String filename, String directoryPath, Backup updatedBackup) {
+    public void UpdateSingleBackupInJSON(String directoryPath, String filename, Backup updatedBackup) {
         String filePath = directoryPath + filename;
 
         try (FileReader reader = new FileReader(filePath)) {
@@ -141,6 +166,7 @@ public class JSONAutoBackup implements IJSONAutoBackup {
                     backupObject.put("creation_date", updatedBackup.getCreationDate() != null ? updatedBackup.getCreationDate().toString() : null);
                     backupObject.put("last_update_date", updatedBackup.getLastUpdateDate() != null ? updatedBackup.getLastUpdateDate().toString() : null);
                     backupObject.put("backup_count", updatedBackup.getBackupCount());
+                    backupObject.put("max_backups_to_keep", updatedBackup.getMaxBackupsToKeep());
                     break;
                 }
             }
